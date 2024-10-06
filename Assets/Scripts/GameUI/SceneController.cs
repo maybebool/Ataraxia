@@ -4,19 +4,28 @@ using UnityEngine.UI;
 
 namespace GameUI {
     public class SceneController : MonoBehaviour {
-        [SerializeField] private Button startButton;
+        [SerializeField] private Button scene1Button;
+        [SerializeField] private Button scene0Button;
 
 
         private void OnEnable() {
-            startButton.onClick.AddListener(OnClickStartButton);
+            scene0Button.onClick.AddListener(OnCLickScene0StartButton);
+            scene1Button.onClick.AddListener(OnCLickScene1StartButton);
         }
         private void OnDisable() {
-            startButton.onClick.RemoveListener(OnClickStartButton);
+            scene0Button.onClick.RemoveListener(OnCLickScene0StartButton);
+            scene1Button.onClick.RemoveListener(OnCLickScene1StartButton);
         }
 
 
-        private void OnClickStartButton() {
+        private void OnCLickScene1StartButton() {
             SceneManager.LoadScene(1);
+            Debug.Log("Clicked 1");
+        }
+        
+        private void OnCLickScene0StartButton() {
+            SceneManager.LoadScene(0);
+            Debug.Log("Clicked 0");
         }
     }
 }
