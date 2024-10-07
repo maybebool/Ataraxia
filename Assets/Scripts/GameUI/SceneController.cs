@@ -7,7 +7,6 @@ namespace GameUI {
         [SerializeField] private Button scene1Button;
         [SerializeField] private Button scene0Button;
 
-
         private void OnEnable() {
             scene0Button.onClick.AddListener(OnCLickScene0StartButton);
             scene1Button.onClick.AddListener(OnCLickScene1StartButton);
@@ -16,8 +15,7 @@ namespace GameUI {
             scene0Button.onClick.RemoveListener(OnCLickScene0StartButton);
             scene1Button.onClick.RemoveListener(OnCLickScene1StartButton);
         }
-
-
+        
         private void OnCLickScene1StartButton() {
             SceneManager.LoadScene(1);
             Debug.Log("Clicked 1");
