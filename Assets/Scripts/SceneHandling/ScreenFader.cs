@@ -3,72 +3,32 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace SceneHandling {
-    public class ScreenFader : MonoBehaviour
-    {
-    //     [SerializeField] private float _speed = 1.0f;
-    //     [SerializeField] private float _intensity = 0.0f;
-    //     [SerializeField] private Color _color = Color.black;
-    //     [SerializeField] private Material _fadeMaterial = null;
-    //
-    //     private void OnRenderImage(RenderTexture source, RenderTexture destination)
-    //     {
-    //         _fadeMaterial.SetFloat("_Intensity", _intensity);
-    //         _fadeMaterial.SetColor("_FadeColor", _color);
-    //         Graphics.Blit(source, destination, _fadeMaterial);
-    //     }
-    //
-    //     public Coroutine StartFadeIn()
-    //     {
-    //         StopAllCoroutines();
-    //         return StartCoroutine(FadeIn());
-    //     }
-    //
-    //     private IEnumerator FadeIn()
-    //     {
-    //         while (_intensity <= 1.0f)
-    //         {
-    //             _intensity += _speed * Time.deltaTime;
-    //             yield return null;
-    //         }
-    //     }
-    //
-    //     public Coroutine StartFadeOut()
-    //     {
-    //         StopAllCoroutines();
-    //         return StartCoroutine(FadeOut());
-    //     }
-    //
-    //     private IEnumerator FadeOut()
-    //     {
-    //         while (_intensity >= 0.0f)
-    //         {
-    //             _intensity -= _speed * Time.deltaTime;
-    //             yield return null;
-    //         }
-    //     }
-    // }
-    
+    public class ScreenFader : MonoBehaviour {
+        
         [SerializeField] private float _speed = 1.0f;
         [SerializeField, Range(0f, 1f)] private float _intensity = 0.0f;
         [SerializeField] private Color _color = Color.white;
+        [SerializeField] private Camera _vrCamera = null;
+        [SerializeField] private string _layerName = "Persistent";
 
         private Image _fadeImage;
 
-        private void Awake()
-        {
+        private void Awake() {
             // Create a full-screen UI Image
-            GameObject canvasObject = new GameObject("ScreenFaderCanvas");
+            var canvasObject = new GameObject("ScreenFaderCanvas");
             canvasObject.transform.SetParent(transform, false);
 
-            Canvas canvas = canvasObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = short.MaxValue; // Ensure it's on top
+            var canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = _vrCamera; // Assign the VR camera
+            canvas.planeDistance = 0.5f; // Adjust as needed
 
-            CanvasScaler canvasScaler = canvasObject.AddComponent<CanvasScaler>();
+            var canvasScaler = canvasObject.AddComponent<CanvasScaler>();
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = new Vector2(1920, 1080); // Adjust as needed
 
             // Create the Image
-            GameObject imageObject = new GameObject("FadeImage");
+            var imageObject = new GameObject("FadeImage");
             imageObject.transform.SetParent(canvasObject.transform, false);
 
             _fadeImage = imageObject.AddComponent<Image>();
@@ -76,19 +36,35 @@ namespace SceneHandling {
             _fadeImage.rectTransform.anchorMin = Vector2.zero;
             _fadeImage.rectTransform.anchorMax = Vector2.one;
             _fadeImage.rectTransform.offsetMin = Vector2.zero;
-            _fadeImage.rectTransform.offsetMax = Vector2.one;
+            _fadeImage.rectTransform.offsetMax = Vector2.zero;
+            // Set the layer on the canvas and its children
+            var layer = LayerMask.NameToLayer(_layerName);
+            if (layer == -1) {
+                Debug.LogError($"Layer '{_layerName}' not found. Please add it to the Tags and Layers manager.");
+            }
+            else {
+                SetLayerRecursively(canvasObject, layer);
+            }
         }
 
-        public Coroutine StartFadeIn()
-        {
+        private void SetLayerRecursively(GameObject obj, int newLayer) {
+            if (obj == null) return;
+
+            obj.layer = newLayer;
+
+            foreach (Transform child in obj.transform) {
+                if (child == null) continue;
+                SetLayerRecursively(child.gameObject, newLayer);
+            }
+        }
+
+        public Coroutine StartFadeIn() {
             StopAllCoroutines();
             return StartCoroutine(FadeIn());
         }
 
-        private IEnumerator FadeIn()
-        {
-            while (_intensity < 1.0f)
-            {
+        private IEnumerator FadeIn() {
+            while (_intensity < 1.0f) {
                 _intensity += _speed * Time.deltaTime;
                 _intensity = Mathf.Clamp01(_intensity);
                 UpdateFadeImage();
@@ -96,16 +72,13 @@ namespace SceneHandling {
             }
         }
 
-        public Coroutine StartFadeOut()
-        {
+        public Coroutine StartFadeOut() {
             StopAllCoroutines();
             return StartCoroutine(FadeOut());
         }
 
-        private IEnumerator FadeOut()
-        {
-            while (_intensity > 0.0f)
-            {
+        private IEnumerator FadeOut() {
+            while (_intensity > 0.0f) {
                 _intensity -= _speed * Time.deltaTime;
                 _intensity = Mathf.Clamp01(_intensity);
                 UpdateFadeImage();
@@ -113,10 +86,8 @@ namespace SceneHandling {
             }
         }
 
-        private void UpdateFadeImage()
-        {
-            if (_fadeImage != null)
-            {
+        private void UpdateFadeImage() {
+            if (_fadeImage != null) {
                 _fadeImage.color = new Color(_color.r, _color.g, _color.b, _intensity);
             }
         }

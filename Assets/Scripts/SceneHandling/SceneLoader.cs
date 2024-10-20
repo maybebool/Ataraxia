@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace SceneHandling {
     public class SceneLoader : Singleton<SceneLoader> {
@@ -11,24 +10,19 @@ namespace SceneHandling {
         public UnityEvent OnLoadEnd = new();
         public ScreenFader screenFader;
         private bool _isLoading = false;
-        
-        private void Awake() {
 
+        private void Awake() {
             SceneManager.sceneLoaded += SetActiveScene;
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             SceneManager.sceneLoaded -= SetActiveScene;
- 
         }
 
-        public void LoadNewScene(string sceneName)
-        {
+        public void LoadNewScene(string sceneName) {
             if (!_isLoading) {
                 StartCoroutine(LoadScene(sceneName));
             }
-
         }
 
         private IEnumerator LoadScene(string sceneName) {

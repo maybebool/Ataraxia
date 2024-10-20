@@ -20,15 +20,15 @@ public class GameManager : MonoBehaviour {
         nextButton.onClick.RemoveListener(OnClickNextButton);
     }
 
-    public void OnClickStartButton() {
+    private void OnClickStartButton() {
         SceneLoader.Instance.LoadNewScene("TestScene");
     }
-    
-    public void OnClickMenuButton() {
+
+    private void OnClickMenuButton() {
         SceneLoader.Instance.LoadNewScene("MainMenu");
     }
-    
-    public void OnClickNextButton() {
+
+    private void OnClickNextButton() {
         SceneLoader.Instance.LoadNewScene("NextScene");
     }
 }
