@@ -50,7 +50,7 @@ namespace SceneHandling {
     
         [SerializeField] private float _speed = 1.0f;
         [SerializeField, Range(0f, 1f)] private float _intensity = 0.0f;
-        [SerializeField] private Color _color = Color.black;
+        [SerializeField] private Color _color = Color.white;
 
         private Image _fadeImage;
 
@@ -76,7 +76,7 @@ namespace SceneHandling {
             _fadeImage.rectTransform.anchorMin = Vector2.zero;
             _fadeImage.rectTransform.anchorMax = Vector2.one;
             _fadeImage.rectTransform.offsetMin = Vector2.zero;
-            _fadeImage.rectTransform.offsetMax = Vector2.zero;
+            _fadeImage.rectTransform.offsetMax = Vector2.one;
         }
 
         public Coroutine StartFadeIn()
