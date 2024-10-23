@@ -10,7 +10,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     public XRRayInteractor raycastPoint;
     public GameObject _circlePrefab;
     public GameObject _radiantPrefab;
-    public GameObject detector;
+    // public GameObject detector;
     public Vector4 _outterCircle;
     public float _tangentCircleRadius;
     public GameObject lastPointPrefab;
@@ -44,7 +44,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         previousDelta = 0f;
         _outterCircleGO = Instantiate(_circlePrefab);
         _tangentCircleGO = Instantiate(_radiantPrefab);
-        // StartCoroutine(SavePositionCoroutine());
+        StartCoroutine(SavePositionCoroutine());
     }
 
     private void OnDestroy() {
@@ -63,10 +63,10 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         _tangentCircleGO.transform.position = GetRotatedTangent(CalculateQuadrantLogicForRadiant(), _outterCircle.w) + _outterCircleGO.transform.position;
         _tangentCircleGO.transform.localScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2;
 
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            positionQueue.Enqueue(scO.CurrentPos);
-            Instantiate(lastPointPrefab, GetLastPosition(), Quaternion.identity);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space)) {
+        //     positionQueue.Enqueue(scO.CurrentPos);
+        //     Instantiate(lastPointPrefab, GetLastPosition(), Quaternion.identity);
+        // }
         CalculateTremor();
         Debug.Log("Radiant: " + scO.degree);
     }
@@ -86,14 +86,15 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         // Check if the speed exceeds the threshold.
         if (speed > speedThreshold) {
             // Debug.Log($"Degree is changing too fast! Speed: {speed} degrees/second");
-            detector.GetComponent<Renderer>().material.color = Color.blue;
+            // detector.GetComponent<Renderer>().material.color = Color.blue;
+            Debug.Log("Tremor");
         }
 
         // Check for oscillation. This is detected when the change in degree is significantly large and changes direction quickly.
         oscillationDelta = previousDelta + deltaDegree;
         if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
             // Debug.Log($"Degree is oscillating! Total oscillation: {oscillationDelta} degrees");
-            detector.GetComponent<Renderer>().material.color = Color.red;
+            // detector.GetComponent<Renderer>().material.color = Color.red;
             oscillationDelta = 0; // Reset oscillation detection.
         }
 

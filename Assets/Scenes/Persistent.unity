@@ -439,6 +439,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2877920032095903009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1073741824
+      objectReference: {fileID: 0}
     - target: {fileID: 5599451528678834902, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_RaycastMask.m_Bits
       value: 33
@@ -456,6 +460,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8745850277017330407, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 744908806}
+    - targetCorrespondingSourceObject: {fileID: 2877920032095903021, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1477439453}
     - targetCorrespondingSourceObject: {fileID: 6331258774642254764, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 744908805}
@@ -1067,6 +1074,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358860020}
   m_CullTransparentMesh: 1
+--- !u!114 &1477439451 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2877920032095903009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+  m_PrefabInstance: {fileID: 744908800}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477439452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1477439452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2877920032095903021, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+  m_PrefabInstance: {fileID: 744908800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1477439453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477439452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd3c83126adef944bbdabfe84929a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  raycastPoint: {fileID: 1477439451}
+  _circlePrefab: {fileID: 342845859247912477, guid: 6cc8112a902e75d4e953fb4e13fde68c, type: 3}
+  _radiantPrefab: {fileID: 5413797516451536470, guid: 6854e533632e4ee4ab7146286a3b7ea9, type: 3}
+  _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
+  _tangentCircleRadius: 0.1
+  lastPointPrefab: {fileID: 7146690976179508541, guid: 8f56f18b32a1a90489043c28350539c8, type: 3}
+  saveInterval: 0.05
+  _queueCapacity: 5
+  _pointsCapacity: 2
+  speedThreshold: 100
+  oscillationThreshold: 140
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0
