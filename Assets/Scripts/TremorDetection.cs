@@ -123,8 +123,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
             positionQueue.Dequeue();
         }
     }
-
-
+    
     private Vector3 GetRotatedTangent(float radiant, float scale) {
         var sin = scale * (float)Math.Sin(radiant);
         var cos = scale * (float)Math.Cos(radiant);
