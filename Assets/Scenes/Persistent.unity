@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 1073741824
       objectReference: {fileID: 0}
+    - target: {fileID: 2877920032095903009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_ManipulateAttachTransform
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5599451528678834902, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_RaycastMask.m_Bits
       value: 33
@@ -1114,6 +1118,7 @@ MonoBehaviour:
   _pointsCapacity: 2
   speedThreshold: 100
   oscillationThreshold: 140
+  inputAction: {fileID: 0}
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0

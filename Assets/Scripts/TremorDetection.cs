@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TangentBasedTremorDetection : MonoBehaviour {
@@ -19,8 +20,10 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     public int _pointsCapacity = 2;
 
 
-    public float speedThreshold = 50f; // Threshold for how fast the degree can change before triggering a warning.
-    public float oscillationThreshold = 140f; // Threshold for detecting oscillation.
+    public float speedThreshold = 50f; 
+    public float oscillationThreshold = 140f;
+    public InputActionReference inputAction; 
+    private Coroutine savePositionCoroutine;
 
     private float previousDegree;
     private float previousDelta;
@@ -37,19 +40,44 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     private const float PiSquared = 2 * Mathf.PI;
     private const float PiQ3 = 3 * Mathf.PI / 2;
 
-    // Start is called before the first frame update
+    
     private void Start() {
         previousDegree = scO.degree;
         lastUpdateTime = Time.time;
         previousDelta = 0f;
         _outterCircleGO = Instantiate(_circlePrefab);
         _tangentCircleGO = Instantiate(_radiantPrefab);
-        StartCoroutine(SavePositionCoroutine());
+        // StartCoroutine(SavePositionCoroutine());
     }
 
     private void OnDestroy() {
         lastPointList.Clear();
         positionQueue.Clear();
+    }
+    
+    private void OnEnable() {
+        inputAction.action.Enable(); // Enable the input action
+        inputAction.action.performed += OnActionPerformed; // Subscribe to the performed event
+        inputAction.action.canceled += OnActionCanceled;   // Subscribe to the canceled event
+    }
+
+    private void OnDisable() {
+        inputAction.action.performed -= OnActionPerformed; // Unsubscribe from the performed event
+        inputAction.action.canceled -= OnActionCanceled;   // Unsubscribe from the canceled event
+        inputAction.action.Disable(); // Disable the input action
+    }
+
+    private void OnActionPerformed(InputAction.CallbackContext context) {
+        if (savePositionCoroutine == null) {
+            savePositionCoroutine = StartCoroutine(SavePositionCoroutine()); // Start the coroutine
+        }
+    }
+
+    private void OnActionCanceled(InputAction.CallbackContext context) {
+        if (savePositionCoroutine != null) {
+            StopCoroutine(savePositionCoroutine); // Stop the coroutine
+            savePositionCoroutine = null;
+        }
     }
 
     private void Update() {
@@ -75,22 +103,22 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         var currentTime = Time.time;
         var deltaTime = currentTime - lastUpdateTime;
 
-        // Calculate the change in degree value, accounting for the wrap-around from 360 to 0.
+        
         var deltaDegree = scO.degree - previousDegree;
         if (deltaDegree > 180f) deltaDegree -= 360f;
         if (deltaDegree < -180f) deltaDegree += 360f;
 
-        // Calculate the speed of degree change (degree per second).
+        
         var speed = Mathf.Abs(deltaDegree / deltaTime);
 
-        // Check if the speed exceeds the threshold.
+        
         if (speed > speedThreshold) {
             // Debug.Log($"Degree is changing too fast! Speed: {speed} degrees/second");
             // detector.GetComponent<Renderer>().material.color = Color.blue;
             Debug.Log("Tremor");
         }
 
-        // Check for oscillation. This is detected when the change in degree is significantly large and changes direction quickly.
+        
         oscillationDelta = previousDelta + deltaDegree;
         if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
             // Debug.Log($"Degree is oscillating! Total oscillation: {oscillationDelta} degrees");
@@ -98,7 +126,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
             oscillationDelta = 0; // Reset oscillation detection.
         }
 
-        // Update the previous values for the next frame.
+        
         previousDegree = scO.degree;
         previousDelta = deltaDegree;
         lastUpdateTime = currentTime;
@@ -106,7 +134,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
 
     private IEnumerator SavePositionCoroutine() {
         while (true) {
-            // Save the current position to the queue
             EnqueuePosition(scO.CurrentPos);
             // var prefab = Instantiate(lastPointPrefab, GetLastPosition(), Quaternion.identity);
             // lastPointList.Add(prefab);
