@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class TangentBasedTremorDetection : MonoBehaviour {
     public DataContainer scO;
     public XRRayInteractor raycastPoint;
-    // public GameObject detector;
+    public GameObject detector;
     public Vector4 _outterCircle;
     public float _tangentCircleRadius;
     public GameObject lastPointPrefab;
@@ -105,7 +105,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         
         if (speed > speedThreshold) {
             // Debug.Log($"Degree is changing too fast! Speed: {speed} degrees/second");
-            // detector.GetComponent<Renderer>().material.color = Color.blue;
+            detector.GetComponent<Renderer>().material.color = Color.blue;
             Debug.Log("Tremor");
         }
 
@@ -113,7 +113,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         oscillationDelta = previousDelta + deltaDegree;
         if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
             // Debug.Log($"Degree is oscillating! Total oscillation: {oscillationDelta} degrees");
-            // detector.GetComponent<Renderer>().material.color = Color.red;
+            detector.GetComponent<Renderer>().material.color = Color.red;
             oscillationDelta = 0; // Reset oscillation detection.
         }
 
