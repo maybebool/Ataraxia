@@ -1118,7 +1118,6 @@ MonoBehaviour:
   _pointsCapacity: 2
   speedThreshold: 100
   oscillationThreshold: 140
-  inputAction: {fileID: 0}
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0
