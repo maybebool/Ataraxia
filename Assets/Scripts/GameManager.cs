@@ -31,4 +31,5 @@ public class GameManager : MonoBehaviour {
     private void OnClickNextButton() {
         SceneLoader.Instance.LoadNewScene("NextScene");
     }
+    
 }
