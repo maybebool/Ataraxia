@@ -1,21 +1,22 @@
 using System;
 using SceneHandling;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour {
-    [SerializeField] private Button startFirstLevelButton;
+public class UIController : MonoBehaviour {
+    [SerializeField] private Button startExercisesButton;
     [SerializeField] private Button backToMenuButton;
     [SerializeField] private Button nextButton;
 
     private void OnEnable() {
-        startFirstLevelButton.onClick.AddListener(OnClickStartButton);
+        startExercisesButton.onClick.AddListener(OnClickStartButton);
         backToMenuButton.onClick.AddListener(OnClickMenuButton);
         nextButton.onClick.AddListener(OnClickNextButton);
     }
 
     private void OnDisable() {
-        startFirstLevelButton.onClick.RemoveListener(OnClickStartButton);
+        startExercisesButton.onClick.RemoveListener(OnClickStartButton);
         backToMenuButton.onClick.RemoveListener(OnClickMenuButton);
         nextButton.onClick.RemoveListener(OnClickNextButton);
     }
