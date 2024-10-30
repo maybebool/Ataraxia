@@ -6,7 +6,5 @@ namespace GameUI {
         Scene2,
         Scene3,
         Scene4
-        
-    
     }
 }

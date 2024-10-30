@@ -1,4 +1,5 @@
 using System;
+using GameUI;
 using SceneHandling;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -7,29 +8,29 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
     [SerializeField] private Button startExercisesButton;
     [SerializeField] private Button backToMenuButton;
-    [SerializeField] private Button nextButton;
+    [SerializeField] private Button pauseMenuButton;
+    [SerializeField] private Button AudioButton;
+    
 
     private void OnEnable() {
-        startExercisesButton.onClick.AddListener(OnClickStartButton);
-        backToMenuButton.onClick.AddListener(OnClickMenuButton);
-        nextButton.onClick.AddListener(OnClickNextButton);
+        startExercisesButton.onClick.AddListener(OnClickStartExercisesButton);
+        backToMenuButton.onClick.AddListener(OnClickBackToMainMenuButton);
+        
     }
 
     private void OnDisable() {
-        startExercisesButton.onClick.RemoveListener(OnClickStartButton);
-        backToMenuButton.onClick.RemoveListener(OnClickMenuButton);
-        nextButton.onClick.RemoveListener(OnClickNextButton);
+        startExercisesButton.onClick.RemoveListener(OnClickStartExercisesButton);
+        backToMenuButton.onClick.RemoveListener(OnClickBackToMainMenuButton);
+        
     }
 
-    private void OnClickStartButton() {
-        SceneLoader.Instance.LoadNewScene("TestScene");
+    private void OnClickStartExercisesButton() {
+        SceneLoader.Instance.LoadNewScene((int)SceneNames.Scene1);
     }
 
-    private void OnClickMenuButton() {
-        SceneLoader.Instance.LoadNewScene("MainMenu");
+    private void OnClickBackToMainMenuButton() {
+        SceneLoader.Instance.LoadNewScene((int)SceneNames.MainMenu);
     }
 
-    private void OnClickNextButton() {
-        SceneLoader.Instance.LoadNewScene("NextScene");
-    }
+    
 }
