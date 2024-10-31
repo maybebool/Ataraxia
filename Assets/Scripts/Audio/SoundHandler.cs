@@ -6,7 +6,6 @@ namespace Audio {
     public class SoundHandler : MonoBehaviour {
         
         public static SoundHandler Current { get; private set; }
-
         public List<AudioSource> audioSources = new();
         public Sound[] sounds;
         [SerializeField] private int maxSounds;
