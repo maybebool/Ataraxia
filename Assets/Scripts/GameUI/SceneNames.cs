@@ -1,6 +1,7 @@
 namespace GameUI {
     public enum SceneNames
     {
+        PersistentScene,
         MainMenu,
         Scene1,
         Scene2,
