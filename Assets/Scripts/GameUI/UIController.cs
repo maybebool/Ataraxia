@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour {
     [SerializeField] private Button startExercisesButton;
     [SerializeField] private Button backToMenuButton;
     [SerializeField] private Button pauseMenuButton;
-    [SerializeField] private Button AudioButton;
+    // [SerializeField] private Button AudioButton;
     
 
     private void OnEnable() {
