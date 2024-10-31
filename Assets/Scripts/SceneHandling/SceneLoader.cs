@@ -19,20 +19,20 @@ namespace SceneHandling {
             SceneManager.sceneLoaded -= SetActiveScene;
         }
 
-        public void LoadNewScene(string sceneName) {
+        public void LoadNewScene(int sceneNumber) {
             if (!_isLoading) {
-                StartCoroutine(LoadScene(sceneName));
+                StartCoroutine(LoadScene(sceneNumber));
             }
         }
 
-        private IEnumerator LoadScene(string sceneName) {
+        private IEnumerator LoadScene(int sceneNumber) {
             _isLoading = true;
             OnLoadBegin?.Invoke();
             yield return screenFader.StartFadeIn();
             yield return StartCoroutine(UnloadCurrent());
 
             yield return new WaitForSeconds(3.0f);
-            yield return StartCoroutine(LoadNew(sceneName));
+            yield return StartCoroutine(LoadNew(sceneNumber));
             yield return screenFader.StartFadeOut();
             OnLoadEnd?.Invoke();
             _isLoading = false;
@@ -45,8 +45,8 @@ namespace SceneHandling {
             }
         }
 
-        private IEnumerator LoadNew(string sceneName) {
-            var loadOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        private IEnumerator LoadNew(int sceneNumber) {
+            var loadOperation = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
             while (!loadOperation.isDone) {
                 yield return null;
             }
