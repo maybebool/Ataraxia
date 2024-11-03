@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,15 +8,11 @@ namespace Audio {
     public class Sliders : MonoBehaviour {
         
         Slider slider => GetComponent<Slider>();
-
-        [Header("Volume Name")] 
-        [SerializeField] private string volumeName = "enter here";
-        
-        [Header("Volume Label")] 
-        [SerializeField] private Text volumeLabel;
+        [SerializeField] private string volumeName = "enter name here";
+        [SerializeField] private TMP_Text volumeLabel;
 
         private void Start() {
-            UpdateValueOnChange(slider.value);
+            ResetSliderValue();
             slider.onValueChanged.AddListener(delegate {
                 UpdateValueOnChange(slider.value);
             });

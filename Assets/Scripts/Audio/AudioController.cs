@@ -1,39 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Audio {
     public class AudioController : MonoBehaviour {
-        [SerializeField] private Profiles m_profiles;
-        [SerializeField] private List<Sliders> volumeSliders = new();
+        [SerializeField] private Profiles audioMixerProfileSo;
+        [SerializeField] private int groupIndex = 0; 
+        private List<AudioSource> _audioSources = new();
 
 
-        
         private void Awake() {
-            if (m_profiles != null) {
-                m_profiles.SetProfile(m_profiles);
+            if (audioMixerProfileSo != null) {
+                audioMixerProfileSo.SetProfile(audioMixerProfileSo);
             }
         }
 
         private void Start() {
             if (Settings.profile && Settings.profile.audioMixer != null) {
                 Settings.profile.GetAudioLevels();
+                BindClipsInMixerGroupToAudioSource(groupIndex);
             }
         }
 
-        public void ApplyChanges() {
-            if (Settings.profile && Settings.profile.audioMixer != null) {
-                Settings.profile.SaveAudioLevels();
+        public void BindClipsInMixerGroupToAudioSource(int index) {
+            if (audioMixerProfileSo == null || audioMixerProfileSo.audioClipGroups == null) {
+                Debug.LogError("AudioController is not assigned or has no audioClipGroups");
+                return;
             }
-        }
 
-        public void CancelChanges() {
-            if (Settings.profile && Settings.profile.audioMixer != null) {
-                Settings.profile.GetAudioLevels();
+            // Check if the index is within the valid range
+            if (index < 0 || index >= audioMixerProfileSo.audioClipGroups.Count) {
+                Debug.LogError("Index out of range");
+                return;
             }
-            for (int i = 0; i < volumeSliders.Count; i++) {
-                volumeSliders[i].ResetSliderValue();
+
+            // Get the AudioClipGroup at the specified index
+            var group = audioMixerProfileSo.audioClipGroups[index];
+
+            // Iterate through each AudioClip in the selected group
+            foreach (AudioClip clip in group.audioClips) {
+                var source = gameObject.AddComponent<AudioSource>();
+                source.clip = clip;
+                source.outputAudioMixerGroup = group.mixerGroup;
+                source.playOnAwake = false;
+                source.loop = false;
+                _audioSources.Add(source);
             }
         }
     }

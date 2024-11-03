@@ -17,14 +17,30 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 68e55b972424da5458429420224ef1ca, type: 2}
   volumeControl:
   - name: Master
-    volume: 0
-    tempVolume: 0
+    volume: 1
+    tempVolume: 1
   - name: Music
-    volume: 0
-    tempVolume: 0
+    volume: 1
+    tempVolume: 1
   - name: GameSFX
-    volume: 0
-    tempVolume: 0
+    volume: 1
+    tempVolume: 1
   - name: UISFX
-    volume: 0
-    tempVolume: 0
+    volume: 1
+    tempVolume: 1
+  audioClipGroups:
+  - mixerGroup: {fileID: 2962827988537398833, guid: 68e55b972424da5458429420224ef1ca, type: 2}
+    audioClips:
+    - {fileID: 8300000, guid: af986640ffe7189489a3a042d7807b91, type: 3}
+    - {fileID: 8300000, guid: 121ec4838910d9f4d86e43cc93e8278d, type: 3}
+    - {fileID: 8300000, guid: 22ea7e8d007b4824791d77704b4f2afd, type: 3}
+  - mixerGroup: {fileID: -899706777848356699, guid: 68e55b972424da5458429420224ef1ca, type: 2}
+    audioClips:
+    - {fileID: 8300000, guid: 7f54be2d4626ef24c9648aea625ab978, type: 3}
+    - {fileID: 8300000, guid: 3bdfe94e6d467cc4ba4134415f10a3f7, type: 3}
+    - {fileID: 8300000, guid: bb4716023a3d8a24fb9e2b77ec6408d1, type: 3}
+  - mixerGroup: {fileID: 1475658018827336785, guid: 68e55b972424da5458429420224ef1ca, type: 2}
+    audioClips:
+    - {fileID: 8300000, guid: 7f54be2d4626ef24c9648aea625ab978, type: 3}
+    - {fileID: 8300000, guid: 3bdfe94e6d467cc4ba4134415f10a3f7, type: 3}
+    - {fileID: 8300000, guid: bb4716023a3d8a24fb9e2b77ec6408d1, type: 3}

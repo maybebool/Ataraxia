@@ -1,8 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Audio {
+    
+    [System.Serializable]
+    public class AudioClipGroup {
+        public AudioMixerGroup mixerGroup;     // Corresponding audio mixer group
+        public List<AudioClip> audioClips;     // List of audio clips
+    }
+    
     [CreateAssetMenu(fileName = "Profiles", menuName = "Scriptable Objects/Profiles")]
     public class Profiles : ScriptableObject {
 
@@ -11,6 +19,8 @@ namespace Audio {
         public AudioMixer audioMixer;
         public Volume[] volumeControl;
         
+        [Header("Assign Audio Clips to Mixer Groups")]
+        public List<AudioClipGroup> audioClipGroups;  // List of audio clip groups
 
         public void SetProfile(Profiles profile) {
             Settings.profile = profile;
@@ -19,7 +29,7 @@ namespace Audio {
         public float GetAudioLevels(string name) {
             float volume = 1;
             if (!audioMixer) {
-                Debug.LogWarning("There is no AUdioMixer defined in the profiles file");
+                Debug.LogWarning("There is no AudioMixer defined in the profiles file");
                 return volume;
             }
 
