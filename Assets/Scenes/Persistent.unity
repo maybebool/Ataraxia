@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 573110026}
   - component: {fileID: 573110025}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: UIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,9 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cfb26978abf11e4c9bed08565ad8a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startFirstLevelButton: {fileID: 1066392497}
+  startExercisesButton: {fileID: 1487500394}
   backToMenuButton: {fileID: 1066392498}
-  nextButton: {fileID: 1358860022}
+  pauseMenuButton: {fileID: 1066392498}
 --- !u!4 &573110026
 Transform:
   m_ObjectHideFlags: 0
@@ -519,7 +519,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 499802461971334680, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Antialiasing
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 499802461971334680, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1285900821919378461, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Name
@@ -943,7 +947,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1355868774605447033, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1355868774605447033, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2723936300804090305, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
       propertyPath: m_text
@@ -1061,17 +1069,6 @@ PrefabInstance:
       addedObject: {fileID: 1358860021}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
---- !u!114 &1066392497 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8870523346636413489, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
-  m_PrefabInstance: {fileID: 1066392496}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1066392498 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6943033521097524152, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
@@ -1243,6 +1240,17 @@ MonoBehaviour:
   _pointsCapacity: 2
   speedThreshold: 100
   oscillationThreshold: 140
+--- !u!114 &1487500394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8870523346636413489, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
+  m_PrefabInstance: {fileID: 1066392496}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0

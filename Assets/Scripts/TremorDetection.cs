@@ -59,7 +59,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     //     inputAction.action.performed += OnActionPerformed; // Subscribe to the performed event
     //     inputAction.action.canceled += OnActionCanceled;   // Subscribe to the canceled event
     // }
-    //
     // private void OnDisable() {
     //     inputAction.action.performed -= OnActionPerformed; // Unsubscribe from the performed event
     //     inputAction.action.canceled -= OnActionCanceled;   // Unsubscribe from the canceled event
