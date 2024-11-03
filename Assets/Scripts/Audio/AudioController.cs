@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using GameUI;
 using UnityEngine;
 
 namespace Audio {
     public class AudioController : MonoBehaviour {
         [SerializeField] private Profiles audioMixerProfileSo;
-        [SerializeField] private int groupIndex = 0; 
+        [SerializeField] private int groupIndex = 0;
         private List<AudioSource> _audioSources = new();
 
 
@@ -45,6 +46,51 @@ namespace Audio {
                 source.loop = false;
                 _audioSources.Add(source);
             }
+        }
+
+        public void BackgroundMusic() {
+            // Check if the audioData is assigned
+            if (audioMixerProfileSo == null) {
+                Debug.LogError("AudioData (AudioClipMixerAttacher) is not assigned.");
+                return;
+            }
+
+            // Check if there is at least one group
+            if (audioMixerProfileSo.audioClipGroups.Count == 0) {
+                Debug.LogError("No AudioClipGroups available.");
+                return;
+            }
+
+            // Get the AudioClipGroup at index 0
+            var group = audioMixerProfileSo.audioClipGroups[0];
+
+            // Ensure there is at least one audio clip
+            if (group.audioClips.Count == 0) {
+                Debug.LogError("No AudioClips in the background music group.");
+                return;
+            }
+
+            // Create a new GameObject for the background music
+            var bgmObject = new GameObject("BackgroundMusic");
+
+            // Add an AudioSource component
+            var source = bgmObject.AddComponent<AudioSource>();
+
+            // Assign the AudioClip to the AudioSource
+            source.clip = group.audioClips[0]; // Use the first audio clip
+
+            // Assign the AudioMixerGroup to the AudioSource
+            source.outputAudioMixerGroup = group.mixerGroup;
+
+            // Optional settings
+            source.playOnAwake = true;
+            source.loop = true;
+
+            // Play the background music
+            source.Play();
+
+            // Add the DontDestroy script to the GameObject
+            bgmObject.AddComponent<DontDestroy>();
         }
     }
 }
