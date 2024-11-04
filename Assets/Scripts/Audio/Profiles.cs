@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace Audio {
     
     [System.Serializable]
     public class AudioClipGroup {
-        public AudioMixerGroup mixerGroup;     // Corresponding audio mixer group
-        public List<AudioClip> audioClips;     // List of audio clips
+        public AudioMixerGroup mixerGroup;     
+        public List<AudioClip> audioClips;    
     }
     
     [CreateAssetMenu(fileName = "Profiles", menuName = "Scriptable Objects/Profiles")]
@@ -20,7 +20,7 @@ namespace Audio {
         public Volume[] volumeControl;
         
         [Header("Assign Audio Clips to Mixer Groups")]
-        public List<AudioClipGroup> audioClipGroups;  // List of audio clip groups
+        public List<AudioClipGroup> audioClipGroups; 
 
         public void SetProfile(Profiles profile) {
             Settings.profile = profile;
@@ -35,7 +35,6 @@ namespace Audio {
 
             for (int i = 0; i < volumeControl.Length; i++) {
                 if (volumeControl[i].name != name) {
-                    continue;
                 }
                 else {
                     if (saveInPlayerPrefs) {
@@ -71,7 +70,6 @@ namespace Audio {
                 }
 
                 volumeControl[i].tempVolume = volumeControl[i].volume;
-
                 audioMixer.SetFloat(volumeControl[i].name, Mathf.Log(volumeControl[i].volume) * 20f);
             }
         }
@@ -84,7 +82,6 @@ namespace Audio {
 
             for (int i = 0; i < volumeControl.Length; i++) {
                 if (volumeControl[i].name != name) {
-                    continue;
                 }
                 else {
                     audioMixer.SetFloat(volumeControl[i].name, Mathf.Log(volume) * 20f);
@@ -100,10 +97,8 @@ namespace Audio {
                 return;
             }
 
-            var volume = 0f;
-
             for (int i = 0; i < volumeControl.Length; i++) {
-                volume = volumeControl[i].tempVolume;
+                var volume = volumeControl[i].tempVolume;
                 if (saveInPlayerPrefs) {
                     PlayerPrefs.SetFloat(prefPrefix + volumeControl[i].name, volume);
                 }
