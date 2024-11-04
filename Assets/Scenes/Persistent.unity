@@ -309,7 +309,7 @@ PrefabInstance:
     - target: {fileID: 7440239813213872704, guid: 66b6deca656c95e439f307f2202ca089, type: 3}
       propertyPath: screenFader
       value: 
-      objectReference: {fileID: 744908802}
+      objectReference: {fileID: 0}
     - target: {fileID: 7547605052485365800, guid: 66b6deca656c95e439f307f2202ca089, type: 3}
       propertyPath: m_Name
       value: SceneLoader
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   raycastPoint: {fileID: 1477439451}
-  detector: {fileID: 68741174}
+  detector: {fileID: 0}
   _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
   _tangentCircleRadius: 0.1
   lastPointPrefab: {fileID: 7146690976179508541, guid: 8f56f18b32a1a90489043c28350539c8, type: 3}
@@ -1299,8 +1299,8 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 404642117}
   - {fileID: 744908800}
+  - {fileID: 404642117}
   - {fileID: 1066392496}
   - {fileID: 410902539}
   - {fileID: 714724941}

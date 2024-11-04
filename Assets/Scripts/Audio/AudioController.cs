@@ -19,6 +19,7 @@ namespace Audio {
             if (Settings.profile && Settings.profile.audioMixer != null) {
                 Settings.profile.GetAudioLevels();
                 BindClipsInMixerGroupToAudioSource(groupIndex);
+                BackgroundMusic();
             }
         }
 
