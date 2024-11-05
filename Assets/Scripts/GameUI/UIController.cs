@@ -20,26 +20,31 @@ namespace GameUI {
         [SerializeField] private Button saveChangesButton;
         [SerializeField] private Button defaultAudioSettingsButton;
         
-        public AudioController _audioControl;
         
-        private void Awake()
-        {
-            if (_audioControl == null)
-            {
+        public AudioController _audioControl;
+        private Profiles audioMixerProfileSo;
+
+        private void Awake() {
+            if (_audioControl == null) {
                 _audioControl = FindObjectOfType<AudioController>();
-                if (_audioControl == null)
-                {
+                if (_audioControl == null) {
                     Debug.LogError("AudioController not found in the scene.");
                 }
+            }
+
+            if (audioMixerProfileSo != null) {
+                audioMixerProfileSo.SetProfile(audioMixerProfileSo);
             }
         }
         
         private void OnEnable() {
-            UIUtil.CallMultipleActions(startExercisesButton, OnClickStartExercisesButton, ()=>OnUIButtonClick(2));
-            UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnUIButtonClick(2));
-            UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnUIButtonClick(2));
-            UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnUIButtonClick(2));
-            UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(0), ()=>OnUIButtonClick(2));
+            UIUtil.CallMultipleActions(startExercisesButton, OnClickStartExercisesButton, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(saveChangesButton,OnClickSaveSettings, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(defaultAudioSettingsButton,OnClickDefaultSettings, ()=>OnClickUIButton(2));
             
         
         }
@@ -64,8 +69,18 @@ namespace GameUI {
             _audioControl.BackgroundMusic(songIndex);
         }
         
-        private void OnUIButtonClick(int audioClipIndex) {
+        private void OnClickUIButton(int audioClipIndex) {
             _audioControl.PlayAudioClip(audioClipIndex,1);
+        }
+
+        private void OnClickSaveSettings() {
+            if (Settings.profile && Settings.profile.audioMixer != null) {
+                Settings.profile.SaveAudioLevels();
+            }
+        }
+
+        private void OnClickDefaultSettings() {
+            _audioControl.CancelChanges();
         }
     }
 }

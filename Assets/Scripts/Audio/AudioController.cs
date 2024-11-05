@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 namespace Audio {
     public class AudioController : MonoBehaviour {
-        [Header("Audio Mixer Settings")] [SerializeField]
-        private Profiles audioMixerProfileSo;
-
+        [Header("Audio Mixer Settings")]
+        [SerializeField] private Profiles audioMixerProfileSo;
         [SerializeField] private int groupIndex = 0;
+        [SerializeField] private List<Sliders> volumeSliders = new();
+        
         private List<AudioSource> _audioSources = new();
         private Dictionary<int, List<AudioSource>> _audioSourcesByGroup = new();
 
@@ -131,6 +132,16 @@ namespace Audio {
             }
             else {
                 Debug.LogError($"Audio clip index {index} out of range in mixer group {mixerIndex}.");
+            }
+        }
+
+        public void CancelChanges() {
+            if (Settings.profile && Settings.profile.audioMixer != null) {
+                Settings.profile.GetAudioLevels();
+            }
+
+            for (int i = 0; i < volumeSliders.Count; i++) {
+                volumeSliders[i].ResetSliderValue();
             }
         }
     }
