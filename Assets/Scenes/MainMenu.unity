@@ -1363,7 +1363,6 @@ GameObject:
   m_Component:
   - component: {fileID: 573110026}
   - component: {fileID: 573110025}
-  - component: {fileID: 573110027}
   m_Layer: 0
   m_Name: UIController
   m_TagString: Untagged
@@ -1384,6 +1383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainButtonHome: {fileID: 1608155354}
+  mainButtonSettings: {fileID: 1437514529}
+  mainButtonTutorials: {fileID: 2106527699}
   startExercisesButton: {fileID: 3039312726553589769}
   audioToggleOnOff: {fileID: 1369299762}
   song1Button: {fileID: 1707022231}
@@ -1392,6 +1393,9 @@ MonoBehaviour:
   song4Button: {fileID: 961873665}
   saveChangesButton: {fileID: 514620694}
   defaultAudioSettingsButton: {fileID: 1922662933}
+  homePanel: {fileID: 30947968598268972}
+  settingsPanel: {fileID: 2065972974}
+  tutorialPanel: {fileID: 1634891511}
   _audioControl: {fileID: 1291217314}
 --- !u!4 &573110026
 Transform:
@@ -1408,23 +1412,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &573110027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573110024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58765cc496c6433db1908d1f0f26002b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeSliders:
-  - {fileID: 2452408802561339994}
-  - {fileID: 2452408802561339993}
-  - {fileID: 2452408802561339992}
-  - {fileID: 2452408802561339991}
 --- !u!1001 &604329794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5924,6 +5911,11 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &2065972974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6102661710160355887, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
+  m_PrefabInstance: {fileID: 2452408802561339986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2106527697
 GameObject:
   m_ObjectHideFlags: 0
@@ -6045,6 +6037,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106527697}
   m_CullTransparentMesh: 1
+--- !u!1 &30947968598268972 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5794059068168487854, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
+  m_PrefabInstance: {fileID: 3039312726553589768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2452408802561339986
 PrefabInstance:
   m_ObjectHideFlags: 0
