@@ -12,29 +12,44 @@ namespace GameUI {
         [SerializeField] private Button startExercisesButton;
         
         [Header("Main Menu Settings Buttons")]
-        [SerializeField] private Button audioToggleOnOff;
+        [SerializeField] private Toggle audioToggleOnOff;
         [SerializeField] private Button song1Button;
         [SerializeField] private Button song2Button;
         [SerializeField] private Button song3Button;
         [SerializeField] private Button song4Button;
         [SerializeField] private Button saveChangesButton;
         [SerializeField] private Button defaultAudioSettingsButton;
-
-        private int _indexSong1 = 0;
-        private AudioController _audioControl;
-    
-
+        
+        public AudioController _audioControl;
+        
+        private void Awake()
+        {
+            if (_audioControl == null)
+            {
+                _audioControl = FindObjectOfType<AudioController>();
+                if (_audioControl == null)
+                {
+                    Debug.LogError("AudioController not found in the scene.");
+                }
+            }
+        }
+        
         private void OnEnable() {
-            UIUtil.CallMultipleActions(startExercisesButton, OnClickStartExercisesButton, ()=> OnUIButtonClick(1));
-            UIUtil.CallMultipleActions(song1Button,() =>OnClickSongButton(0), ()=>OnUIButtonClick(1));
+            UIUtil.CallMultipleActions(startExercisesButton, OnClickStartExercisesButton, ()=>OnUIButtonClick(2));
+            UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnUIButtonClick(2));
+            UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnUIButtonClick(2));
+            UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnUIButtonClick(2));
+            UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(0), ()=>OnUIButtonClick(2));
+            
         
         }
 
         private void OnDisable() {
             startExercisesButton.onClick.RemoveAllListeners();
             song1Button.onClick.RemoveAllListeners();
-            
-        
+            song2Button.onClick.RemoveAllListeners();
+            song3Button.onClick.RemoveAllListeners();
+            song4Button.onClick.RemoveAllListeners();
         }
 
         private void OnClickStartExercisesButton() {
@@ -46,14 +61,11 @@ namespace GameUI {
         }
 
         private void OnClickSongButton(int songIndex) {
-            _audioControl.PlayAudioClip(songIndex, 0);
+            _audioControl.BackgroundMusic(songIndex);
         }
         
         private void OnUIButtonClick(int audioClipIndex) {
             _audioControl.PlayAudioClip(audioClipIndex,1);
         }
-        
-
-    
     }
 }
