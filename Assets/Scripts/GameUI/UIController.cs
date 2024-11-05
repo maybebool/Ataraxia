@@ -9,6 +9,8 @@ namespace GameUI {
     
         [Header("Main Menu Home Buttons")]
         [SerializeField] private Button mainButtonHome;
+        [SerializeField] private Button mainButtonSettings;
+        [SerializeField] private Button mainButtonTutorials;
         [SerializeField] private Button startExercisesButton;
         
         [Header("Main Menu Settings Buttons")]
@@ -19,6 +21,9 @@ namespace GameUI {
         [SerializeField] private Button song4Button;
         [SerializeField] private Button saveChangesButton;
         [SerializeField] private Button defaultAudioSettingsButton;
+        [SerializeField] private GameObject homePanel;
+        [SerializeField] private GameObject settingsPanel;
+        [SerializeField] private GameObject tutorialPanel;
         
         
         public AudioController _audioControl;
@@ -43,6 +48,9 @@ namespace GameUI {
             UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(mainButtonHome,OnClickStartPanel, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(mainButtonTutorials,OnClickTutorialPanel, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(mainButtonSettings,OnClickSettingsPanel, ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(saveChangesButton,OnClickSaveSettings, ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(defaultAudioSettingsButton,OnClickDefaultSettings, ()=>OnClickUIButton(2));
             
@@ -55,6 +63,9 @@ namespace GameUI {
             song2Button.onClick.RemoveAllListeners();
             song3Button.onClick.RemoveAllListeners();
             song4Button.onClick.RemoveAllListeners();
+            mainButtonHome.onClick.RemoveAllListeners();
+            mainButtonSettings.onClick.RemoveAllListeners();
+            mainButtonTutorials.onClick.RemoveAllListeners();
         }
 
         private void OnClickStartExercisesButton() {
@@ -81,6 +92,24 @@ namespace GameUI {
 
         private void OnClickDefaultSettings() {
             _audioControl.CancelChanges();
+        }
+
+        private void OnClickStartPanel() {
+            homePanel.SetActive(true);
+            settingsPanel.SetActive(false);
+            tutorialPanel.SetActive(false);
+        }
+        
+        private void OnClickSettingsPanel() {
+            settingsPanel.SetActive(true);
+            homePanel.SetActive(false);
+            tutorialPanel.SetActive(false);
+        }
+        
+        private void OnClickTutorialPanel() {
+            tutorialPanel.SetActive(true);
+            settingsPanel.SetActive(false);
+            homePanel.SetActive(false);
         }
     }
 }
