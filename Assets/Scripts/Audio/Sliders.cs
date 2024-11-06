@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,6 @@ namespace Audio {
             slider.onValueChanged.AddListener(delegate {
                 UpdateValueOnChange(slider.value);
             });
-
         }
 
         public void UpdateValueOnChange(float value) {
@@ -35,7 +33,6 @@ namespace Audio {
                 
                 UpdateValueOnChange(volume);
                 slider.value = volume;
-
             }
         }
     }

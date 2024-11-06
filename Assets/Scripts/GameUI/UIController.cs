@@ -53,8 +53,6 @@ namespace GameUI {
             UIUtil.CallMultipleActions(mainButtonSettings,OnClickSettingsPanel, ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(saveChangesButton,OnClickSaveSettings, ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(defaultAudioSettingsButton,OnClickDefaultSettings, ()=>OnClickUIButton(2));
-            
-        
         }
 
         private void OnDisable() {

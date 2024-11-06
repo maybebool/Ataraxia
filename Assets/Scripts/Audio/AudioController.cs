@@ -59,7 +59,6 @@ namespace Audio {
                 _audioSources.Add(source);
                 groupAudioSources.Add(source);
             }
-
             _audioSourcesByGroup[index] = groupAudioSources;
         }
 
