@@ -67,7 +67,7 @@ namespace GameUI {
         }
 
         private void OnClickStartExercisesButton() {
-            SceneLoader.Instance.LoadNewScene((int)SceneNames.Scene1);
+            SceneLoader.Instance.LoadNewScene((int)SceneNames.Exercise1);
         }
 
         private void OnClickBackToMainMenuButton() {

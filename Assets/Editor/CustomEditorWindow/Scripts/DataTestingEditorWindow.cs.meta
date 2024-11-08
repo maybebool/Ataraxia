@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 77b82eba2c428f84a8316e66785bfabf
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - mainButtonsSection: {fileID: 9197481963319205126, guid: 5af373a96666fbf48acbf2ac4bec8db7, type: 3}
+  - sceneManagerTabViewSection: {fileID: 9197481963319205126, guid: bbbadf05ae0350b438c1b38822bab544, type: 3}
+  - dataTestSection: {fileID: 9197481963319205126, guid: 0b9242b84150d04408b44c74d6feaf6b, type: 3}
+  - obj: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,12 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/CustomEditorWindow/Style/CustomEditorWindowStyle.uss?fileID=7433441132597879392&amp;guid=2f781831da0075a4d9d55db355deecc6&amp;type=3#CustomEditorWindowStyle" />
+    <engine:TabView style="flex-direction: column; align-items: flex-start; align-content: stretch; justify-content: flex-start; align-self: center; height: 100%; width: 100%;">
+        <engine:Tab label="Start" closeable="false" focusable="true" name="StartTap" style="align-items: auto; align-content: auto; justify-content: flex-start; flex-direction: column; align-self: auto;">
+            <engine:Button text="Button" style="align-self: auto; align-content: auto; align-items: auto; flex-direction: column;" />
+        </engine:Tab>
+        <engine:Tab label="Exercise 1" enabled="true" closeable="false" focusable="true" tabindex="1" name="Scene1Tap" />
+        <engine:Tab label="Exercise 2" enabled="true" closeable="false" tabindex="2" focusable="true" name="Scene2Tap" />
+        <engine:Tab label="Exercise 3" closeable="false" tabindex="3" focusable="true" name="Scene3Tap" />
+        <engine:Tab label="Exercise 4" closeable="false" tabindex="4" focusable="true" enabled="true" name="Scene4Tap" />
+    </engine:TabView>
+</engine:UXML>

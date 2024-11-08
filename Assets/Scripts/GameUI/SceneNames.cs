@@ -3,9 +3,10 @@ namespace GameUI {
     {
         PersistentScene,
         MainMenu,
-        Scene1,
-        Scene2,
-        Scene3,
-        Scene4
+        Exercise1,
+        Exercise2,
+        Exercise3,
+        Exercise4,
+        
     }
 }

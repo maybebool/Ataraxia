@@ -1,0 +1,27 @@
+.my-custom-template-container {
+    background: red;
+}
+
+.button {
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    font-size: 18px;
+    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Library/unity%20default%20resources?fileID=10102&guid=0000000000000000e000000000000000&type=0#LegacyRuntime");
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width: auto;
+    align-items: auto;
+    align-self: auto;
+    align-content: auto;
+    position: relative;
+    background-size: 100% 100%;
+    flex-direction: column;
+}
+
+.horizontalGrid {
+}
