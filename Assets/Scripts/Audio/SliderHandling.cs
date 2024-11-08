@@ -5,7 +5,6 @@ namespace Audio {
     public class SliderHandling : MonoBehaviour {
         [SerializeField] private List<Sliders> volumeSliders = new();
         
-        
         public void ApplyChanges() {
             if (Settings.profile && Settings.profile.audioMixer != null) {
                 Settings.profile.SaveAudioLevels();

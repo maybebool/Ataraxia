@@ -13,9 +13,9 @@ namespace Utils {
         }
 
 
-        public static void BindEventToMultipleActions<T>(UnityEvent<T> unityEvent, params UnityAction<T>[] unityActions) {
-            foreach (var action in unityActions) {
-                unityEvent.AddListener(action);
+        public static void CallMultipleActions(Button button, params UnityAction[] unityAction) {
+            foreach (var action in unityAction) {
+                button.onClick.AddListener(action);
             }
         }
     }

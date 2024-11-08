@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +15,6 @@ namespace Audio {
             slider.onValueChanged.AddListener(delegate {
                 UpdateValueOnChange(slider.value);
             });
-
         }
 
         public void UpdateValueOnChange(float value) {
@@ -31,11 +29,10 @@ namespace Audio {
 
         public void ResetSliderValue() {
             if (Settings.profile) {
-                var volume = Settings.profile.GetAudioLevels(volumeName);
+                var volume = 1;
                 
                 UpdateValueOnChange(volume);
                 slider.value = volume;
-
             }
         }
     }

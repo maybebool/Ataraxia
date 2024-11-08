@@ -3656,6 +3656,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeName
+      value: GameSFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeLabel
+      value: 
+      objectReference: {fileID: 8271551369207560077}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4092,33 +4100,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeName
+      value: Master
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeLabel
+      value: 
+      objectReference: {fileID: 7891727162185763223}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8969571752666551113, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3998677660774511235}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
---- !u!1 &4140686877181007109 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8969571752666551113, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
-  m_PrefabInstance: {fileID: 4975630116864362060}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3998677660774511235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4140686877181007109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b725ea1f78204f1d8a468c36111b114a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeName: enter here
-  volumeLabel: {fileID: 0}
 --- !u!224 &4140686877181007110 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8969571752666551114, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
@@ -4244,6 +4238,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeName
+      value: Music
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeLabel
+      value: 
+      objectReference: {fileID: 522832984354790062}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4684,6 +4686,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9193667479829210031, guid: 657321a07c3561043af55547ec4b0ed7, type: 3}
+      propertyPath: volumeLabel
+      value: 
+      objectReference: {fileID: 8387233970319375582}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
