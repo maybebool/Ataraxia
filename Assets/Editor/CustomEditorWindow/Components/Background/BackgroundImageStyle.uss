@@ -1,0 +1,6 @@
+VisualElement {
+}
+
+.imageSize {
+    height: 100%;
+}

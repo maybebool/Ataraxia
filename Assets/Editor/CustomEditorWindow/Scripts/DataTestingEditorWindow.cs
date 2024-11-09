@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Editor.CustomEditorWindow.Components.Background;
+using Editor.CustomEditorWindow.Components.PlayButton;
 using ScriptableObjects;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -15,6 +17,7 @@ namespace Editor.CustomEditorWindow.Scripts {
         [SerializeField] private VisualTreeAsset dataTestSection;
 
         private List<VisualElement> _uiElements;
+        [SerializeField]
         private VisualElement _mainButtonsElement;
         private VisualElement _managerTapViewElement;
         private VisualElement _dataTestElement;
@@ -44,6 +47,13 @@ namespace Editor.CustomEditorWindow.Scripts {
             dataTestSection =
                 AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(
                     "Assets\\Editor\\CustomEditorWindow\\Sections\\Data\\TestField.uxml");
+
+            // var customCommponent = new PlayButton();
+            //
+            // customCommponent.ChangeSomthing();
+            // customCommponent.RegisterCallback<MouseDownEvent>((_) => {
+            //     // do smonthing 
+            // });
 
             CreateGUI();
         }

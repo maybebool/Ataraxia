@@ -1,0 +1,4 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/CustomEditorWindow/Components/Background/BackgroundImageStyle.uss?fileID=7433441132597879392&amp;guid=1a5a2a704cfda1444af30c0b6d9c0c83&amp;type=3#BackgroundImageStyle" />
+    <Editor.CustomEditorWindow.Components.Background.Background class="imageSize" style="background-image: url(&quot;project://database/Assets/Images/UI/BackgroundUI.png?fileID=2800000&amp;guid=abbebdbcf18db85418c6a30a7b870e6c&amp;type=3#BackgroundUI&quot;);" />
+</engine:UXML>

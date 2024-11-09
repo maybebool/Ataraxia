@@ -34,4 +34,19 @@
 }
 
 .tabButton {
+    width: 40%;
+    height: 40%;
+    align-self: center;
+    align-items: auto;
+    background-size: 0 0;
+    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
 }
+
+.tabButton:hover {
+    opacity: 0.64;
+}
+
+/*.tabButton:selected {*/
+/*    opacity: 0.18;*/
+/*}*/
