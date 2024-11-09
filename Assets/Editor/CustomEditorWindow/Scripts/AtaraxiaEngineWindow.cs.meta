@@ -5,10 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - m_ViewDataDictionary: {instanceID: 0}
-  - mainButtonsSection: {fileID: 9197481963319205126, guid: 5af373a96666fbf48acbf2ac4bec8db7, type: 3}
-  - sceneManagerTabViewSection: {fileID: 9197481963319205126, guid: bbbadf05ae0350b438c1b38822bab544, type: 3}
-  - dataTestSection: {fileID: 9197481963319205126, guid: 0b9242b84150d04408b44c74d6feaf6b, type: 3}
+  - backgroundAsset: {fileID: 9197481963319205126, guid: e92837fdaad41ed428694740173941ff, type: 3}
+  - upperMainButtonAsset: {fileID: 9197481963319205126, guid: 50dd29bb3629aa74796da73b8149c5ef, type: 3}
   - obj: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  - backgroundImage: {fileID: 2800000, guid: abbebdbcf18db85418c6a30a7b870e6c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
