@@ -1,8 +1,9 @@
-<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Editor/CustomEditorWindow/Style/CustomEditorWindowStyle.uss?fileID=7433441132597879392&amp;guid=2f781831da0075a4d9d55db355deecc6&amp;type=3#CustomEditorWindowStyle" />
-    <engine:TabView style="flex-direction: column; align-items: flex-start; align-content: stretch; justify-content: flex-start; align-self: center; height: 100%; width: 100%;">
-        <engine:Tab label="Start" closeable="false" focusable="true" name="StartTap" style="align-items: auto; align-content: auto; justify-content: flex-start; flex-direction: column; align-self: auto;">
-            <engine:Button text="Button" style="align-self: auto; align-content: auto; align-items: auto; flex-direction: column;" />
+    <engine:TabView style="flex-direction: column; align-items: center; align-content: stretch; justify-content: flex-start; align-self: center; height: 100%; width: 100%;">
+        <engine:Tab label="Start" closeable="false" focusable="true" name="StartTap" enabled="true" style="align-items: flex-start; align-content: auto; justify-content: flex-start; flex-direction: column; align-self: flex-start;">
+            <engine:Label text="Label" class="tabMainTitle" style="align-self: flex-start; align-content: auto; justify-content: flex-start; bottom: 0; right: 0; top: 0; left: 0; margin-top: 40px;" />
+            <engine:Button text="Button" class="tabButton" style="margin-top: 5px; margin-bottom: 5px;" />
         </engine:Tab>
         <engine:Tab label="Exercise 1" enabled="true" closeable="false" focusable="true" tabindex="1" name="Scene1Tap" />
         <engine:Tab label="Exercise 2" enabled="true" closeable="false" tabindex="2" focusable="true" name="Scene2Tap" />

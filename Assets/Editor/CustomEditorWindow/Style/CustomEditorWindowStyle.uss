@@ -25,3 +25,13 @@
 
 .horizontalGrid {
 }
+
+.tabMainTitle {
+    font-size: 30px;
+    -unity-font-definition: url("project://database/Assets/Fonts/Roboto-Medium.ttf?fileID=12800000&guid=b5ef374788a9d3c46a141431a772c620&type=3#Roboto-Medium");
+    -unity-text-align: upper-center;
+    color: rgb(227, 255, 247);
+}
+
+.tabButton {
+}
