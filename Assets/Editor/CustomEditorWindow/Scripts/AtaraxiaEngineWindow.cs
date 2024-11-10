@@ -40,16 +40,11 @@ namespace Editor.CustomEditorWindow.Scripts {
             
             CreateGUI();
             
-            
-            
-
             // var backGround = new BackgroundElements(backgroundImage);
             // backGround.RegisterCallback<MouseDownEvent>(_ => {
             //     Debug.Log("BackGroundClick!");
             // });
             //
-            
-            
         }
 
         public void CreateGUI() {

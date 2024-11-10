@@ -1,4 +1,3 @@
-using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,15 +15,5 @@ namespace Editor.CustomEditorWindow.Components.Background {
         public void SetBackGroundIMage(Texture2D image) {
             backgroundImage.style.backgroundImage = image;
         }
-        
-        // public BackgroundElements(Texture2D image)
-        // {
-        // }
-        
-        // public void Init(Texture2D image)
-        // {
-        //     backgroundImage.style.backgroundImage = image;
-        // }
-       
     }
 }
