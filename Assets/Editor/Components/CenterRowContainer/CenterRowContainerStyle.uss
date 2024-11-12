@@ -1,0 +1,10 @@
+VisualElement {}
+
+
+.flexDirection{
+    flex-direction: row;
+}
+
+.align{
+    align-items: center;
+}

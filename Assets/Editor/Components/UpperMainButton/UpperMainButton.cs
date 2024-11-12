@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Editor.CustomEditorWindow.Components.UpperMainButton {
+namespace Editor.Components.UpperMainButton {
     [UxmlElement("UpperMainButton")]
     public partial class UpperMainButton : Button {
         
