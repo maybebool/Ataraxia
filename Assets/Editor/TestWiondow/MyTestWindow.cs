@@ -10,7 +10,7 @@ public class MyTestWindow : EditorWindow
     [MenuItem("Window/UI Toolkit/MyTestWindow")]
     public static void ShowExample()
     {
-        MyTestWindow wnd = GetWindow<MyTestWindow>();
+        var wnd = GetWindow<MyTestWindow>();
         wnd.titleContent = new GUIContent("MyTestWindow");
     }
 

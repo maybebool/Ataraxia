@@ -2,6 +2,7 @@ using Editor.Components.CenterRowContainer;
 using Editor.Components.UpperMainButton;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 namespace Editor.AtaraxiaWindow {
@@ -9,7 +10,11 @@ namespace Editor.AtaraxiaWindow {
     {
         [SerializeField] private VisualTreeAsset mVisualTreeAssetCenterRowContainer = default;
         [SerializeField] private VisualTreeAsset mVisualTreeAssetMainButton = default;
+        [SerializeField] private StyleSheet styleButton;
         [SerializeField] private Texture2D backgroundImage;
+
+        private VisualElement Container;
+        private VisualElement Button;
 
         [MenuItem("Window/Ataraxia")]
         public static void ShowWindow()
@@ -25,16 +30,21 @@ namespace Editor.AtaraxiaWindow {
         public void CreateGUI()
         {
             rootVisualElement.style.backgroundImage = backgroundImage;
-            var upperMainDiv = new CenterRowContainer();
-            var upperMainButton = new UpperMainButton();
-            // upperMainDiv.Add(upperMainButton);
-            // upperMainDiv.Add(upperMainButton);
-            // upperMainDiv.Add(upperMainButton);
-            // rootVisualElement.Add(upperMainDiv);
-            // rootVisualElement.Add(upperMainButton);
-            // rootVisualElement.Add(upperMainButton);
-            // rootVisualElement.Add(upperMainButton);
+            // Container = mVisualTreeAssetCenterRowContainer.Instantiate();
+            // Button = mVisualTreeAssetMainButton.Instantiate();
+            // var button1 = Button.Q<UpperMainButton>();
+            // var container1 = Container.Q<CenterRowContainer>();
+            // container1.Add(button1);
 
+            var button = new UpperMainButton();
+            // button.styleSheets.Add(styleButton);
+            // button.AddToClassList("customSize");
+            var container = new CenterRowContainer();
+            // rootVisualElement.Add(container);
+            rootVisualElement.Add(button);
+
+
+            // rootVisualElement.Add(Button);
             // var myElnew = new BackgroundElements();
 //     // rootVisualElement.Add(myElnew);
 

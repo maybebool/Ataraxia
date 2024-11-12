@@ -1,0 +1,14 @@
+VisualElement {
+}
+
+
+.mainButtonStyle{
+    height: 10%;
+    margin: 10px;
+    
+}
+
+.Styles{
+    color: black;
+}
+

@@ -1,12 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
->
-    <Style src="project://database/Assets/Editor/CustomEditorWindow/AtaraxiaWindow/AtaraxiaRootWindow.uss?fileID=7433441132597879392&amp;guid=a7ae09efe9d1f504e87bf5c621804a2a&amp;type=3#AtaraxiaRootWindow" />
-	<engine:Label text="Hello World! From UXML" />
-	<engine:Label class="custom-label" text="Hello World! With Style" />
-
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" 
+             noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" 
+             editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/AtaraxiaWindow/AtaraxiaRootWindow.uss?fileID=7433441132597879392&amp;guid=a7ae09efe9d1f504e87bf5c621804a2a&amp;type=3#AtaraxiaRootWindow" />
 </engine:UXML>
