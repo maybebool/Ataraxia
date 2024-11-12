@@ -1,0 +1,7 @@
+VisualElement {}
+
+
+.customTabElementStyle{
+    align-items: center;
+    justify-content: center;
+}

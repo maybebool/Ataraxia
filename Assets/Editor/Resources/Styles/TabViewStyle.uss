@@ -1,0 +1,14 @@
+VisualElement {}
+
+.custom-TabView{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    
+}
+
+.unity-tab-view__content-container{
+    margin-top: 20px;
+}

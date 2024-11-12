@@ -3,6 +3,11 @@ VisualElement {}
 
 .customContainerRow{
     flex-direction: row;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+    margin: 10px;
     width: 100%;
-    height: 100%;
+    height: auto;
 }

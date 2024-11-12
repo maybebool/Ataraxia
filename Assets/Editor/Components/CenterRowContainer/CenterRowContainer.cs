@@ -29,6 +29,9 @@ namespace Editor.Components.CenterRowContainer {
             var button1 = new UpperMainButton.UpperMainButton();
             var button2 = new UpperMainButton.UpperMainButton();
             var button3 = new UpperMainButton.UpperMainButton();
+            button1.text = "Scene Manager";
+            button2.text = "Data View";
+            button3.text = "Settings";
 
             // Add buttons directly to 'this' to make them direct children of the root
             this.Add(button1);
@@ -43,25 +46,6 @@ namespace Editor.Components.CenterRowContainer {
             } else {
                 Debug.LogError("Failed to load StyleSheet: CenterRowContainerStyle.uss");
             }
-            // var asset = Resources.Load<VisualTreeAsset>("CenterRowContainer");
-            // var centerRowContainer = Resources.Load<StyleSheet>("Styles/CenterRowContainerStyle");
-            // if (centerRowContainer != null) {
-            //     styleSheets.Add(centerRowContainer);
-            //     AddToClassList("customContainerRow");
-            // }
-            // else {
-            //     Debug.LogError("Failed to load StyleSheet: MainButtonStyle.uss");
-            // }
-            // var button = new UpperMainButton.UpperMainButton();
-            // var button2 = new UpperMainButton.UpperMainButton();
-            // var button3 = new UpperMainButton.UpperMainButton();
-            // var root = asset.CloneTree();
-            // root.Add(button);
-            // root.Add(button2);
-            // root.Add(button3);
-            // Add(root);
-            
-            
         }
 
         public CenterRowContainer(VisualElement element) {

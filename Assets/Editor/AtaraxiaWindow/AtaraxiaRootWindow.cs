@@ -1,8 +1,10 @@
 using Editor.Components.CenterRowContainer;
+using Editor.Components.TabViewContainer;
 using Editor.Components.UpperMainButton;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UpperMainButton = Editor.Components.UpperMainButton;
 
 namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow
@@ -26,32 +28,11 @@ namespace Editor.AtaraxiaWindow {
         {
             rootVisualElement.style.backgroundImage = backgroundImage;
             
-
-            var button = new UpperMainButton();
             var container = new CenterRowContainer();
+            var tabView = new TabViewContainer();
             
             rootVisualElement.Add(container);
-            // container.Add(button);
-            // rootVisualElement.Add(button);
-
-
-            // rootVisualElement.Add(Button);
-            // var myElnew = new BackgroundElements();
-//     // rootVisualElement.Add(myElnew);
-
-            // var UpperContainer = mVisualTreeAssetCenterRowContainer.Q<>
-            // var myElnew = new BackgroundElements();
-            // rootVisualElement.Add(myElnew);
-
-            // VisualElements objects can contain other VisualElement following a tree hierarchy.
-            // var divUpperButton = new VisualElement();
-            // divUpperButton.style.flexDirection = FlexDirection.Row;
-            // divUpperButton.Add();
-            // root.Add(label);
-
-            // Instantiate UXML
-            // VisualElement labelFromUXML = mVisualTreeAsset.Instantiate();
-            // root.Add(labelFromUXML);
+            rootVisualElement.Add(tabView);
         }
         
 //         // if added via UI Builder (Custom (Project) Competitions)

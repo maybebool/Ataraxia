@@ -3,12 +3,8 @@ VisualElement {
 
 .mainButtonStyle{
     align-self: center;
-    height: 10%;
+    height: 100%;
     width: 10%;
-    margin: 10px;
 }
 
-.Styles{
-    color: black;
-}
 
