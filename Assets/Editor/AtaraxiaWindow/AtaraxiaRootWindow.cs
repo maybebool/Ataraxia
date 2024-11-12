@@ -40,7 +40,6 @@ namespace Editor.AtaraxiaWindow {
             // root.Add(labelFromUXML);
         }
         
-        
 //         // if added via UI Builder (Custom (Project) Competitions)
 //         var muElem = _managerTapViewElement.Q<BackgroundElements>();
 //         muElem.SetBackGroundIMage(backgroundImage);
