@@ -1,15 +1,8 @@
 VisualElement {}
 
 
-.flexDirection{
+.customContainerRow{
     flex-direction: row;
-}
-
-.align{
-    align-items: center;
-}
-
-.size{
     width: 100%;
     height: 100%;
 }

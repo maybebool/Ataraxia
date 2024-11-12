@@ -1,11 +1,11 @@
 VisualElement {
 }
 
-
 .mainButtonStyle{
+    align-self: center;
     height: 10%;
+    width: 10%;
     margin: 10px;
-    
 }
 
 .Styles{

@@ -2,7 +2,6 @@ using Editor.Components.CenterRowContainer;
 using Editor.Components.UpperMainButton;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 namespace Editor.AtaraxiaWindow {
@@ -23,25 +22,17 @@ namespace Editor.AtaraxiaWindow {
             wnd.titleContent = new GUIContent("Ataraxia Manager");
         }
 
-        // private void OnEnable() {
-        //     CreateGUI();
-        // }
-
         public void CreateGUI()
         {
             rootVisualElement.style.backgroundImage = backgroundImage;
-            // Container = mVisualTreeAssetCenterRowContainer.Instantiate();
-            // Button = mVisualTreeAssetMainButton.Instantiate();
-            // var button1 = Button.Q<UpperMainButton>();
-            // var container1 = Container.Q<CenterRowContainer>();
-            // container1.Add(button1);
+            
 
             var button = new UpperMainButton();
-            // button.styleSheets.Add(styleButton);
-            // button.AddToClassList("customSize");
             var container = new CenterRowContainer();
-            // rootVisualElement.Add(container);
-            rootVisualElement.Add(button);
+            
+            rootVisualElement.Add(container);
+            // container.Add(button);
+            // rootVisualElement.Add(button);
 
 
             // rootVisualElement.Add(Button);
