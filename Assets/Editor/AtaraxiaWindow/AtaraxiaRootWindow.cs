@@ -2,10 +2,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Editor.CustomEditorWindow.AtaraxiaWindow {
+namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow
     {
         [SerializeField] private VisualTreeAsset m_VisualTreeAsset = default;
+        [SerializeField] private VisualTreeAsset m_VisualTreeAssetMainButton = default;
         [SerializeField] private Texture2D backgroundImage;
 
         [MenuItem("Window/Ataraxia")]
