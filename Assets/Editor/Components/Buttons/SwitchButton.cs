@@ -148,7 +148,7 @@ namespace Editor.Components.Buttons {
             }
             else if (isPaused) {
                 // Show play image (for resume)
-                style.backgroundImage = new StyleBackground(pauseImage);
+                style.backgroundImage = new StyleBackground(playImage);
             }
             else {
                 // Show pause image
@@ -175,7 +175,8 @@ namespace Editor.Components.Buttons {
                 else
                 {
                     // Reset playing state when exiting play mode
-                    EditorPrefs.SetBool(prefsKeyPlaying, false);
+                    // TODO ugly solution because every button is changing images this way, but at least it changes, original values where false, false 
+                    EditorPrefs.SetBool(prefsKeyPlaying, true);
                     EditorPrefs.SetBool(prefsKeyPaused, false);
                 }
             }
