@@ -15,7 +15,6 @@ namespace Editor.Components.Buttons {
         private static bool isWaitingToRestart = false;
         
         public SwitchButton() { }
-
         
         public SwitchButton(SceneNames scene) {
             sceneToStart = scene;
@@ -24,6 +23,7 @@ namespace Editor.Components.Buttons {
             RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
             
         }
+        
         private void Initialize() {
             prefsKeyPlaying = $"SwitchButton_{sceneToStart}_IsPlaying";
             prefsKeyPaused = $"SwitchButton_{sceneToStart}_IsPaused";
@@ -46,19 +46,16 @@ namespace Editor.Components.Buttons {
             if (startImage == null || pauseImage == null || playImage == null) {
                 Debug.LogError("Failed to load one or more images for the StartPauseButton.");
             }
-
-            // Set up the click event handler
-            clicked += OnButtonClicked;
-            // Subscribe to play mode and pause state changes
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            EditorApplication.pauseStateChanged += OnPauseStateChanged;
-
             UpdateButtonImage();
         }
         
         private void OnAttachToPanel(AttachToPanelEvent e)
         {
+            clicked -= OnButtonClicked;
+            clicked += OnButtonClicked;
             // Subscribe to play mode and pause state changes
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+            EditorApplication.pauseStateChanged -= OnPauseStateChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
             EditorApplication.pauseStateChanged += OnPauseStateChanged;
 
@@ -68,23 +65,11 @@ namespace Editor.Components.Buttons {
 
         private void OnDetachFromPanel(DetachFromPanelEvent e)
         {
+            clicked -= OnButtonClicked;
             // Unsubscribe from events to prevent memory leaks
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
             EditorApplication.pauseStateChanged -= OnPauseStateChanged;
         }
-
-        // private string GetScenePath(SceneNames scene) {
-        //     // Map your SceneNames enum to the actual scene paths
-        //     return scene switch {
-        //         SceneNames.PersistentScene => "Assets/Scenes/Persistent.unity",
-        //         SceneNames.MainMenu => "Assets/Scenes/MainMenu.unity",
-        //         SceneNames.Exercise1 => "Assets/Scenes/Exercise1.unity",
-        //         SceneNames.Exercise2 => "Assets/Scenes/Exercise2.unity",
-        //         SceneNames.Exercise3 => "Assets/Scenes/Exercise3.unity",
-        //         SceneNames.Exercise4 => "Assets/Scenes/Exercise4.unity",
-        //         _ => null
-        //     };
-        // }
 
         private void OnButtonClicked() {
             if (!EditorApplication.isPlaying)
@@ -106,11 +91,11 @@ namespace Editor.Components.Buttons {
             else
             {
                 // Check if this button's scene is active
-                bool isCurrentScene = IsSceneActive(sceneToStart);
+                var isCurrentScene = IsSceneActive(sceneToStart);
 
                 if (isCurrentScene)
                 {
-                    bool isPaused = EditorPrefs.GetBool(prefsKeyPaused, false);
+                    var isPaused = EditorPrefs.GetBool(prefsKeyPaused, false);
 
                     if (!isPaused)
                     {
@@ -154,21 +139,18 @@ namespace Editor.Components.Buttons {
         }
 
         private void UpdateButtonImage() {
-            bool isPlaying = EditorPrefs.GetBool(prefsKeyPlaying, false);
-            bool isPaused = EditorPrefs.GetBool(prefsKeyPaused, false);
-            
-            if (!isPlaying)
-            {
+            var isPlaying = EditorPrefs.GetBool(prefsKeyPlaying, false);
+            var isPaused = EditorPrefs.GetBool(prefsKeyPaused, false);
+
+            if (!isPlaying) {
                 // Show start image
                 style.backgroundImage = new StyleBackground(startImage);
             }
-            else if (isPaused)
-            {
+            else if (isPaused) {
                 // Show play image (for resume)
-                style.backgroundImage = new StyleBackground(playImage);
+                style.backgroundImage = new StyleBackground(pauseImage);
             }
-            else
-            {
+            else {
                 // Show pause image
                 style.backgroundImage = new StyleBackground(pauseImage);
             }
@@ -197,28 +179,22 @@ namespace Editor.Components.Buttons {
                     EditorPrefs.SetBool(prefsKeyPaused, false);
                 }
             }
-            
             UpdateButtonImage();
-            
         }
 
-        private void OnPauseStateChanged(PauseState state)
-        {
+        private void OnPauseStateChanged(PauseState state) {
             var isPaused = state == PauseState.Paused;
             EditorPrefs.SetBool(prefsKeyPaused, isPaused);
             UpdateButtonImage();
             Debug.Log("Pause is pressed");
             
         }
-
         
-        private bool IsSceneActive(SceneNames scene)
-        {
+        private bool IsSceneActive(SceneNames scene) {
             // Compare the active scene name with the scene associated with this button
             var activeSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             return activeSceneName == scene.ToString();
             
         }
-        
     }
 }

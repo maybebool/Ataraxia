@@ -1,10 +1,9 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.TabViewContainer {
     [UxmlElement ("TabView")]
-    public partial class TabViewContainer : TabView{
+    public partial class TabViewContainer : TabView {
         public TabViewContainer() {
             var asset = Resources.Load<VisualTreeAsset>("TabView");
             if (asset == null) {
@@ -44,5 +43,7 @@ namespace Editor.Components.TabViewContainer {
                 Debug.LogError("Failed to load StyleSheet: MainButtonStyle.uss");
             }
         }
+        
+        
     }
 }

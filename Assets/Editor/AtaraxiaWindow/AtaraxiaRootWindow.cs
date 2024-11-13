@@ -33,6 +33,7 @@ namespace Editor.AtaraxiaWindow {
 
             var container = new CenterRowContainer();
             var tabView = new TabViewContainer();
+            
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabView);
             _buttonToUIElementMap.Add(container.button1, tabView);
