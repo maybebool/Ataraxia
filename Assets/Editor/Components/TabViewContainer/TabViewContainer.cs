@@ -6,9 +6,9 @@ namespace Editor.Components.TabViewContainer {
     [UxmlElement ("TabView")]
     public partial class TabViewContainer : TabView{
         public TabViewContainer() {
-            var asset = Resources.Load<VisualTreeAsset>("CenterRowContainer");
+            var asset = Resources.Load<VisualTreeAsset>("TabView");
             if (asset == null) {
-                Debug.LogError("Failed to load VisualTreeAsset: CenterRowContainer");
+                Debug.LogError("Failed to load VisualTreeAsset: TabView");
                 return;
             }
             

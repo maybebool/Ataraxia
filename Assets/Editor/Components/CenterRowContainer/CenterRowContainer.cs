@@ -5,6 +5,9 @@ namespace Editor.Components.CenterRowContainer {
     
     [UxmlElement("CenterRowContainer")]
     public partial class CenterRowContainer : VisualElement{
+        [HideInInspector] public UpperMainButton.UpperMainButton button1 = new();
+        [HideInInspector] public UpperMainButton.UpperMainButton button2 = new();
+        [HideInInspector] public UpperMainButton.UpperMainButton button3 = new();
         
         public CenterRowContainer() {
             
@@ -26,9 +29,9 @@ namespace Editor.Components.CenterRowContainer {
             }
 
             // Instantiate the buttons
-            var button1 = new UpperMainButton.UpperMainButton();
-            var button2 = new UpperMainButton.UpperMainButton();
-            var button3 = new UpperMainButton.UpperMainButton();
+            // button1.Q<Button>("Scene Manager");
+            // button2.Q<Button>("Data View");
+            // button3.Q<Button>("Settings");
             button1.text = "Scene Manager";
             button2.text = "Data View";
             button3.text = "Settings";

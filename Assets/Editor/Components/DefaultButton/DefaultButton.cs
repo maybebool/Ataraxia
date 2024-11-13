@@ -2,7 +2,7 @@
 using UnityEngine.UIElements;
 
 namespace Editor.Components.DefaultButton {
-    [UxmlElement("UpperMainButton")]
+    [UxmlElement("DefaultButton")]
     public partial class DefaultButton : Button {
         public DefaultButton() {
             var asset = Resources.Load<VisualTreeAsset>("DefaultButton");
@@ -14,7 +14,7 @@ namespace Editor.Components.DefaultButton {
                 AddToClassList("defaultButtonStyle");
             }
             else {
-                Debug.LogError("Failed to load StyleSheet: MainButtonStyle.uss");
+                Debug.LogError("Failed to load StyleSheet: DefaultButtonStyle.uss");
             }
         }
 
