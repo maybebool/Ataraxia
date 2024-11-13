@@ -15,8 +15,12 @@ namespace Editor.Components.TabViewContainer {
             asset.CloneTree(this);
             
             var vEContainer = this.Q<VisualElement>("unity-tab-view__content-container");
-            
             if (vEContainer != null) {
+                var menuTab = new TabElement {
+                    name = $"MenuTab",
+                    label = $"Start"
+                };
+                vEContainer.Add(menuTab);
                 
                 for (int i = 1; i <= 4; i++) {
                     var tab = new TabElement {
@@ -28,6 +32,7 @@ namespace Editor.Components.TabViewContainer {
             } else {
                 Debug.LogError("Failed to find VisualElement with id 'visual_element_number_1'");
             }
+
             
             
             var tabViewStyle = Resources.Load<StyleSheet>("Styles/TabViewStyle");

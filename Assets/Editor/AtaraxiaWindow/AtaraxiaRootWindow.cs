@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Editor.Components.CenterRowContainer;
 using Editor.Components.TabViewContainer;
@@ -22,13 +23,16 @@ namespace Editor.AtaraxiaWindow {
             wnd.titleContent = new GUIContent("Ataraxia Manager");
         }
 
+        private void OnEnable() {
+            // this.hideFlags = HideFlags.DontSave;
+        }
+
         public void CreateGUI() {
+            
             rootVisualElement.style.backgroundImage = backgroundImage;
 
             var container = new CenterRowContainer();
             var tabView = new TabViewContainer();
-
-
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabView);
             _buttonToUIElementMap.Add(container.button1, tabView);
@@ -51,12 +55,10 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private void ShowOnlyUIElement(VisualElement uiElement) {
-            // Hide all UI elements
             foreach (var element in _buttonToUIElementMap.Values) {
                 element.style.display = DisplayStyle.None;
             }
-
-            // Show the specified UI element
+            
             uiElement.style.display = DisplayStyle.Flex;
         }
     }

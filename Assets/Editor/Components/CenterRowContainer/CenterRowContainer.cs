@@ -5,9 +5,9 @@ namespace Editor.Components.CenterRowContainer {
     
     [UxmlElement("CenterRowContainer")]
     public partial class CenterRowContainer : VisualElement{
-        [HideInInspector] public UpperMainButton.UpperMainButton button1 = new();
-        [HideInInspector] public UpperMainButton.UpperMainButton button2 = new();
-        [HideInInspector] public UpperMainButton.UpperMainButton button3 = new();
+        [HideInInspector] public Buttons.UpperMainButton button1 = new();
+        [HideInInspector] public Buttons.UpperMainButton button2 = new();
+        [HideInInspector] public Buttons.UpperMainButton button3 = new();
         
         public CenterRowContainer() {
             

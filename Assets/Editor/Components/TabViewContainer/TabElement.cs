@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using GameUI;
+using SceneHandling;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.TabViewContainer {
@@ -20,17 +22,10 @@ namespace Editor.Components.TabViewContainer {
             }
             
             // Instantiate the buttons
-            var button1 = new DefaultButton.DefaultButton();
-            var button2 = new DefaultButton.DefaultButton();
-            var button3 = new DefaultButton.DefaultButton();
-            button1.text = "Test 1";
-            button2.text = "Test 2";
-            button3.text = "Test 3";
-
-            // Add buttons directly to 'this' to make them direct children of the root
+            var button1 = new Buttons.SwitchButton(SceneNames.Exercise1);
+            var button2 = new Buttons.SwitchButton(SceneNames.Exercise2);
             this.Add(button1);
             this.Add(button2);
-            this.Add(button3);
             
             // Load and apply stylesheet
             var tabElementStyleSheet = Resources.Load<StyleSheet>("Styles/TabElementStyle");

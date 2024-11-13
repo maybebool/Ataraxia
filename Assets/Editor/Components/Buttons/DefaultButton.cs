@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Editor.Components.DefaultButton {
+namespace Editor.Components.Buttons {
     [UxmlElement("DefaultButton")]
     public partial class DefaultButton : Button {
         public DefaultButton() {

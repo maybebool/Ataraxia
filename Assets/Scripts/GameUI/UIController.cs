@@ -67,11 +67,11 @@ namespace GameUI {
         }
 
         private void OnClickStartExercisesButton() {
-            SceneLoader.Instance.LoadNewScene((int)SceneNames.Exercise1);
+            SceneLoader.Instance.LoadNewScene(SceneNames.Exercise1);
         }
 
         private void OnClickBackToMainMenuButton() {
-            SceneLoader.Instance.LoadNewScene((int)SceneNames.MainMenu);
+            SceneLoader.Instance.LoadNewScene(SceneNames.MainMenu);
         }
 
         private void OnClickSongButton(int songIndex) {
