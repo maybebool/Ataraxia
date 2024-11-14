@@ -22,10 +22,10 @@ namespace Editor.Components.TabViewContainer {
             }
             
             // Instantiate the buttons
-            var button1 = new Buttons.SwitchButton(SceneNames.Exercise1);
-            var button2 = new Buttons.RestartButton();
-            this.Add(button1);
-            this.Add(button2);
+            // var button1 = new Buttons.SwitchButton(SceneNames.Exercise1);
+            // var button2 = new Buttons.RestartButton();
+            // this.Add(button1);
+            // this.Add(button2);
             
             // Load and apply stylesheet
             var tabElementStyleSheet = Resources.Load<StyleSheet>("Styles/TabElementStyle");

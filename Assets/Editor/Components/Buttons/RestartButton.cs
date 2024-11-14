@@ -7,8 +7,6 @@ using UnityEngine.UIElements;
 namespace Editor.Components.Buttons {
     [UxmlElement("RestartButton")]
     public partial class RestartButton : Button {
-
-        private Texture2D restartImage;
         public RestartButton() {
             var asset = Resources.Load<VisualTreeAsset>("RestartButton");
             asset.CloneTree(this);
@@ -21,7 +19,7 @@ namespace Editor.Components.Buttons {
             else {
                 Debug.LogError("Failed to load StyleSheet: restartButton.uss");
             }
-            restartImage = Resources.Load<Texture2D>("Images/RestartButton");
+            var restartImage = Resources.Load<Texture2D>("Images/RestartButton");
             style.backgroundImage = restartImage;
             
             clicked -= OnButtonClicked;

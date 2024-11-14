@@ -27,11 +27,7 @@ namespace Editor.Components.CenterRowContainer {
             foreach (var child in root.Children()) {
                 this.Add(child);
             }
-
-            // Instantiate the buttons
-            // button1.Q<Button>("Scene Manager");
-            // button2.Q<Button>("Data View");
-            // button3.Q<Button>("Settings");
+            
             button1.text = "Scene Manager";
             button2.text = "Data View";
             button3.text = "Settings";
