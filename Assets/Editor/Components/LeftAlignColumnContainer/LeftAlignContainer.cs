@@ -18,9 +18,9 @@ namespace Editor.Components.LeftAlignColumnContainer {
             asset.CloneTree(root);
 
             // Add the contents of the root to 'this' to flatten the hierarchy
-            foreach (var child in root.Children()) {
-                this.Add(child);
-            }
+            // foreach (var child in root.Children()) {
+            //     this.Add(child);
+            // }
 
             // Load and apply stylesheet
             var leftAlignContainerStyle = Resources.Load<StyleSheet>("Styles/LeftAlignContainerStyle");

@@ -24,9 +24,9 @@ namespace Editor.Components.CenterRowContainer {
             asset.CloneTree(root);
 
             // Add the contents of the root to 'this' to flatten the hierarchy
-            foreach (var child in root.Children()) {
-                this.Add(child);
-            }
+            // foreach (var child in root.Children()) {
+            //     this.Add(child);
+            // }
             
             button1.text = "Scene Manager";
             button2.text = "Data View";
