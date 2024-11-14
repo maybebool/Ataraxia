@@ -23,10 +23,6 @@ namespace Editor.AtaraxiaWindow {
             wnd.titleContent = new GUIContent("Ataraxia Manager");
         }
 
-        private void OnEnable() {
-            // this.hideFlags = HideFlags.DontSave;
-        }
-
         public void CreateGUI() {
             
             rootVisualElement.style.backgroundImage = backgroundImage;

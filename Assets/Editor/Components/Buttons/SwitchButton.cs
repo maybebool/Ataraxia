@@ -55,8 +55,8 @@ namespace Editor.Components.Buttons {
             clicked += OnButtonClicked;
             // Subscribe to play mode and pause state changes
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-            EditorApplication.pauseStateChanged -= OnPauseStateChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            EditorApplication.pauseStateChanged -= OnPauseStateChanged;
             EditorApplication.pauseStateChanged += OnPauseStateChanged;
 
             // Update the button image based on the stored state
@@ -175,8 +175,8 @@ namespace Editor.Components.Buttons {
                 else
                 {
                     // Reset playing state when exiting play mode
-                    // TODO ugly solution because every button is changing images this way, but at least it changes, original values where false, false 
-                    EditorPrefs.SetBool(prefsKeyPlaying, true);
+                    // ugly solution because every button is changing images this way, but at least it changes, original values where false, false 
+                    EditorPrefs.SetBool(prefsKeyPlaying, false);
                     EditorPrefs.SetBool(prefsKeyPaused, false);
                 }
             }

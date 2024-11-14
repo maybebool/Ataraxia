@@ -23,7 +23,7 @@ namespace Editor.Components.TabViewContainer {
             
             // Instantiate the buttons
             var button1 = new Buttons.SwitchButton(SceneNames.Exercise1);
-            var button2 = new Buttons.SwitchButton(SceneNames.Exercise2);
+            var button2 = new Buttons.RestartButton();
             this.Add(button1);
             this.Add(button2);
             
