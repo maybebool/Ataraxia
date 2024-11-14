@@ -4,4 +4,5 @@ VisualElement {}
     height: 80px;
     width: 80px;
     margin: 20px;
+    align-self: flex-end;
 }
