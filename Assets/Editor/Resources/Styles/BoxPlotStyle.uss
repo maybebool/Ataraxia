@@ -37,3 +37,50 @@ VisualElement {}
     background-color: rgba(0,1,1,0.1);
     position: absolute;
 }
+
+#BoxPlotOuterContainer {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#BoxPlotLabelsContainer {
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+#BoxPlotContainer {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin-left: 10px;
+}
+
+#BoxPlotOuterContainer {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#BoxPlotLabelsContainer {
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 10px;
+    height: 100%;
+}
+
+#BoxPlotContainer {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    border: 1px solid #000;
+    margin-left: 10px;
+}
+
+#BoxPlotMaxLabel,
+#BoxPlotQ3Label,
+#BoxPlotMedianLabel,
+#BoxPlotQ1Label,
+#BoxPlotMinLabel {
+    height: auto;  /* Let the label size automatically */
+    /*padding: 2px;*/
+}

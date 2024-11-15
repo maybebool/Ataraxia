@@ -4,11 +4,20 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
+        private VisualElement _outerContainer;   // New: Top-level container holding labels and box plot side by side
+        private VisualElement _labelsContainer;  // New: Container for the labels on the left
         private VisualElement _boxplotContainer;
         private VisualElement _minLine;
         private VisualElement _maxLine;
         private VisualElement _box;
         private VisualElement _medianLine;
+
+        // New: Labels for box plot statistics
+        private Label _minLabel;
+        private Label _q1Label;
+        private Label _medianLabel;
+        private Label _q3Label;
+        private Label _maxLabel;
 
         private BoxPlotData _boxPlotData;
 
@@ -22,64 +31,73 @@ namespace Editor.Components.Graphs {
                 Debug.LogError("Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
 
+            // Initialize the outer container (row direction: labels on left, box plot on right)
+            _outerContainer = new VisualElement { name = "BoxPlotOuterContainer" };
+            _outerContainer.style.flexDirection = FlexDirection.Row;
+
+            // Initialize the labels container (column direction to stack labels vertically)
+            _labelsContainer = new VisualElement { name = "BoxPlotLabelsContainer" };
+            _labelsContainer.style.flexDirection = FlexDirection.Column;
+            _labelsContainer.style.justifyContent = Justify.SpaceBetween; 
+            _labelsContainer.style.width = 60;  // Set a fixed width for labels container
+            _labelsContainer.style.marginRight = 10;  // A bit of space between labels and the box plot
+
+            // Create label elements for each box plot statistic
+            _maxLabel = new Label { name = "BoxPlotMaxLabel" };
+            _q3Label = new Label { name = "BoxPlotQ3Label" };
+            _medianLabel = new Label { name = "BoxPlotMedianLabel" };
+            _q1Label = new Label { name = "BoxPlotQ1Label" };
+            _minLabel = new Label { name = "BoxPlotMinLabel" };
+
+            // Add the labels to the labels container
+            _labelsContainer.Add(_maxLabel);
+            _labelsContainer.Add(_q3Label);
+            _labelsContainer.Add(_medianLabel);
+            _labelsContainer.Add(_q1Label);
+            _labelsContainer.Add(_minLabel);
+
             // Initialize the box plot container
             _boxplotContainer = new VisualElement { name = "BoxPlotContainer" };
-            // Apply initial styling
-            _boxplotContainer.style.width = 200;
-            _boxplotContainer.style.height = 100;
+            _boxplotContainer.style.width = 100;
+            _boxplotContainer.style.height = 200;
             _boxplotContainer.style.position = Position.Relative;
             _boxplotContainer.style.alignItems = Align.Center;
 
             // Create the line representing the minimum value
-            _minLine = new VisualElement {
-                name = "MinLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(100, LengthUnit.Percent),
-                    height = 2,
-                    
-                }
-            };
+            _minLine = new VisualElement { name = "MinLine" };
+            _minLine.style.position = Position.Absolute;
+            _minLine.style.width = new Length(100, LengthUnit.Percent);
+            _minLine.style.height = 2;
 
             // Create the line representing the maximum value
-            _maxLine = new VisualElement {
-                name = "MaxLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(100, LengthUnit.Percent),
-                    height = 2,
-                    
-                }
-            };
+            _maxLine = new VisualElement { name = "MaxLine" };
+            _maxLine.style.position = Position.Absolute;
+            _maxLine.style.width = new Length(100, LengthUnit.Percent);
+            _maxLine.style.height = 2;
 
             // Create the box representing the interquartile range (IQR)
-            _box = new VisualElement {
-                name = "Box",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(100, LengthUnit.Percent),
-                }
-            };
+            _box = new VisualElement { name = "Box" };
+            _box.style.position = Position.Absolute;
+            _box.style.width = new Length(60, LengthUnit.Percent);
 
             // Create the line representing the median value
-            _medianLine = new VisualElement {
-                name = "MedianLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(100, LengthUnit.Percent),
-                    height = 2,
-                    
-                }
-            };
+            _medianLine = new VisualElement { name = "MedianLine" };
+            _medianLine.style.position = Position.Absolute;
+            _medianLine.style.width = new Length(60, LengthUnit.Percent);
+            _medianLine.style.height = 2;
 
-            // Add these elements to the container
+            // Add these elements to the box plot container
             _boxplotContainer.Add(_minLine);
             _boxplotContainer.Add(_maxLine);
             _boxplotContainer.Add(_box);
             _boxplotContainer.Add(_medianLine);
 
-            // Add the container to the BoxPlotGraph VisualElement
-            Add(_boxplotContainer);
+            // Add the labels container and box plot container to the outer container
+            _outerContainer.Add(_labelsContainer);
+            _outerContainer.Add(_boxplotContainer);
+
+            // Add the outer container to the BoxPlotGraph VisualElement
+            Add(_outerContainer);
 
             // Apply the name to this VisualElement for styling
             name = "BoxPlot";
@@ -97,6 +115,13 @@ namespace Editor.Components.Graphs {
                 return;
             }
 
+            // Update the labels to display the calculated statistics
+            _maxLabel.text = $"Max: {_boxPlotData.max:F2}";
+            _q3Label.text = $"Q3: {_boxPlotData.q3:F2}";
+            _medianLabel.text = $"Med: {_boxPlotData.median:F2}";
+            _q1Label.text = $"Q1: {_boxPlotData.q1:F2}";
+            _minLabel.text = $"Min: {_boxPlotData.min:F2}";
+
             // Force a layout pass to ensure the container has proper size values before calculating positions
             _boxplotContainer.MarkDirtyRepaint();
             _boxplotContainer.style.flexDirection = FlexDirection.Column;
@@ -105,7 +130,6 @@ namespace Editor.Components.Graphs {
             this.schedule.Execute(() => {
                 // Dimensions of the container
                 float containerHeight = _boxplotContainer.layout.height > 0 ? _boxplotContainer.layout.height : 200f;
-                float containerWidth = _boxplotContainer.layout.width > 0 ? _boxplotContainer.layout.width : 200f;
 
                 // Normalizing values based on min and max
                 float minValue = _boxPlotData.min;
