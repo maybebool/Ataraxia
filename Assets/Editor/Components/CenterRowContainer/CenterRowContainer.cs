@@ -1,54 +1,49 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Editor.Components.Buttons;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 namespace Editor.Components.CenterRowContainer {
     
-    [UxmlElement("CenterRowContainer")]
+    //[UxmlElement("CenterRowContainer")]
+       
     public partial class CenterRowContainer : VisualElement{
-        [HideInInspector] public Buttons.UpperMainButton button1 = new();
-        [HideInInspector] public Buttons.UpperMainButton button2 = new();
-        [HideInInspector] public Buttons.UpperMainButton button3 = new();
+        // public Buttons.UpperMainButton Button1 { get; private set; } = new UpperMainButton();
+        // [HideInInspector] public Buttons.UpperMainButton button2 = new();
+        // [HideInInspector] public readonly Buttons.UpperMainButton button3 = new();
         
-        public CenterRowContainer() {
-            
+        
+
+        public CenterRowContainer(params UpperMainButton[] buttons) {
             var asset = Resources.Load<VisualTreeAsset>("CenterRowContainer");
             if (asset == null) {
                 Debug.LogError("Failed to load VisualTreeAsset: CenterRowContainer");
                 return;
             }
-
-            // Create an instance of the VisualElement from the asset
             var root = new VisualElement();
 
             // Clone the asset into the root VisualElement without creating an extra TemplateContainer
             asset.CloneTree(root);
-
-            // Add the contents of the root to 'this' to flatten the hierarchy
-            // foreach (var child in root.Children()) {
-            //     this.Add(child);
-            // }
-            
-            button1.text = "Scene Manager";
-            button2.text = "Data View";
-            button3.text = "Settings";
-
-            // Add buttons directly to 'this' to make them direct children of the root
-            this.Add(button1);
-            this.Add(button2);
-            this.Add(button3);
-
-            // Load and apply stylesheet
+            AddButtons(buttons);
             var centerRowContainerStyle = Resources.Load<StyleSheet>("Styles/CenterRowContainerStyle");
             if (centerRowContainerStyle != null) {
                 styleSheets.Add(centerRowContainerStyle);
                 AddToClassList("customContainerRow");
-            } else {
+            }
+            else {
                 Debug.LogError("Failed to load StyleSheet: CenterRowContainerStyle.uss");
             }
         }
 
+        private void AddButtons(UpperMainButton[] buttons) {
+            foreach (var button in buttons) {
+                Add(button);
+            }
+        }
+
         public CenterRowContainer(VisualElement element) {
-            
         } 
     }
 }

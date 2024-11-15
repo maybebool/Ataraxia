@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
-    [UxmlElement("UpperMainButton")]
+   // [UxmlElement("UpperMainButton")]
     public partial class UpperMainButton : Button {
-        public UpperMainButton() {
+        public UpperMainButton(string title) {
+            text = title;
             var asset = Resources.Load<VisualTreeAsset>("UpperMainButton");
             asset.CloneTree(this);
 

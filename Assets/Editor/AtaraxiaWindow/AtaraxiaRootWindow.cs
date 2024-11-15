@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Editor.Components.Buttons;
 using Editor.Components.CenterRowContainer;
 using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
@@ -32,7 +33,11 @@ namespace Editor.AtaraxiaWindow {
         public void CreateGUI() {
             rootVisualElement.style.backgroundImage = backgroundImage;
 
-            var container = new CenterRowContainer();
+            var sceneManagerBtn = new UpperMainButton("Scene Manager");
+            var dataViewBnt = new UpperMainButton("Data View");
+            var container = new CenterRowContainer(sceneManagerBtn,
+                dataViewBnt,
+                new UpperMainButton("Settings"));
             var tabView = new TabViewContainer();
 
             rootVisualElement.Add(container);
@@ -48,11 +53,11 @@ namespace Editor.AtaraxiaWindow {
             // We add the box plot to the root (or another container as needed)
             rootVisualElement.Add(_boxPlotGraph);
             _boxPlotGraph.style.display = DisplayStyle.None; // Initially hidden
-
+            
             // Button mapping
-            _buttonToUIElementMap.Add(container.button1, tabView);
-            _buttonToUIElementMap.Add(container.button2, _boxPlotGraph);
-
+            _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
+            _buttonToUIElementMap.Add(dataViewBnt, _boxPlotGraph);
+            
             foreach (var kvp in _buttonToUIElementMap) {
                 var button = kvp.Key;
                 var uiElement = kvp.Value;
