@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Editor.Components.CenterRowContainer;
 using Editor.Components.TabViewContainer;
@@ -55,7 +54,6 @@ namespace Editor.AtaraxiaWindow {
             foreach (var element in _buttonToUIElementMap.Values) {
                 element.style.display = DisplayStyle.None;
             }
-            
             uiElement.style.display = DisplayStyle.Flex;
         }
     }
