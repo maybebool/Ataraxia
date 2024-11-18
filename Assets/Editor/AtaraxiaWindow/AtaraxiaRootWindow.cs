@@ -53,11 +53,11 @@ namespace Editor.AtaraxiaWindow {
             // We add the box plot to the root (or another container as needed)
             rootVisualElement.Add(_boxPlotGraph);
             _boxPlotGraph.style.display = DisplayStyle.None; // Initially hidden
-            
+
             // Button mapping
             _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
             _buttonToUIElementMap.Add(dataViewBnt, _boxPlotGraph);
-            
+
             foreach (var kvp in _buttonToUIElementMap) {
                 var button = kvp.Key;
                 var uiElement = kvp.Value;
@@ -82,6 +82,7 @@ namespace Editor.AtaraxiaWindow {
             foreach (var element in _buttonToUIElementMap.Values) {
                 element.style.display = DisplayStyle.None;
             }
+
             uiElement.style.display = DisplayStyle.Flex;
 
             _shouldUpdateBoxPlot = (uiElement == _boxPlotGraph); // Start/Stop updating if BoxPlotGraph is shown
@@ -92,10 +93,8 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private void Update() {
-            if (_shouldUpdateBoxPlot)
-            {
-                if (EditorApplication.timeSinceStartup >= _nextUpdateTime)
-                {
+            if (_shouldUpdateBoxPlot) {
+                if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
 
                     // Generate random data and update the box plot
@@ -116,7 +115,8 @@ namespace Editor.AtaraxiaWindow {
 
                 _boxPlotData.values = randomValues;
                 _boxPlotData.RecalculateStatistics(); // Recalculate after assigning new values
-                Debug.Log($"Random data generated - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
+                Debug.Log(
+                    $"Random data generated - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
             }
         }
 
@@ -125,14 +125,15 @@ namespace Editor.AtaraxiaWindow {
                 _boxPlotGraph.SetBoxPlotData(_boxPlotData);
             }
         }
-        
+
         private void TestBoxPlotValues() {
             if (_boxPlotData != null) {
                 // Hard-coded values representing a distribution
                 float[] testValues = new float[] { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
                 _boxPlotData.values = testValues;
                 _boxPlotData.RecalculateStatistics(); // We'll introduce a method to recalculate
-                Debug.Log($"Test values set - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
+                Debug.Log(
+                    $"Test values set - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
             }
         }
     }

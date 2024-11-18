@@ -2,14 +2,10 @@
 using UnityEngine;
 
 namespace SceneHandling {
-    
     public class RuntimeSceneGetter : MonoBehaviour {
-        
         [RuntimeInitializeOnLoadMethod]
-        static void OnRuntimeMethodLoad()
-        {
-            if (PlayerPrefs.HasKey("SceneToLoad"))
-            {
+        static void OnRuntimeMethodLoad() {
+            if (PlayerPrefs.HasKey("SceneToLoad")) {
                 var sceneIndex = PlayerPrefs.GetInt("SceneToLoad");
                 var sceneToLoad = (SceneNames)sceneIndex;
 
