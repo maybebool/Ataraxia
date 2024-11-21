@@ -1,0 +1,17 @@
+VisualElement {
+}
+
+.mainButtonStyle{
+    align-self: center;
+    height: 100%;
+    width: 10%;
+    background-color: rgba(240, 230, 140, 0);
+    border-color: rgba(240, 230, 140, 0);
+}
+
+.mainButtonStyle:hover{
+    background-color: rgba(240, 230, 140, 0.1);
+}
+
+
+

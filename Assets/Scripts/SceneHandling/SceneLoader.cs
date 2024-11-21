@@ -1,4 +1,5 @@
 using System.Collections;
+using GameUI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -19,13 +20,13 @@ namespace SceneHandling {
             SceneManager.sceneLoaded -= SetActiveScene;
         }
 
-        public void LoadNewScene(int sceneNumber) {
+        public void LoadNewScene(SceneNames sceneNumber) {
             if (!_isLoading) {
                 StartCoroutine(LoadScene(sceneNumber));
             }
         }
 
-        private IEnumerator LoadScene(int sceneNumber) {
+        private IEnumerator LoadScene(SceneNames sceneNumber) {
             _isLoading = true;
             OnLoadBegin?.Invoke();
             yield return screenFader.StartFadeIn();
@@ -40,20 +41,28 @@ namespace SceneHandling {
 
         private IEnumerator UnloadCurrent() {
             var unloadOperation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            while (!unloadOperation.isDone) {
+            while (unloadOperation != null && !unloadOperation.isDone) {
                 yield return null;
             }
         }
 
-        private IEnumerator LoadNew(int sceneNumber) {
-            var loadOperation = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
-            while (!loadOperation.isDone) {
+        private IEnumerator LoadNew(SceneNames sceneNumber) {
+            var loadOperation = SceneManager.LoadSceneAsync((int)sceneNumber, LoadSceneMode.Additive);
+            while (loadOperation != null && !loadOperation.isDone) {
                 yield return null;
             }
         }
 
         private void SetActiveScene(Scene scene, LoadSceneMode mode) {
             SceneManager.SetActiveScene(scene);
+        }
+
+        public static void EnsureInstanceExists() {
+            if (Instance == null) {
+                var gameObject = new GameObject("SceneLoader");
+                gameObject.AddComponent<SceneLoader>();
+                gameObject.AddComponent<DontDestroy>();
+            }
         }
     }
 }
