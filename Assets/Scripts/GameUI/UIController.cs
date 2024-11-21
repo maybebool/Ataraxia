@@ -43,7 +43,7 @@ namespace GameUI {
         }
         
         private void OnEnable() {
-            UIUtil.CallMultipleActions(startExercisesButton, OnClickStartExercisesButton, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(startExercisesButton, ()=>OnClickStartASceneButton(SceneNames.Exercise1), ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnClickUIButton(2));
             UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnClickUIButton(2));
@@ -66,12 +66,12 @@ namespace GameUI {
             mainButtonTutorials.onClick.RemoveAllListeners();
         }
 
-        private void OnClickStartExercisesButton() {
-            SceneLoader.Instance.LoadNewScene((int)SceneNames.Scene1);
+        private void OnClickStartASceneButton(SceneNames scene) {
+            SceneLoader.Instance.LoadNewScene(scene);
         }
 
         private void OnClickBackToMainMenuButton() {
-            SceneLoader.Instance.LoadNewScene((int)SceneNames.MainMenu);
+            SceneLoader.Instance.LoadNewScene(SceneNames.MainMenu);
         }
 
         private void OnClickSongButton(int songIndex) {
