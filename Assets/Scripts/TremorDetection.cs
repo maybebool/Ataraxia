@@ -36,8 +36,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     private Vector3 outterCircleScale;
     private Vector3 tangentCircleScale;
     private const float PiHalf = Mathf.PI / 2;
-    private const float PiSquared = 2 * Mathf.PI;
-    private const float PiQ3 = 3 * Mathf.PI / 2;
+    private const float PIDoubled = 2 * Mathf.PI;
 
     
     private void Start() {
@@ -84,7 +83,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         
         outterCirclePosition = new Vector3(scO.CurrentPos.x, scO.CurrentPos.y, scO.CurrentPos.z - 0.1f);
         var quadrantRadiant = CalculateQuadrantLogicForRadiant();
-        GetRotatedTangent(quadrantRadiant, _outterCircle.w);
+        GetRadiantPointReflection(quadrantRadiant, _outterCircle.w);
         CalculateTremor();
         Debug.Log("Radiant: " + scO.degree);
     }
@@ -141,7 +140,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         }
     }
     
-    private Vector3 GetRotatedTangent(float radiant, float scale) {
+    private Vector3 GetRadiantPointReflection(float radiant, float scale) {
         var sin = scale * (float)Math.Sin(radiant);
         var cos = scale * (float)Math.Cos(radiant);
         return new Vector3(sin, -cos, 0);
@@ -161,22 +160,22 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         var quadrantBasedRadiant = 0f;
         var deltaX = GetLastPosition().x - scO.CurrentPos.x;
         var deltaY = GetLastPosition().y - scO.CurrentPos.y;
-        var aOfCos = Mathf.Acos(deltaX / CalculateHypotenuseToLastPosition());
+        var thetaOfCos = Mathf.Acos(deltaX / CalculateHypotenuseToLastPosition());
 
         switch (deltaX) {
-            // bottom right Quadrant < >
-            case < 0 when deltaY > 0:
-            // bottom left Quadrant > >
-            case > 0 when deltaY > 0:
-                quadrantBasedRadiant = PiHalf + aOfCos;
-                break;
-            // top right Quadrant < < 
-            case < 0 when deltaY < 0:
-                quadrantBasedRadiant = PiSquared + PiHalf - aOfCos;
-                break;
-            // top left Quadrant > <
+            // top left Quadrant > < | 0 - 90
             case > 0 when deltaY < 0:
-                quadrantBasedRadiant = PiHalf - aOfCos;
+                quadrantBasedRadiant = PiHalf - thetaOfCos;
+                break;
+            // bottom left Quadrant > > | 90 - 180
+            case > 0 when deltaY > 0:
+                quadrantBasedRadiant = PiHalf + thetaOfCos;
+                break;
+            // bottom right Quadrant < > | 180 - 270
+            case < 0 when deltaY > 0:
+            // top right Quadrant < <  | 270 - 360
+            case < 0 when deltaY < 0:
+                quadrantBasedRadiant = PIDoubled + PiHalf - thetaOfCos;
                 break;
         }
 
