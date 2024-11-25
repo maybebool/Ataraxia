@@ -13,29 +13,31 @@ VisualElement {}
 }
 
 #MaxLine{
-    width: 100%;
+    width: 50px;
     height: 2px;
-    background-color: red;
+    background-color: white;
     position: absolute;
 }
 #MedianLine{
     width: 100%;
     height: 2px;
-    background-color: green;
+    background-color: white;
     position: absolute;
 }
 
 #MinLine{
-    width: 100%;
+    width: 50%;
     height: 2px;
-    background-color: deepskyblue;
+    background-color: white;
     position: absolute;
 }
 
 #Box {
     width: 100%;
-    background-color: rgba(0,1,1,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-width: 2;
     position: absolute;
+    border-color: white;
 }
 
 #BoxPlotOuterContainer {
@@ -72,8 +74,14 @@ VisualElement {}
     width: 200px;
     height: 200px;
     position: relative;
-    border: 1px solid #000;
     margin-left: 10px;
+}
+
+#UpperWhiskerLine,
+#LowerWhiskerLine {
+    position: absolute;
+    width: 2px;
+    background-color: white;
 }
 
 #BoxPlotMaxLabel,

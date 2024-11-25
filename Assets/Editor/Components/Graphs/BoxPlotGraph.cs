@@ -11,6 +11,9 @@ namespace Editor.Components.Graphs {
         private VisualElement _maxLine;
         private VisualElement _box;
         private VisualElement _medianLine;
+        
+        private VisualElement _upperWhiskerLine;
+        private VisualElement _lowerWhiskerLine;
 
         // New: Labels for box plot statistics
         private Label _minLabel;
@@ -85,12 +88,25 @@ namespace Editor.Components.Graphs {
             _medianLine.style.position = Position.Absolute;
             _medianLine.style.width = new Length(60, LengthUnit.Percent);
             _medianLine.style.height = 2;
+            
+            // ** New: Create the upper whisker line
+            _upperWhiskerLine = new VisualElement { name = "UpperWhiskerLine" };
+            _upperWhiskerLine.style.position = Position.Absolute;
+            _upperWhiskerLine.style.width = 2;
+
+            // ** New: Create the lower whisker line
+            _lowerWhiskerLine = new VisualElement { name = "LowerWhiskerLine" };
+            _lowerWhiskerLine.style.position = Position.Absolute;
+            _lowerWhiskerLine.style.width = 2;
+
 
             // Add these elements to the box plot container
             _boxplotContainer.Add(_minLine);
             _boxplotContainer.Add(_maxLine);
             _boxplotContainer.Add(_box);
             _boxplotContainer.Add(_medianLine);
+            _boxplotContainer.Add(_upperWhiskerLine);  // Add upper whisker
+            _boxplotContainer.Add(_lowerWhiskerLine);  // Add lower whisker
 
             // Add the labels container and box plot container to the outer container
             _outerContainer.Add(_labelsContainer);
@@ -147,17 +163,53 @@ namespace Editor.Components.Graphs {
                 float medianPosition = containerHeight * (_boxPlotData.median - minValue) / range;
                 float q3Position = containerHeight * (_boxPlotData.q3 - minValue) / range;
 
+                
+                float boxTop = containerHeight - q3Position;
+                float boxBottom = containerHeight - q1Position;
+                float boxHeight = boxBottom - boxTop;
+
+                _box.style.top = boxTop;
+                _box.style.height = boxHeight;
                 // Update the positions of the lines and box
                 // For a vertical boxplot:
                 // - top coordinate of the container is 0 and the bottom is containerHeight
                 _minLine.style.top = containerHeight - minPosition - 1;     // offset by half height
                 _maxLine.style.top = containerHeight - maxPosition - 1;     // offset by half height
                 _medianLine.style.top = containerHeight - medianPosition - 1;// offset by half height
+                
 
-                // The box spans from q1 to q3
-                float boxHeight = q3Position - q1Position;
-                _box.style.top = containerHeight - q3Position;
-                _box.style.height = boxHeight;
+                // Upper whisker from center of top of box to max line
+                float upperWhiskerStartY = boxTop;
+                float upperWhiskerEndY = containerHeight - maxPosition;
+                float upperWhiskerHeight = upperWhiskerStartY - upperWhiskerEndY;
+
+                _upperWhiskerLine.style.left = new Length(50, LengthUnit.Percent); // Center horizontally
+                _upperWhiskerLine.style.marginLeft = -1; // Adjust for half the width of the line
+
+                if (upperWhiskerHeight > 0) {
+                    _upperWhiskerLine.style.top = upperWhiskerEndY;
+                    _upperWhiskerLine.style.height = upperWhiskerHeight;
+                    _upperWhiskerLine.style.display = DisplayStyle.Flex;
+                } else {
+                    _upperWhiskerLine.style.display = DisplayStyle.None;
+                }
+
+                // Lower whisker from center of bottom of box to min line
+                float lowerWhiskerStartY = boxBottom;
+                float lowerWhiskerEndY = containerHeight - minPosition;
+                float lowerWhiskerHeight = lowerWhiskerEndY - lowerWhiskerStartY;
+
+                _lowerWhiskerLine.style.left = new Length(50, LengthUnit.Percent); // Center horizontally
+                _lowerWhiskerLine.style.marginLeft = -1; // Adjust for half the width of the line
+
+                if (lowerWhiskerHeight > 0) {
+                    _lowerWhiskerLine.style.top = lowerWhiskerStartY;
+                    _lowerWhiskerLine.style.height = lowerWhiskerHeight;
+                    _lowerWhiskerLine.style.display = DisplayStyle.Flex;
+                } else {
+                    _lowerWhiskerLine.style.display = DisplayStyle.None;
+                }
+
 
                 // Force UI redraw
                 MarkDirtyRepaint();
