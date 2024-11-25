@@ -100,20 +100,32 @@ namespace Editor.Components.Graphs {
             };
 
             // Create the line representing the median value
-            _medianLine = new VisualElement { name = "MedianLine" };
-            _medianLine.style.position = Position.Absolute;
-            _medianLine.style.width = new Length(60, LengthUnit.Percent);
-            _medianLine.style.height = 2;
-            
+            _medianLine = new VisualElement {
+                name = "MedianLine",
+                style = {
+                    position = Position.Absolute,
+                    width = new Length(60, LengthUnit.Percent),
+                    height = 2
+                }
+            };
+
             // ** New: Create the upper whisker line
-            _upperWhiskerLine = new VisualElement { name = "UpperWhiskerLine" };
-            _upperWhiskerLine.style.position = Position.Absolute;
-            _upperWhiskerLine.style.width = 2;
+            _upperWhiskerLine = new VisualElement {
+                name = "UpperWhiskerLine",
+                style = {
+                    position = Position.Absolute,
+                    width = 2
+                }
+            };
 
             // ** New: Create the lower whisker line
-            _lowerWhiskerLine = new VisualElement { name = "LowerWhiskerLine" };
-            _lowerWhiskerLine.style.position = Position.Absolute;
-            _lowerWhiskerLine.style.width = 2;
+            _lowerWhiskerLine = new VisualElement {
+                name = "LowerWhiskerLine",
+                style = {
+                    position = Position.Absolute,
+                    width = 2
+                }
+            };
 
 
             // Add these elements to the box plot container
@@ -159,48 +171,45 @@ namespace Editor.Components.Graphs {
             _boxplotContainer.style.flexDirection = FlexDirection.Column;
 
             // Calculate layout after style changes
-            this.schedule.Execute(() => {
+            schedule.Execute(() => {
                 // Dimensions of the container
-                float containerHeight = _boxplotContainer.layout.height > 0 ? _boxplotContainer.layout.height : 200f;
+                var containerHeight = _boxplotContainer.layout.height > 0 ? _boxplotContainer.layout.height : 200f;
 
                 // Normalizing values based on min and max
-                float minValue = _boxPlotData.min;
-                float maxValue = _boxPlotData.max;
-                float range = maxValue - minValue;
+                var minValue = _boxPlotData.min;
+                var maxValue = _boxPlotData.max;
+                var range = maxValue - minValue;
 
                 if (Mathf.Approximately(range, 0f)) {
-                    range = 1f; // In case all values are the same
+                    // In case all values are the same
+                    range = 1f; 
                 }
-
-                // Calculate vertical positions (assuming vertical boxplot)
-                float minPosition = containerHeight * (_boxPlotData.min - minValue) / range;
-                float maxPosition = containerHeight * (_boxPlotData.max - minValue) / range;
-                float q1Position = containerHeight * (_boxPlotData.q1 - minValue) / range;
-                float medianPosition = containerHeight * (_boxPlotData.median - minValue) / range;
-                float q3Position = containerHeight * (_boxPlotData.q3 - minValue) / range;
+                
+                var minPosition = containerHeight * (_boxPlotData.min - minValue) / range;
+                var maxPosition = containerHeight * (_boxPlotData.max - minValue) / range;
+                var q1Position = containerHeight * (_boxPlotData.q1 - minValue) / range;
+                var medianPosition = containerHeight * (_boxPlotData.median - minValue) / range;
+                var q3Position = containerHeight * (_boxPlotData.q3 - minValue) / range;
 
                 
-                float boxTop = containerHeight - q3Position;
-                float boxBottom = containerHeight - q1Position;
-                float boxHeight = boxBottom - boxTop;
+                var boxTop = containerHeight - q3Position;
+                var boxBottom = containerHeight - q1Position;
+                var boxHeight = boxBottom - boxTop;
 
                 _box.style.top = boxTop;
                 _box.style.height = boxHeight;
-                // Update the positions of the lines and box
-                // For a vertical boxplot:
-                // - top coordinate of the container is 0 and the bottom is containerHeight
-                _minLine.style.top = containerHeight - minPosition - 1;     // offset by half height
-                _maxLine.style.top = containerHeight - maxPosition - 1;     // offset by half height
-                _medianLine.style.top = containerHeight - medianPosition - 1;// offset by half height
+                _minLine.style.top = containerHeight - minPosition - 1; 
+                _maxLine.style.top = containerHeight - maxPosition - 1;
+                _medianLine.style.top = containerHeight - medianPosition - 1;
                 
 
                 // Upper whisker from center of top of box to max line
-                float upperWhiskerStartY = boxTop;
-                float upperWhiskerEndY = containerHeight - maxPosition;
-                float upperWhiskerHeight = upperWhiskerStartY - upperWhiskerEndY;
+                var upperWhiskerStartY = boxTop;
+                var upperWhiskerEndY = containerHeight - maxPosition;
+                var upperWhiskerHeight = upperWhiskerStartY - upperWhiskerEndY;
 
-                _upperWhiskerLine.style.left = new Length(50, LengthUnit.Percent); // Center horizontally
-                _upperWhiskerLine.style.marginLeft = -1; // Adjust for half the width of the line
+                _upperWhiskerLine.style.left = new Length(50, LengthUnit.Percent); 
+                _upperWhiskerLine.style.marginLeft = -1; 
 
                 if (upperWhiskerHeight > 0) {
                     _upperWhiskerLine.style.top = upperWhiskerEndY;
@@ -211,9 +220,9 @@ namespace Editor.Components.Graphs {
                 }
 
                 // Lower whisker from center of bottom of box to min line
-                float lowerWhiskerStartY = boxBottom;
-                float lowerWhiskerEndY = containerHeight - minPosition;
-                float lowerWhiskerHeight = lowerWhiskerEndY - lowerWhiskerStartY;
+                var lowerWhiskerStartY = boxBottom;
+                var lowerWhiskerEndY = containerHeight - minPosition;
+                var lowerWhiskerHeight = lowerWhiskerEndY - lowerWhiskerStartY;
 
                 _lowerWhiskerLine.style.left = new Length(50, LengthUnit.Percent); // Center horizontally
                 _lowerWhiskerLine.style.marginLeft = -1; // Adjust for half the width of the line
