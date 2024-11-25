@@ -52,6 +52,7 @@ namespace Editor.AtaraxiaWindow {
 
             // We add the box plot to the root (or another container as needed)
             rootVisualElement.Add(_boxPlotGraph);
+            _boxPlotGraph.SetTitle("test");
             _boxPlotGraph.style.display = DisplayStyle.None; // Initially hidden
 
             // Button mapping

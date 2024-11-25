@@ -19,7 +19,7 @@ VisualElement {}
     position: absolute;
 }
 #MedianLine{
-    width: 100%;
+    width: 50%;
     height: 2px;
     background-color: white;
     position: absolute;
@@ -71,10 +71,22 @@ VisualElement {}
 }
 
 #BoxPlotContainer {
-    width: 200px;
+    align-items: center;
+    width: 100px;
     height: 200px;
     position: relative;
     margin-left: 10px;
+}
+
+#BoxPlotTitleLabel {
+    align-self: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#BoxPlotMainContainer {
+    flex-direction: column;
+    align-items: center;
 }
 
 #UpperWhiskerLine,

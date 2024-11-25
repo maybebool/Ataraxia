@@ -4,14 +4,15 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
-        private VisualElement _outerContainer;   // New: Top-level container holding labels and box plot side by side
-        private VisualElement _labelsContainer;  // New: Container for the labels on the left
+        private Label _titleLabel;
+        private VisualElement _outerContainer; // New: Top-level container holding labels and box plot side by side
+        private VisualElement _labelsContainer; // New: Container for the labels on the left
         private VisualElement _boxplotContainer;
         private VisualElement _minLine;
         private VisualElement _maxLine;
         private VisualElement _box;
         private VisualElement _medianLine;
-        
+
         private VisualElement _upperWhiskerLine;
         private VisualElement _lowerWhiskerLine;
 
@@ -24,26 +25,32 @@ namespace Editor.Components.Graphs {
 
         private BoxPlotData _boxPlotData;
 
-        public BoxPlotGraph() {
+        public BoxPlotGraph(string title = "1") {
             // Load the USS stylesheet
             var boxPlotStyle = Resources.Load<StyleSheet>("Styles/BoxPlotStyle");
             if (boxPlotStyle != null) {
                 styleSheets.Add(boxPlotStyle);
             }
             else {
-                Debug.LogError("Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
+                Debug.LogError(
+                    "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
 
             // Initialize the outer container (row direction: labels on left, box plot on right)
+            _titleLabel = new Label(title) { name = "BoxPlotTitleLabel" };
             _outerContainer = new VisualElement { name = "BoxPlotOuterContainer" };
             _outerContainer.style.flexDirection = FlexDirection.Row;
 
             // Initialize the labels container (column direction to stack labels vertically)
-            _labelsContainer = new VisualElement { name = "BoxPlotLabelsContainer" };
-            _labelsContainer.style.flexDirection = FlexDirection.Column;
-            _labelsContainer.style.justifyContent = Justify.SpaceBetween; 
-            _labelsContainer.style.width = 60;  // Set a fixed width for labels container
-            _labelsContainer.style.marginRight = 10;  // A bit of space between labels and the box plot
+            _labelsContainer = new VisualElement {
+                name = "BoxPlotLabelsContainer",
+                style = {
+                    flexDirection = FlexDirection.Column,
+                    justifyContent = Justify.SpaceBetween,
+                    width = 60, // Set a fixed width for labels container
+                    marginRight = 10 // A bit of space between labels and the box plot
+                }
+            };
 
             // Create label elements for each box plot statistic
             _maxLabel = new Label { name = "BoxPlotMaxLabel" };
@@ -61,70 +68,37 @@ namespace Editor.Components.Graphs {
 
             // Initialize the box plot container
             _boxplotContainer = new VisualElement {
-                name = "BoxPlotContainer",
-                style = {
-                    width = 100,
-                    height = 200,
-                    position = Position.Relative,
-                    alignItems = Align.Center
-                }
+                name = "BoxPlotContainer"
             };
 
             // Create the line representing the minimum value
             _minLine = new VisualElement {
-                name = "MinLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(50, LengthUnit.Percent),
-                    height = 2
-                }
+                name = "MinLine"
             };
 
             // Create the line representing the maximum value
             _maxLine = new VisualElement {
-                name = "MaxLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(50, LengthUnit.Percent),
-                    height = 2
-                }
+                name = "MaxLine"
             };
 
             // Create the box representing the interquartile range (IQR)
             _box = new VisualElement {
-                name = "Box",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(60, LengthUnit.Percent)
-                }
+                name = "Box"
             };
 
             // Create the line representing the median value
             _medianLine = new VisualElement {
-                name = "MedianLine",
-                style = {
-                    position = Position.Absolute,
-                    width = new Length(60, LengthUnit.Percent),
-                    height = 2
-                }
+                name = "MedianLine"
             };
 
             // ** New: Create the upper whisker line
             _upperWhiskerLine = new VisualElement {
-                name = "UpperWhiskerLine",
-                style = {
-                    position = Position.Absolute,
-                    width = 2
-                }
+                name = "UpperWhiskerLine"
             };
 
             // ** New: Create the lower whisker line
             _lowerWhiskerLine = new VisualElement {
-                name = "LowerWhiskerLine",
-                style = {
-                    position = Position.Absolute,
-                    width = 2
-                }
+                name = "LowerWhiskerLine"
             };
 
 
@@ -133,15 +107,22 @@ namespace Editor.Components.Graphs {
             _boxplotContainer.Add(_maxLine);
             _boxplotContainer.Add(_box);
             _boxplotContainer.Add(_medianLine);
-            _boxplotContainer.Add(_upperWhiskerLine);  // Add upper whisker
-            _boxplotContainer.Add(_lowerWhiskerLine);  // Add lower whisker
+            _boxplotContainer.Add(_upperWhiskerLine); // Add upper whisker
+            _boxplotContainer.Add(_lowerWhiskerLine); // Add lower whisker
 
             // Add the labels container and box plot container to the outer container
             _outerContainer.Add(_labelsContainer);
             _outerContainer.Add(_boxplotContainer);
+            
+            var mainContainer = new VisualElement { name = "BoxPlotMainContainer" };
+            mainContainer.style.flexDirection = FlexDirection.Column;
+            mainContainer.style.alignItems = Align.Center;
+            
+            mainContainer.Add(_titleLabel);
+            mainContainer.Add(_outerContainer);
 
             // Add the outer container to the BoxPlotGraph VisualElement
-            Add(_outerContainer);
+            Add(mainContainer);
 
             // Apply the name to this VisualElement for styling
             name = "BoxPlot";
@@ -151,10 +132,15 @@ namespace Editor.Components.Graphs {
             _boxPlotData = data;
             UpdateBoxPlotDisplay();
         }
+        
+        public void SetTitle(string title) {
+            _titleLabel.text = title;
+        }
 
         private void UpdateBoxPlotDisplay() {
             if (_boxPlotData == null || _boxPlotData.values == null || _boxPlotData.values.Length == 0) return;
-            if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null || _medianLine == null) {
+            if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null ||
+                _medianLine == null) {
                 Debug.LogError("BoxPlotGraph visual elements are not properly initialized.");
                 return;
             }
@@ -182,40 +168,41 @@ namespace Editor.Components.Graphs {
 
                 if (Mathf.Approximately(range, 0f)) {
                     // In case all values are the same
-                    range = 1f; 
+                    range = 1f;
                 }
-                
+
                 var minPosition = containerHeight * (_boxPlotData.min - minValue) / range;
                 var maxPosition = containerHeight * (_boxPlotData.max - minValue) / range;
                 var q1Position = containerHeight * (_boxPlotData.q1 - minValue) / range;
                 var medianPosition = containerHeight * (_boxPlotData.median - minValue) / range;
                 var q3Position = containerHeight * (_boxPlotData.q3 - minValue) / range;
 
-                
+
                 var boxTop = containerHeight - q3Position;
                 var boxBottom = containerHeight - q1Position;
                 var boxHeight = boxBottom - boxTop;
 
                 _box.style.top = boxTop;
                 _box.style.height = boxHeight;
-                _minLine.style.top = containerHeight - minPosition - 1; 
+                _minLine.style.top = containerHeight - minPosition - 1;
                 _maxLine.style.top = containerHeight - maxPosition - 1;
                 _medianLine.style.top = containerHeight - medianPosition - 1;
-                
+
 
                 // Upper whisker from center of top of box to max line
                 var upperWhiskerStartY = boxTop;
                 var upperWhiskerEndY = containerHeight - maxPosition;
                 var upperWhiskerHeight = upperWhiskerStartY - upperWhiskerEndY;
 
-                _upperWhiskerLine.style.left = new Length(50, LengthUnit.Percent); 
-                _upperWhiskerLine.style.marginLeft = -1; 
+                _upperWhiskerLine.style.left = new Length(50, LengthUnit.Percent);
+                _upperWhiskerLine.style.marginLeft = -1;
 
                 if (upperWhiskerHeight > 0) {
                     _upperWhiskerLine.style.top = upperWhiskerEndY;
                     _upperWhiskerLine.style.height = upperWhiskerHeight;
                     _upperWhiskerLine.style.display = DisplayStyle.Flex;
-                } else {
+                }
+                else {
                     _upperWhiskerLine.style.display = DisplayStyle.None;
                 }
 
@@ -231,10 +218,10 @@ namespace Editor.Components.Graphs {
                     _lowerWhiskerLine.style.top = lowerWhiskerStartY;
                     _lowerWhiskerLine.style.height = lowerWhiskerHeight;
                     _lowerWhiskerLine.style.display = DisplayStyle.Flex;
-                } else {
+                }
+                else {
                     _lowerWhiskerLine.style.display = DisplayStyle.None;
                 }
-
 
                 // Force UI redraw
                 MarkDirtyRepaint();
