@@ -60,28 +60,44 @@ namespace Editor.Components.Graphs {
             _labelsContainer.Add(_minLabel);
 
             // Initialize the box plot container
-            _boxplotContainer = new VisualElement { name = "BoxPlotContainer" };
-            _boxplotContainer.style.width = 100;
-            _boxplotContainer.style.height = 200;
-            _boxplotContainer.style.position = Position.Relative;
-            _boxplotContainer.style.alignItems = Align.Center;
+            _boxplotContainer = new VisualElement {
+                name = "BoxPlotContainer",
+                style = {
+                    width = 100,
+                    height = 200,
+                    position = Position.Relative,
+                    alignItems = Align.Center
+                }
+            };
 
             // Create the line representing the minimum value
-            _minLine = new VisualElement { name = "MinLine" };
-            _minLine.style.position = Position.Absolute;
-            _minLine.style.width = new Length(100, LengthUnit.Percent);
-            _minLine.style.height = 2;
+            _minLine = new VisualElement {
+                name = "MinLine",
+                style = {
+                    position = Position.Absolute,
+                    width = new Length(50, LengthUnit.Percent),
+                    height = 2
+                }
+            };
 
             // Create the line representing the maximum value
-            _maxLine = new VisualElement { name = "MaxLine" };
-            _maxLine.style.position = Position.Absolute;
-            _maxLine.style.width = new Length(100, LengthUnit.Percent);
-            _maxLine.style.height = 2;
+            _maxLine = new VisualElement {
+                name = "MaxLine",
+                style = {
+                    position = Position.Absolute,
+                    width = new Length(50, LengthUnit.Percent),
+                    height = 2
+                }
+            };
 
             // Create the box representing the interquartile range (IQR)
-            _box = new VisualElement { name = "Box" };
-            _box.style.position = Position.Absolute;
-            _box.style.width = new Length(60, LengthUnit.Percent);
+            _box = new VisualElement {
+                name = "Box",
+                style = {
+                    position = Position.Absolute,
+                    width = new Length(60, LengthUnit.Percent)
+                }
+            };
 
             // Create the line representing the median value
             _medianLine = new VisualElement { name = "MedianLine" };
