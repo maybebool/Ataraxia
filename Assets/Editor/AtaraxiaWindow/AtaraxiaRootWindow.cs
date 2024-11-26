@@ -8,6 +8,7 @@ using ScriptableObjects;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow {
@@ -18,9 +19,13 @@ namespace Editor.AtaraxiaWindow {
         private List<BoxPlotGraph> _boxPlotGraphs = new();
         private List<BoxPlotData> _boxPlotDatas = new();
         private double _nextUpdateTime = 0f;
+        private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 0.2f; 
+        private float _updateIntervalInSecondsLineGraph = 1f; 
+        private float _currentValue = 6f; // Starting value
 
         private bool _shouldUpdateBoxPlot;
+        private LineGraph _lineChart;
 
         [MenuItem("Window/Ataraxia")]
         public static void ShowWindow() {
@@ -42,15 +47,22 @@ namespace Editor.AtaraxiaWindow {
             
             // Create a new container for the BoxPlotGraphs
             var boxPlotContainer = new VisualElement();
-            boxPlotContainer.style.flexDirection = FlexDirection.Row;
-            boxPlotContainer.style.justifyContent = Justify.Center;
+            boxPlotContainer.style.flexDirection = FlexDirection.Column;
+            boxPlotContainer.style.alignItems = Align.FlexStart; // Change to FlexStart to left-align children
             boxPlotContainer.style.display = DisplayStyle.None; // Initially hidden
 
             // Titles for each BoxPlotGraph
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
 
+            // Create a container for the BoxPlots
+            var boxPlotsRow = new VisualElement();
+            boxPlotsRow.style.flexDirection = FlexDirection.Row;
+            boxPlotsRow.style.justifyContent = Justify.Center;
+            boxPlotsRow.style.alignSelf = Align.Center; // Center this row within the parent container
+
             // Loop to create BoxPlotGraphs and BoxPlotDatas
-            foreach (var t in titles) {
+            foreach (var t in titles)
+            {
                 var boxPlotGraph = new BoxPlotGraph();
                 var boxPlotData = CreateInstance<BoxPlotData>();
 
@@ -59,10 +71,24 @@ namespace Editor.AtaraxiaWindow {
 
                 _boxPlotGraphs.Add(boxPlotGraph);
                 _boxPlotDatas.Add(boxPlotData);
-                boxPlotContainer.Add(boxPlotGraph);
+                boxPlotsRow.Add(boxPlotGraph);
             }
 
-            // Add the container to the root
+            // Add the boxPlotsRow to the boxPlotContainer
+            boxPlotContainer.Add(boxPlotsRow);
+
+            // Create LineChart instance and add it under the boxPlotContainer
+            _lineChart = new LineGraph("Sample Line Chart");
+            _lineChart.style.height = 200;
+            _lineChart.style.width = new Length(75, LengthUnit.Percent); 
+            _lineChart.style.marginLeft = 50;// Set desired height
+            _lineChart.style.marginTop = 50;// Set desired height
+            _lineChart.style.alignSelf = Align.FlexStart; // Ensure it's left-aligned
+            
+            // Add LineChart to boxPlotContainer
+            boxPlotContainer.Add(_lineChart);
+
+            // Add the boxPlotContainer to the root
             rootVisualElement.Add(boxPlotContainer);
 
             // Button mapping
@@ -113,6 +139,12 @@ namespace Editor.AtaraxiaWindow {
                     UpdateBoxPlot();
                 }
             }
+            if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
+                _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
+
+                // Generate random data and update the box plots
+                UpdateLineGraph();
+            }
         }
 
         private void GenerateRandomDataForBoxPlot() {
@@ -125,7 +157,8 @@ namespace Editor.AtaraxiaWindow {
                     }
 
                     data.values = randomValues;
-                    data.RecalculateStatistics(); // Recalculate after assigning new values
+                    data.RecalculateStatistics(); 
+                    Debug.Log(randomValues);// Recalculate after assigning new values
                 }
             }
         }
@@ -137,7 +170,16 @@ namespace Editor.AtaraxiaWindow {
                 if (graph != null && data != null) {
                     graph.SetBoxPlotData(data);
                 }
+                
             }
+        }
+
+        private void UpdateLineGraph() {
+            _lineChart.AddDataPoint(_currentValue);
+            _lineChart.UpdateChart(_updateIntervalInSecondsLineGraph);
+
+            // Update current value
+            _currentValue = RandomizeValue(_currentValue);
         }
 
         private void TestBoxPlotValues() {
@@ -147,6 +189,13 @@ namespace Editor.AtaraxiaWindow {
                 _boxPlotDatas[0].values = testValues;
                 _boxPlotDatas[0].RecalculateStatistics(); // Recalculate after assigning new values
             }
+        }
+        
+        private float RandomizeValue(float value) {
+            float randomChange = Random.Range(0.1f, 1f); // Random change between 0.1 and 1
+            bool increase = Random.value > 0.5f; // Randomly decide whether to increase or decrease the value
+            float newValue = increase ? value + randomChange : value - randomChange; // Apply change
+            return Mathf.Clamp(newValue, 0.1f, 12f); // Clamp value between 0.1 and 12
         }
     }
 }

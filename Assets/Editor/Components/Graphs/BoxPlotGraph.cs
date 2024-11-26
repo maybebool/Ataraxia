@@ -38,8 +38,12 @@ namespace Editor.Components.Graphs {
 
             // Initialize the outer container (row direction: labels on left, box plot on right)
             _titleLabel = new Label(title) { name = "BoxPlotTitleLabel" };
-            _outerContainer = new VisualElement { name = "BoxPlotOuterContainer" };
-            _outerContainer.style.flexDirection = FlexDirection.Row;
+            _outerContainer = new VisualElement {
+                name = "BoxPlotOuterContainer",
+                style = {
+                    flexDirection = FlexDirection.Row
+                }
+            };
 
             // Initialize the labels container (column direction to stack labels vertically)
             _labelsContainer = new VisualElement {
