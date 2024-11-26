@@ -53,32 +53,32 @@ namespace Editor.AtaraxiaWindow {
 
             // Titles for each BoxPlotGraph
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
-
+            
             // Create a container for the BoxPlots
             var boxPlotsRow = new VisualElement();
             boxPlotsRow.style.flexDirection = FlexDirection.Row;
             boxPlotsRow.style.justifyContent = Justify.Center;
             boxPlotsRow.style.alignSelf = Align.Center; // Center this row within the parent container
-
+            
             // Loop to create BoxPlotGraphs and BoxPlotDatas
             foreach (var t in titles)
             {
                 var boxPlotGraph = new BoxPlotGraph();
                 var boxPlotData = CreateInstance<BoxPlotData>();
-
+            
                 boxPlotGraph.SetTitle(t);
                 boxPlotGraph.style.display = DisplayStyle.Flex; // Will be controlled by the container
-
+            
                 _boxPlotGraphs.Add(boxPlotGraph);
                 _boxPlotDatas.Add(boxPlotData);
                 boxPlotsRow.Add(boxPlotGraph);
             }
-
+            
             // Add the boxPlotsRow to the boxPlotContainer
             boxPlotContainer.Add(boxPlotsRow);
 
             // Create LineChart instance and add it under the boxPlotContainer
-            _lineChart = new LineGraph("Sample Line Chart");
+            _lineChart = new LineGraph("Nervositätslevel");
             _lineChart.style.height = 200;
             _lineChart.style.width = new Length(75, LengthUnit.Percent); 
             _lineChart.style.marginLeft = 50;// Set desired height
@@ -176,7 +176,7 @@ namespace Editor.AtaraxiaWindow {
 
         private void UpdateLineGraph() {
             _lineChart.AddDataPoint(_currentValue);
-            _lineChart.UpdateChart(_updateIntervalInSecondsLineGraph);
+            _lineChart.UpdateChartDisplay();
 
             // Update current value
             _currentValue = RandomizeValue(_currentValue);
@@ -195,7 +195,7 @@ namespace Editor.AtaraxiaWindow {
             float randomChange = Random.Range(0.1f, 1f); // Random change between 0.1 and 1
             bool increase = Random.value > 0.5f; // Randomly decide whether to increase or decrease the value
             float newValue = increase ? value + randomChange : value - randomChange; // Apply change
-            return Mathf.Clamp(newValue, 0.1f, 12f); // Clamp value between 0.1 and 12
+            return Mathf.Clamp(newValue, 0.1f, 10f); // Clamp value between 0.1 and 12
         }
     }
 }
