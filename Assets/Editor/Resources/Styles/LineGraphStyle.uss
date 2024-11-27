@@ -55,5 +55,5 @@ VisualElement {}
 
 #LineChartContainer{
     flex-grow: 1;
-    position: relative;
+    /*position: relative;*/
 }

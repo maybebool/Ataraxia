@@ -1,8 +1,8 @@
 VisualElement {}
 #BoxPlot {
-    padding: 10px;
-    justify-content: center;
-    align-self: center ;
+    padding: 30px;
+    justify-content: flex-start;
+    align-self: flex-start ;
     margin: 2% 3% 3%;
 }
 #MaxLine{
@@ -54,7 +54,7 @@ VisualElement {}
 }
 #BoxPlotMainContainer {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 #UpperWhiskerLine,
 #LowerWhiskerLine {

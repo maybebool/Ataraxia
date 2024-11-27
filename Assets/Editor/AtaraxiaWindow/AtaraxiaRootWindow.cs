@@ -46,20 +46,27 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabView);
             
             // Create a new container for the BoxPlotGraphs
-            var boxPlotContainer = new VisualElement();
-            boxPlotContainer.style.flexDirection = FlexDirection.Column;
-            boxPlotContainer.style.alignItems = Align.FlexStart; // Change to FlexStart to left-align children
-            boxPlotContainer.style.display = DisplayStyle.None; // Initially hidden
+            var boxPlotContainer = new VisualElement {
+                name = "boxPlotContainer",
+                style = {
+                    flexDirection = FlexDirection.Column,
+                    alignItems = Align.FlexStart, // Change to FlexStart to left-align children
+                    display = DisplayStyle.None // Initially hidden
+                }
+            };
 
             // Titles for each BoxPlotGraph
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
             
             // Create a container for the BoxPlots
-            var boxPlotsRow = new VisualElement();
-            boxPlotsRow.style.flexDirection = FlexDirection.Row;
-            boxPlotsRow.style.justifyContent = Justify.Center;
-            boxPlotsRow.style.alignSelf = Align.Center; // Center this row within the parent container
-            
+            var boxPlotsRow = new VisualElement {
+                style = {
+                    flexDirection = FlexDirection.Row,
+                    justifyContent = Justify.FlexStart,
+                    alignSelf = Align.FlexStart // Center this row within the parent container
+                }
+            };
+
             // Loop to create BoxPlotGraphs and BoxPlotDatas
             foreach (var t in titles)
             {
