@@ -35,16 +35,13 @@ namespace Editor.Components.Graphs {
         
         public void AddDataPoint(float dataPoint) {
             _dataPoints.Add(dataPoint);
-
-            // Ensure _maxDataPoints is greater than zero
             var maxPoints = Mathf.Max(_maxDataPoints, 1);
 
             while (_dataPoints.Count > maxPoints) {
                 _dataPoints.RemoveAt(0);
             }
         }
-
-        // Method to update the chart display
+        
         public void UpdateChartDisplay() {
             if (_dataPoints == null || _dataPoints.Count < 2) return;
             if (_chartContainer == null) {
@@ -65,7 +62,6 @@ namespace Editor.Components.Graphs {
                 }
                 
                 _chartContainer.Clear();
-                
 
                 valueRange = maxValue - minValue;
                 // Prevent division by zero
@@ -86,7 +82,6 @@ namespace Editor.Components.Graphs {
             var thirdRange = valueRange / 3f;
             var greenThreshold = minValue + thirdRange;
             var yellowThreshold = minValue + 2f * thirdRange;
-            
             var greenHeight = ((greenThreshold - minValue) / valueRange) * height;
             var yellowHeight = ((yellowThreshold - greenThreshold) / valueRange) * height;
             var redHeight = height - greenHeight - yellowHeight;
@@ -148,7 +143,6 @@ namespace Editor.Components.Graphs {
                 _chartContainer.Add(line);
             }
         }
-
         
         private void DrawGridLines(float width, float height, float minValue, float valueRange) {
             var stepX = width / (_maxDataPoints - 1);

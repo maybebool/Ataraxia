@@ -5,6 +5,7 @@ using Editor.Components.CenterRowContainer;
 using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
 using ScriptableObjects;
+using Editor.Helpers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ using Random = UnityEngine.Random;
 namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow {
         [SerializeField] private Texture2D backgroundImage;
-
+        [SerializeField] private StyleSheet styleSheet;
         private VisualElement _tabContainer;
         private Dictionary<Button, VisualElement> _buttonToUIElementMap = new();
         private List<BoxPlotGraph> _boxPlotGraphs = new();
@@ -35,7 +36,7 @@ namespace Editor.AtaraxiaWindow {
 
         public void CreateGUI() {
             rootVisualElement.style.backgroundImage = backgroundImage;
-
+            rootVisualElement.styleSheets.Add(styleSheet);
             var sceneManagerBtn = new UpperMainButton("Scene Manager");
             var dataViewBnt = new UpperMainButton("Data View");
             var settingsBnt = new UpperMainButton("Settings");
@@ -46,26 +47,13 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabView);
             
             // Create a new container for the BoxPlotGraphs
-            var boxPlotContainer = new VisualElement {
-                name = "boxPlotContainer",
-                style = {
-                    flexDirection = FlexDirection.Column,
-                    alignItems = Align.FlexStart, // Change to FlexStart to left-align children
-                    display = DisplayStyle.None // Initially hidden
-                }
-            };
+            var boxPlotContainer = new VisualElement().AddClass("boxPlotContainer");
 
             // Titles for each BoxPlotGraph
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
             
             // Create a container for the BoxPlots
-            var boxPlotsRow = new VisualElement {
-                style = {
-                    flexDirection = FlexDirection.Row,
-                    justifyContent = Justify.FlexStart,
-                    alignSelf = Align.FlexStart // Center this row within the parent container
-                }
-            };
+            var boxPlotsRow = new VisualElement().AddClass("boxPlotsRow");
 
             // Loop to create BoxPlotGraphs and BoxPlotDatas
             foreach (var t in titles)
@@ -74,7 +62,7 @@ namespace Editor.AtaraxiaWindow {
                 var boxPlotData = CreateInstance<BoxPlotData>();
             
                 boxPlotGraph.SetTitle(t);
-                boxPlotGraph.style.display = DisplayStyle.Flex; // Will be controlled by the container
+                boxPlotGraph.style.display = DisplayStyle.Flex; 
             
                 _boxPlotGraphs.Add(boxPlotGraph);
                 _boxPlotDatas.Add(boxPlotData);
@@ -206,3 +194,4 @@ namespace Editor.AtaraxiaWindow {
         }
     }
 }
+
