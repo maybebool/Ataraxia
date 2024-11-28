@@ -1,5 +1,6 @@
 VisualElement {}
 .boxPlot {
+    display: flex;
     padding: 30px;
     justify-content: flex-start;
     align-self: flex-start ;

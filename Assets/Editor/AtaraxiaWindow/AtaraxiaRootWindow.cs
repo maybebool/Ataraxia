@@ -56,7 +56,6 @@ namespace Editor.AtaraxiaWindow {
                 var boxPlotData = CreateInstance<BoxPlotData>();
             
                 boxPlotGraph.SetTitle(t);
-                boxPlotGraph.style.display = DisplayStyle.Flex; 
             
                 _boxPlotGraphs.Add(boxPlotGraph);
                 _boxPlotDatas.Add(boxPlotData);
