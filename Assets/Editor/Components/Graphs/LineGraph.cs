@@ -24,12 +24,12 @@ namespace Editor.Components.Graphs {
                     "Failed to load StyleSheet: LineChartStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
+            _titleLabel = new Label(title).AddLabelClass("lineGraphTitleLabel");
             _chartContainer = new VisualElement().AddClass("lineGraphContainer");
-            _titleLabel = new Label(title) { name = "LineChartTitleLabel" };
+            this.AddClass("lineGraph");
             
             Add(_titleLabel);
             Add(_chartContainer);
-            name = "LineGraph";
         }
         
         public void AddDataPoint(float dataPoint) {

@@ -6,5 +6,11 @@ namespace Editor.Helpers {
             element.AddToClassList(className);
             return element;
         }
+        
+        public static Label AddLabelClass(this Label element, string className) {
+            element.AddToClassList(className);
+            return element;
+        }
+        
     }
 }

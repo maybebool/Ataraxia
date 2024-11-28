@@ -1,72 +1,72 @@
 VisualElement {}
-#BoxPlot {
+.boxPlot {
     padding: 30px;
     justify-content: flex-start;
     align-self: flex-start ;
     /*margin: 2% 3% 3%;*/
 }
-.MaxLine{
+.maxLine{
     width: 50px;
     height: 2px;
     background-color: white;
     position: absolute;
 }
-.MedianLine{
+.medianLine{
     width: 50%;
     height: 2px;
     background-color: white;
     position: absolute;
 }
-.MinLine{
+.minLine{
     width: 50%;
     height: 2px;
     background-color: white;
     position: absolute;
 }
-.Box {
+.box {
     width: 50%;
     background-color: rgba(255, 255, 255, 0.1);
     border-width: 2;
     position: absolute;
     border-color: white;
 }
-.BoxPlotContainer {
+.boxPlotContainer {
     align-items: center;
     width: 100px;
     height: 200px;
     position: relative;
     margin-left: 10px;
 }
-.BoxPlotOuterContainer {
+.boxPlotOuterContainer {
     flex-direction: row;
     align-items: flex-start;
 }
-.BoxPlotLabelsContainer {
+.boxPlotLabelsContainer {
     flex-direction: column;
     justify-content: space-between;
     margin-right: 10px;
     width: 60px;
     height: 100%;
 }
-#BoxPlotTitleLabel {
+.boxPlotTitleLabel {
     align-self: center;
     font-size: 16px;
     margin-bottom: 10px;
 }
-.BoxPlotMainContainer {
+.boxPlotMainContainer {
     flex-direction: column;
     align-items: center;
 }
-.UpperWhiskerLine,
-.LowerWhiskerLine {
+.upperWhiskerLine,
+.lowerWhiskerLine {
     position: absolute;
     width: 2px;
     background-color: white;
 }
-#BoxPlotMaxLabel,
-#BoxPlotQ3Label,
-#BoxPlotMedianLabel,
-#BoxPlotQ1Label,
-#BoxPlotMinLabel {
+.boxPlotMaxLabel,
+.boxPlotQ3Label,
+.boxPlotMedianLabel,
+.boxPlotQ1Label,
+.boxPlotMinLabel {
     height: auto;
 }

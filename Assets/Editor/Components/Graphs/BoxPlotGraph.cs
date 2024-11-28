@@ -6,21 +6,19 @@ using Editor.Helpers;
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
         private Label _titleLabel;
-        private VisualElement _outerContainer; 
-        private VisualElement _labelsContainer; 
-        private VisualElement _boxplotContainer;
-        private VisualElement _minLine;
-        private VisualElement _maxLine;
-        private VisualElement _box;
-        private VisualElement _medianLine;
-        private VisualElement _upperWhiskerLine;
-        private VisualElement _lowerWhiskerLine;
+        private readonly VisualElement _boxplotContainer;
+        private readonly VisualElement _minLine;
+        private readonly VisualElement _maxLine;
+        private readonly VisualElement _box;
+        private readonly VisualElement _medianLine;
+        private readonly VisualElement _upperWhiskerLine;
+        private readonly VisualElement _lowerWhiskerLine;
         
-        private Label _minLabel;
-        private Label _q1Label;
-        private Label _medianLabel;
-        private Label _q3Label;
-        private Label _maxLabel;
+        private readonly Label _minLabel;
+        private readonly Label _q1Label;
+        private readonly Label _medianLabel;
+        private readonly Label _q3Label;
+        private readonly Label _maxLabel;
         private BoxPlotData _boxPlotData;
 
         public BoxPlotGraph(string title = "1") {
@@ -33,30 +31,32 @@ namespace Editor.Components.Graphs {
                 Debug.LogError(
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
+
+            this.AddClass("boxPlot");
+            var mainContainer = new VisualElement().AddClass("boxPlotMainContainer");
+            _titleLabel = new Label(title).AddLabelClass("boxPlotTitleLabel");
+            var outerContainer = new VisualElement().AddClass("boxPlotOuterContainer");
+            var labelsContainer = new VisualElement().AddClass("boxPlotLabelsContainer");
             
-            _titleLabel = new Label(title) { name = "BoxPlotTitleLabel" };
-            _outerContainer = new VisualElement().AddClass("BoxPlotOuterContainer");
-            _labelsContainer = new VisualElement().AddClass("BoxPlotLabelsContainer");
+            _maxLabel = new Label().AddLabelClass("boxPlotMaxLabel");
+            _q3Label = new Label().AddLabelClass("boxPlotQ3Label");
+            _medianLabel = new Label().AddLabelClass("boxPlotMedianLabel");
+            _q1Label = new Label().AddLabelClass("boxPlotQ1Label");
+            _minLabel = new Label().AddLabelClass("boxPlotMinLabel");
             
-            _maxLabel = new Label { name = "BoxPlotMaxLabel" };
-            _q3Label = new Label { name = "BoxPlotQ3Label" };
-            _medianLabel = new Label { name = "BoxPlotMedianLabel" };
-            _q1Label = new Label { name = "BoxPlotQ1Label" };
-            _minLabel = new Label { name = "BoxPlotMinLabel" };
+            _boxplotContainer = new VisualElement().AddClass("boxPlotContainer");
+            _minLine = new VisualElement().AddClass("minLine");
+            _maxLine = new VisualElement().AddClass("maxLine");
+            _box = new VisualElement().AddClass("box");
+            _medianLine = new VisualElement().AddClass("medianLine");
+            _upperWhiskerLine = new VisualElement().AddClass("upperWhiskerLine");
+            _lowerWhiskerLine = new VisualElement().AddClass("lowerWhiskerLine");
             
-            _labelsContainer.Add(_maxLabel);
-            _labelsContainer.Add(_q3Label);
-            _labelsContainer.Add(_medianLabel);
-            _labelsContainer.Add(_q1Label);
-            _labelsContainer.Add(_minLabel);
-            
-            _boxplotContainer = new VisualElement().AddClass("BoxPlotContainer");
-            _minLine = new VisualElement().AddClass("MinLine");
-            _maxLine = new VisualElement().AddClass("MaxLine");
-            _box = new VisualElement().AddClass("Box");
-            _medianLine = new VisualElement().AddClass("MedianLine");
-            _upperWhiskerLine = new VisualElement().AddClass("UpperWhiskerLine");
-            _lowerWhiskerLine = new VisualElement().AddClass("LowerWhiskerLine");
+            labelsContainer.Add(_maxLabel);
+            labelsContainer.Add(_q3Label);
+            labelsContainer.Add(_medianLabel);
+            labelsContainer.Add(_q1Label);
+            labelsContainer.Add(_minLabel);
             
             _boxplotContainer.Add(_minLine);
             _boxplotContainer.Add(_maxLine);
@@ -65,16 +65,13 @@ namespace Editor.Components.Graphs {
             _boxplotContainer.Add(_upperWhiskerLine);
             _boxplotContainer.Add(_lowerWhiskerLine);
             
-            _outerContainer.Add(_labelsContainer);
-            _outerContainer.Add(_boxplotContainer);
+            outerContainer.Add(labelsContainer);
+            outerContainer.Add(_boxplotContainer);
             
-            var mainContainer = new VisualElement().AddClass("BoxPlotMainContainer");
             
             mainContainer.Add(_titleLabel);
-            mainContainer.Add(_outerContainer);
+            mainContainer.Add(outerContainer);
             Add(mainContainer);
-            
-            name = "BoxPlot";
         }
 
         public void SetBoxPlotData(BoxPlotData data) {

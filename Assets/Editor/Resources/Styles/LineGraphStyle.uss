@@ -58,12 +58,12 @@ VisualElement {}
     flex-direction: column;
 }
 
-#LineGraph{
+.lineGraph{
     height: 30%;
     width: 90%;
     margin: 60px;
 }
 
-#LineChartTitleLabel{
+.lineGraphTitleLabel{
     padding-bottom: 5px;
 }
