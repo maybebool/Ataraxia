@@ -5,24 +5,28 @@ using Editor.Components.CenterRowContainer;
 using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
 using ScriptableObjects;
+using Editor.Helpers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow {
         [SerializeField] private Texture2D backgroundImage;
-
-        private VisualElement tabContainer;
+        [SerializeField] private StyleSheet styleSheet;
+        private VisualElement _tabContainer;
         private Dictionary<Button, VisualElement> _buttonToUIElementMap = new();
+        private List<BoxPlotGraph> _boxPlotGraphs = new();
+        private List<BoxPlotData> _boxPlotDatas = new();
         private double _nextUpdateTime = 0f;
-        private float _updateTimer = 0f; // Timer to track elapsed time
-        private float _updateIntervalInSeconds = 0.2f; // Set desired update interval here
-
-        private BoxPlotGraph _boxPlotGraph;
-        private BoxPlotData _boxPlotData;
+        private double _nextUpdateTimeLineGraph = 0f;
+        private float _updateIntervalInSeconds = 0.2f; 
+        private float _updateIntervalInSecondsLineGraph = 1f; 
+        private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
+        private LineGraph _lineChart;
 
         [MenuItem("Window/Ataraxia")]
         public static void ShowWindow() {
@@ -32,44 +36,49 @@ namespace Editor.AtaraxiaWindow {
 
         public void CreateGUI() {
             rootVisualElement.style.backgroundImage = backgroundImage;
-
+            rootVisualElement.styleSheets.Add(styleSheet);
             var sceneManagerBtn = new UpperMainButton("Scene Manager");
             var dataViewBnt = new UpperMainButton("Data View");
-            var container = new CenterRowContainer(sceneManagerBtn,
-                dataViewBnt,
-                new UpperMainButton("Settings"));
+            var settingsBnt = new UpperMainButton("Settings");
+            var container = new CenterRowContainer(sceneManagerBtn, dataViewBnt, settingsBnt);
             var tabView = new TabViewContainer();
 
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabView);
-
-            // Prepare the BoxPlotGraph visual element
-            _boxPlotGraph = new BoxPlotGraph();
-            _boxPlotData = CreateInstance<BoxPlotData>();
-
-            // Set initial random data for demonstration
-            GenerateRandomDataForBoxPlot();
-
-            // We add the box plot to the root (or another container as needed)
-            rootVisualElement.Add(_boxPlotGraph);
-            _boxPlotGraph.style.display = DisplayStyle.None; // Initially hidden
-
-            // Button mapping
+            
+            var graphsContainer = new VisualElement().AddClass("graphsContainer");
+            string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
+            var boxPlotsRow = new VisualElement().AddClass("boxPlotsRow");
+            
+            foreach (var t in titles)
+            {
+                var boxPlotGraph = new BoxPlotGraph();
+                var boxPlotData = CreateInstance<BoxPlotData>();
+            
+                boxPlotGraph.SetTitle(t);
+            
+                _boxPlotGraphs.Add(boxPlotGraph);
+                _boxPlotDatas.Add(boxPlotData);
+                boxPlotsRow.Add(boxPlotGraph);
+            }
+            
+            graphsContainer.Add(boxPlotsRow);
+            _lineChart = new LineGraph("Nervositätslevel");
+            graphsContainer.Add(_lineChart);
+            rootVisualElement.Add(graphsContainer);
             _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
-            _buttonToUIElementMap.Add(dataViewBnt, _boxPlotGraph);
+            _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
 
             foreach (var kvp in _buttonToUIElementMap) {
                 var button = kvp.Key;
                 var uiElement = kvp.Value;
                 button.clicked += () => ShowOnlyUIElement(uiElement);
             }
-
-            // Initially hide all UI elements except the first
+            
             foreach (var element in _buttonToUIElementMap.Values) {
                 element.style.display = DisplayStyle.None;
             }
-
-            // Show the first UI element if available
+            
             var enumerator = _buttonToUIElementMap.Values.GetEnumerator();
             if (enumerator.MoveNext()) {
                 var visualElement = enumerator.Current;
@@ -85,9 +94,9 @@ namespace Editor.AtaraxiaWindow {
 
             uiElement.style.display = DisplayStyle.Flex;
 
-            _shouldUpdateBoxPlot = (uiElement == _boxPlotGraph); // Start/Stop updating if BoxPlotGraph is shown
+            _shouldUpdateBoxPlot = (true); 
             if (_shouldUpdateBoxPlot) {
-                GenerateRandomDataForBoxPlot(); // Update initial data on show
+                GenerateRandomDataForBoxPlot(); 
                 UpdateBoxPlot();
             }
         }
@@ -96,45 +105,67 @@ namespace Editor.AtaraxiaWindow {
             if (_shouldUpdateBoxPlot) {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
-
-                    // Generate random data and update the box plot
+                    
                     GenerateRandomDataForBoxPlot();
                     UpdateBoxPlot();
                 }
             }
+            if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
+                _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
+                
+                UpdateLineGraph();
+            }
         }
 
         private void GenerateRandomDataForBoxPlot() {
-            if (_boxPlotData != null) {
-                // Generate random values between 0 and 100 for demonstration
-                float[] randomValues = new float[50]; // e.g., 50 random values
-                var rnd = new System.Random();
-                for (int i = 0; i < randomValues.Length; i++) {
-                    randomValues[i] = (float)rnd.NextDouble() * 100f;
-                }
+            var rnd = new System.Random();
+            foreach (var data in _boxPlotDatas) {
+                if (data != null) {
+                    float[] randomValues = new float[50]; // e.g., 50 random values
+                    for (int i = 0; i < randomValues.Length; i++) {
+                        randomValues[i] = (float)rnd.NextDouble() * 100f;
+                    }
 
-                _boxPlotData.values = randomValues;
-                _boxPlotData.RecalculateStatistics(); // Recalculate after assigning new values
-                Debug.Log(
-                    $"Random data generated - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
+                    data.values = randomValues;
+                    data.RecalculateStatistics(); 
+                    Debug.Log(randomValues);
+                }
             }
         }
 
         private void UpdateBoxPlot() {
-            if (_boxPlotGraph != null && _boxPlotData != null) {
-                _boxPlotGraph.SetBoxPlotData(_boxPlotData);
+            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+                var graph = _boxPlotGraphs[i];
+                var data = _boxPlotDatas[i];
+                if (graph != null && data != null) {
+                    graph.SetBoxPlotData(data);
+                }
+                
             }
         }
 
+        private void UpdateLineGraph() {
+            _lineChart.AddDataPoint(_currentValue);
+            _lineChart.UpdateChartDisplay();
+
+            // Update current value
+            _currentValue = RandomizeValue(_currentValue);
+        }
+
         private void TestBoxPlotValues() {
-            if (_boxPlotData != null) {
-                // Hard-coded values representing a distribution
-                float[] testValues = new float[] { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
-                _boxPlotData.values = testValues;
-                _boxPlotData.RecalculateStatistics(); // We'll introduce a method to recalculate
-                Debug.Log(
-                    $"Test values set - min: {_boxPlotData.min}, max: {_boxPlotData.max}, median: {_boxPlotData.median}, q1: {_boxPlotData.q1}, q3: {_boxPlotData.q3}");
+            if (_boxPlotDatas.Count > 0) {
+                float[] testValues = { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
+                _boxPlotDatas[0].values = testValues;
+                _boxPlotDatas[0].RecalculateStatistics();
             }
+        }
+        
+        private float RandomizeValue(float value) {
+            float randomChange = Random.Range(0.1f, 1f);
+            bool increase = Random.value > 0.5f; 
+            float newValue = increase ? value + randomChange : value - randomChange; 
+            return Mathf.Clamp(newValue, 0.1f, 10f); 
         }
     }
 }
+

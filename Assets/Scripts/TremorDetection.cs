@@ -15,12 +15,8 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     public float saveInterval = 2;
     public int _queueCapacity = 2;
     public int _pointsCapacity = 2;
-
-
     public float speedThreshold = 50f; 
     public float oscillationThreshold = 140f;
-    // public InputActionReference inputAction; 
-    // private Coroutine savePositionCoroutine;
 
     private float previousDegree;
     private float previousDelta;
@@ -53,29 +49,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         positionQueue.Clear();
     }
     
-    // private void OnEnable() {
-    //     inputAction.action.Enable(); // Enable the input action
-    //     inputAction.action.performed += OnActionPerformed; // Subscribe to the performed event
-    //     inputAction.action.canceled += OnActionCanceled;   // Subscribe to the canceled event
-    // }
-    // private void OnDisable() {
-    //     inputAction.action.performed -= OnActionPerformed; // Unsubscribe from the performed event
-    //     inputAction.action.canceled -= OnActionCanceled;   // Unsubscribe from the canceled event
-    //     inputAction.action.Disable(); // Disable the input action
-    // }
-    //
-    // private void OnActionPerformed(InputAction.CallbackContext context) {
-    //     if (savePositionCoroutine == null) {
-    //         savePositionCoroutine = StartCoroutine(SavePositionCoroutine()); // Start the coroutine
-    //     }
-    // }
-    //
-    // private void OnActionCanceled(InputAction.CallbackContext context) {
-    //     if (savePositionCoroutine != null) {
-    //         StopCoroutine(savePositionCoroutine); // Stop the coroutine
-    //         savePositionCoroutine = null;
-    //     }
-    // }
 
     private void Update() {
         raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
@@ -114,7 +87,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
             detector.GetComponent<Renderer>().material.color = Color.red;
             oscillationDelta = 0; // Reset oscillation detection.
         }
-
         
         previousDegree = scO.degree;
         previousDelta = deltaDegree;

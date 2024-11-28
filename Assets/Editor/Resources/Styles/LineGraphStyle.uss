@@ -1,0 +1,69 @@
+VisualElement {}
+
+.customLineGraph{
+    width: 100%;
+    height: 100%;
+    
+}
+
+#greenZone{
+    position: absolute;
+    background-color: green;
+    opacity: 0.2;
+}
+
+#yellowZone{
+    position: absolute;
+    background-color: yellow;
+    opacity: 0.2;
+}
+
+#redZone{
+    position: absolute;
+    background-color: red;
+    opacity: 0.2;
+}
+
+#columns{
+    position: absolute;
+    background-color: white;
+    top: 0;
+    width: 1;
+    opacity: 0.2;
+}
+
+#rows{
+    position: absolute;
+    background-color: white;
+    height: 1;
+    left: 0;
+    opacity: 0.2;
+}
+
+#valueLabel{
+    position: absolute;
+    font-size: 12;
+    left: -40;
+    color: white;
+}
+
+#lines{
+    position: absolute;
+    height: 3;
+    background-color: white;
+}
+
+.lineGraphContainer{
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.lineGraph{
+    height: 30%;
+    width: 90%;
+    margin: 60px;
+}
+
+.lineGraphTitleLabel{
+    padding-bottom: 5px;
+}
