@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Editor.Helpers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,14 +24,12 @@ namespace Editor.Components.Graphs {
                     "Failed to load StyleSheet: LineChartStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
-            _chartContainer = new VisualElement {
-                name = "LineChartContainer",
-            };
-
+            _chartContainer = new VisualElement().AddClass("lineGraphContainer");
             _titleLabel = new Label(title) { name = "LineChartTitleLabel" };
             
             Add(_titleLabel);
             Add(_chartContainer);
+            name = "LineGraph";
         }
         
         public void AddDataPoint(float dataPoint) {

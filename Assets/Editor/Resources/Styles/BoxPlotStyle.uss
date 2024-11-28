@@ -3,7 +3,7 @@ VisualElement {}
     padding: 30px;
     justify-content: flex-start;
     align-self: flex-start ;
-    margin: 2% 3% 3%;
+    /*margin: 2% 3% 3%;*/
 }
 .MaxLine{
     width: 50px;

@@ -46,16 +46,10 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabView);
             
-            // Create a new container for the BoxPlotGraphs
-            var boxPlotContainer = new VisualElement().AddClass("boxPlotContainer");
-
-            // Titles for each BoxPlotGraph
+            var graphsContainer = new VisualElement().AddClass("graphsContainer");
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
-            
-            // Create a container for the BoxPlots
             var boxPlotsRow = new VisualElement().AddClass("boxPlotsRow");
-
-            // Loop to create BoxPlotGraphs and BoxPlotDatas
+            
             foreach (var t in titles)
             {
                 var boxPlotGraph = new BoxPlotGraph();
@@ -70,25 +64,25 @@ namespace Editor.AtaraxiaWindow {
             }
             
             // Add the boxPlotsRow to the boxPlotContainer
-            boxPlotContainer.Add(boxPlotsRow);
+            graphsContainer.Add(boxPlotsRow);
 
             // Create LineChart instance and add it under the boxPlotContainer
             _lineChart = new LineGraph("Nervositätslevel");
-            _lineChart.style.height = 200;
-            _lineChart.style.width = new Length(75, LengthUnit.Percent); 
-            _lineChart.style.marginLeft = 50;// Set desired height
-            _lineChart.style.marginTop = 50;// Set desired height
-            _lineChart.style.alignSelf = Align.FlexStart; // Ensure it's left-aligned
+            // _lineChart.style.height = 200;
+            // _lineChart.style.width = new Length(75, LengthUnit.Percent); 
+            // _lineChart.style.marginLeft = 50;// Set desired height
+            // _lineChart.style.marginTop = 50;// Set desired height
+            // _lineChart.style.alignSelf = Align.FlexStart; // Ensure it's left-aligned
             
             // Add LineChart to boxPlotContainer
-            boxPlotContainer.Add(_lineChart);
+            graphsContainer.Add(_lineChart);
 
             // Add the boxPlotContainer to the root
-            rootVisualElement.Add(boxPlotContainer);
+            rootVisualElement.Add(graphsContainer);
 
             // Button mapping
             _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
-            _buttonToUIElementMap.Add(dataViewBnt, boxPlotContainer);
+            _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
 
             foreach (var kvp in _buttonToUIElementMap) {
                 var button = kvp.Key;
