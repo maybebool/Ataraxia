@@ -1,86 +1,73 @@
 VisualElement {}
-#BoxPlot {
-    padding: 10px;
-    justify-content: center;
-    align-self: center ;
+.boxPlot {
+    display: flex;
+    padding: 30px;
+    justify-content: flex-start;
+    align-self: flex-start ;
+    /*margin: 2% 3% 3%;*/
 }
-
-#BoxPlotContainer {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    /*border: 1px solid #000;*/
-}
-
-#MaxLine{
-    width: 100%;
+.maxLine{
+    width: 50px;
     height: 2px;
-    background-color: red;
+    background-color: white;
     position: absolute;
 }
-#MedianLine{
-    width: 100%;
+.medianLine{
+    width: 50%;
     height: 2px;
-    background-color: green;
+    background-color: white;
     position: absolute;
 }
-
-#MinLine{
-    width: 100%;
+.minLine{
+    width: 50%;
     height: 2px;
-    background-color: deepskyblue;
+    background-color: white;
     position: absolute;
 }
-
-#Box {
-    width: 100%;
-    background-color: rgba(0,1,1,0.1);
+.box {
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-width: 2;
     position: absolute;
+    border-color: white;
 }
-
-#BoxPlotOuterContainer {
-    flex-direction: row;
-    align-items: flex-start;
-}
-
-#BoxPlotLabelsContainer {
-    flex-direction: column;
-    justify-content: space-between;
-    margin-right: 10px;
-}
-
-#BoxPlotContainer {
-    width: 200px;
+.boxPlotContainer {
+    align-items: center;
+    width: 100px;
     height: 200px;
     position: relative;
     margin-left: 10px;
 }
-
-#BoxPlotOuterContainer {
+.boxPlotOuterContainer {
     flex-direction: row;
     align-items: flex-start;
 }
-
-#BoxPlotLabelsContainer {
+.boxPlotLabelsContainer {
     flex-direction: column;
     justify-content: space-between;
     margin-right: 10px;
+    width: 60px;
     height: 100%;
 }
-
-#BoxPlotContainer {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    border: 1px solid #000;
-    margin-left: 10px;
+.boxPlotTitleLabel {
+    align-self: center;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
-
-#BoxPlotMaxLabel,
-#BoxPlotQ3Label,
-#BoxPlotMedianLabel,
-#BoxPlotQ1Label,
-#BoxPlotMinLabel {
-    height: auto;  /* Let the label size automatically */
-    /*padding: 2px;*/
+.boxPlotMainContainer {
+    flex-direction: column;
+    align-items: center;
+}
+.upperWhiskerLine,
+.lowerWhiskerLine {
+    position: absolute;
+    width: 2px;
+    background-color: white;
+}
+.boxPlotMaxLabel,
+.boxPlotQ3Label,
+.boxPlotMedianLabel,
+.boxPlotQ1Label,
+.boxPlotMinLabel {
+    height: auto;
 }

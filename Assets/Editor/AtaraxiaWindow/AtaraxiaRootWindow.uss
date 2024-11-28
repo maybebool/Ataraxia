@@ -3,3 +3,15 @@
     -unity-font-style: bold;
     color: rgb(68, 138, 255);
 }
+.graphsContainer{
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+}
+
+.boxPlotsRow{
+    flex-direction: row;
+    height: auto;
+}
+
+
