@@ -23,7 +23,7 @@ namespace Editor.AtaraxiaWindow {
         private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 0.2f; 
         private float _updateIntervalInSecondsLineGraph = 1f; 
-        private float _currentValue = 6f; // Starting value
+        private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
         private LineGraph _lineChart;
@@ -62,24 +62,10 @@ namespace Editor.AtaraxiaWindow {
                 boxPlotsRow.Add(boxPlotGraph);
             }
             
-            // Add the boxPlotsRow to the boxPlotContainer
             graphsContainer.Add(boxPlotsRow);
-
-            // Create LineChart instance and add it under the boxPlotContainer
             _lineChart = new LineGraph("Nervositätslevel");
-            // _lineChart.style.height = 200;
-            // _lineChart.style.width = new Length(75, LengthUnit.Percent); 
-            // _lineChart.style.marginLeft = 50;// Set desired height
-            // _lineChart.style.marginTop = 50;// Set desired height
-            // _lineChart.style.alignSelf = Align.FlexStart; // Ensure it's left-aligned
-            
-            // Add LineChart to boxPlotContainer
             graphsContainer.Add(_lineChart);
-
-            // Add the boxPlotContainer to the root
             rootVisualElement.Add(graphsContainer);
-
-            // Button mapping
             _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
             _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
 
@@ -88,13 +74,11 @@ namespace Editor.AtaraxiaWindow {
                 var uiElement = kvp.Value;
                 button.clicked += () => ShowOnlyUIElement(uiElement);
             }
-
-            // Initially hide all UI elements except the first
+            
             foreach (var element in _buttonToUIElementMap.Values) {
                 element.style.display = DisplayStyle.None;
             }
-
-            // Show the first UI element if available
+            
             var enumerator = _buttonToUIElementMap.Values.GetEnumerator();
             if (enumerator.MoveNext()) {
                 var visualElement = enumerator.Current;
@@ -110,9 +94,9 @@ namespace Editor.AtaraxiaWindow {
 
             uiElement.style.display = DisplayStyle.Flex;
 
-            _shouldUpdateBoxPlot = (true); // Start/Stop updating if BoxPlotGraphs are shown
+            _shouldUpdateBoxPlot = (true); 
             if (_shouldUpdateBoxPlot) {
-                GenerateRandomDataForBoxPlot(); // Update initial data on show
+                GenerateRandomDataForBoxPlot(); 
                 UpdateBoxPlot();
             }
         }
@@ -121,16 +105,14 @@ namespace Editor.AtaraxiaWindow {
             if (_shouldUpdateBoxPlot) {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
-
-                    // Generate random data and update the box plots
+                    
                     GenerateRandomDataForBoxPlot();
                     UpdateBoxPlot();
                 }
             }
             if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
                 _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
-
-                // Generate random data and update the box plots
+                
                 UpdateLineGraph();
             }
         }
@@ -146,7 +128,7 @@ namespace Editor.AtaraxiaWindow {
 
                     data.values = randomValues;
                     data.RecalculateStatistics(); 
-                    Debug.Log(randomValues);// Recalculate after assigning new values
+                    Debug.Log(randomValues);
                 }
             }
         }
@@ -172,18 +154,17 @@ namespace Editor.AtaraxiaWindow {
 
         private void TestBoxPlotValues() {
             if (_boxPlotDatas.Count > 0) {
-                // Hard-coded values representing a distribution
                 float[] testValues = { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
                 _boxPlotDatas[0].values = testValues;
-                _boxPlotDatas[0].RecalculateStatistics(); // Recalculate after assigning new values
+                _boxPlotDatas[0].RecalculateStatistics();
             }
         }
         
         private float RandomizeValue(float value) {
-            float randomChange = Random.Range(0.1f, 1f); // Random change between 0.1 and 1
-            bool increase = Random.value > 0.5f; // Randomly decide whether to increase or decrease the value
-            float newValue = increase ? value + randomChange : value - randomChange; // Apply change
-            return Mathf.Clamp(newValue, 0.1f, 10f); // Clamp value between 0.1 and 12
+            float randomChange = Random.Range(0.1f, 1f);
+            bool increase = Random.value > 0.5f; 
+            float newValue = increase ? value + randomChange : value - randomChange; 
+            return Mathf.Clamp(newValue, 0.1f, 10f); 
         }
     }
 }

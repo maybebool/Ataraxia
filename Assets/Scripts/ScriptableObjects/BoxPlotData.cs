@@ -21,9 +21,8 @@ namespace ScriptableObjects {
             var sortedValues = values.OrderBy(v => v).ToArray();
             min = sortedValues[0];
             max = sortedValues[sortedValues.Length - 1];
-
-            // Calculate quartiles and median
-            int count = sortedValues.Length;
+            
+            var count = sortedValues.Length;
             median = CalculateMedian(sortedValues, count);
             q1 = CalculateMedian(sortedValues.Take(count / 2).ToArray(), count / 2);
             q3 = CalculateMedian(sortedValues.Skip((count + 1) / 2).ToArray(), count / 2);
@@ -37,8 +36,8 @@ namespace ScriptableObjects {
             }
             else {
                 // If even, the median is the average of the two middle elements
-                float middle1 = sortedData[(count / 2) - 1];
-                float middle2 = sortedData[count / 2];
+                var middle1 = sortedData[(count / 2) - 1];
+                var middle2 = sortedData[count / 2];
                 return (middle1 + middle2) / 2;
             }
         }
