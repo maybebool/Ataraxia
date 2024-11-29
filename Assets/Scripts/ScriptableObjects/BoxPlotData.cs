@@ -34,12 +34,11 @@ namespace ScriptableObjects {
             if (count % 2 == 1) {
                 return sortedData[count / 2];
             }
-            else {
-                // If even, the median is the average of the two middle elements
-                var middle1 = sortedData[(count / 2) - 1];
-                var middle2 = sortedData[count / 2];
-                return (middle1 + middle2) / 2;
-            }
+
+            // If even, the median is the average of the two middle elements
+            var middle1 = sortedData[(count / 2) - 1];
+            var middle2 = sortedData[count / 2];
+            return (middle1 + middle2) / 2;
         }
     }
 }

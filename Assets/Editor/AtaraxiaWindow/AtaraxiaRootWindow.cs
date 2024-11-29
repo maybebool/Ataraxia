@@ -15,10 +15,11 @@ namespace Editor.AtaraxiaWindow {
     public class AtaraxiaRootWindow : EditorWindow {
         [SerializeField] private Texture2D backgroundImage;
         [SerializeField] private StyleSheet styleSheet;
+        [SerializeField] private DataContainer scObData;
         private VisualElement _tabContainer;
         private Dictionary<Button, VisualElement> _buttonToUIElementMap = new();
         private List<BoxPlotGraph> _boxPlotGraphs = new();
-        private List<BoxPlotData> _boxPlotDatas = new();
+        private List<DataContainer> _boxPlotDatas = new();
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 0.2f; 
@@ -53,7 +54,7 @@ namespace Editor.AtaraxiaWindow {
             foreach (var t in titles)
             {
                 var boxPlotGraph = new BoxPlotGraph();
-                var boxPlotData = CreateInstance<BoxPlotData>();
+                var boxPlotData = CreateInstance<DataContainer>();
             
                 boxPlotGraph.SetTitle(t);
             
@@ -145,11 +146,11 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private void UpdateLineGraph() {
-            _lineChart.AddDataPoint(_currentValue);
+            _lineChart.AddDataPoint(scObData.tremorIntensity);
             _lineChart.UpdateChartDisplay();
 
             // Update current value
-            _currentValue = RandomizeValue(_currentValue);
+            // _currentValue = RandomizeValue(_currentValue);
         }
 
         private void TestBoxPlotValues() {
