@@ -24,10 +24,10 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     private float lastUpdateTime;
     
     private float tremorIntensity = 0f;
-    private float tremorDecayRate = 1f; // The rate at which tremorIntensity decreases per second
+    private float tremorDecayRate = 5f; // The rate at which tremorIntensity decreases per second
     private List<float> tremorEventTimes = new();
-    private float timeWindow = 5f; // Time window in seconds to consider for frequency
-    private int multiplierThreshold = 5; 
+    private float timeWindow = 3f; // Time window in seconds to consider for frequency
+    private float multiplierThreshold = 3f; 
 
     private Queue<Vector3> positionQueue = new();
     private List<GameObject> lastPointList = new();
@@ -171,21 +171,21 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     
     private void IncrementTremorIntensityValue()
     {
-        var incrementAmount = 1f; // Base amount to increment
+        var incrementAmount = 0.3f; // Reduced base increment amount
 
         // Record the time of the tremor event
         tremorEventTimes.Add(Time.time);
 
-        // Remove old events outside the time window
+        // Remove events outside the time window
         tremorEventTimes.RemoveAll(t => t < Time.time - timeWindow);
 
         // Count events within the time window
         int eventCount = tremorEventTimes.Count;
 
-        // Apply a multiplier based on the number of events
+        // Apply a diminishing multiplier based on the number of events
         if (eventCount >= multiplierThreshold)
         {
-            var multiplier = eventCount / (float)multiplierThreshold;
+            var multiplier = 1f + (eventCount - multiplierThreshold) * 0.01f; // Smaller incremental multiplier
             incrementAmount *= multiplier;
         }
 

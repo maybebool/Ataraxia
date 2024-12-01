@@ -23,7 +23,7 @@ namespace Editor.AtaraxiaWindow {
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 0.2f; 
-        private float _updateIntervalInSecondsLineGraph = 1f; 
+        private float _updateIntervalInSecondsLineGraph = 0.2f; 
         private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;

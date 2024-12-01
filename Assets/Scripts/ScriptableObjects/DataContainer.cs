@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ScriptableObjects {
     [CreateAssetMenu(fileName = "DataContainer", menuName = "Scriptable Objects/DataContainers")]
