@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,21 +8,33 @@ namespace ScriptableObjects {
         public float tremorIntensity;
         public Vector3 currentPos;
         public float degree;
-        public float[] values;
+        public List<float> tremorValues = new();
         public float min;
         public float max;
         public float median;
         public float q1;
         public float q3;
 
-        // Remove OnValidate. We'll handle computations manually
+        public void AddTremorValue(float value) {
+            tremorValues.Add(value);
+
+            // Optionally limit the size of tremorValues to a maximum number
+            int maxValues = 100; // Adjust as needed
+            if (tremorValues.Count > maxValues) {
+                tremorValues.RemoveAt(0);
+            }
+
+            // Recalculate statistics whenever a new value is added
+            RecalculateStatistics();
+        }
+
         public void RecalculateStatistics() {
-            if (values == null || values.Length == 0) {
+            if (tremorValues == null || tremorValues.Count == 0) {
                 min = max = median = q1 = q3 = 0f;
                 return;
             }
 
-            var sortedValues = values.OrderBy(v => v).ToArray();
+            var sortedValues = tremorValues.OrderBy(v => v).ToArray();
             min = sortedValues[0];
             max = sortedValues[sortedValues.Length - 1];
 

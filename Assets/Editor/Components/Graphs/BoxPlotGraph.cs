@@ -84,7 +84,7 @@ namespace Editor.Components.Graphs {
         }
 
         private void UpdateBoxPlotDisplay() {
-            if (_boxPlotData == null || _boxPlotData.values == null || _boxPlotData.values.Length == 0) return;
+            if (_boxPlotData == null || _boxPlotData.tremorValues == null || _boxPlotData.tremorValues.Count == 0) return;
             if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null ||
                 _medianLine == null) {
                 Debug.LogError("BoxPlotGraph visual elements are not properly initialized.");

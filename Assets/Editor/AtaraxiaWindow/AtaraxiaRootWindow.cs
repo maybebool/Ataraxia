@@ -97,7 +97,7 @@ namespace Editor.AtaraxiaWindow {
 
             _shouldUpdateBoxPlot = (true); 
             if (_shouldUpdateBoxPlot) {
-                GenerateRandomDataForBoxPlot(); 
+                // GenerateRandomDataForBoxPlot(); 
                 UpdateBoxPlot();
             }
         }
@@ -107,7 +107,7 @@ namespace Editor.AtaraxiaWindow {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
                     
-                    GenerateRandomDataForBoxPlot();
+                    // GenerateRandomDataForBoxPlot();
                     UpdateBoxPlot();
                 }
             }
@@ -118,31 +118,40 @@ namespace Editor.AtaraxiaWindow {
             }
         }
 
-        private void GenerateRandomDataForBoxPlot() {
-            var rnd = new System.Random();
-            foreach (var data in _boxPlotDatas) {
-                if (data != null) {
-                    float[] randomValues = new float[50]; // e.g., 50 random values
-                    for (int i = 0; i < randomValues.Length; i++) {
-                        randomValues[i] = (float)rnd.NextDouble() * 100f;
-                    }
-
-                    data.values = randomValues;
-                    data.RecalculateStatistics(); 
-                    Debug.Log(randomValues);
-                }
-            }
-        }
+        // private void GenerateRandomDataForBoxPlot() {
+        //     var rnd = new System.Random();
+        //     foreach (var data in _boxPlotDatas) {
+        //         if (data != null) {
+        //             float[] randomValues = new float[50]; // e.g., 50 random values
+        //             for (int i = 0; i < randomValues.Length; i++) {
+        //                 randomValues[i] = (float)rnd.NextDouble() * 100f;
+        //             }
+        //
+        //             data.values = randomValues;
+        //             data.RecalculateStatistics(); 
+        //             Debug.Log(randomValues);
+        //         }
+        //     }
+        // }
 
         private void UpdateBoxPlot() {
-            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-                var graph = _boxPlotGraphs[i];
-                var data = _boxPlotDatas[i];
-                if (graph != null && data != null) {
-                    graph.SetBoxPlotData(data);
+            scObData.AddTremorValue(scObData.tremorIntensity);
+            foreach (var graph in _boxPlotGraphs)
+            {
+                if (graph != null)
+                {
+                    // graph.SetTitle("Tremor Intensity");
+                    graph.SetBoxPlotData(scObData);
                 }
-                
             }
+            // for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+            //     var graph = _boxPlotGraphs[i];
+            //     var data = _boxPlotDatas[i];
+            //     if (graph != null && data != null) {
+            //         graph.SetBoxPlotData(data);
+            //     }
+            //     
+            // }
         }
 
         private void UpdateLineGraph() {
@@ -153,13 +162,13 @@ namespace Editor.AtaraxiaWindow {
             // _currentValue = RandomizeValue(_currentValue);
         }
 
-        private void TestBoxPlotValues() {
-            if (_boxPlotDatas.Count > 0) {
-                float[] testValues = { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
-                _boxPlotDatas[0].values = testValues;
-                _boxPlotDatas[0].RecalculateStatistics();
-            }
-        }
+        // private void TestBoxPlotValues() {
+        //     if (_boxPlotDatas.Count > 0) {
+        //         float[] testValues = { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
+        //         _boxPlotDatas[0].values = testValues;
+        //         _boxPlotDatas[0].RecalculateStatistics();
+        //     }
+        // }
         
         private float RandomizeValue(float value) {
             float randomChange = Random.Range(0.1f, 1f);
