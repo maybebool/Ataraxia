@@ -162,5 +162,10 @@ namespace Editor.Components.Graphs {
                 MarkDirtyRepaint();
             });
         }
+        
+        public string GetTitle()
+        {
+            return _titleLabel.text;
+        }
     }
 }

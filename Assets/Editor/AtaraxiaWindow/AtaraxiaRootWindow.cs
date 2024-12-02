@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Editor.Components.Buttons;
 using Editor.Components.CenterRowContainer;
 using Editor.Components.Graphs;
@@ -22,7 +23,7 @@ namespace Editor.AtaraxiaWindow {
         private List<DataContainer> _boxPlotDatas = new();
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
-        private float _updateIntervalInSeconds = 0.2f; 
+        private float _updateIntervalInSeconds = 1f; 
         private float _updateIntervalInSecondsLineGraph = 0.2f; 
         private float _currentValue = 6f; 
 
@@ -66,6 +67,23 @@ namespace Editor.AtaraxiaWindow {
             graphsContainer.Add(boxPlotsRow);
             _lineChart = new LineGraph("Nervositätslevel");
             graphsContainer.Add(_lineChart);
+            // Create a container for the save button
+            var buttonContainer = new VisualElement();
+            buttonContainer.style.flexDirection = FlexDirection.Row;
+            buttonContainer.style.justifyContent = Justify.Center;
+            buttonContainer.style.marginTop = 10;
+
+            // Create the Save button
+            var saveButton = new DefaultButton("Save Results");
+            // saveButton.text = "Save Results";
+            saveButton.clicked += OnSaveButtonClicked;
+
+            // Add the button to the container
+            buttonContainer.Add(saveButton);
+
+            // Add the button container to the graphsContainer
+            graphsContainer.Add(buttonContainer);
+
             rootVisualElement.Add(graphsContainer);
             _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
             _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
@@ -97,7 +115,6 @@ namespace Editor.AtaraxiaWindow {
 
             _shouldUpdateBoxPlot = (true); 
             if (_shouldUpdateBoxPlot) {
-                // GenerateRandomDataForBoxPlot(); 
                 UpdateBoxPlot();
             }
         }
@@ -107,8 +124,11 @@ namespace Editor.AtaraxiaWindow {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
                     
-                    // GenerateRandomDataForBoxPlot();
                     UpdateBoxPlot();
+                    Debug.Log(scObData.median);
+                    Debug.Log(scObData.max);
+                    Debug.Log(scObData.q3);
+                    Debug.Log(scObData.q1);
                 }
             }
             if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
@@ -116,65 +136,122 @@ namespace Editor.AtaraxiaWindow {
                 
                 UpdateLineGraph();
             }
+            
+            Debug.Log(scObData.maxValues.Count);
         }
 
-        // private void GenerateRandomDataForBoxPlot() {
-        //     var rnd = new System.Random();
-        //     foreach (var data in _boxPlotDatas) {
-        //         if (data != null) {
-        //             float[] randomValues = new float[50]; // e.g., 50 random values
-        //             for (int i = 0; i < randomValues.Length; i++) {
-        //                 randomValues[i] = (float)rnd.NextDouble() * 100f;
-        //             }
-        //
-        //             data.values = randomValues;
-        //             data.RecalculateStatistics(); 
-        //             Debug.Log(randomValues);
-        //         }
-        //     }
-        // }
-
         private void UpdateBoxPlot() {
-            scObData.AddTremorValue(scObData.tremorIntensity);
-            foreach (var graph in _boxPlotGraphs)
-            {
-                if (graph != null)
-                {
-                    // graph.SetTitle("Tremor Intensity");
-                    graph.SetBoxPlotData(scObData);
+            // For demonstration, we'll use the same tremorIntensity for all box plots
+            // In the future, these can be replaced with different data sources
+            foreach (var data in _boxPlotDatas) {
+                if (data != null) {
+                    data.AddTremorValue(scObData.tremorIntensity);
                 }
             }
-            // for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-            //     var graph = _boxPlotGraphs[i];
-            //     var data = _boxPlotDatas[i];
-            //     if (graph != null && data != null) {
-            //         graph.SetBoxPlotData(data);
-            //     }
-            //     
-            // }
+
+            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+                var graph = _boxPlotGraphs[i];
+                var data = _boxPlotDatas[i];
+
+                if (graph != null && data != null) {
+                    graph.SetBoxPlotData(data);
+                }
+            }
         }
 
         private void UpdateLineGraph() {
             _lineChart.AddDataPoint(scObData.tremorIntensity);
             _lineChart.UpdateChartDisplay();
-
-            // Update current value
-            // _currentValue = RandomizeValue(_currentValue);
         }
-
-        // private void TestBoxPlotValues() {
-        //     if (_boxPlotDatas.Count > 0) {
-        //         float[] testValues = { 5, 6, 7, 10, 10, 15, 20, 20, 25, 25, 30, 30 };
-        //         _boxPlotDatas[0].values = testValues;
-        //         _boxPlotDatas[0].RecalculateStatistics();
-        //     }
-        // }
         
-        private float RandomizeValue(float value) {
-            float randomChange = Random.Range(0.1f, 1f);
-            bool increase = Random.value > 0.5f; 
-            float newValue = increase ? value + randomChange : value - randomChange; 
-            return Mathf.Clamp(newValue, 0.1f, 10f); 
+        private void OnSaveButtonClicked()
+        {
+            SaveResults();
+        }
+        
+        private void SaveResults()
+        {
+            // Calculate line chart average
+            float lineChartAverage = CalculateLineChartAverage();
+
+            // Prepare CSV data
+            string csvContent = "Metric,Value\n";
+            csvContent += $"Line Chart Average,{lineChartAverage:F2}\n";
+
+            // Loop over each box plot data
+            for (int i = 0; i < _boxPlotDatas.Count; i++)
+            {
+                var data = _boxPlotDatas[i];
+                var graph = _boxPlotGraphs[i];
+                if (data != null && graph != null)
+                {
+                    // Calculate averages for each part of the box plot
+                    var minAverage = data.minValues.Average();
+                    var q1Average = data.q1Values.Average();
+                    var medianAverage = data.medianValues.Average();
+                    var q3Average = data.q3Values.Average();
+                    var maxAverage = data.maxValues.Average();
+
+                    // Add to CSV content
+                    csvContent += $"\n{graph.GetTitle()} Box Plot Data Averages\n";
+                    csvContent += $"Min Average,{minAverage:F2}\n";
+                    csvContent += $"Q1 Average,{q1Average:F2}\n";
+                    csvContent += $"Median Average,{medianAverage:F2}\n";
+                    csvContent += $"Q3 Average,{q3Average:F2}\n";
+                    csvContent += $"Max Average,{maxAverage:F2}\n";
+                }
+            }
+
+            // Define the file path
+            var folderPath = "Assets/Exports";
+            var fileName = $"Results_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+            var fullPath = System.IO.Path.Combine(folderPath, fileName);
+
+            // Ensure the directory exists
+            if (!System.IO.Directory.Exists(folderPath)) {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
+
+            // Write the CSV file
+            System.IO.File.WriteAllText(fullPath, csvContent);
+            AssetDatabase.Refresh();
+            Debug.Log($"Results saved to {fullPath}");
+        }
+        
+        private float CalculateLineChartAverage()
+        {
+            if (_lineChart == null || _lineChart.DataPoints == null || _lineChart.DataPoints.Count == 0)
+                return 0f;
+
+            float sum = 0f;
+            foreach (var value in _lineChart.DataPoints)
+            {
+                sum += value;
+            }
+
+            return sum / _lineChart.DataPoints.Count;
+        }
+        
+        private float CalculateBoxPlotAverage()
+        {
+            if (scObData == null || scObData.tremorValues == null || scObData.tremorValues.Count == 0)
+                return 0f;
+
+            var sortedValues = scObData.tremorValues.OrderBy(v => v).ToList();
+            int count = sortedValues.Count;
+
+            if (count % 2 == 1)
+            {
+                // Return median for odd count
+                return sortedValues[count / 2];
+            }
+            else
+            {
+                // Return median for even count
+                float middle1 = sortedValues[(count / 2) - 1];
+                float middle2 = sortedValues[count / 2];
+                return (middle1 + middle2) / 2f;
+            }
         }
     }
 }

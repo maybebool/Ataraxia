@@ -2,9 +2,9 @@
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
-    [UxmlElement("DefaultButton")]
-    public partial class DefaultButton : Button {
-        public DefaultButton() {
+    public class DefaultButton : Button {
+        private Texture2D backgroundImage;
+        public DefaultButton(string title) {
             var asset = Resources.Load<VisualTreeAsset>("DefaultButton");
             asset.CloneTree(this);
 
@@ -16,6 +16,10 @@ namespace Editor.Components.Buttons {
             else {
                 Debug.LogError("Failed to load StyleSheet: DefaultButtonStyle.uss");
             }
+            
+            backgroundImage = Resources.Load<Texture2D>("Images/ButtonBackground");
+            style.backgroundImage = backgroundImage;
+            text = title;
         }
 
         public DefaultButton(Button button) {
