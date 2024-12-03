@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.InputSystem;
 
 public class TangentBasedTremorDetection : MonoBehaviour {
     public DataContainer scO;
@@ -13,10 +15,12 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     public float _tangentCircleRadius;
     public GameObject lastPointPrefab;
     public float saveInterval = 2;
-    public int _queueCapacity = 2;
+    public int _queueCapacity = 4;
     public int _pointsCapacity = 2;
     public float speedThreshold = 50f; 
     public float oscillationThreshold = 140f;
+    
+    private bool isCollectingData = false;
 
     private float previousDegree;
     private float previousDelta;
@@ -39,6 +43,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     private Vector3 tangentCircleScale;
     private const float PiHalf = Mathf.PI / 2;
     private const float PIDoubled = 2 * Mathf.PI;
+    private Coroutine dataCollectionCoroutine;
 
     
     private void Start() {
@@ -47,30 +52,139 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         previousDelta = 0f;
         outterCircleScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2;
         tangentCircleScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2;
-        StartCoroutine(SavePositionCoroutine());
+        // StartCoroutine(SavePositionCoroutine());
+    }
+    
+    private void OnEnable()
+    {
+        // Subscribe to events from EventManager
+        if (MtsEventManager.Instance != null)
+        {
+            MtsEventManager.Instance.OnButtonPressed += StartDataCollection;
+            MtsEventManager.Instance.OnButtonReleased += StopDataCollection;
+        }
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe from events
+        if (MtsEventManager.Instance != null)
+        {
+            MtsEventManager.Instance.OnButtonPressed -= StartDataCollection;
+            MtsEventManager.Instance.OnButtonReleased -= StopDataCollection;
+        }
     }
 
     private void OnDestroy() {
-        lastPointList.Clear();
+        // lastPointList.Clear();
+        positionQueue.Clear();
+    }
+
+    private void Update() {
+        // Debug.Log(isCollectingData);
+        // Debug.Log(scO.degree);
+        // Debug.Log(positionQueue.Count);
+    }
+
+
+    // private void Update() {
+    //
+    //     // Continue collecting positions
+    //     EnqueuePosition(scO.currentPos);
+    //
+    //     // Perform calculations
+    //     raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
+    //     scO.currentPos = hit.point;
+    //
+    //     outterCirclePosition = new Vector3(scO.currentPos.x, scO.currentPos.y, scO.currentPos.z - 0.1f);
+    //     var quadrantRadiant = CalculateQuadrantLogicForRadiant();
+    //     GetRadiantPointReflection(quadrantRadiant, _outterCircle.w);
+    //     CalculateTremor();
+    //     if (!isCollectingData) {
+    //         // Optionally decrease tremorIntensity over time when not collecting data
+    //         tremorIntensity -= tremorDecayRate * Time.deltaTime;
+    //         tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+    //         scO.tremorIntensity = tremorIntensity;
+    //         return;
+    //     }
+    //
+    //     // // Decrease tremorIntensity over time
+    //     // tremorIntensity -= tremorDecayRate * Time.deltaTime;
+    //     // tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+    //     //
+    //     // // Store tremorIntensity in the ScriptableObject for access from the editor window
+    //     // scO.tremorIntensity = tremorIntensity;
+    //     
+    //     
+    //     // raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
+    //     // scO.currentPos = hit.point;
+    //     //
+    //     // outterCirclePosition = new Vector3(scO.currentPos.x, scO.currentPos.y, scO.currentPos.z - 0.1f);
+    //     // var quadrantRadiant = CalculateQuadrantLogicForRadiant();
+    //     // GetRadiantPointReflection(quadrantRadiant, _outterCircle.w);
+    //     // CalculateTremor();
+    //     // // Decrease tremorIntensity over time
+    //     // tremorIntensity -= tremorDecayRate * Time.deltaTime;
+    //     // tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+    //     //
+    //     // // Store tremorIntensity in the ScriptableObject for access from the editor window
+    //     // scO.tremorIntensity = tremorIntensity;
+    //     // // Debug.Log("Radiant: " + scO.degree);
+    // }
+    
+    private void StartDataCollection()
+    {
+        isCollectingData = true;
+        ResetTremorDetectionVariables();
+        dataCollectionCoroutine = StartCoroutine(DataCollectionRoutine());
+    }
+
+    private void StopDataCollection()
+    {
+        isCollectingData = false;
+        if (dataCollectionCoroutine != null) {
+            StopCoroutine(dataCollectionCoroutine);
+            dataCollectionCoroutine = null;
+        }
         positionQueue.Clear();
     }
     
+    private IEnumerator DataCollectionRoutine()
+    {
+        while (isCollectingData)
+        {
+            // Always update current position
+            raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
+            scO.currentPos = hit.point;
 
-    private void Update() {
-        raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
-        scO.currentPos = hit.point;
-        
-        outterCirclePosition = new Vector3(scO.currentPos.x, scO.currentPos.y, scO.currentPos.z - 0.1f);
-        var quadrantRadiant = CalculateQuadrantLogicForRadiant();
-        GetRadiantPointReflection(quadrantRadiant, _outterCircle.w);
-        CalculateTremor();
-        // Decrease tremorIntensity over time
-        tremorIntensity -= tremorDecayRate * Time.deltaTime;
-        tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+            // Enqueue position
+            EnqueuePosition(scO.currentPos);
 
-        // Store tremorIntensity in the ScriptableObject for access from the editor window
-        scO.tremorIntensity = tremorIntensity;
-        // Debug.Log("Radiant: " + scO.degree);
+            // Perform calculations
+            outterCirclePosition = new Vector3(scO.currentPos.x, scO.currentPos.y, scO.currentPos.z - 0.1f);
+            var quadrantRadiant = CalculateQuadrantLogicForRadiant();
+            GetRadiantPointReflection(quadrantRadiant, _outterCircle.w);
+            CalculateTremor();
+
+            // Decrease tremorIntensity over time
+            tremorIntensity -= tremorDecayRate * Time.deltaTime;
+            tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+
+            // Store tremorIntensity in the ScriptableObject for access from the editor window
+            scO.tremorIntensity = tremorIntensity;
+
+            // Wait for the next frame
+            yield return null;
+        }
+    }
+    
+    private void ResetTremorDetectionVariables()
+    {
+        previousDegree = scO.degree;
+        previousDelta = 0f;
+        oscillationDelta = 0f;
+        tremorIntensity = 0f;
+        tremorEventTimes.Clear();
     }
 
     private void CalculateTremor() {
@@ -95,6 +209,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         
         oscillationDelta = previousDelta + deltaDegree;
         if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
+            Debug.Log("asdasd");
             // Debug.Log($"Degree is oscillating! Total oscillation: {oscillationDelta} degrees");
             detector.GetComponent<Renderer>().material.color = Color.red;
             // Debug.Log(oscillationDelta);
@@ -133,7 +248,13 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     }
 
     private Vector3 GetLastPosition() {
-        return positionQueue.Count > 0 ? positionQueue.ToArray()[positionQueue.Count - 1] : Vector3.zero;
+        if (positionQueue.Count < 2)
+        {
+            return scO.currentPos; // Return current position if not enough data
+        }
+        var array = positionQueue.ToArray();
+        return array[array.Length - 2]; // Second last position
+        // return positionQueue.Count > 0 ? positionQueue.ToArray()[positionQueue.Count - 1] : Vector3.zero;
     }
 
     private float CalculateHypotenuseToLastPosition() {
@@ -143,6 +264,11 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     }
 
     private float CalculateQuadrantLogicForRadiant() {
+        if (positionQueue.Count < 2)
+        {
+            Debug.Log("Not enough positions to calculate quadrant");
+            return 0f;
+        }
         var quadrantBasedRadiant = 0f;
         var deltaX = GetLastPosition().x - scO.currentPos.x;
         var deltaY = GetLastPosition().y - scO.currentPos.y;
