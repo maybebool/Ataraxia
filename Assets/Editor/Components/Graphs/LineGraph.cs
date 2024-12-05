@@ -181,5 +181,10 @@ namespace Editor.Components.Graphs {
                 _chartContainer.Add(valueLabel);
             }
         }
+        
+        public void ClearData() {
+            _dataPoints.Clear();
+            UpdateChartDisplay();
+        }
     }
 }

@@ -82,5 +82,15 @@ namespace ScriptableObjects {
             var middle2 = sortedData[count / 2];
             return (middle1 + middle2) / 2;
         }
+        
+        public void ClearData() {
+            tremorValues.Clear();
+            minValues.Clear();
+            q1Values.Clear();
+            medianValues.Clear();
+            q3Values.Clear();
+            maxValues.Clear();
+            min = max = median = q1 = q3 = 0f;
+        }
     }
 }

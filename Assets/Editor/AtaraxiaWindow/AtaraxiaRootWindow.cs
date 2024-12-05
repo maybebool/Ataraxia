@@ -7,6 +7,7 @@ using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
 using ScriptableObjects;
 using Editor.Helpers;
+using Managers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,6 +35,22 @@ namespace Editor.AtaraxiaWindow {
         public static void ShowWindow() {
             var wnd = GetWindow<AtaraxiaRootWindow>();
             wnd.titleContent = new GUIContent("Ataraxia Manager");
+        }
+        
+        private void OnEnable() {
+            // Subscribe to events from EventManager
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnButtonPressed += StartDataCollection;
+                MtsEventManager.Instance.OnButtonReleased += StopDataCollection;
+            }
+        }
+
+        private void OnDisable() {
+            // Unsubscribe from events
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnButtonPressed -= StartDataCollection;
+                MtsEventManager.Instance.OnButtonReleased -= StopDataCollection;
+            }
         }
 
         public void CreateGUI() {
@@ -105,6 +122,25 @@ namespace Editor.AtaraxiaWindow {
                     visualElement.style.display = DisplayStyle.Flex;
             }
         }
+        
+        private void StartDataCollection() {
+            _shouldUpdateBoxPlot = true;
+            // Optionally reset data if needed
+            // ResetData();
+        }
+
+        private void StopDataCollection() {
+            _shouldUpdateBoxPlot = false;
+        }
+        
+        private void OnDestroy() {
+            scObData.ClearData();
+            foreach (var data in _boxPlotDatas) {
+                data?.ClearData();
+            }
+            
+            _lineChart?.ClearData();
+        }
 
         private void ShowOnlyUIElement(VisualElement uiElement) {
             foreach (var element in _buttonToUIElementMap.Values) {
@@ -123,26 +159,47 @@ namespace Editor.AtaraxiaWindow {
             if (_shouldUpdateBoxPlot) {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
-                    
+
                     UpdateBoxPlot();
+                    // Debug logs if needed
                     Debug.Log(scObData.median);
                     Debug.Log(scObData.max);
                     Debug.Log(scObData.q3);
                     Debug.Log(scObData.q1);
                 }
+
+                if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
+                    _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
+
+                    UpdateLineGraph();
+                }
             }
-            if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
-                _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
-                
-                UpdateLineGraph();
-            }
-            
-            Debug.Log(scObData.maxValues.Count);
         }
+        // private void Update() {
+        //     if (_shouldUpdateBoxPlot) {
+        //         if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
+        //             _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
+        //             
+        //             UpdateBoxPlot();
+        //             Debug.Log(scObData.median);
+        //             Debug.Log(scObData.max);
+        //             Debug.Log(scObData.q3);
+        //             Debug.Log(scObData.q1);
+        //         }
+        //     }
+        //     if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
+        //         _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
+        //         
+        //         UpdateLineGraph();
+        //     }
+        //     
+        //     Debug.Log(scObData.maxValues.Count);
+        // }
 
         private void UpdateBoxPlot() {
+            if (!_shouldUpdateBoxPlot) return;
+
             // For demonstration, we'll use the same tremorIntensity for all box plots
-            // In the future, these can be replaced with different data sources
             foreach (var data in _boxPlotDatas) {
                 if (data != null) {
                     data.AddTremorValue(scObData.tremorIntensity);
@@ -157,11 +214,30 @@ namespace Editor.AtaraxiaWindow {
                     graph.SetBoxPlotData(data);
                 }
             }
+            // // For demonstration, we'll use the same tremorIntensity for all box plots
+            // // In the future, these can be replaced with different data sources
+            // foreach (var data in _boxPlotDatas) {
+            //     if (data != null) {
+            //         data.AddTremorValue(scObData.tremorIntensity);
+            //     }
+            // }
+            //
+            // for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+            //     var graph = _boxPlotGraphs[i];
+            //     var data = _boxPlotDatas[i];
+            //
+            //     if (graph != null && data != null) {
+            //         graph.SetBoxPlotData(data);
+            //     }
+            // }
         }
 
         private void UpdateLineGraph() {
+            if (!_shouldUpdateBoxPlot) return;
             _lineChart.AddDataPoint(scObData.tremorIntensity);
             _lineChart.UpdateChartDisplay();
+            // _lineChart.AddDataPoint(scObData.tremorIntensity);
+            // _lineChart.UpdateChartDisplay();
         }
         
         private void OnSaveButtonClicked()
