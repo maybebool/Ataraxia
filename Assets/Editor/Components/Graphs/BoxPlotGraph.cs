@@ -20,6 +20,12 @@ namespace Editor.Components.Graphs {
         private readonly Label _q3Label;
         private readonly Label _maxLabel;
         private DataContainer _boxPlotData;
+        
+        private float _minValue;
+        private float _q1Value;
+        private float _medianValue;
+        private float _q3Value;
+        private float _maxValue;
 
         public BoxPlotGraph(string title = "1") {
             // Load the USS stylesheet
@@ -77,6 +83,7 @@ namespace Editor.Components.Graphs {
         public void SetBoxPlotData(DataContainer data) {
             _boxPlotData = data;
             UpdateBoxPlotDisplay();
+            
         }
         
         public void SetTitle(string title) {

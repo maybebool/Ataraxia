@@ -5,13 +5,13 @@ using UnityEngine;
 namespace ScriptableObjects {
     [CreateAssetMenu(fileName = "DataContainer", menuName = "Scriptable Objects/DataContainers")]
     public class DataContainer : ScriptableObject {
-        
+        public bool isCollectingData;
         public List<float> minValues = new();
         public List<float> q1Values = new();
         public List<float> medianValues = new();
         public List<float> q3Values = new();
         public List<float> maxValues = new();
-        
+
         public float tremorIntensity;
         public Vector3 currentPos;
         public float degree;
@@ -21,7 +21,6 @@ namespace ScriptableObjects {
         public float median;
         public float q1;
         public float q3;
-        
 
         public void AddTremorValue(float value) {
             tremorValues.Add(value);
@@ -46,10 +45,25 @@ namespace ScriptableObjects {
             min = sortedValues[0];
             max = sortedValues[sortedValues.Length - 1];
 
-            var count = sortedValues.Length;
-            median = CalculateMedian(sortedValues, count);
-            q1 = CalculateMedian(sortedValues.Take(count / 2).ToArray(), count / 2);
-            q3 = CalculateMedian(sortedValues.Skip((count + 1) / 2).ToArray(), count / 2);
+            median = CalculateMedian(sortedValues);
+
+            // Calculate Q1
+            float[] lowerHalf;
+            if (sortedValues.Length % 2 == 0) {
+                lowerHalf = sortedValues.Take(sortedValues.Length / 2).ToArray();
+            } else {
+                lowerHalf = sortedValues.Take(sortedValues.Length / 2).ToArray(); // Exclude median
+            }
+            q1 = CalculateMedian(lowerHalf);
+
+            // Calculate Q3
+            float[] upperHalf;
+            if (sortedValues.Length % 2 == 0) {
+                upperHalf = sortedValues.Skip(sortedValues.Length / 2).ToArray();
+            } else {
+                upperHalf = sortedValues.Skip((sortedValues.Length / 2) + 1).ToArray(); // Exclude median
+            }
+            q3 = CalculateMedian(upperHalf);
 
             // Add the calculated values to the historical lists
             minValues.Add(min);
@@ -60,8 +74,7 @@ namespace ScriptableObjects {
 
             // Optionally limit the size of the lists
             var maxValuesCount = 100000; // Adjust as needed
-            if (minValues.Count > maxValuesCount)
-            {
+            if (minValues.Count > maxValuesCount) {
                 minValues.RemoveAt(0);
                 q1Values.RemoveAt(0);
                 medianValues.RemoveAt(0);
@@ -70,7 +83,8 @@ namespace ScriptableObjects {
             }
         }
 
-        private float CalculateMedian(float[] sortedData, int count) {
+        private float CalculateMedian(float[] sortedData) {
+            int count = sortedData.Length;
             if (count == 0) return 0;
 
             if (count % 2 == 1) {
@@ -80,9 +94,9 @@ namespace ScriptableObjects {
             // If even, the median is the average of the two middle elements
             var middle1 = sortedData[(count / 2) - 1];
             var middle2 = sortedData[count / 2];
-            return (middle1 + middle2) / 2;
+            return (middle1 + middle2) / 2f;
         }
-        
+
         public void ClearData() {
             tremorValues.Clear();
             minValues.Clear();
@@ -91,6 +105,8 @@ namespace ScriptableObjects {
             q3Values.Clear();
             maxValues.Clear();
             min = max = median = q1 = q3 = 0f;
+            tremorIntensity = 0f;
+            isCollectingData = false;
         }
     }
 }

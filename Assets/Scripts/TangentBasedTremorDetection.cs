@@ -76,17 +76,19 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     
     private void StartDataCollection() {
         isCollectingData = true;
+        scO.isCollectingData = true; // Set the flag in the ScriptableObject
         ResetTremorDetectionVariables();
         dataCollectionCoroutine = StartCoroutine(DataCollectionRoutine());
     }
 
     private void StopDataCollection() {
         isCollectingData = false;
+        scO.isCollectingData = false; // Reset the flag in the ScriptableObject
         if (dataCollectionCoroutine != null) {
             StopCoroutine(dataCollectionCoroutine);
             dataCollectionCoroutine = null;
         }
-        hasPreviousPosition = false;
+        hasPreviousPosition = false; // Reset previous position
     }
     
     private IEnumerator DataCollectionRoutine() {
