@@ -42,10 +42,12 @@ namespace Editor.AtaraxiaWindow {
             var dataViewBnt = new UpperMainButton("Data View");
             var settingsBnt = new UpperMainButton("Settings");
             var container = new CenterRowContainer(sceneManagerBtn, dataViewBnt, settingsBnt);
-            var tabView = new TabViewContainer();
+            var tabViewExercises = new TabViewContainer();
+            // var tabViewSettings = new TabViewContainer();
 
             rootVisualElement.Add(container);
-            rootVisualElement.Add(tabView);
+            rootVisualElement.Add(tabViewExercises);
+            // rootVisualElement.Add(tabviewSettings);
             
             var graphsContainer = new VisualElement().AddClass("graphsContainer");
             string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
@@ -80,8 +82,9 @@ namespace Editor.AtaraxiaWindow {
             graphsContainer.Add(buttonContainer);
 
             rootVisualElement.Add(graphsContainer);
-            _buttonToUIElementMap.Add(sceneManagerBtn, tabView);
+            _buttonToUIElementMap.Add(sceneManagerBtn, tabViewExercises);
             _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
+            // _buttonToUIElementMap.Add(settingsBnt, tabviewSettings);
 
             foreach (var kvp in _buttonToUIElementMap) {
                 var button = kvp.Key;

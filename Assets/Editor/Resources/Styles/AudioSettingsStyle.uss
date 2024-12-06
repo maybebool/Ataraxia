@@ -1,1 +1,7 @@
 VisualElement {}
+
+
+.unity-label{
+    -unity-font: resource("Fonts/Roboto-Regular");
+    color: #EAEAEA;
+}

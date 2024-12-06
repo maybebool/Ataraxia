@@ -3,8 +3,8 @@
         <engine:VisualElement name="ImageContainer" style="flex-grow: 1; height: 50%; width: 20%; align-items: auto; align-self: center; margin-right: 20px; background-image: url(&quot;project://database/Assets/Images/Logo/LogoWithFont.png?fileID=2800000&amp;guid=901d259efcbd8d24ea501810ee6c0ebf&amp;type=3#LogoWithFont&quot;); -unity-background-scale-mode: scale-to-fit;" />
         <engine:VisualElement name="MainAudioContainer" style="flex-grow: 1; width: 80%; height: 100%;">
             <engine:VisualElement name="LabelContainer" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-content: auto; height: 10%; width: auto; font-size: 25px; margin-bottom: 20px;">
-                <engine:Label text="Volume" />
-                <engine:Label text="Music" />
+                <engine:Label text="Volume" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Roboto-Regular.ttf?fileID=12800000&amp;guid=38f33d82e953aef45b6ac642404d1835&amp;type=3#Roboto-Regular&quot;); -unity-font-style: normal;" />
+                <engine:Label text="Music" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Roboto-Regular.ttf?fileID=12800000&amp;guid=38f33d82e953aef45b6ac642404d1835&amp;type=3#Roboto-Regular&quot;);" />
                 <engine:Label text="Music" style="color: rgba(27, 27, 27, 0);" />
             </engine:VisualElement>
             <engine:VisualElement name="AudioSettingsGrid" style="flex-grow: 1; flex-direction: row;">
