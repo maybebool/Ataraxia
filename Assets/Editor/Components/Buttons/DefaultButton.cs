@@ -2,6 +2,7 @@
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
+    
     public class DefaultButton : Button {
         private Texture2D backgroundImage;
         public DefaultButton(string title) {
