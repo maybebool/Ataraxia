@@ -164,14 +164,12 @@ namespace Editor.Components.Graphs {
                 else {
                     _lowerWhiskerLine.style.display = DisplayStyle.None;
                 }
-
-                // Force UI redraw
+                
                 MarkDirtyRepaint();
             });
         }
         
-        public string GetTitle()
-        {
+        public string GetTitle() {
             return _titleLabel.text;
         }
     }
