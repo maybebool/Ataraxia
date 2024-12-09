@@ -15,14 +15,13 @@ namespace Editor.Components.TabViewContainer {
 
             asset.CloneTree(this);
             
-            
-            var vEContainerForStartTab = this.Q<VisualElement>("unity-tab-view__content-container");
-            if (vEContainerForStartTab != null) {
-                vEContainerForStartTab.Add(CreateStartTab());
-                vEContainerForStartTab.Add(CreateExerciseTab(1,SceneNames.Exercise1));
-                vEContainerForStartTab.Add(CreateExerciseTab(2,SceneNames.Exercise2));
-                vEContainerForStartTab.Add(CreateExerciseTab(3,SceneNames.Exercise3));
-                vEContainerForStartTab.Add(CreateExerciseTab(4,SceneNames.Exercise4));
+            var vETabContainer = this.Q<VisualElement>("unity-tab-view__content-container");
+            if (vETabContainer != null) {
+                vETabContainer.Add(CreateStartTab());
+                vETabContainer.Add(CreateExerciseTab(1,SceneNames.Exercise1));
+                vETabContainer.Add(CreateExerciseTab(2,SceneNames.Exercise2));
+                vETabContainer.Add(CreateExerciseTab(3,SceneNames.Exercise3));
+                vETabContainer.Add(CreateExerciseTab(4,SceneNames.Exercise4));
             }
             else {
                 Debug.LogError("Failed to find VisualElement with id 'visual_element_number_1'");
@@ -42,8 +41,8 @@ namespace Editor.Components.TabViewContainer {
 
         private TabElement CreateStartTab() {
             var menuTab = new TabElement {
-                name = $"MenuTab",
-                label = $"Start",
+                name = "MenuTab",
+                label = "Start",
             };
 
             var appTextForButton = new Label("Start the Application");
@@ -63,8 +62,8 @@ namespace Editor.Components.TabViewContainer {
 
         private TabElement CreateExerciseTab(int exerciseNumber,SceneNames scene) {
             var exerciseTab = new TabElement {
-                name = $"ExerciseTab " + exerciseNumber,
-                label = $"Exercise " + exerciseNumber,
+                name = "ExerciseTab " + exerciseNumber,
+                label = "Exercise " + exerciseNumber,
             };
             var startPauseText = new Label("Start/Pause the Exercise");
             var restartExercise = new Label("Restart the Exercise");

@@ -1,4 +1,18 @@
 VisualElement {}
+.button-container-songs {
+    margin-left: 200px;
+}
+
+.unity-button-custom{
+    width: 260px;
+    height: 60px;
+}
+
+.custom-audio-settings-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+}
 
 .unity-label{
     -unity-font: resource("Fonts/Roboto-Regular");
