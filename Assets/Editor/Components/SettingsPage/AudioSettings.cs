@@ -8,9 +8,10 @@ namespace Editor.Components.SettingsPage {
         private string volumeName;
         private float volume;
         
+        
+        
         public AudioSettings() {
-            var mySlider = this.Q<SliderInt>("MusicSlider");
-            var volumeLabel = this.Q<Label>("music-value");
+
             
             var audioSettingsStyle = Resources.Load<StyleSheet>("Styles/AudioSettingsStyle");
             var audioSettingsUxml = Resources.Load<VisualTreeAsset>("SoundSettingsContainer");
@@ -26,7 +27,9 @@ namespace Editor.Components.SettingsPage {
                 Debug.LogError(
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
-
+            
+            var mySlider = this.Q<SliderInt>("MusicSlider");
+            var volumeLabel = this.Q<Label>("music-value");
             
             // TODO this doesnt work. Somehow .Q doesnt get the name i guess
             
