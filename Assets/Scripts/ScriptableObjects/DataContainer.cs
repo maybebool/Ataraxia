@@ -98,7 +98,7 @@ namespace ScriptableObjects {
         }
 
         public void ClearData() {
-            tremorValues.Clear();
+            tremorValues?.Clear();
             minValues.Clear();
             q1Values.Clear();
             medianValues.Clear();

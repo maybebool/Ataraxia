@@ -5,8 +5,9 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.SettingsPage {
     public class AudioSettings : VisualElement {
-        private string volumeName;
+        private string volumeName = "Music";
         private float volume;
+        private SliderInt slider;
         
         
         
@@ -29,7 +30,9 @@ namespace Editor.Components.SettingsPage {
             }
             
             var mySlider = this.Q<SliderInt>("MusicSlider");
-            var volumeLabel = this.Q<Label>("music-value");
+            var volumeLabel = this.Q<Label>("MusicValue");
+            // slider = mySlider;
+            mySlider.value = 100;
             
             // TODO this doesnt work. Somehow .Q doesnt get the name i guess
             
@@ -43,25 +46,25 @@ namespace Editor.Components.SettingsPage {
             
         }
         private void OnSliderValueChanged(Label volumeLabel, float value) {
+            Settings.profile.GetAudioLevels();
             Debug.Log("Slider reached via name");
             if (volumeLabel != null) {
-                volumeLabel.text = Mathf.Round(value * 100f) + "%";
+                volumeLabel.text = Mathf.Round(value * 1f) + "%";
             }
-            var volName = volumeLabel.text;
 
             if (Settings.profile) {
-                Settings.profile.SetAudioLevels(volName, value);
+                Settings.profile.SetAudioLevels(volumeName, value);
             }
         }
         
-        // public void ResetSliderValue() {
-        //     if (Settings.profile) {
-        //         var volume = 1;
-        //         
-        //         OnSliderValueChanged(volume);
-        //         slider.value = volume;
-        //     }
-        // }
+        public void ResetSliderValue(Label volumeLabel) {
+            if (Settings.profile) {
+                var volume = 1;
+                
+                OnSliderValueChanged(volumeLabel, volume);
+                slider.value = volume;
+            }
+        }
     
     }
 }
