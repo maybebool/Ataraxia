@@ -6048,7 +6048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1857297491051766799, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.2935028
       objectReference: {fileID: 0}
     - target: {fileID: 1857297491133585296, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_Colors.m_NormalColor.b
@@ -6128,7 +6128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1857297491487884294, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -65.321754
       objectReference: {fileID: 0}
     - target: {fileID: 1885411868788090740, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: volumeLabel
@@ -6236,7 +6236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256243678398346211, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -65.321754
       objectReference: {fileID: 0}
     - target: {fileID: 3256243678834463722, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_AnchorMax.x
@@ -6252,7 +6252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3256243678834463722, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.2935028
       objectReference: {fileID: 0}
     - target: {fileID: 3256243678834463723, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_Sprite
@@ -6612,7 +6612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4140686877392791192, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.2935028
       objectReference: {fileID: 0}
     - target: {fileID: 4140686877392791193, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_Sprite
@@ -6636,7 +6636,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4140686878097475217, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -65.321754
       objectReference: {fileID: 0}
     - target: {fileID: 4222840322925290979, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: volumeName
@@ -6908,7 +6908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5987217159009835952, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.2935028
       objectReference: {fileID: 0}
     - target: {fileID: 5987217159009835953, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_Sprite
@@ -6932,7 +6932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5987217159647329209, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -65.321754
       objectReference: {fileID: 0}
     - target: {fileID: 6102661710160355887, guid: eaa68f5c2c4427041bf9ec3e21e22bfb, type: 3}
       propertyPath: m_Name

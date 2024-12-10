@@ -7,7 +7,7 @@ namespace Editor.Components.SettingsPage {
     public class AudioSettings : VisualElement {
         private string volumeName = "Music";
         private float volume;
-        private SliderInt slider;
+        private Slider slider;
         
         
         
@@ -29,27 +29,25 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
-            var mySlider = this.Q<SliderInt>("MusicSlider");
+            var mySlider = this.Q<Slider>("MusicSlider");
             var volumeLabel = this.Q<Label>("MusicValue");
             // slider = mySlider;
             mySlider.value = 100;
             
             // TODO this doesnt work. Somehow .Q doesnt get the name i guess
-            
-            if (mySlider != null) {
-                mySlider.RegisterValueChangedCallback(evt => {
-                    var newValue = evt.newValue;
-                    OnSliderValueChanged(volumeLabel, newValue);
+
+            mySlider.RegisterValueChangedCallback(evt => {
+                var newValue = evt.newValue;
+                OnSliderValueChanged(volumeLabel, newValue);
                     
-                });
-            }
-            
+            });
+
         }
         private void OnSliderValueChanged(Label volumeLabel, float value) {
-            Settings.profile.GetAudioLevels();
+            // Settings.profile.GetAudioLevels();
             Debug.Log("Slider reached via name");
             if (volumeLabel != null) {
-                volumeLabel.text = Mathf.Round(value * 1f) + "%";
+                volumeLabel.text = Mathf.Round(value * 100f) + "%";
             }
 
             if (Settings.profile) {

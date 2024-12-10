@@ -16,14 +16,14 @@
                             <engine:Label text="Overall&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
                             <engine:Label text="100" name="OverallValue" />
                         </engine:VisualElement>
-                        <engine:SliderInt value="100" high-value="100" name="OberallSlider" />
+                        <engine:Slider value="42" high-value="1" name="OberallSlider" />
                     </engine:VisualElement>
                     <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
                         <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
                             <engine:Label text="Music" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
                             <engine:Label text="100" name="MusicValue" class="music-value" />
                         </engine:VisualElement>
-                        <engine:SliderInt value="100" high-value="100" name="MusicSlider" class="music-slider" />
+                        <engine:Slider value="1" high-value="1" name="MusicSlider" />
                     </engine:VisualElement>
                     <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
                         <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
