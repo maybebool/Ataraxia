@@ -26,15 +26,12 @@ namespace GameUI {
         [SerializeField] private GameObject tutorialPanel;
         
         
-        public AudioController _audioControl;
+        // public AudioController _audioControl;
         private Profiles audioMixerProfileSo;
 
         private void Awake() {
-            if (_audioControl == null) {
-                _audioControl = FindObjectOfType<AudioController>();
-                if (_audioControl == null) {
-                    Debug.LogError("AudioController not found in the scene.");
-                }
+            if (AudioController.Instance == null) {
+                Debug.LogError("AudioController not found in the scene.");
             }
 
             if (audioMixerProfileSo != null) {
@@ -70,16 +67,12 @@ namespace GameUI {
             SceneLoader.Instance.LoadNewScene(scene);
         }
 
-        private void OnClickBackToMainMenuButton() {
-            SceneLoader.Instance.LoadNewScene(SceneNames.MainMenu);
-        }
-
         private void OnClickSongButton(int songIndex) {
-            _audioControl.BackgroundMusic(songIndex);
+            AudioController.Instance.BackgroundMusic(songIndex);
         }
         
         private void OnClickUIButton(int audioClipIndex) {
-            _audioControl.PlayAudioClip(audioClipIndex,1);
+            AudioController.Instance.PlayAudioClip(audioClipIndex,1);
         }
 
         private void OnClickSaveSettings() {
@@ -89,7 +82,7 @@ namespace GameUI {
         }
 
         private void OnClickDefaultSettings() {
-            _audioControl.CancelChanges();
+            AudioController.Instance.CancelChanges();
         }
 
         private void OnClickStartPanel() {
