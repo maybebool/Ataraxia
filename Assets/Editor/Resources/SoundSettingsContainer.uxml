@@ -30,14 +30,14 @@
                             <engine:Label text="UI SFX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
                             <engine:Label text="100" name="UISFXValue" />
                         </engine:VisualElement>
-                        <engine:SliderInt value="100" high-value="100" name="UISFXSlider" />
+                        <engine:Slider value="42" high-value="1" name="UISFXSlider" />
                     </engine:VisualElement>
                     <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
                         <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
                             <engine:Label text="Game SFX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
                             <engine:Label text="100" name="GameSFXValue" />
                         </engine:VisualElement>
-                        <engine:SliderInt value="100" high-value="100" name="GameSFXSlider" />
+                        <engine:Slider value="42" high-value="1" name="GameSFXSlider" />
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="MusicButtonContainer" class="button-container-songs" style="flex-grow: 1; margin-left: 10%; margin-right: 0; align-self: center; justify-content: space-between; align-content: center; margin-top: 0; margin-bottom: 0;">

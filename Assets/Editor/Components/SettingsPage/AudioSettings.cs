@@ -4,12 +4,11 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.SettingsPage {
     public class AudioSettings : VisualElement {
-        private string volumeName = "Music";
+        
         private float volume;
         private Slider slider;
         
         public AudioSettings() {
-
             
             var audioSettingsStyle = Resources.Load<StyleSheet>("Styles/AudioSettingsStyle");
             var audioSettingsUxml = Resources.Load<VisualTreeAsset>("SoundSettingsContainer");
@@ -26,23 +25,36 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
-            var mySlider = this.Q<Slider>("MusicSlider");
-            var volumeLabel = this.Q<Label>("MusicValue");
-            mySlider.value = 100;
-            mySlider.RegisterValueChangedCallback(evt => {
-                var newValue = evt.newValue;
-                OnSliderValueChanged(volumeLabel, newValue);
-                    
-            });
+            var overallSlider = this.Q<Slider>("OverallSlider");
+            var musicSlider = this.Q<Slider>("MusicSlider");
+            var uISFXSlider = this.Q<Slider>("UISFXSlider");
+            var gameSFXSlider = this.Q<Slider>("GameSFXSlider");
+            
+            var musicValueLabel = this.Q<Label>("MusicValue");
+            var overallValueLabel = this.Q<Label>("OverallValue");
+            var interfaceSFXValueLabel = this.Q<Label>("UISFXValue");
+            var gameSFXValueLabel = this.Q<Label>("GameSFXValue");
+            
+            musicSlider.value = 100;
+            
+            SliderEvent(musicSlider, musicValueLabel, "Music");
+            SliderEvent(overallSlider, overallValueLabel, "Overall");
+            SliderEvent(uISFXSlider, interfaceSFXValueLabel, "UISFX");
+            SliderEvent(gameSFXSlider, gameSFXValueLabel, "GameSFX");
         }
         
-        private void OnSliderValueChanged(Label volumeLabel, float value) {
+        private void SliderEvent(Slider triggeredSlider, Label label, string audioMixerLevel) {
+            triggeredSlider.RegisterValueChangedCallback(evt => OnSliderValueChanged(label, audioMixerLevel, evt.newValue));
+        }
+
+        
+        private void OnSliderValueChanged(Label volumeLabel, string audioMixerLevel, float value) {
             if (volumeLabel != null) {
-                volumeLabel.text = Mathf.Round(value * 100f) + "%";
+                volumeLabel.text = Mathf.Round(value) + "%";
             }
 
             if (Settings.profile) {
-                Settings.profile.SetAudioLevels(volumeName, value);
+                Settings.profile.SetAudioLevels(audioMixerLevel, value);
             }
         }
     }
