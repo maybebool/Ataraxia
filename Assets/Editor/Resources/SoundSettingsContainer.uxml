@@ -1,13 +1,8 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/Editor/Resources/Styles/AudioSettingsStyle.uss?fileID=7433441132597879392&amp;guid=e79bfefff35de79479c4eff585d45f1c&amp;type=3#AudioSettingsStyle" />
     <engine:VisualElement name="MainContainer" style="flex-grow: 1; flex-direction: row; height: 750px;">
-        <engine:VisualElement name="ImageContainer" style="flex-grow: 1; height: 50%; width: 20%; align-items: auto; align-self: center; margin-right: 20px; background-image: url(&quot;project://database/Assets/Images/Logo/LogoWithFont.png?fileID=2800000&amp;guid=901d259efcbd8d24ea501810ee6c0ebf&amp;type=3#LogoWithFont&quot;); -unity-background-scale-mode: scale-to-fit;" />
+        <engine:VisualElement name="ImageContainer" style="flex-grow: 1; height: 50%; width: 20%; align-items: auto; align-self: center; margin-right: 60px; background-image: url(&quot;project://database/Assets/Images/Logo/LogoWithFont.png?fileID=2800000&amp;guid=901d259efcbd8d24ea501810ee6c0ebf&amp;type=3#LogoWithFont&quot;); -unity-background-scale-mode: scale-to-fit; margin-left: 20px;" />
         <engine:VisualElement name="MainAudioContainer" class="main-audio-container" style="flex-grow: 1; width: 80%; height: 100%; justify-content: flex-start;">
-            <engine:VisualElement name="LabelContainer" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-content: auto; height: 10%; width: auto; font-size: 25px; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0;">
-                <engine:Label text="Volume" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Roboto-Regular.ttf?fileID=12800000&amp;guid=38f33d82e953aef45b6ac642404d1835&amp;type=3#Roboto-Regular&quot;); -unity-font-style: normal;" />
-                <engine:Label text="Music" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/Roboto-Regular.ttf?fileID=12800000&amp;guid=38f33d82e953aef45b6ac642404d1835&amp;type=3#Roboto-Regular&quot;);" />
-                <engine:Label text="Music" style="color: rgba(27, 27, 27, 0);" />
-            </engine:VisualElement>
             <engine:VisualElement name="AudioSettingsGrid" style="flex-grow: 1; flex-direction: row;">
                 <engine:VisualElement name="VolumeSettingsContainer" style="flex-grow: 1; height: 100%; align-content: flex-start; align-self: flex-start; align-items: stretch;">
                     <engine:Toggle label="Audio On/Off" name="AudioToggle" style="margin-left: 0;" />

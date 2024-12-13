@@ -18,7 +18,7 @@ namespace Editor.Components.SettingsPage {
                 
             }else {
                 Debug.LogError(
-                    "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
+                    "Failed to load StyleSheet: BoxPlotStyle.uss.");
             }
             
             // style.opacity = Application.isPlaying ? 1f : 0.5f; 
@@ -39,13 +39,16 @@ namespace Editor.Components.SettingsPage {
             var song3Btn = this.Q<Button>("Song3Button");
             var song4Btn = this.Q<Button>("Song4Button");
             
+            var saveButton = this.Q<Button>("SaveButton");
+            var resetButton = this.Q<Button>("DefaultSettingsButton");
+            
             audioToggle.value = true;
             overallSlider.value = 1;
             musicSlider.value = 1;
             uISFXSlider.value = 1;
             gameSFXSlider.value = 1;
             
-            audioToggle?.RegisterValueChangedCallback(evt => { 
+            audioToggle.RegisterValueChangedCallback(evt => { 
                 OnAudioToggleChanged("Master",evt.newValue);
             });
             
@@ -58,6 +61,9 @@ namespace Editor.Components.SettingsPage {
             song2Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(1));
             song3Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(2));
             song4Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(3));
+            
+            saveButton?.RegisterCallback<ClickEvent>(_ => OnSaveButtonClicked());
+            resetButton?.RegisterCallback<ClickEvent>(_ => OnResetButtonClicked());
         }
         
         private void SliderEvent(Slider triggeredSlider, Label label, string audioMixerLevel) {
@@ -97,6 +103,16 @@ namespace Editor.Components.SettingsPage {
             }
             
             AudioController.Instance.BackgroundMusic(clipIndex);
+        }
+
+        private void OnSaveButtonClicked() {
+            if (Settings.profile != null) {
+                Settings.profile.SaveAudioLevels();
+            }
+        }
+
+        private void OnResetButtonClicked() {
+            AudioController.Instance.CancelChanges();
         }
     }
 }
