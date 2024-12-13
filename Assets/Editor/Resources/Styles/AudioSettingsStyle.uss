@@ -9,8 +9,10 @@ VisualElement {}
 }
 
 
-.unity-button:hover {
-    background-color: #222222;
+.unity-button-custom:hover {
+    -unity-background-image-tint-color: #CBCBCB;
+    width: 261px;
+    height: 61px;
 }
 
 .custom-audio-settings-container {

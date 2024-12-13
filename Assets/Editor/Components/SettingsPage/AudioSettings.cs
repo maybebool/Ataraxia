@@ -12,7 +12,6 @@ namespace Editor.Components.SettingsPage {
             if (audioSettingsStyle != null) {
                 styleSheets.Add(audioSettingsStyle);
                 AddToClassList("custom-audio-settings-container");
-                AddToClassList("unity-button-custom");
             }
             if (audioSettingsUxml != null) {
                 audioSettingsUxml.CloneTree(this);
@@ -22,7 +21,6 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
-            // TODO Button style on hover not working
             style.opacity = Application.isPlaying ? 1f : 0.5f; 
 
             var overallSlider = this.Q<Slider>("OverallSlider");
