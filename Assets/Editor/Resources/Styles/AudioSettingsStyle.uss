@@ -8,11 +8,21 @@ VisualElement {}
     height: 60px;
 }
 
+.unity-base-field__input {
+    justify-content: flex-end;
+}
+
+.unity-text-element{
+    margin-left: 0;
+}
+
+.unity-toggle{
+    margin-bottom: 50px;
+}
+
 
 .unity-button-custom:hover {
     -unity-background-image-tint-color: #CBCBCB;
-    width: 261px;
-    height: 61px;
 }
 
 .custom-audio-settings-container {

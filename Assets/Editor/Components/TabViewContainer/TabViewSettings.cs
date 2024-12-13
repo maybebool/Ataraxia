@@ -30,7 +30,6 @@ namespace Editor.Components.TabViewContainer {
             audioTab.Add(audioSettings); 
             return audioTab;
         }
-
         
         private TabElement CreateTutorialTab() {
             var tutorialTab = new TabElement {

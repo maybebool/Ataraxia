@@ -10,8 +10,7 @@
             </engine:VisualElement>
             <engine:VisualElement name="AudioSettingsGrid" style="flex-grow: 1; flex-direction: row;">
                 <engine:VisualElement name="VolumeSettingsContainer" style="flex-grow: 1; height: 100%; align-content: flex-start; align-self: flex-start; align-items: stretch;">
-                    <engine:Toggle label="Audio On/Off" name="AudioToggle" />
-                    <engine:RadioButton label="Audio On/Off" style="margin-bottom: 20px;" />
+                    <engine:Toggle label="Audio On/Off" name="AudioToggle" style="margin-left: 0;" />
                     <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
                         <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
                             <engine:Label text="Overall&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />

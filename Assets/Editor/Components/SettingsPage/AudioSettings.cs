@@ -21,7 +21,7 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
             }
             
-            style.opacity = Application.isPlaying ? 1f : 0.5f; 
+            // style.opacity = Application.isPlaying ? 1f : 0.5f; 
 
             var audioToggle = this.Q<Toggle>("AudioToggle");
             var overallSlider = this.Q<Slider>("OverallSlider");
@@ -39,6 +39,7 @@ namespace Editor.Components.SettingsPage {
             var song3Btn = this.Q<Button>("Song3Button");
             var song4Btn = this.Q<Button>("Song4Button");
             
+            audioToggle.value = true;
             overallSlider.value = 1;
             musicSlider.value = 1;
             uISFXSlider.value = 1;
