@@ -44,7 +44,10 @@ namespace Editor.Components.SettingsPage {
             var song3Btn = this.Q<Button>("Song3Button");
             var song4Btn = this.Q<Button>("Song4Button");
             
+            overallSlider.value = 100;
             musicSlider.value = 100;
+            uISFXSlider.value = 100;
+            gameSFXSlider.value = 100;
             
             SliderEvent(musicSlider, musicValueLabel, "Music");
             SliderEvent(overallSlider, overallValueLabel, "Overall");

@@ -25,8 +25,6 @@ namespace GameUI {
         [SerializeField] private GameObject settingsPanel;
         [SerializeField] private GameObject tutorialPanel;
         
-        
-        // public AudioController _audioControl;
         private Profiles audioMixerProfileSo;
 
         private void Awake() {
