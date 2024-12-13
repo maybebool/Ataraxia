@@ -19,7 +19,13 @@ namespace Editor.Components.Graphs {
         private readonly Label _medianLabel;
         private readonly Label _q3Label;
         private readonly Label _maxLabel;
-        private BoxPlotData _boxPlotData;
+        private DataContainer _boxPlotData;
+        
+        private float _minValue;
+        private float _q1Value;
+        private float _medianValue;
+        private float _q3Value;
+        private float _maxValue;
 
         public BoxPlotGraph(string title = "1") {
             // Load the USS stylesheet
@@ -74,9 +80,10 @@ namespace Editor.Components.Graphs {
             Add(mainContainer);
         }
 
-        public void SetBoxPlotData(BoxPlotData data) {
+        public void SetBoxPlotData(DataContainer data) {
             _boxPlotData = data;
             UpdateBoxPlotDisplay();
+            
         }
         
         public void SetTitle(string title) {
@@ -84,7 +91,7 @@ namespace Editor.Components.Graphs {
         }
 
         private void UpdateBoxPlotDisplay() {
-            if (_boxPlotData == null || _boxPlotData.values == null || _boxPlotData.values.Length == 0) return;
+            if (_boxPlotData == null || _boxPlotData.tremorValues == null || _boxPlotData.tremorValues.Count == 0) return;
             if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null ||
                 _medianLine == null) {
                 Debug.LogError("BoxPlotGraph visual elements are not properly initialized.");
@@ -157,10 +164,13 @@ namespace Editor.Components.Graphs {
                 else {
                     _lowerWhiskerLine.style.display = DisplayStyle.None;
                 }
-
-                // Force UI redraw
+                
                 MarkDirtyRepaint();
             });
+        }
+        
+        public string GetTitle() {
+            return _titleLabel.text;
         }
     }
 }
