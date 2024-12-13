@@ -7,6 +7,7 @@ MonoImporter:
   - m_ViewDataDictionary: {instanceID: 0}
   - backgroundImage: {fileID: 2800000, guid: abbebdbcf18db85418c6a30a7b870e6c, type: 3}
   - styleSheet: {fileID: 7433441132597879392, guid: a7ae09efe9d1f504e87bf5c621804a2a, type: 3}
+  - scObData: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

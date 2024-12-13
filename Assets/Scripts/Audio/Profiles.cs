@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using GameUI;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -105,6 +106,32 @@ namespace Audio {
                 audioMixer.SetFloat(volumeControl[i].name, Mathf.Log(volume) * 20f);
                 volumeControl[i].volume = volume;
             }
+        }
+
+        public void SetAudioVolumeByToggle(string name, bool isEnabled) {
+            if (!audioMixer) {
+                Debug.LogWarning("AudioMixer ist in den Profileinstellungen nicht definiert.");
+                return;
+            }
+
+            var volumeEntry = FindVolumeByName(name);
+            if (volumeEntry == null) {
+                Debug.LogWarning($"Kein Volume-Eintrag mit dem Namen '{name}' gefunden.");
+                return;
+            }
+
+            var volume = isEnabled ? 1f : 0f;
+            audioMixer.SetFloat(volumeEntry.name, volume);
+            volumeEntry.tempVolume = volume;
+        }
+
+        private Volume FindVolumeByName(string levelName) {
+            foreach (var volume in volumeControl) {
+                if (volume.name == levelName) {
+                    return volume;
+                }
+            }
+            return null;
         }
     }
 }

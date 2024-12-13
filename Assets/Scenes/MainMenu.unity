@@ -1530,7 +1530,6 @@ MonoBehaviour:
   homePanel: {fileID: 30947968598268972}
   settingsPanel: {fileID: 2065972974}
   tutorialPanel: {fileID: 1634891511}
-  _audioControl: {fileID: 1291217314}
 --- !u!4 &573110026
 Transform:
   m_ObjectHideFlags: 0
@@ -3102,17 +3101,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1291217314 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7501752128452001420, guid: dbc49fbfc41d02443a3ab748f2a552c6, type: 3}
-  m_PrefabInstance: {fileID: 5812632645422670943}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b70d57d59c043e18fe412e74227263c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1332835190

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
     public class LineGraph : VisualElement {
-        
+        public List<float> DataPoints => _dataPoints;
         private List<float> _dataPoints = new();
         private int _maxDataPoints = 10;
         private VisualElement _chartContainer;
@@ -180,6 +180,11 @@ namespace Editor.Components.Graphs {
                 };
                 _chartContainer.Add(valueLabel);
             }
+        }
+        
+        public void ClearData() {
+            _dataPoints.Clear();
+            UpdateChartDisplay();
         }
     }
 }

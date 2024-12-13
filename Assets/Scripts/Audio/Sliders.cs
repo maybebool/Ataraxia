@@ -19,7 +19,7 @@ namespace Audio {
 
         public void UpdateValueOnChange(float value) {
             if (volumeLabel != null) {
-                volumeLabel.text = Mathf.Round(value * 100f).ToString() + "%";
+                volumeLabel.text = Mathf.Round(value * 100f) + "%";
             }
 
             if (Settings.profile) {

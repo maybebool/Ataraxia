@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Audio {
-    public class AudioController : MonoBehaviour {
+    public class AudioController : Singleton<AudioController> {
         [Header("Audio Mixer Settings")]
         [SerializeField] private Profiles audioMixerProfileSo;
         [SerializeField] private int groupIndex = 0;

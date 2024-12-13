@@ -1,0 +1,40 @@
+VisualElement {}
+.button-container-songs {
+    margin-left: 200px;
+}
+
+.unity-button-custom{
+    width: 210px;
+    height: 50px;
+}
+
+.unity-base-field__input {
+    justify-content: flex-end;
+}
+
+.unity-text-element{
+    margin-left: 0;
+}
+
+.unity-toggle{
+    margin-bottom: 50px;
+}
+
+
+.unity-button-custom:hover {
+    -unity-background-image-tint-color: #CBCBCB;
+}
+
+.custom-audio-settings-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 25px;
+}
+.main-audio-container{
+    margin-top: 45px;
+}
+
+.unity-label{
+    -unity-font: resource("Fonts/Roboto-Regular");
+    color: #EAEAEA;
+}
