@@ -24,7 +24,7 @@ namespace Editor.Components.TabViewContainer {
         private TabElement CreateAudioSettingsTab() {
             var audioTab = new TabElement {
                 name = "audioTab",
-                label = "audioSettings"
+                label = "Audio Settings"
             };
             var audioSettings = new AudioSettings();
             audioTab.Add(audioSettings); 

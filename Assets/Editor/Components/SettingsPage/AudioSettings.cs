@@ -23,6 +23,7 @@ namespace Editor.Components.SettingsPage {
             
             style.opacity = Application.isPlaying ? 1f : 0.5f; 
 
+            var audioToggle = this.Q<Toggle>("AudioToggle");
             var overallSlider = this.Q<Slider>("OverallSlider");
             var musicSlider = this.Q<Slider>("MusicSlider");
             var uISFXSlider = this.Q<Slider>("UISFXSlider");
@@ -43,19 +44,24 @@ namespace Editor.Components.SettingsPage {
             uISFXSlider.value = 1;
             gameSFXSlider.value = 1;
             
+            audioToggle?.RegisterValueChangedCallback(evt => { 
+                OnAudioToggleChanged("Master",evt.newValue);
+            });
+            
             SliderEvent(musicSlider, musicValueLabel, "Music");
-            SliderEvent(overallSlider, overallValueLabel, "Overall");
+            SliderEvent(overallSlider, overallValueLabel, "Master");
             SliderEvent(uISFXSlider, interfaceSFXValueLabel, "UISFX");
             SliderEvent(gameSFXSlider, gameSFXValueLabel, "GameSFX");
             
-            song1Btn?.RegisterCallback<ClickEvent>(_ => OnAudioButtonClicked(0));
-            song2Btn?.RegisterCallback<ClickEvent>(_ => OnAudioButtonClicked(1));
-            song3Btn?.RegisterCallback<ClickEvent>(_ => OnAudioButtonClicked(2));
-            song4Btn?.RegisterCallback<ClickEvent>(_ => OnAudioButtonClicked(3));
+            song1Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(0));
+            song2Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(1));
+            song3Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(2));
+            song4Btn?.RegisterCallback<ClickEvent>(_ => OnSongButtonClicked(3));
         }
         
         private void SliderEvent(Slider triggeredSlider, Label label, string audioMixerLevel) {
-            triggeredSlider.RegisterValueChangedCallback(evt => OnSliderValueChanged(label, audioMixerLevel, evt.newValue));
+            triggeredSlider.RegisterValueChangedCallback(evt =>
+                OnSliderValueChanged(label, audioMixerLevel, evt.newValue));
         }
 
         
@@ -68,8 +74,17 @@ namespace Editor.Components.SettingsPage {
                 Settings.profile.SetAudioLevels(audioMixerLevel, value);
             }
         }
+
+        private void OnAudioToggleChanged(string levelName, bool isOn) {
+            if (Settings.profile != null) {
+                Settings.profile.SetAudioVolumeByToggle(levelName, isOn);
+
+                // Optionally, provide some feedback:
+                Debug.Log("Audio toggled " + (isOn ? "on" : "off"));
+            }
+        }
         
-        private void OnAudioButtonClicked(int clipIndex) {
+        private void OnSongButtonClicked(int clipIndex) {
             if (!Application.isPlaying) {
                 Debug.LogWarning("Not in play mode. AudioController is not accessible.");
                 return;
