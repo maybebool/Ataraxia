@@ -5,9 +5,6 @@ using UnityEngine.UIElements;
 namespace Editor.Components.SettingsPage {
     public class AudioSettings : VisualElement {
         
-        private float volume;
-        private Slider slider;
-        
         public AudioSettings() {
             
             var audioSettingsStyle = Resources.Load<StyleSheet>("Styles/AudioSettingsStyle");
@@ -27,7 +24,6 @@ namespace Editor.Components.SettingsPage {
             
             // TODO Button style on hover not working
             style.opacity = Application.isPlaying ? 1f : 0.5f; 
-
 
             var overallSlider = this.Q<Slider>("OverallSlider");
             var musicSlider = this.Q<Slider>("MusicSlider");
