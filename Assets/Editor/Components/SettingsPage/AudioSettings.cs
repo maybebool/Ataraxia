@@ -22,7 +22,6 @@ namespace Editor.Components.SettingsPage {
             }
             
             // style.opacity = Application.isPlaying ? 1f : 0.5f; 
-
             var audioToggle = this.Q<Toggle>("AudioToggle");
             var overallSlider = this.Q<Slider>("OverallSlider");
             var musicSlider = this.Q<Slider>("MusicSlider");
