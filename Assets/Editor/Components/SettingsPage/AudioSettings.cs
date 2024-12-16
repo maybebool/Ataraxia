@@ -21,7 +21,6 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss.");
             }
             
-            // style.opacity = Application.isPlaying ? 1f : 0.5f; 
             var audioToggle = this.Q<Toggle>("AudioToggle");
             var overallSlider = this.Q<Slider>("OverallSlider");
             var musicSlider = this.Q<Slider>("MusicSlider");
@@ -84,9 +83,6 @@ namespace Editor.Components.SettingsPage {
         private void OnAudioToggleChanged(string levelName, bool isOn) {
             if (Settings.profile != null) {
                 Settings.profile.SetAudioVolumeByToggle(levelName, isOn);
-
-                // Optionally, provide some feedback:
-                Debug.Log("Audio toggled " + (isOn ? "on" : "off"));
             }
         }
         

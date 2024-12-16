@@ -24,7 +24,7 @@ namespace Editor.Components.TabViewContainer {
         private TabElement CreateAudioSettingsTab() {
             var audioTab = new TabElement {
                 name = "audioTab",
-                label = "Audio Settings"
+                label = "Audio"
             };
             var audioSettings = new AudioSettings();
             audioTab.Add(audioSettings); 
@@ -34,7 +34,7 @@ namespace Editor.Components.TabViewContainer {
         private TabElement CreateTutorialTab() {
             var tutorialTab = new TabElement {
                 name = "tutorialTab",
-                label = "Tutorials"
+                label = "Instructions"
             };
             return tutorialTab;
         }

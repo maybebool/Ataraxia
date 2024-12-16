@@ -1,0 +1,23 @@
+VisualElement {
+}
+
+#QuestionButtonContainer{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.QuestionButton {
+    -unity-font: resource("Fonts/Roboto-Regular");
+    color: #EAEAEA;
+    background-color: rgba(255, 255, 255,0);
+    border-radius: 20px;
+    border-width: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.QuestionButton:hover {
+    color: #001000;
+    background-color: rgba(255, 255, 255,1);
+}
