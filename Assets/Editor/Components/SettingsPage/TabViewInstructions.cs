@@ -10,6 +10,7 @@ namespace Editor.Components.SettingsPage {
             var instructionUxml = Resources.Load<VisualTreeAsset>("InstructionsMainContainer");
             if (instructionStyle != null) {
                 styleSheets.Add(instructionStyle);
+                AddToClassList("instructions-style");
             }
             if (instructionUxml != null) {
                 instructionUxml.CloneTree(this);

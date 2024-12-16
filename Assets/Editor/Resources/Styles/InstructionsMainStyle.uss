@@ -1,23 +1,44 @@
 VisualElement {
 }
 
-#QuestionButtonContainer{
+.instructions-style {
+    margin-top: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+#QuestionButtonContainer {
+    height: 60%;
     padding-left: 30px;
     padding-right: 30px;
 }
 
 .QuestionButton {
-    -unity-font: resource("Fonts/Roboto-Regular");
-    color: #EAEAEA;
-    background-color: rgba(255, 255, 255,0);
+    height: 20%;
+    -unity-font: resource('Fonts/Roboto-Regular');
+    color: rgb(234, 234, 234);
+    background-color: rgba(255, 255, 255, 0);
+    border-color: rgb(234, 234, 234);
     border-radius: 20px;
-    border-width: 3px;
+    border-width: 2px;
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 10px;
 }
 
 .QuestionButton:hover {
-    color: #001000;
-    background-color: rgba(255, 255, 255,1);
+    color: rgb(0, 16, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+.switch-move-button {
+    background-image: resource('Images/Arrow');
+    background-size: contain;
+    background-color: rgba(188, 188, 188, 0);
+    rotate: 180deg;
+    height: 100%;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
 }

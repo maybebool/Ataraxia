@@ -1,3 +1,4 @@
+using Editor.Components.SettingsPage;
 using UnityEngine;
 using UnityEngine.UIElements;
 using AudioSettings = Editor.Components.SettingsPage.AudioSettings;
@@ -36,6 +37,8 @@ namespace Editor.Components.TabViewContainer {
                 name = "tutorialTab",
                 label = "Instructions"
             };
+            var instructions = new Instructions();
+            tutorialTab.Add(instructions);
             return tutorialTab;
         }
     }
