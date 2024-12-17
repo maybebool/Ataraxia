@@ -31,14 +31,13 @@ VisualElement {
     background-color: rgb(255, 255, 255);
 }
 
-.switch-move-button {
-    background-image: resource('Images/Arrow');
-    background-size: contain;
-    background-color: rgba(188, 188, 188, 0);
-    rotate: 180deg;
-    height: 100%;
-    border-left-color: rgba(149, 149, 149, 0);
-    border-right-color: rgba(149, 149, 149, 0);
-    border-top-color: rgba(149, 149, 149, 0);
-    border-bottom-color: rgba(149, 149, 149, 0);
+.slide-button{
+    background-color: transparent;
 }
+
+.slide-button:hover{
+    -unity-background-image-tint-color: hotpink;
+}
+
+
+
