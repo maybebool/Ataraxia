@@ -38,6 +38,3 @@ VisualElement {
 .slide-button:hover{
     -unity-background-image-tint-color: hotpink;
 }
-
-
-
