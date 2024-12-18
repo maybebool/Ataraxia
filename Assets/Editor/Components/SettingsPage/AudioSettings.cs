@@ -21,6 +21,8 @@ namespace Editor.Components.SettingsPage {
                     "Failed to load StyleSheet: BoxPlotStyle.uss.");
             }
             
+            SetEnabled(Application.isPlaying);
+            
             var audioToggle = this.Q<Toggle>("AudioToggle");
             var overallSlider = this.Q<Slider>("OverallSlider");
             var musicSlider = this.Q<Slider>("MusicSlider");

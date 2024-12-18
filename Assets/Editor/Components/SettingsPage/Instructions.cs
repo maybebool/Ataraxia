@@ -58,8 +58,8 @@ namespace Editor.Components.SettingsPage {
             // Query audio slides
             var audioSlide1 = this.Q<VisualElement>("AudioSlide1");
             var audioSlide2 = this.Q<VisualElement>("AudioSlide2");
-            var audioSlide3 = this.Q<VisualElement>("AudioSlide3");
-            audioSlides = new[] { audioSlide1, audioSlide2, audioSlide3 };
+            // var audioSlide3 = this.Q<VisualElement>("AudioSlide3");
+            audioSlides = new[] { audioSlide1, audioSlide2};
             // Initially, hide all slides in audioSlides
             UpdateSlideVisibility(audioSlides, audioIndex);
 
