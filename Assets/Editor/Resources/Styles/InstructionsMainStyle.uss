@@ -31,10 +31,14 @@ VisualElement {
     background-color: rgb(255, 255, 255);
 }
 
-.slide-button{
+.slide-button {
     background-color: transparent;
 }
 
-.slide-button:hover{
+.slide-button:hover {
+    -unity-background-image-tint-color: hotpink;
+}
+
+.back-Button:hover {
     -unity-background-image-tint-color: hotpink;
 }
