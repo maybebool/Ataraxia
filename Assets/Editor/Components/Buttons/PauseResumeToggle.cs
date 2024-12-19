@@ -28,8 +28,10 @@ namespace Editor.Components.Buttons {
             }
         }
 
+        
         private void OnTimeScaleToggleChanged(bool isOn) {
-            Time.timeScale = isOn ? 1f : 0f;
+            Time.timeScale = isOn ? 0f : 1f;
+            Debug.Log("TimeScaleToggle changed to: " + isOn);
         }
     }
 }
