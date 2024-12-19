@@ -69,6 +69,7 @@ namespace Editor.Components.TabViewContainer {
             var restartExercise = new Label("Restart the Exercise");
             var quitTextForButton = new Label("Quit the Application");
             var btnEx = new Buttons.SwitchButton(scene);
+            var pauseResumeToggle = new Buttons.PauseResumeToggle();
             var btnRestart = new Buttons.RestartButton();
             var btnQuit = new Buttons.QuitButton();
             var container1 = new LeftAlignContainer();
@@ -82,6 +83,7 @@ namespace Editor.Components.TabViewContainer {
             container3.Add(quitTextForButton);
             container3.Add(btnQuit);
             exerciseTab.Add(container1);
+            exerciseTab.Add(pauseResumeToggle);
             exerciseTab.Add(container2);
             exerciseTab.Add(container3);
             return exerciseTab;

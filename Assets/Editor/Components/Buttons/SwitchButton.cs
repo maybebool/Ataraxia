@@ -1,4 +1,5 @@
 using GameUI;
+using SceneHandling;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -13,17 +14,17 @@ namespace Editor.Components.Buttons {
         private string prefsKeyPlaying;
         private string prefsKeyPaused;
         private static bool isWaitingToRestart = false;
-        
-        public SwitchButton() { }
-        
+
+        public SwitchButton() {
+        }
+
         public SwitchButton(SceneNames scene) {
             sceneToStart = scene;
             Initialize();
             RegisterCallback<AttachToPanelEvent>(OnAttachToPanel);
             RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
-            
         }
-        
+
         private void Initialize() {
             prefsKeyPlaying = $"SwitchButton_{sceneToStart}_IsPlaying";
             prefsKeyPaused = $"SwitchButton_{sceneToStart}_IsPaused";
@@ -46,11 +47,11 @@ namespace Editor.Components.Buttons {
             if (startImage == null || pauseImage == null || playImage == null) {
                 Debug.LogError("Failed to load one or more images for the StartPauseButton.");
             }
+
             UpdateButtonImage();
         }
-        
-        private void OnAttachToPanel(AttachToPanelEvent e)
-        {
+
+        private void OnAttachToPanel(AttachToPanelEvent e) {
             clicked -= OnButtonClicked;
             clicked += OnButtonClicked;
             // Subscribe to play mode and pause state changes
@@ -63,8 +64,7 @@ namespace Editor.Components.Buttons {
             UpdateButtonImage();
         }
 
-        private void OnDetachFromPanel(DetachFromPanelEvent e)
-        {
+        private void OnDetachFromPanel(DetachFromPanelEvent e) {
             clicked -= OnButtonClicked;
             // Unsubscribe from events to prevent memory leaks
             EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
@@ -72,8 +72,14 @@ namespace Editor.Components.Buttons {
         }
 
         private void OnButtonClicked() {
-            if (!EditorApplication.isPlaying)
-            {
+
+            // Ensure we are in play mode
+            if (Application.isPlaying) {
+                TryChangeSceneAtRuntimeUsingSceneLoader();
+                return;
+            }
+            
+            if (!EditorApplication.isPlaying) {
                 // Store the scene to load using PlayerPrefs
                 PlayerPrefs.SetInt("SceneToLoad", (int)sceneToStart);
                 PlayerPrefs.Save();
@@ -83,54 +89,40 @@ namespace Editor.Components.Buttons {
                 EditorPrefs.SetBool(prefsKeyPaused, false);
 
                 // Start play mode
-                EditorApplication.delayCall += () =>
-                {
-                    EditorApplication.isPlaying = true;
-                };
+                EditorApplication.delayCall += () => { EditorApplication.isPlaying = true; };
             }
-            else
-            {
+            else {
                 // Check if this button's scene is active
                 var isCurrentScene = IsSceneActive(sceneToStart);
 
-                if (isCurrentScene)
-                {
+                if (isCurrentScene) {
                     var isPaused = EditorPrefs.GetBool(prefsKeyPaused, false);
 
-                    if (!isPaused)
-                    {
+                    if (!isPaused) {
                         // Pause play mode
                         EditorApplication.isPaused = true;
                         EditorPrefs.SetBool(prefsKeyPaused, true);
                     }
-                    else
-                    {
+                    else {
                         // Resume play mode
                         EditorApplication.isPaused = false;
                         EditorPrefs.SetBool(prefsKeyPaused, false);
                     }
                 }
-                else
-                {
-                    // Another scene is playing; prompt to stop and start new scene
-                    if (EditorUtility.DisplayDialog("Scene Change",
-                        "Another scene is currently playing. Do you want to stop it and start this scene?",
-                        "Yes", "No"))
-                    {
-                        // Set flag to indicate we're waiting to restart play mode
-                        isWaitingToRestart = true;
+                else {
+                    isWaitingToRestart = true;
 
-                        // Store the scene to load
-                        PlayerPrefs.SetInt("SceneToLoad", (int)sceneToStart);
-                        PlayerPrefs.Save();
+                    // Store the scene to load
+                    PlayerPrefs.SetInt("SceneToLoad", (int)sceneToStart);
+                    PlayerPrefs.Save();
 
-                        // Stop play mode
-                        EditorApplication.isPlaying = false;
+                    // Stop play mode
+                    EditorApplication.isPlaying = false;
 
-                        // Set the playing state in EditorPrefs
-                        EditorPrefs.SetBool(prefsKeyPlaying, true);
-                        EditorPrefs.SetBool(prefsKeyPaused, false);
-                    }
+                    // Set the playing state in EditorPrefs
+                    EditorPrefs.SetBool(prefsKeyPlaying, true);
+                    EditorPrefs.SetBool(prefsKeyPaused, false);
+                    // }
                 }
             }
 
@@ -156,30 +148,24 @@ namespace Editor.Components.Buttons {
             }
         }
 
-        private void OnPlayModeStateChanged(PlayModeStateChange state)
-        {
-            if (state == PlayModeStateChange.EnteredEditMode)
-            {
+        private void OnPlayModeStateChanged(PlayModeStateChange state) {
+            if (state == PlayModeStateChange.EnteredEditMode) {
                 // Play mode has exited
                 // Check if we need to restart play mode with a new scene
-                if (isWaitingToRestart)
-                {
+                if (isWaitingToRestart) {
                     isWaitingToRestart = false;
-            
+
                     // Delay call to start play mode again
-                    EditorApplication.delayCall += () =>
-                    {
-                        EditorApplication.isPlaying = true;
-                    };
+                    EditorApplication.delayCall += () => { EditorApplication.isPlaying = true; };
                 }
-                else
-                {
+                else {
                     // Reset playing state when exiting play mode
                     // ugly solution because every button is changing images this way, but at least it changes, original values where false, false 
                     EditorPrefs.SetBool(prefsKeyPlaying, false);
                     EditorPrefs.SetBool(prefsKeyPaused, false);
                 }
             }
+
             UpdateButtonImage();
         }
 
@@ -188,14 +174,29 @@ namespace Editor.Components.Buttons {
             EditorPrefs.SetBool(prefsKeyPaused, isPaused);
             UpdateButtonImage();
             Debug.Log("Pause is pressed");
-            
         }
-        
+
         private bool IsSceneActive(SceneNames scene) {
-            // Compare the active scene name with the scene associated with this button
             var activeSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             return activeSceneName == scene.ToString();
+        }
+        
+        public void TryChangeSceneAtRuntimeUsingSceneLoader() {
+            if (!Application.isPlaying) {
+                return;
+            }
             
+            if (IsSceneActive(sceneToStart)) {
+                return;
+            }
+            
+            SceneLoader.EnsureInstanceExists();
+            
+            if (SceneLoader.Instance == null) {
+                return;
+            }
+            
+            SceneLoader.Instance.LoadNewScene(sceneToStart);
         }
     }
 }

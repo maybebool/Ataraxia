@@ -1461,10 +1461,6 @@ MonoBehaviour:
   detector: {fileID: 68741174}
   _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
   _tangentCircleRadius: 0.1
-  lastPointPrefab: {fileID: 7146690976179508541, guid: 8f56f18b32a1a90489043c28350539c8, type: 3}
-  saveInterval: 0.05
-  _queueCapacity: 5
-  _pointsCapacity: 2
   speedThreshold: 100
   oscillationThreshold: 140
 --- !u!1 &1677370718

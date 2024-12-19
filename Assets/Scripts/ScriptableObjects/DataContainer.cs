@@ -5,6 +5,7 @@ using UnityEngine;
 namespace ScriptableObjects {
     [CreateAssetMenu(fileName = "DataContainer", menuName = "Scriptable Objects/DataContainers")]
     public class DataContainer : ScriptableObject {
+        public float timeScale = 1;
         public bool isCollectingData;
         public List<float> minValues = new();
         public List<float> q1Values = new();
@@ -84,7 +85,7 @@ namespace ScriptableObjects {
         }
 
         private float CalculateMedian(float[] sortedData) {
-            int count = sortedData.Length;
+            var count = sortedData.Length;
             if (count == 0) return 0;
 
             if (count % 2 == 1) {
@@ -99,11 +100,11 @@ namespace ScriptableObjects {
 
         public void ClearData() {
             tremorValues?.Clear();
-            minValues.Clear();
-            q1Values.Clear();
-            medianValues.Clear();
-            q3Values.Clear();
-            maxValues.Clear();
+            minValues?.Clear();
+            q1Values?.Clear();
+            medianValues?.Clear();
+            q3Values?.Clear();
+            maxValues?.Clear();
             min = max = median = q1 = q3 = 0f;
             tremorIntensity = 0f;
             isCollectingData = false;
