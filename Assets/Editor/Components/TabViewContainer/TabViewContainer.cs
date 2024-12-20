@@ -45,9 +45,10 @@ namespace Editor.Components.TabViewContainer {
                 label = "Start",
             };
 
+            // var newstart = new StartMenu();
             var appTextForButton = new Label("Start the Application");
             var quitTextForButton = new Label("Quit the Application");
-            var btnEx1 = new Buttons.SwitchButton(SceneNames.MainMenu);
+            var btnEx1 = new Buttons.StartButton(SceneNames.MainMenu);
             var btnQuit = new Buttons.QuitButton();
             var container1 = new LeftAlignContainer();
             var container2 = new LeftAlignContainer();
@@ -55,6 +56,7 @@ namespace Editor.Components.TabViewContainer {
             container1.Add(btnEx1);
             container2.Add(quitTextForButton);
             container2.Add(btnQuit);
+            // menuTab.Add(newstart);
             menuTab.Add(container1);
             menuTab.Add(container2);
             return menuTab;
@@ -68,7 +70,7 @@ namespace Editor.Components.TabViewContainer {
             var startPauseText = new Label("Start/Pause the Exercise");
             var restartExercise = new Label("Restart the Exercise");
             var quitTextForButton = new Label("Quit the Application");
-            var btnEx = new Buttons.SwitchButton(scene);
+            var btnEx = new Buttons.StartButton(scene);
             var pauseResumeToggle = new Buttons.PauseResumeToggle();
             var btnRestart = new Buttons.RestartButton();
             var btnQuit = new Buttons.QuitButton();

@@ -7,9 +7,6 @@ namespace Editor.Components.Buttons {
     [UxmlElement("QuitButton")]
     public partial class QuitButton : Button {
         public QuitButton() {
-            var asset = Resources.Load<VisualTreeAsset>("QuitButton");
-            asset.CloneTree(this);
-
             var quitButtonStyle = Resources.Load<StyleSheet>("Styles/RestartButtonStyle");
             if (quitButtonStyle != null) {
                 styleSheets.Add(quitButtonStyle);

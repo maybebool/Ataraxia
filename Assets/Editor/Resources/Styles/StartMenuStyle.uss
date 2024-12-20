@@ -1,5 +1,14 @@
-VisualElement {}
+VisualElement {
+}
 
-.custom-start-menu-style{
-    flex-direction: row;
+.custom-start-menu-style {
+    width: 70%;
+    height: 50%;
+}
+
+
+#MainContainer{
+    width: 100%;
+    height: 100%;
+    flex-direction: row ;
 }
