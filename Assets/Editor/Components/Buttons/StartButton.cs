@@ -21,10 +21,10 @@ namespace Editor.Components.Buttons {
 
         private void Initialize() {
 
-            var switchButton = Resources.Load<StyleSheet>("Styles/StartButtonStyle");
-            if (switchButton != null) {
-                styleSheets.Add(switchButton);
-                AddToClassList("custom-switch-button");
+            var startButton = Resources.Load<StyleSheet>("Styles/StartButtonStyle");
+            if (startButton != null) {
+                styleSheets.Add(startButton);
+                AddToClassList("custom-start-button");
             } else {
                 Debug.LogError("Failed to load StyleSheet: StartButtonStyle.uss");
             }

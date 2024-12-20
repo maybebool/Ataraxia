@@ -1,12 +1,12 @@
 VisualElement {}
 
 
-.custom-switch-button{
+.custom-start-button{
     height: 80px;
     width: 80px;
     margin: 20px;
 }
 
-.custom-switch-button:hover{
+.custom-start-button:hover{
     -unity-background-image-tint-color: lightpink;
 }

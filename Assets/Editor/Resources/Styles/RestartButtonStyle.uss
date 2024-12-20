@@ -6,3 +6,7 @@ VisualElement {}
     margin: 20px;
     align-self: flex-end;
 }
+
+.customRestartButtonStyle:hover{
+    -unity-background-image-tint-color: lightpink;
+}
