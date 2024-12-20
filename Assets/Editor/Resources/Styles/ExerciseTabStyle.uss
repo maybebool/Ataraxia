@@ -1,5 +1,10 @@
 VisualElement {}
 
+.custom-exercise-style{
+    height: 100%;
+    width: 95%;
+}
+
 #TitleLabel{
     font-size: 18;
     color: hotpink  ;

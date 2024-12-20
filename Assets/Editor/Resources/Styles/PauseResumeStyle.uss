@@ -1,19 +1,38 @@
 VisualElement {}
 
-#TimeScaleToggle{
-    font-size: 18;
-}
-
 .customPauseResumeStyle{
     width: 100%;
+    height: 100%;
+}
+
+#TimeScaleToggle{
+    width: 100%;
+    font-size: 18;
+    
+}
+
+.unity-toggle__label{
+    width: 90%;
+}
+
+
+.unity-base-field{
+    justify-content: flex-end;
 }
 
 .unity-base-field__input{
     justify-content: flex-end;
+    height: 100%;
+    width: 10%;
 }
 
 .unity-toggle__checkmark{
+    background-size: contain;
+    margin-right: 2%;
+    height: 100%;
+    width: 100%;
     border-color: midnightblue;
+    background-color: white;
     border-width: 1;
-    border-radius: 15;
+    border-radius: 10;
 }
