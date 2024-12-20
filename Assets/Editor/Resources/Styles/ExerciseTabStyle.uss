@@ -1,0 +1,37 @@
+VisualElement {}
+
+#TitleLabel{
+    font-size: 18;
+    color: hotpink  ;
+    
+}
+
+#unity-drag-container{
+    width: 100%;
+    border-width: 0;
+}
+
+.unity-label{
+    color: white;
+}
+
+#unity-tracker{
+    
+    border-width: 0;
+    background-color: transparent;
+    -unity-background-image-tint-color: transparent;
+}
+
+#unity-dragger{
+    left: auto;
+    width: 50%;
+    align-self: center;
+    border-width: 1;
+    border-radius: 6;
+}
+
+.unity-repeat-button{
+    -unity-background-image-tint-color: white;
+    border-width: 0;
+    background-color: transparent;
+}

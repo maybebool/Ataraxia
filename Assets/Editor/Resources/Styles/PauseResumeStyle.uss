@@ -1,10 +1,19 @@
 VisualElement {}
 
+#TimeScaleToggle{
+    font-size: 18;
+}
+
 .customPauseResumeStyle{
     width: 100%;
-    
 }
 
 .unity-base-field__input{
-    margin-right: 20px;
+    justify-content: flex-end;
+}
+
+.unity-toggle__checkmark{
+    border-color: midnightblue;
+    border-width: 1;
+    border-radius: 15;
 }

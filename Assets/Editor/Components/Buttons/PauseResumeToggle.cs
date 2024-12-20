@@ -2,7 +2,8 @@
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
-    public class PauseResumeToggle : VisualElement {
+    [UxmlElement("PauseResumeToggle")]
+    public partial class PauseResumeToggle : VisualElement {
         private Toggle _timeScaleToggle;
 
         public PauseResumeToggle() {

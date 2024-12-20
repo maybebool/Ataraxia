@@ -1,6 +1,11 @@
 VisualElement {
 }
 
+.unity-label{
+    color: white;
+    font-size: 20px;
+}
+
 .custom-start-menu-style {
     width: 70%;
     height: 50%;

@@ -1,10 +1,11 @@
 VisualElement {}
 
 .customRestartButtonStyle{
-    height: 80px;
-    width: 80px;
-    margin: 20px;
-    align-self: flex-end;
+    height: 100%;
+    width: auto;
+    background-size: contain;
+    border-width: 0;
+    background-color: transparent;
 }
 
 .customRestartButtonStyle:hover{

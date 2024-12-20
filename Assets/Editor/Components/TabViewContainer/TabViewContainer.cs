@@ -44,21 +44,9 @@ namespace Editor.Components.TabViewContainer {
                 name = "MenuTab",
                 label = "Start",
             };
-
-            // var newstart = new StartMenu();
-            var appTextForButton = new Label("Start the Application");
-            var quitTextForButton = new Label("Quit the Application");
-            var btnEx1 = new Buttons.StartButton(SceneNames.MainMenu);
-            var btnQuit = new Buttons.QuitButton();
-            var container1 = new LeftAlignContainer();
-            var container2 = new LeftAlignContainer();
-            container1.Add(appTextForButton);
-            container1.Add(btnEx1);
-            container2.Add(quitTextForButton);
-            container2.Add(btnQuit);
-            // menuTab.Add(newstart);
-            menuTab.Add(container1);
-            menuTab.Add(container2);
+            
+            var menuTabView = new StartMenu();
+            menuTab.Add(menuTabView);
             return menuTab;
         }
 
