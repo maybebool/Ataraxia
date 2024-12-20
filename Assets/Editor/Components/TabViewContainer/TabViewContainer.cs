@@ -1,4 +1,5 @@
-﻿using Editor.Components.LeftAlignColumnContainer;
+﻿using Editor.Components.Buttons;
+using Editor.Components.LeftAlignColumnContainer;
 using GameUI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -46,6 +47,9 @@ namespace Editor.Components.TabViewContainer {
             };
             
             var menuTabView = new StartMenu();
+            var startButton = new StartButton(SceneNames.MainMenu);
+            var startContainer = menuTabView.Q<VisualElement>("StartApplicationContainer");
+            startContainer.Add(startButton);
             menuTab.Add(menuTabView);
             return menuTab;
         }
@@ -56,6 +60,9 @@ namespace Editor.Components.TabViewContainer {
                 label = "Exercise " + exerciseNumber,
             };
             var exerciseTabView = new ExerciseTabView();
+            var startButton = new StartButton(scene);
+            var startContainer = exerciseTabView.Q<VisualElement>("StartApplicationContainer");
+            startContainer.Add(startButton);
             exerciseTab.Add(exerciseTabView);
             return exerciseTab;
 

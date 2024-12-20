@@ -5,15 +5,17 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
-    [UxmlElement("StartButton")]
-    public partial class StartButton : Button {
-        private SceneNames sceneToStart;
+    
+    public class StartButton : Button {
+        
+        private SceneNames _sceneToStart;
 
         public StartButton() {
         }
 
         public StartButton(SceneNames scene) {
-            sceneToStart = scene;
+            
+            _sceneToStart = scene;
             Initialize();
             RegisterCallback<AttachToPanelEvent>(OnAttachToPanel);
             RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
@@ -45,13 +47,13 @@ namespace Editor.Components.Buttons {
         private void OnButtonClicked() {
             if (!Application.isPlaying) {
                 // Not in play mode: Store sceneToLoad and start play mode
-                PlayerPrefs.SetInt("SceneToLoad", (int)sceneToStart);
+                PlayerPrefs.SetInt("SceneToLoad", (int)_sceneToStart);
                 PlayerPrefs.Save();
 
                 EditorApplication.delayCall += () => { EditorApplication.isPlaying = true; };
             } else {
                 // In play mode: attempt to change scenes at runtime if needed
-                if (!IsSceneActive(sceneToStart)) {
+                if (!IsSceneActive(_sceneToStart)) {
                     TryChangeSceneAtRuntimeUsingSceneLoader();
                 }
             }
@@ -75,8 +77,8 @@ namespace Editor.Components.Buttons {
                 return;
             }
 
-            SceneLoader.Instance.LoadNewScene(sceneToStart);
-            Debug.Log($"Requested async load of {sceneToStart} at runtime.");
+            SceneLoader.Instance.LoadNewScene(_sceneToStart);
+            Debug.Log($"Requested async load of {_sceneToStart} at runtime.");
         }
     }
 }

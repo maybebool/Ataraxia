@@ -2,7 +2,7 @@ VisualElement {}
 
 .customRestartButtonStyle{
     height: 100%;
-    width: auto;
+    width: 10%;
     background-size: contain;
     border-width: 0;
     background-color: transparent;
