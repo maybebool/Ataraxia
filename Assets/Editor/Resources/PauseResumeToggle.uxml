@@ -1,4 +1,4 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/Resources/Styles/PauseResumeStyle.uss?fileID=7433441132597879392&amp;guid=f9f19fc6e55519b45b60599a6583049e&amp;type=3#PauseResumeStyle" />
-    <engine:Toggle label="Pause Exercise" name="TimeScaleToggle" style="font-size: 20px;" />
+    <engine:Toggle label="Pause Exercise" name="TimeScaleToggle" style="font-size: 20px; justify-content: flex-end; align-items: stretch; align-content: flex-end;" />
 </engine:UXML>

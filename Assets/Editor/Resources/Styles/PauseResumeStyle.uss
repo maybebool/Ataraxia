@@ -1,1 +1,10 @@
 VisualElement {}
+
+.customPauseResumeStyle{
+    width: 100%;
+    
+}
+
+.unity-base-field__input{
+    margin-right: 20px;
+}

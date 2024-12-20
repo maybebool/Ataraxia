@@ -27,7 +27,6 @@ namespace Editor.Components.Buttons {
                 Debug.LogWarning("TimeScaleToggle not found in UXML.");
             }
         }
-
         
         private void OnTimeScaleToggleChanged(bool isOn) {
             Time.timeScale = isOn ? 0f : 1f;

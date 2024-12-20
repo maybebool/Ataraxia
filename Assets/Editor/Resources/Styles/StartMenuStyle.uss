@@ -1,0 +1,5 @@
+VisualElement {}
+
+.custom-start-menu-style{
+    flex-direction: row;
+}
