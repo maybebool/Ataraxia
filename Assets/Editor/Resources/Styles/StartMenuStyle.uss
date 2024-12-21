@@ -8,7 +8,7 @@ VisualElement {
 
 .custom-start-menu-style {
     width: 70%;
-    height: 50%;
+    height: 75%;
 }
 
 

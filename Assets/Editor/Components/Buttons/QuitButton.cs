@@ -15,6 +15,9 @@ namespace Editor.Components.Buttons {
             else {
                 Debug.LogError("Failed to load StyleSheet: restartButton.uss");
             }
+            
+            style.marginLeft = 0;
+            style.marginRight = 0;
             var quitImage = Resources.Load<Texture2D>("Images/QuitButton");
             style.backgroundImage = quitImage;
             clicked += OnButtonClicked;

@@ -29,12 +29,14 @@ namespace Editor.Components.Buttons {
             else {
                 Debug.LogWarning("TimeScaleToggle not found in UXML.");
             }
+            var toggleInput = _timeScaleToggle.Q<VisualElement>("unity-checkmark");
+            toggleInput.style.backgroundImage = new StyleBackground(Resources.Load<Texture2D>("Images/ToggleUnpressed"));
         }
         
         private void OnTimeScaleToggleChanged(bool isOn) {
             Time.timeScale = isOn ? 0f : 1f;
             Debug.Log("TimeScaleToggle changed to: " + isOn);
-            var toggleInput = _timeScaleToggle.Q<VisualElement>(className: "unity-toggle__input");
+            var toggleInput = _timeScaleToggle.Q<VisualElement>("unity-checkmark");
             if (toggleInput != null) {
                 // Load or reference the textures you want to use for different states
                 // These could be loaded from Resources, assigned via code, or set up as fields on the class.

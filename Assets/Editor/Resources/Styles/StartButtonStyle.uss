@@ -6,6 +6,8 @@ VisualElement {}
     background-size: contain;
     border-width: 0;
     background-color: transparent;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .custom-start-button:hover{
