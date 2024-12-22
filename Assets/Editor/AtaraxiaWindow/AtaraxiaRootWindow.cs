@@ -106,9 +106,9 @@ namespace Editor.AtaraxiaWindow {
         }
         
         private void OnDestroy() {
-            scObData.ClearData();
-            foreach (var data in _boxPlotDatas) {
-                data?.ClearData();
+            // scObData.ClearData();
+            foreach (var boxPlot in _boxPlotGraphs) {
+                boxPlot?.ClearData();
             }
             _lineChart?.ClearData();
         }
@@ -135,7 +135,7 @@ namespace Editor.AtaraxiaWindow {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
 
-                    // UpdateBoxPlot();
+                    UpdateBoxPlot();
                 }
 
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
@@ -150,24 +150,15 @@ namespace Editor.AtaraxiaWindow {
             }
         }
         
-        // TODO the whole box plot thing is broken, AddTremorValue must be go to box plot graph
-        
-        // private void UpdateBoxPlot() {
-        //     foreach (var data in _boxPlotDatas) {
-        //         if (data != null) {
-        //             data.AddTremorValue(scObData.tremorIntensity);
-        //         }
-        //     }
-        //
-        //     for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-        //         var graph = _boxPlotGraphs[i];
-        //         var data = _boxPlotDatas[i];
-        //
-        //         if (graph != null && data != null) {
-        //             graph.SetBoxPlotData(data);
-        //         }
-        //     }
-        // }
+        private void UpdateBoxPlot() {
+            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+                var graph = _boxPlotGraphs[i];
+                if (graph != null) {
+                    // Just pass the current tremorIntensity as a new data point
+                    graph.AddDataPoint(scObData.tremorIntensity);
+                }
+            }
+        }
 
         private void UpdateLineGraph() {
             _lineChart.AddDataPoint(scObData.tremorIntensity);
@@ -183,25 +174,27 @@ namespace Editor.AtaraxiaWindow {
             var csvContent = "Metric,Value\n";
             csvContent += $"Line Chart Average,{lineChartAverage:F2}\n";
 
-            for (int i = 0; i < _boxPlotDatas.Count; i++) {
-                var data = _boxPlotDatas[i];
+            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
                 var graph = _boxPlotGraphs[i];
-                if (data != null && graph != null) {
-                    // Calculate averages for each part of the box plot
-                    var minValue = data.minValues.Any() ? data.minValues.Min() : 0f;
-                    var maxValue = data.maxValues.Any() ? data.maxValues.Max() : 0f;
-                    var q1Average = data.q1Values.Any() ? data.q1Values.Average() : 0f;
-                    var medianAverage = data.medianValues.Any() ? data.medianValues.Average() : 0f;
-                    var q3Average = data.q3Values.Any() ? data.q3Values.Average() : 0f;
+                if (graph == null) continue;
 
-                    // Add to CSV content
-                    csvContent += $"\n{graph.GetTitle()} Box Plot Data Averages\n";
-                    csvContent += $"Max Average,{maxValue:F2}\n";
-                    csvContent += $"Q3 Average,{q3Average:F2}\n";
-                    csvContent += $"Median Average,{medianAverage:F2}\n";
-                    csvContent += $"Q1 Average,{q1Average:F2}\n";
-                    csvContent += $"Min Average,{minValue:F2}\n";
-                }
+                var title = graph.GetTitle();
+                var boxGraph = _boxPlotGraphs[i];
+
+                // Calculate stats from boxGraph's historical lists
+                var minValue = boxGraph.GetMinValues().Any() ? boxGraph.GetMinValues().Min() : 0f;
+                var maxValue = boxGraph.GetMaxValues().Any() ? boxGraph.GetMaxValues().Max() : 0f;
+                var q1Average = boxGraph.GetQ1Values().Any() ? boxGraph.GetQ1Values().Average() : 0f;
+                var medianAverage = boxGraph.GetMedianValues().Any() ? boxGraph.GetMedianValues().Average() : 0f;
+                var q3Average = boxGraph.GetQ3Values().Any() ? boxGraph.GetQ3Values().Average() : 0f;
+
+                // Add to CSV content
+                csvContent += $"\n{title} Box Plot Data Averages\n";
+                csvContent += $"Max Average,{maxValue:F2}\n";
+                csvContent += $"Q3 Average,{q3Average:F2}\n";
+                csvContent += $"Median Average,{medianAverage:F2}\n";
+                csvContent += $"Q1 Average,{q1Average:F2}\n";
+                csvContent += $"Min Average,{minValue:F2}\n";
             }
 
             var folderPath = "Assets/Exports";

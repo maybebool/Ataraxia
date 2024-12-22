@@ -39,7 +39,7 @@ namespace Editor.Components.Buttons {
 #if UNITY_EDITOR
             
             EditorApplication.isPlaying = false;
-            MtsEventManager.Instance.ClearDataContainer();
+            // MtsEventManager.Instance.ClearDataContainer();
 #else
 
             Application.Quit();

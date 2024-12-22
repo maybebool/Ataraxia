@@ -1,7 +1,9 @@
-﻿using ScriptableObjects;
+﻿using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Editor.Helpers;
+using ScriptableObjects;
 
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
@@ -19,13 +21,27 @@ namespace Editor.Components.Graphs {
         private readonly Label _medianLabel;
         private readonly Label _q3Label;
         private readonly Label _maxLabel;
-        private DataContainer _boxPlotData;
         
-        private float _minValue;
-        private float _q1Value;
-        private float _medianValue;
-        private float _q3Value;
-        private float _maxValue;
+        private List<float> _dataPoints = new();
+        
+        private float _min;
+        private float _max;
+        private float _median;
+        private float _q1;
+        private float _q3;
+
+
+        private List<float> MinValues { get; } = new();
+        private List<float> Q1Values { get; } = new();
+        private List<float> MedianValues { get; } = new();
+        private List<float> Q3Values { get; } = new();
+        private List<float> MaxValues { get; } = new();
+
+        public IReadOnlyList<float> GetMinValues() => MinValues;
+        public IReadOnlyList<float> GetQ1Values() => Q1Values;
+        public IReadOnlyList<float> GetMedianValues() => MedianValues;
+        public IReadOnlyList<float> GetQ3Values() => Q3Values;
+        public IReadOnlyList<float> GetMaxValues() => MaxValues;
 
         public BoxPlotGraph(string title = "1") {
             // Load the USS stylesheet
@@ -79,49 +95,129 @@ namespace Editor.Components.Graphs {
             mainContainer.Add(outerContainer);
             Add(mainContainer);
         }
-
-        public void SetBoxPlotData(DataContainer data) {
-            _boxPlotData = data;
-            UpdateBoxPlotDisplay();
-            
+        
+        public string GetTitle() {
+            return _titleLabel.text;
         }
         
         public void SetTitle(string title) {
             _titleLabel.text = title;
         }
+        
+        // New: add data point & recalc stats
+        public void AddDataPoint(float value) {
+            _dataPoints.Add(value);
+
+            // Optionally limit data size if you want
+            if (_dataPoints.Count > 100000) {
+                _dataPoints.RemoveAt(0);
+            }
+
+            Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
+            Debug.Log(" Time " + Time.time);
+            Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
+            RecalculateStatistics();
+            UpdateBoxPlotDisplay();
+            
+            
+        }
+        
+        public void ClearData() {
+            _dataPoints.Clear();
+            MinValues.Clear();
+            Q1Values.Clear();
+            MedianValues.Clear();
+            Q3Values.Clear();
+            MaxValues.Clear();
+
+            _min = _max = _median = _q1 = _q3 = 0f;
+            UpdateBoxPlotDisplay();
+        }
+        
+        private void RecalculateStatistics() {
+            if (_dataPoints.Count == 0) {
+                _min = _max = _median = _q1 = _q3 = 0f;
+                return;
+            }
+            var sorted = _dataPoints.OrderBy(v => v).ToArray();
+            _min = sorted[0];
+            _max = sorted[sorted.Length - 1];
+            _median = CalculateMedian(sorted);
+
+            // Q1
+            float[] lowerHalf;
+            if (sorted.Length % 2 == 0) {
+                lowerHalf = sorted.Take(sorted.Length / 2).ToArray();
+            } else {
+                lowerHalf = sorted.Take(sorted.Length / 2).ToArray();
+            }
+            _q1 = CalculateMedian(lowerHalf);
+
+            // Q3
+            float[] upperHalf;
+            if (sorted.Length % 2 == 0) {
+                upperHalf = sorted.Skip(sorted.Length / 2).ToArray();
+            } else {
+                upperHalf = sorted.Skip((sorted.Length / 2) + 1).ToArray();
+            }
+            _q3 = CalculateMedian(upperHalf);
+            
+            MinValues.Add(_min);
+            Q1Values.Add(_q1);
+            MedianValues.Add(_median);
+            Q3Values.Add(_q3);
+            MaxValues.Add(_max);
+            
+            if (MinValues.Count > 100000) {
+                MinValues.RemoveAt(0);
+                Q1Values.RemoveAt(0);
+                MedianValues.RemoveAt(0);
+                Q3Values.RemoveAt(0);
+                MaxValues.RemoveAt(0);
+            }
+        }
+        
+        private float CalculateMedian(float[] sortedData) {
+            int count = sortedData.Length;
+            if (count == 0) return 0;
+            if (count % 2 == 1) {
+                return sortedData[count / 2];
+            }
+            var middle1 = sortedData[(count / 2) - 1];
+            var middle2 = sortedData[count / 2];
+            return (middle1 + middle2) / 2f;
+        }
 
         private void UpdateBoxPlotDisplay() {
-            if (_boxPlotData == null || _boxPlotData.tremorValues == null || _boxPlotData.tremorValues.Count == 0) return;
+            if (_dataPoints.Count == 0) return;
             if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null ||
                 _medianLine == null) {
                 Debug.LogError("BoxPlotGraph visual elements are not properly initialized.");
                 return;
             }
             
-            _maxLabel.text = $"Max: {_boxPlotData.max:F2}";
-            _q3Label.text = $"Q3: {_boxPlotData.q3:F2}";
-            _medianLabel.text = $"Med: {_boxPlotData.median:F2}";
-            _q1Label.text = $"Q1: {_boxPlotData.q1:F2}";
-            _minLabel.text = $"Min: {_boxPlotData.min:F2}";
+            _maxLabel.text = $"Max: {_max:F2}";
+            _q3Label.text = $"Q3: {_q3:F2}";
+            _medianLabel.text = $"Med: {_median:F2}";
+            _q1Label.text = $"Q1: {_q1:F2}";
+            _minLabel.text = $"Min: {_min:F2}";
             
             _boxplotContainer.MarkDirtyRepaint();
             
             schedule.Execute(() => {
                 var containerHeight = _boxplotContainer.layout.height > 0 ? _boxplotContainer.layout.height : 200f;
-                var minValue = _boxPlotData.min;
-                var maxValue = _boxPlotData.max;
-                var range = maxValue - minValue;
+                var range = _max - _min;
 
                 if (Mathf.Approximately(range, 0f)) {
                     // In case all values are the same
                     range = 1f;
                 }
 
-                var minPosition = containerHeight * (_boxPlotData.min - minValue) / range;
-                var maxPosition = containerHeight * (_boxPlotData.max - minValue) / range;
-                var q1Position = containerHeight * (_boxPlotData.q1 - minValue) / range;
-                var medianPosition = containerHeight * (_boxPlotData.median - minValue) / range;
-                var q3Position = containerHeight * (_boxPlotData.q3 - minValue) / range;
+                var minPosition = containerHeight * (_min - _min) / range; // always 0
+                var maxPosition = containerHeight * (_max - _min) / range;
+                var q1Position = containerHeight * (_q1 - _min) / range;
+                var medianPosition = containerHeight * (_median - _min) / range;
+                var q3Position = containerHeight * (_q3 - _min) / range;
                 
                 var boxTop = containerHeight - q3Position;
                 var boxBottom = containerHeight - q1Position;
@@ -167,10 +263,6 @@ namespace Editor.Components.Graphs {
                 
                 MarkDirtyRepaint();
             });
-        }
-        
-        public string GetTitle() {
-            return _titleLabel.text;
         }
     }
 }
