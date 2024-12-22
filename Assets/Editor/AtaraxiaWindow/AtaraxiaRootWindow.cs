@@ -23,7 +23,7 @@ namespace Editor.AtaraxiaWindow {
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 1f; 
-        private float _updateIntervalInSecondsLineGraph = 0.2f; 
+        private float _updateIntervalInSecondsLineGraph = 1f; 
         private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
@@ -62,7 +62,7 @@ namespace Editor.AtaraxiaWindow {
                 boxPlotGraph.SetTitle(t);
             
                 _boxPlotGraphs.Add(boxPlotGraph);
-                _boxPlotDatas.Add(boxPlotData);
+                _boxPlotDatas.Add(scObData);
                 boxPlotsRow.Add(boxPlotGraph);
             }
             
@@ -121,9 +121,9 @@ namespace Editor.AtaraxiaWindow {
             uiElement.style.display = DisplayStyle.Flex;
 
             _shouldUpdateBoxPlot = true; 
-            if (_shouldUpdateBoxPlot) {
-                UpdateBoxPlot();
-            }
+            // if (_shouldUpdateBoxPlot) {
+            //     UpdateBoxPlot();
+            // }
         }
         
         private void Update() {
@@ -135,7 +135,7 @@ namespace Editor.AtaraxiaWindow {
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTime) {
                     _nextUpdateTime = EditorApplication.timeSinceStartup + _updateIntervalInSeconds;
 
-                    UpdateBoxPlot();
+                    // UpdateBoxPlot();
                 }
 
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
@@ -150,22 +150,24 @@ namespace Editor.AtaraxiaWindow {
             }
         }
         
-        private void UpdateBoxPlot() {
-            foreach (var data in _boxPlotDatas) {
-                if (data != null) {
-                    data.AddTremorValue(scObData.tremorIntensity);
-                }
-            }
-
-            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-                var graph = _boxPlotGraphs[i];
-                var data = _boxPlotDatas[i];
-
-                if (graph != null && data != null) {
-                    graph.SetBoxPlotData(data);
-                }
-            }
-        }
+        // TODO the whole box plot thing is broken, AddTremorValue must be go to box plot graph
+        
+        // private void UpdateBoxPlot() {
+        //     foreach (var data in _boxPlotDatas) {
+        //         if (data != null) {
+        //             data.AddTremorValue(scObData.tremorIntensity);
+        //         }
+        //     }
+        //
+        //     for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+        //         var graph = _boxPlotGraphs[i];
+        //         var data = _boxPlotDatas[i];
+        //
+        //         if (graph != null && data != null) {
+        //             graph.SetBoxPlotData(data);
+        //         }
+        //     }
+        // }
 
         private void UpdateLineGraph() {
             _lineChart.AddDataPoint(scObData.tremorIntensity);

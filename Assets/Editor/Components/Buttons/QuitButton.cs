@@ -1,11 +1,17 @@
-﻿using UnityEditor;
+﻿using Audio;
+using Managers;
+using ScriptableObjects;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Buttons {
     
     [UxmlElement("QuitButton")]
     public partial class QuitButton : Button {
+        
+        private DataContainer dataContainer;
         public QuitButton() {
             var quitButtonStyle = Resources.Load<StyleSheet>("Styles/RestartButtonStyle");
             if (quitButtonStyle != null) {
@@ -33,9 +39,11 @@ namespace Editor.Components.Buttons {
 #if UNITY_EDITOR
             
             EditorApplication.isPlaying = false;
+            MtsEventManager.Instance.ClearDataContainer();
 #else
 
             Application.Quit();
+            MtsEventManager.Instance.ClearDataContainer();
 #endif
         }
     }

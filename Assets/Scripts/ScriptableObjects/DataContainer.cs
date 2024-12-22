@@ -25,15 +25,17 @@ namespace ScriptableObjects {
 
         public void AddTremorValue(float value) {
             tremorValues.Add(value);
+            Debug.Log(tremorValues.Count);
 
             // Optionally limit the size of tremorValues to a maximum number
-            int maxValues = 100000; // Adjust as needed
+            var maxValues = 100000; // Adjust as needed
             if (tremorValues.Count > maxValues) {
                 tremorValues.RemoveAt(0);
             }
 
             // Recalculate statistics whenever a new value is added
             RecalculateStatistics();
+            Debug.Log("EndValue" + tremorValues.Count);
         }
 
         public void RecalculateStatistics() {
@@ -99,12 +101,12 @@ namespace ScriptableObjects {
         }
 
         public void ClearData() {
-            tremorValues?.Clear();
-            minValues?.Clear();
-            q1Values?.Clear();
-            medianValues?.Clear();
-            q3Values?.Clear();
-            maxValues?.Clear();
+            tremorValues.Clear();
+            minValues.Clear();
+            q1Values.Clear();
+            medianValues.Clear();
+            q3Values.Clear();
+            maxValues.Clear();
             min = max = median = q1 = q3 = 0f;
             tremorIntensity = 0f;
             isCollectingData = false;

@@ -39,6 +39,10 @@ namespace Editor.Components.Graphs {
             while (_dataPoints.Count > maxPoints) {
                 _dataPoints.RemoveAt(0);
             }
+            
+            Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
+            Debug.Log(" Time " + Time.time);
+            Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
         }
         
         public void UpdateChartDisplay() {
