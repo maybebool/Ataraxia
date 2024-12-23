@@ -6,7 +6,8 @@ using Editor.Helpers;
 using ScriptableObjects;
 
 namespace Editor.Components.Graphs {
-    public class BoxPlotGraph : VisualElement {
+    [UxmlElement("BoxPlot")]
+    public partial class BoxPlotGraph : VisualElement {
         private Label _titleLabel;
         private readonly VisualElement _boxplotContainer;
         private readonly VisualElement _minLine;
@@ -42,6 +43,10 @@ namespace Editor.Components.Graphs {
         public IReadOnlyList<float> GetMedianValues() => MedianValues;
         public IReadOnlyList<float> GetQ3Values() => Q3Values;
         public IReadOnlyList<float> GetMaxValues() => MaxValues;
+
+        public BoxPlotGraph() {
+            
+        }
 
         public BoxPlotGraph(string title = "1") {
             // Load the USS stylesheet
@@ -118,8 +123,6 @@ namespace Editor.Components.Graphs {
             // Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
             RecalculateStatistics();
             UpdateBoxPlotDisplay();
-            
-            
         }
         
         public void ClearData() {

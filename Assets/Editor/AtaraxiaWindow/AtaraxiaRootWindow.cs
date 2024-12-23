@@ -44,6 +44,7 @@ namespace Editor.AtaraxiaWindow {
             var container = new CenterRowContainer(sceneManagerBtn, dataViewBnt, settingsBnt);
             var tabViewExercises = new TabViewContainer();
             var tabViewSettings = new TabViewSettings();
+            var tabDataGraphs = new DataGraphTab();
 
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabViewExercises);
@@ -56,10 +57,10 @@ namespace Editor.AtaraxiaWindow {
             
             foreach (var t in titles)
             {
-                var boxPlotGraph = new BoxPlotGraph();
+                var boxPlotGraph = new BoxPlotGraph(t);
                 var boxPlotData = CreateInstance<DataContainer>();
             
-                boxPlotGraph.SetTitle(t);
+                // boxPlotGraph.SetTitle(t);
             
                 _boxPlotGraphs.Add(boxPlotGraph);
                 _boxPlotDatas.Add(scObData);

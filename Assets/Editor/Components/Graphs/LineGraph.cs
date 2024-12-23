@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
-    public class LineGraph : VisualElement {
+    [UxmlElement("LineGraph")]
+    public partial class LineGraph : VisualElement {
         public List<float> DataPoints => _dataPoints;
         private List<float> _dataPoints = new();
         private int _maxDataPoints = 10;
@@ -13,6 +14,10 @@ namespace Editor.Components.Graphs {
         private float minValue = 0f; 
         private float maxValue = 10f;
         private float valueRange;
+        
+        public LineGraph() {
+            
+        }
         
         public LineGraph(string title = "Line Chart") {
             var lineChartStyle = Resources.Load<StyleSheet>("Styles/LineGraphStyle");
