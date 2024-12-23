@@ -1,0 +1,19 @@
+VisualElement {
+}
+
+.unity-label{
+    color: white;
+    font-size: 20px;
+}
+
+.custom-start-menu-style {
+    width: 70%;
+    height: 75%;
+}
+
+
+#MainContainer{
+    width: 100%;
+    height: 100%;
+    flex-direction: row ;
+}

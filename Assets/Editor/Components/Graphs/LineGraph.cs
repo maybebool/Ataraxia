@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
-    public class LineGraph : VisualElement {
+    [UxmlElement("LineGraph")]
+    public partial class LineGraph : VisualElement {
         public List<float> DataPoints => _dataPoints;
         private List<float> _dataPoints = new();
         private int _maxDataPoints = 10;
@@ -13,6 +14,10 @@ namespace Editor.Components.Graphs {
         private float minValue = 0f; 
         private float maxValue = 10f;
         private float valueRange;
+        
+        public LineGraph() {
+            
+        }
         
         public LineGraph(string title = "Line Chart") {
             var lineChartStyle = Resources.Load<StyleSheet>("Styles/LineGraphStyle");
@@ -26,7 +31,7 @@ namespace Editor.Components.Graphs {
             
             _titleLabel = new Label(title).AddLabelClass("lineGraphTitleLabel");
             _chartContainer = new VisualElement().AddClass("lineGraphContainer");
-            this.AddClass("lineGraph");
+            this.AddClass("custom-line-graph");
             
             Add(_titleLabel);
             Add(_chartContainer);
@@ -39,6 +44,10 @@ namespace Editor.Components.Graphs {
             while (_dataPoints.Count > maxPoints) {
                 _dataPoints.RemoveAt(0);
             }
+            
+            // Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
+            // Debug.Log(" Time " + Time.time);
+            // Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
         }
         
         public void UpdateChartDisplay() {

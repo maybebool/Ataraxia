@@ -1,4 +1,5 @@
-﻿using Editor.Components.LeftAlignColumnContainer;
+﻿using Editor.Components.Buttons;
+using Editor.Components.LeftAlignColumnContainer;
 using GameUI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -44,19 +45,12 @@ namespace Editor.Components.TabViewContainer {
                 name = "MenuTab",
                 label = "Start",
             };
-
-            var appTextForButton = new Label("Start the Application");
-            var quitTextForButton = new Label("Quit the Application");
-            var btnEx1 = new Buttons.SwitchButton(SceneNames.MainMenu);
-            var btnQuit = new Buttons.QuitButton();
-            var container1 = new LeftAlignContainer();
-            var container2 = new LeftAlignContainer();
-            container1.Add(appTextForButton);
-            container1.Add(btnEx1);
-            container2.Add(quitTextForButton);
-            container2.Add(btnQuit);
-            menuTab.Add(container1);
-            menuTab.Add(container2);
+            
+            var menuTabView = new StartMenu();
+            var startButton = new StartButton(SceneNames.MainMenu);
+            var startContainer = menuTabView.Q<VisualElement>("StartApplicationContainer");
+            startContainer.Add(startButton);
+            menuTab.Add(menuTabView);
             return menuTab;
         }
 
@@ -65,25 +59,11 @@ namespace Editor.Components.TabViewContainer {
                 name = "ExerciseTab " + exerciseNumber,
                 label = "Exercise " + exerciseNumber,
             };
-            var startPauseText = new Label("Start/Pause the Exercise");
-            var restartExercise = new Label("Restart the Exercise");
-            var quitTextForButton = new Label("Quit the Application");
-            var btnEx = new Buttons.SwitchButton(scene);
-            var btnRestart = new Buttons.RestartButton();
-            var btnQuit = new Buttons.QuitButton();
-            var container1 = new LeftAlignContainer();
-            var container2 = new LeftAlignContainer();
-            var container3 = new LeftAlignContainer();
-            
-            container1.Add(startPauseText);
-            container1.Add(btnEx);
-            container2.Add(restartExercise);
-            container2.Add(btnRestart);
-            container3.Add(quitTextForButton);
-            container3.Add(btnQuit);
-            exerciseTab.Add(container1);
-            exerciseTab.Add(container2);
-            exerciseTab.Add(container3);
+            var exerciseTabView = new ExerciseTabView();
+            var startButton = new StartButton(scene);
+            var startContainer = exerciseTabView.Q<VisualElement>("StartApplicationContainer");
+            startContainer.Add(startButton);
+            exerciseTab.Add(exerciseTabView);
             return exerciseTab;
 
         }

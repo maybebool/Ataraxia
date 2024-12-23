@@ -8,8 +8,6 @@ namespace Editor.Components.Buttons {
     [UxmlElement("RestartButton")]
     public partial class RestartButton : Button {
         public RestartButton() {
-            var asset = Resources.Load<VisualTreeAsset>("RestartButton");
-            asset.CloneTree(this);
 
             var restartButton = Resources.Load<StyleSheet>("Styles/RestartButtonStyle");
             if (restartButton != null) {

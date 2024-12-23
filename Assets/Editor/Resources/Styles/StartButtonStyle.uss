@@ -1,0 +1,15 @@
+VisualElement {}
+
+.custom-start-button{
+    height: 100%;
+    width: 10%;
+    background-size: contain;
+    border-width: 0;
+    background-color: transparent;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.custom-start-button:hover{
+    -unity-background-image-tint-color: lightpink;
+}
