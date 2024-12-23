@@ -27,7 +27,8 @@ namespace Editor.AtaraxiaWindow {
         private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
-        private LineGraph _lineChart;
+        // private LineGraph _lineChart;
+        private DataGraphTab _dataGraphTab;
 
         [MenuItem("Window/Ataraxia")]
         public static void ShowWindow() {
@@ -45,31 +46,33 @@ namespace Editor.AtaraxiaWindow {
             var tabViewExercises = new TabViewContainer();
             var tabViewSettings = new TabViewSettings();
             var tabDataGraphs = new DataGraphTab();
+            _dataGraphTab = tabDataGraphs;
 
             rootVisualElement.Add(container);
             rootVisualElement.Add(tabViewExercises);
             rootVisualElement.Add(tabViewSettings);
+            rootVisualElement.Add(tabDataGraphs);
             
             
-            var graphsContainer = new VisualElement().AddClass("graphsContainer");
-            string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
-            var boxPlotsRow = new VisualElement().AddClass("boxPlotsRow");
-            
-            foreach (var t in titles)
-            {
-                var boxPlotGraph = new BoxPlotGraph(t);
-                var boxPlotData = CreateInstance<DataContainer>();
-            
-                // boxPlotGraph.SetTitle(t);
-            
-                _boxPlotGraphs.Add(boxPlotGraph);
-                _boxPlotDatas.Add(scObData);
-                boxPlotsRow.Add(boxPlotGraph);
-            }
-            
-            graphsContainer.Add(boxPlotsRow);
-            _lineChart = new LineGraph("Nervositätslevel");
-            graphsContainer.Add(_lineChart);
+            // var graphsContainer = new VisualElement().AddClass("graphsContainer");
+            // string[] titles = { "Beine", "Tremorbewegung", "Head Tremor", "Muskelhypertonie" };
+            // var boxPlotsRow = new VisualElement().AddClass("boxPlotsRow");
+            //
+            // foreach (var t in titles)
+            // {
+            //     var boxPlotGraph = new BoxPlotGraph(t);
+            //     var boxPlotData = CreateInstance<DataContainer>();
+            //
+            //     // boxPlotGraph.SetTitle(t);
+            //
+            //     _boxPlotGraphs.Add(boxPlotGraph);
+            //     _boxPlotDatas.Add(scObData);
+            //     boxPlotsRow.Add(boxPlotGraph);
+            // }
+            //
+            // graphsContainer.Add(boxPlotsRow);
+            // _lineChart = new LineGraph("Nervositätslevel");
+            // graphsContainer.Add(_lineChart);
             
             // Create a container for the save button
             var buttonContainer = new VisualElement();
@@ -81,11 +84,11 @@ namespace Editor.AtaraxiaWindow {
             var saveButton = new DefaultButton("Save Results");
             saveButton.clicked += OnSaveButtonClicked;
             buttonContainer.Add(saveButton);
-            graphsContainer.Add(buttonContainer);
+            tabDataGraphs.Add(buttonContainer);
 
-            rootVisualElement.Add(graphsContainer);
+            // rootVisualElement.Add(graphsContainer);
             _buttonToUIElementMap.Add(sceneManagerBtn, tabViewExercises);
-            _buttonToUIElementMap.Add(dataViewBnt, graphsContainer);
+            _buttonToUIElementMap.Add(dataViewBnt, tabDataGraphs);
             _buttonToUIElementMap.Add(settingsBnt, tabViewSettings);
 
             foreach (var kvp in _buttonToUIElementMap) {
@@ -111,7 +114,7 @@ namespace Editor.AtaraxiaWindow {
             foreach (var boxPlot in _boxPlotGraphs) {
                 boxPlot?.ClearData();
             }
-            _lineChart?.ClearData();
+            // _lineChart?.ClearData();
         }
 
         private void ShowOnlyUIElement(VisualElement uiElement) {
@@ -149,18 +152,24 @@ namespace Editor.AtaraxiaWindow {
         }
         
         private void UpdateBoxPlot() {
-            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-                var graph = _boxPlotGraphs[i];
-                if (graph != null) {
-                    // Just pass the current tremorIntensity as a new data point
-                    graph.AddDataPoint(scObData.tremorIntensity);
-                }
-            }
+            // for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+            //     var graph = _boxPlotGraphs[i];
+            //     if (graph != null) {
+            //         // Just pass the current tremorIntensity as a new data point
+            //         graph.AddDataPoint(scObData.tremorIntensity);
+            //     }
+            // }
+            _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensity);
+            _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensity);
+            _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensity);
+            _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensity);
         }
 
         private void UpdateLineGraph() {
-            _lineChart.AddDataPoint(scObData.tremorIntensity);
-            _lineChart.UpdateChartDisplay();
+            _dataGraphTab.LineChart.AddDataPoint(scObData.tremorIntensity);
+            // _lineChart.AddDataPoint(scObData.tremorIntensity);
+            // _lineChart.UpdateChartDisplay();
+            _dataGraphTab.LineChart.UpdateChartDisplay();
         }
         
         private void OnSaveButtonClicked() {
@@ -172,28 +181,57 @@ namespace Editor.AtaraxiaWindow {
             var csvContent = "Metric,Value\n";
             csvContent += $"Line Chart Average,{lineChartAverage:F2}\n";
 
-            for (int i = 0; i < _boxPlotGraphs.Count; i++) {
-                var graph = _boxPlotGraphs[i];
-                if (graph == null) continue;
+            // For each BoxPlot
+            var plots = new[] {
+                _dataGraphTab.BoxPlot1,
+                _dataGraphTab.BoxPlot2,
+                _dataGraphTab.BoxPlot3,
+                _dataGraphTab.BoxPlot4
+            };
+            foreach (var plot in plots) {
+                if (plot == null) continue;
 
-                var title = graph.GetTitle();
-                var boxGraph = _boxPlotGraphs[i];
+                // If you keep a historical list of min, q1, median, q3, max
+                // in the boxPlot, you'd do something like:
+                var minValue = plot.GetMinValues().Any() ? plot.GetMinValues().Min() : 0f;
+                var q1Average = plot.GetQ1Values().Any() ? plot.GetQ1Values().Average() : 0f;
+                var medianAverage = plot.GetMedianValues().Any() ? plot.GetMedianValues().Average() : 0f;
+                var q3Average = plot.GetQ3Values().Any() ? plot.GetQ3Values().Average() : 0f;
+                var maxValue = plot.GetMaxValues().Any() ? plot.GetMaxValues().Max() : 0f;
 
-                // Calculate stats from boxGraph's historical lists
-                var minValue = boxGraph.GetMinValues().Any() ? boxGraph.GetMinValues().Min() : 0f;
-                var maxValue = boxGraph.GetMaxValues().Any() ? boxGraph.GetMaxValues().Max() : 0f;
-                var q1Average = boxGraph.GetQ1Values().Any() ? boxGraph.GetQ1Values().Average() : 0f;
-                var medianAverage = boxGraph.GetMedianValues().Any() ? boxGraph.GetMedianValues().Average() : 0f;
-                var q3Average = boxGraph.GetQ3Values().Any() ? boxGraph.GetQ3Values().Average() : 0f;
-
-                // Add to CSV content
-                csvContent += $"\n{title} Box Plot Data Averages\n";
+                csvContent += $"\n{plot.GetTitle()} Box Plot Data Averages\n";
                 csvContent += $"Max Average,{maxValue:F2}\n";
                 csvContent += $"Q3 Average,{q3Average:F2}\n";
                 csvContent += $"Median Average,{medianAverage:F2}\n";
                 csvContent += $"Q1 Average,{q1Average:F2}\n";
                 csvContent += $"Min Average,{minValue:F2}\n";
             }
+            // var lineChartAverage = CalculateLineChartAverage();
+            // var csvContent = "Metric,Value\n";
+            // csvContent += $"Line Chart Average,{lineChartAverage:F2}\n";
+            //
+            // for (int i = 0; i < _boxPlotGraphs.Count; i++) {
+            //     var graph = _boxPlotGraphs[i];
+            //     if (graph == null) continue;
+            //
+            //     var title = graph.GetTitle();
+            //     var boxGraph = _boxPlotGraphs[i];
+            //
+            //     // Calculate stats from boxGraph's historical lists
+            //     var minValue = boxGraph.GetMinValues().Any() ? boxGraph.GetMinValues().Min() : 0f;
+            //     var maxValue = boxGraph.GetMaxValues().Any() ? boxGraph.GetMaxValues().Max() : 0f;
+            //     var q1Average = boxGraph.GetQ1Values().Any() ? boxGraph.GetQ1Values().Average() : 0f;
+            //     var medianAverage = boxGraph.GetMedianValues().Any() ? boxGraph.GetMedianValues().Average() : 0f;
+            //     var q3Average = boxGraph.GetQ3Values().Any() ? boxGraph.GetQ3Values().Average() : 0f;
+            //
+            //     // Add to CSV content
+            //     csvContent += $"\n{title} Box Plot Data Averages\n";
+            //     csvContent += $"Max Average,{maxValue:F2}\n";
+            //     csvContent += $"Q3 Average,{q3Average:F2}\n";
+            //     csvContent += $"Median Average,{medianAverage:F2}\n";
+            //     csvContent += $"Q1 Average,{q1Average:F2}\n";
+            //     csvContent += $"Min Average,{minValue:F2}\n";
+            // }
 
             var folderPath = "Assets/Exports";
             var fileName = $"Results_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
@@ -209,14 +247,14 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private float CalculateLineChartAverage() {
-            if (_lineChart == null || _lineChart.DataPoints == null || _lineChart.DataPoints.Count == 0)
+            if (_dataGraphTab.LineChart == null || _dataGraphTab.LineChart.DataPoints == null || _dataGraphTab.LineChart.DataPoints.Count == 0)
                 return 0f;
 
             var sum = 0f;
-            foreach (var value in _lineChart.DataPoints) {
+            foreach (var value in _dataGraphTab.LineChart.DataPoints) {
                 sum += value;
             }
-            return sum / _lineChart.DataPoints.Count;
+            return sum / _dataGraphTab.LineChart.DataPoints.Count;
         }
     }
 }

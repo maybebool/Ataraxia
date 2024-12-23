@@ -31,7 +31,7 @@ namespace Editor.Components.Graphs {
             
             _titleLabel = new Label(title).AddLabelClass("lineGraphTitleLabel");
             _chartContainer = new VisualElement().AddClass("lineGraphContainer");
-            this.AddClass("lineGraph");
+            this.AddClass("custom-line-graph");
             
             Add(_titleLabel);
             Add(_chartContainer);

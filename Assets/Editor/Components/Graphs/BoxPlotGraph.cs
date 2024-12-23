@@ -6,8 +6,7 @@ using Editor.Helpers;
 using ScriptableObjects;
 
 namespace Editor.Components.Graphs {
-    [UxmlElement("BoxPlot")]
-    public partial class BoxPlotGraph : VisualElement {
+    public class BoxPlotGraph : VisualElement {
         private Label _titleLabel;
         private readonly VisualElement _boxplotContainer;
         private readonly VisualElement _minLine;

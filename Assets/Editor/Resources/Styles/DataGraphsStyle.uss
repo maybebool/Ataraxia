@@ -1,1 +1,12 @@
 VisualElement {}
+
+.custom-data-style{
+    align-self: center;
+    width: 95%;
+    height: 90%;
+    margin-top: 40px;
+}
+
+#BoxPlotsContainer{
+    justify-content: space-between;
+}
