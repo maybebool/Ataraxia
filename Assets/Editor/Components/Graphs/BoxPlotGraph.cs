@@ -113,9 +113,9 @@ namespace Editor.Components.Graphs {
                 _dataPoints.RemoveAt(0);
             }
 
-            Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
-            Debug.Log(" Time " + Time.time);
-            Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
+            // Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
+            // Debug.Log(" Time " + Time.time);
+            // Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
             RecalculateStatistics();
             UpdateBoxPlotDisplay();
             

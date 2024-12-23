@@ -121,9 +121,6 @@ namespace Editor.AtaraxiaWindow {
             uiElement.style.display = DisplayStyle.Flex;
 
             _shouldUpdateBoxPlot = true; 
-            // if (_shouldUpdateBoxPlot) {
-            //     UpdateBoxPlot();
-            // }
         }
         
         private void Update() {

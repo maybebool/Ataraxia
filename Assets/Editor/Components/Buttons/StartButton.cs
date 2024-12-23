@@ -54,7 +54,9 @@ namespace Editor.Components.Buttons {
             } else {
                 // In play mode: attempt to change scenes at runtime if needed
                 if (!IsSceneActive(_sceneToStart)) {
-                    TryChangeSceneAtRuntimeUsingSceneLoader();
+                    SceneLoader.EnsureInstanceExists();
+                    SceneLoader.Instance.LoadNewScene(_sceneToStart);
+                    Debug.Log($"[StartButton] Loading scene {_sceneToStart} at runtime");
                 }
             }
         }
