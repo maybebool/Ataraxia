@@ -1,9 +1,9 @@
 VisualElement {}
 
-.customLineGraph{
+.custom-line-graph{
     width: 100%;
     height: 100%;
-    
+    margin: 2%;
 }
 
 #greenZone{
@@ -58,12 +58,11 @@ VisualElement {}
     flex-direction: column;
 }
 
-.lineGraph{
-    height: 30%;
-    width: 90%;
-    margin: 60px;
-}
-
 .lineGraphTitleLabel{
     padding-bottom: 5px;
+}
+
+.unity-label{
+    margin-bottom: 20px;
+    font-size: 18;
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine.InputSystem;
+﻿using ScriptableObjects;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
@@ -7,6 +9,11 @@ namespace Managers {
         public event ButtonPressedAction OnButtonPressed;
         public delegate void ButtonReleasedAction();
         public event ButtonReleasedAction OnButtonReleased;
+        
+        public delegate void DataClearedAction();
+        public event DataClearedAction OnDataCleared;
+        
+        [SerializeField] private DataContainer dataContainer;
         
         private XRIDefaultInputActions _inputActions;
 
@@ -32,6 +39,17 @@ namespace Managers {
 
         private void HandleButtonReleased(InputAction.CallbackContext context) {
             OnButtonReleased?.Invoke();
+        }
+        
+        public void ClearDataContainer() {
+            if (dataContainer != null) {
+                dataContainer.ClearData();
+                OnDataCleared?.Invoke();
+                Debug.Log("DataContainer has been cleared, and OnDataCleared event invoked.");
+            }
+            else {
+                Debug.LogWarning("DataContainer reference is missing in MtsEventManager.");
+            }
         }
     }
 }

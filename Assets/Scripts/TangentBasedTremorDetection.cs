@@ -75,6 +75,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     
     
     private void StartDataCollection() {
+        Debug.Log("Start Data Collection");
         isCollectingData = true;
         scO.isCollectingData = true; // Set the flag in the ScriptableObject
         ResetTremorDetectionVariables();
@@ -123,6 +124,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
             hasPreviousPosition = true;
             
             yield return null;
+            // yield return new WaitForSeconds(0.2f);
         }
     }
     

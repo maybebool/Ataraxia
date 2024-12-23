@@ -1,6 +1,4 @@
-﻿using GameUI;
-using SceneHandling;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Editor.Components.TabViewContainer {
@@ -18,14 +16,9 @@ namespace Editor.Components.TabViewContainer {
 
             // Add the contents of the root to 'this' to flatten the hierarchy
             foreach (var child in root.Children()) {
-                this.Add(child);
+                Add(child);
             }
             
-            // Instantiate the buttons
-            // var button1 = new Buttons.SwitchButton(SceneNames.Exercise1);
-            // var button2 = new Buttons.RestartButton();
-            // this.Add(button1);
-            // this.Add(button2);
             
             // Load and apply stylesheet
             var tabElementStyleSheet = Resources.Load<StyleSheet>("Styles/TabElementStyle");
