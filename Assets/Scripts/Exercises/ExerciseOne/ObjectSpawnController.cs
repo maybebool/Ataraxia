@@ -10,7 +10,7 @@ namespace Exercises.ExerciseOne {
 
         private void Update() {
             if (!(Time.time >= nextSpawnTime)) return;
-            poolManager.SpawnCubeFromPool();
+            poolManager.SpawnObjectFromPool();
             nextSpawnTime = Time.time + spawnInterval;
         }
     }

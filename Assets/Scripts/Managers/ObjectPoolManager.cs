@@ -1,40 +1,35 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 
 namespace Managers {
     public class ObjectPoolManager : MonoBehaviour {
+        
+        [FormerlySerializedAs("cubePrefab")]
         [Header("Prefab & Pool Settings")] 
-        [SerializeField] private GameObject cubePrefab;
-
+        [SerializeField] private GameObject objectPrefab;
         [SerializeField] private int poolSize = 20; // Default capacity
         [SerializeField] private int maxPoolSize = 100; // Max capacity
 
         [Header("Positions")]
-        [Tooltip("Base position where cubes spawn. We will add random +/- x,y offsets.")]
         [SerializeField] private Vector3 spawnPosition;
-
         [SerializeField] private float xRange = 5f;
         [SerializeField] private float yRange = 2f;
-
-        [Tooltip("Once a cube's z position surpasses this endPosition.z, we re-pool it.")] 
         [SerializeField] private Vector3 endPosition;
 
         [Header("Movement")] 
         [SerializeField] private float moveSpeed = 1f;
-
-        [Tooltip("If true, we'll move cubes so they increase in z from spawnPos.z -> endPos.z. "
-                 + "If false, we do the reverse check, e.g. if endPosition.z < spawnPosition.z, etc.")]
         [SerializeField] private bool moveForward = true;
 
-        private ObjectPool<GameObject> _cubePool;
-        private List<GameObject> _activeCubes = new();
+        private ObjectPool<GameObject> _objectPool;
+        private List<GameObject> _activeObjects = new();
 
         private void Awake() {
-            _cubePool = new ObjectPool<GameObject>(
-                createFunc: CreateCube,
-                actionOnGet: OnGetCube,
-                actionOnRelease: OnReleaseCube,
+            _objectPool = new ObjectPool<GameObject>(
+                createFunc: CreateObject,
+                actionOnGet: OnGetObject,
+                actionOnRelease: OnReleaseObject,
                 actionOnDestroy: Destroy,
                 collectionCheck: false,
                 defaultCapacity: poolSize,
@@ -43,17 +38,11 @@ namespace Managers {
         }
 
         private void Update() {
-            MoveActiveCubes();
+            MoveActiveObjects();
         }
-
-        /// <summary>
-        /// Spawn a single cube from the pool at a random x,y around spawnPosition.
-        /// </summary>
-        public void SpawnCubeFromPool() {
-            // "Get" a cube from the pool
-            var cube = _cubePool.Get();
-
-            // Random offset for x,y
+        
+        public void SpawnObjectFromPool() {
+            var objToSpawn = _objectPool.Get();
             var randX = Random.Range(-xRange, xRange);
             var randY = Random.Range(-yRange, yRange);
 
@@ -62,28 +51,18 @@ namespace Managers {
                 spawnPosition.y + randY,
                 spawnPosition.z
             );
-            cube.transform.position = randomSpawnPos;
-
-            // Keep track of active cubes
-            _activeCubes.Add(cube);
+            objToSpawn.transform.position = randomSpawnPos;
+            _activeObjects.Add(objToSpawn);
         }
+        
+        private void MoveActiveObjects() {
+            List<GameObject> objectsToRelease = null;
 
-        /// <summary>
-        /// Moves each active cube along the z-axis (or you could do a vector direction).
-        /// Once a cube crosses endPosition.z, we return it to the pool and remove from _activeCubes.
-        /// </summary>
-        private void MoveActiveCubes() {
-            // We'll store which cubes we want to re-pool in a temporary list
-            List<GameObject> cubesToRelease = null;
-
-            for (int i = 0; i < _activeCubes.Count; i++) {
-                var cube = _activeCubes[i];
-                if (cube == null) continue; // safety check
-
-                // Move the cube. For a simple z-based approach:
+            foreach (var obj in _activeObjects) {
+                if (!obj) continue;
+                
                 var step = moveSpeed * Time.deltaTime;
-                // If you're only changing z:
-                var pos = cube.transform.position;
+                var pos = obj.transform.position;
                 if (moveForward) {
                     pos.z += step;
                 }
@@ -91,58 +70,44 @@ namespace Managers {
                     pos.z -= step;
                 }
 
-                cube.transform.position = pos;
-
-                // Check if we have passed endPosition.z
+                obj.transform.position = pos;
+                
                 if (moveForward) {
-                    if (cube.transform.position.z >= endPosition.z) {
-                        if (cubesToRelease == null) cubesToRelease = new List<GameObject>();
-                        cubesToRelease.Add(cube);
-                    }
+                    if (!(obj.transform.position.z >= endPosition.z)) continue;
                 }
                 else {
-                    if (cube.transform.position.z <= endPosition.z) {
-                        if (cubesToRelease == null) cubesToRelease = new List<GameObject>();
-                        cubesToRelease.Add(cube);
-                    }
+                    if (!(obj.transform.position.z <= endPosition.z)) continue;
                 }
+
+                objectsToRelease ??= new List<GameObject>();
+                objectsToRelease.Add(obj);
             }
 
-            // Now re-pool them
-            if (cubesToRelease != null) {
-                foreach (var cube in cubesToRelease) {
-                    RePoolCube(cube);
+            if (objectsToRelease == null) return; {
+                foreach (var obj in objectsToRelease) {
+                    RePoolObjects(obj);
                 }
             }
         }
-
-        /// <summary>
-        /// Re-pool the cube via the ObjectPool. 
-        /// This calls 'Release' on the pool, which triggers OnReleaseCube.
-        /// </summary>
-        private void RePoolCube(GameObject cube) {
-            // Remove from _activeCubes
-            _activeCubes.Remove(cube);
-            // Return to the pool
-            _cubePool.Release(cube);
+        
+        private void RePoolObjects(GameObject obj) {
+            _activeObjects.Remove(obj);
+            _objectPool.Release(obj);
         }
 
-        // == ObjectPool Delegates == //
-
-        private GameObject CreateCube() {
-            // Called if the pool needs to create a new object
-            var obj = Instantiate(cubePrefab);
+        //ObjectPool Delegates
+        
+        private GameObject CreateObject() {
+            var obj = Instantiate(objectPrefab);
             return obj;
         }
 
-        private void OnGetCube(GameObject cube) {
-            // Called whenever we .Get() from the pool
-            cube.SetActive(true);
+        private void OnGetObject(GameObject obj) {
+            obj.SetActive(true);
         }
 
-        private void OnReleaseCube(GameObject cube) {
-            // Called whenever we .Release() back to the pool
-            cube.SetActive(false);
+        private void OnReleaseObject(GameObject obj) {
+            obj.SetActive(false);
         }
     }
 }
