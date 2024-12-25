@@ -67,7 +67,7 @@ namespace Managers {
 
                 // Check if it's time to spawn another "other" object
                 if (!(Time.time >= _nextOtherSpawnTime)) return;
-                SpawnOtherObjectFromPool();
+                SpawnTargetObjectFromPool();
                 _nextOtherSpawnTime = Time.time + targetSpawnInterval;
             }
         }
@@ -81,7 +81,7 @@ namespace Managers {
             _activeObstacles.Add(obstacle);
         }
 
-        public void SpawnOtherObjectFromPool() {
+        public void SpawnTargetObjectFromPool() {
             if (!spawnTargetObjects) return;
 
             var targetObj = _targetObjectPool.Get();
