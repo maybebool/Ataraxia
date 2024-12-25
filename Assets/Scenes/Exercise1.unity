@@ -164,12 +164,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3015a44c5c584b29803d16e8c8d0a954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 1052666381154394605, guid: 3ebc9c01199cd644a858339399e92f97, type: 3}
-  poolSize: 20
-  maxPoolSize: 100
+  obstaclePrefab: {fileID: 1052666381154394605, guid: 3ebc9c01199cd644a858339399e92f97, type: 3}
+  obstaclePoolSize: 20
+  obstacleMaxPoolSize: 100
+  spawnTargetObjects: 1
+  targetPrefab: {fileID: 434269386074238800, guid: 0ea5d184e40d62940bce79f4ee0ea6c4, type: 3}
+  targetPoolSize: 10
+  targetMaxPoolSize: 50
+  targetSpawnInterval: 5
   spawnPosition: {x: 0.2, y: 2, z: 40}
-  xRange: 5
+  xRange: 4
+  xNoSpawn: 1
   yRange: 2
+  yNoSpawn: 1.8
   endPosition: {x: 0.2, y: 2, z: -9}
   moveSpeed: 1
   moveForward: 0
