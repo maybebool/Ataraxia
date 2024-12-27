@@ -192,17 +192,10 @@ namespace Managers {
         }
         
         private void OnDrawGizmos() {
-            // If you'd prefer only in selected mode, change to OnDrawGizmosSelected().
-
-            // 1) Draw total spawn area as a wire cube
             Gizmos.color = Color.blue;
-            // width in x = 2*xRange, height in y = 2*yRange
             var totalSize = new Vector3(xRange * 2f, yRange * 2f, 0.1f);
-            var totalCenter = spawnPosition; // We'll assume z is spawnPosition.z
+            var totalCenter = spawnPosition; 
             Gizmos.DrawWireCube(totalCenter, totalSize);
-
-            // 2) Draw no-spawn region in red. 
-            // That region is [-xNoSpawn..xNoSpawn] in x, [-yNoSpawn..yNoSpawn] in y.
             Gizmos.color = Color.red;
             var noSpawnSize = new Vector3(xNoSpawn * 2f, yNoSpawn * 2f, 0.1f);
             var noSpawnCenter = spawnPosition;
