@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
+
 using UnityEngine;
 
 namespace ScriptableObjects {
@@ -11,7 +10,6 @@ namespace ScriptableObjects {
         public float degree;
         
         
-
         public void ClearData() {
             tremorIntensity = 0f;
             isCollectingData = false;
