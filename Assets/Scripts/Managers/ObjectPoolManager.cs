@@ -13,11 +13,10 @@ namespace Managers {
         [SerializeField] private int obstacleMaxPoolSize = 100; // Max capacity
 
         [Header("Price Prefab")] [SerializeField]
-        private bool spawnTargetObjects = false;
+        public bool spawnTargetObjects = false;
         [SerializeField] private GameObject targetPrefab;
         [SerializeField] private int targetPoolSize = 10;
         [SerializeField] private int targetMaxPoolSize = 50;
-        [SerializeField] private float targetSpawnInterval = 5f; // how often we spawn "other" object
 
         [Header("Positions")] [SerializeField] private Vector3 spawnPosition;
         [SerializeField] private float xRange = 5f;
@@ -60,15 +59,9 @@ namespace Managers {
 
         private void Update() {
             MoveActiveObjects(_activeObstacles);
-
-            // Move second prefab objects if used
+            
             if (spawnTargetObjects) {
                 MoveActiveObjects(_activeTargets);
-
-                // Check if it's time to spawn another "other" object
-                if (!(Time.time >= _nextOtherSpawnTime)) return;
-                SpawnTargetObjectFromPool();
-                _nextOtherSpawnTime = Time.time + targetSpawnInterval;
             }
         }
 

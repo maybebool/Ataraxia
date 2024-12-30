@@ -171,7 +171,6 @@ MonoBehaviour:
   targetPrefab: {fileID: 434269386074238800, guid: 0ea5d184e40d62940bce79f4ee0ea6c4, type: 3}
   targetPoolSize: 10
   targetMaxPoolSize: 50
-  targetSpawnInterval: 5
   spawnPosition: {x: 0.2, y: 2, z: 40}
   xRange: 4
   xNoSpawn: 1
@@ -193,7 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolManager: {fileID: 25442866}
-  spawnInterval: 1
+  spawnInterval: 3
+  targetSpawnInterval: 5
 --- !u!1 &407641488
 GameObject:
   m_ObjectHideFlags: 0
