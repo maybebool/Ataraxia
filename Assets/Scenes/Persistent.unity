@@ -257,11 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &256432691 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6644473116291389117, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
-  m_PrefabInstance: {fileID: 744908800}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &256432692 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4028549070519215240, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
@@ -717,7 +712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
   - buildIndex: 2
-    exerciseInputGo: {fileID: 256432691}
+    exerciseInputGo: {fileID: 1584024619}
 --- !u!4 &870743459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 436578056941873507, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
@@ -1598,6 +1593,11 @@ MonoBehaviour:
   _tangentCircleRadius: 0.1
   speedThreshold: 100
   oscillationThreshold: 140
+--- !u!1 &1584024619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6085142703989738292, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+  m_PrefabInstance: {fileID: 744908800}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0
