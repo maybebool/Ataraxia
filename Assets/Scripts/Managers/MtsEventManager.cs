@@ -1,17 +1,20 @@
-﻿using ScriptableObjects;
+﻿using GameUI;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
         
         public delegate void ButtonPressedAction();
         public event ButtonPressedAction OnButtonPressed;
+        
         public delegate void ButtonReleasedAction();
         public event ButtonReleasedAction OnButtonReleased;
         
-        public delegate void DataClearedAction();
-        public event DataClearedAction OnDataCleared;
+        public delegate void SceneBuildIndexChanged(int buildIndex, bool isActive);
+        public event SceneBuildIndexChanged OnSceneActiveChanged;
         
         [SerializeField] private DataContainer dataContainer;
         
@@ -41,15 +44,10 @@ namespace Managers {
             OnButtonReleased?.Invoke();
         }
         
-        public void ClearDataContainer() {
-            if (dataContainer != null) {
-                dataContainer.ClearData();
-                OnDataCleared?.Invoke();
-                Debug.Log("DataContainer has been cleared, and OnDataCleared event invoked.");
-            }
-            else {
-                Debug.LogWarning("DataContainer reference is missing in MtsEventManager.");
-            }
+        
+        public void SetSceneActive(int buildIndex, bool isActive) {
+            // Fire the event
+            OnSceneActiveChanged?.Invoke(buildIndex, isActive);
         }
     }
 }

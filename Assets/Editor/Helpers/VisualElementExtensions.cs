@@ -11,6 +11,5 @@ namespace Editor.Helpers {
             element.AddToClassList(className);
             return element;
         }
-        
     }
 }

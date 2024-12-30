@@ -30,7 +30,6 @@ namespace Editor.Components.Graphs {
         private float _q1;
         private float _q3;
 
-
         private List<float> MinValues { get; } = new();
         private List<float> Q1Values { get; } = new();
         private List<float> MedianValues { get; } = new();
@@ -93,7 +92,6 @@ namespace Editor.Components.Graphs {
             
             outerContainer.Add(labelsContainer);
             outerContainer.Add(_boxplotContainer);
-            
             
             mainContainer.Add(_titleLabel);
             mainContainer.Add(outerContainer);
