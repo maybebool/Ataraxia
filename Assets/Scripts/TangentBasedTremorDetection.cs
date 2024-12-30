@@ -63,7 +63,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
             MtsEventManager.Instance.OnButtonReleased -= StopDataCollection;
         }
     }
-    
 
     private void Update() {
         if (isCollectingData) return;
@@ -72,7 +71,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
         scO.tremorIntensity = tremorIntensity;
     }
-    
     
     private void StartDataCollection() {
         Debug.Log("Start Data Collection");
@@ -128,8 +126,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         }
     }
     
-    private void ResetTremorDetectionVariables()
-    {
+    private void ResetTremorDetectionVariables() {
         previousDegree = scO.degree;
         previousDelta = 0f;
         oscillationDelta = 0f;
@@ -140,15 +137,12 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     private void CalculateTremor() {
         var currentTime = Time.time;
         var deltaTime = currentTime - lastUpdateTime;
-
         
         var deltaDegree = scO.degree - previousDegree;
         if (deltaDegree > 180f) deltaDegree -= 360f;
         if (deltaDegree < -180f) deltaDegree += 360f;
-
         
         var speed = Mathf.Abs(deltaDegree / deltaTime);
-
         
         if (speed > speedThreshold) {
             detector.GetComponent<Renderer>().material.color = Color.blue;
@@ -205,8 +199,7 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         tremorEventTimes.RemoveAll(t => t < Time.time - timeWindow);
         var eventCount = tremorEventTimes.Count;
 
-        if (eventCount >= multiplierThreshold)
-        {
+        if (eventCount >= multiplierThreshold) {
             var multiplier = 1f + (eventCount - multiplierThreshold) * 0.01f; 
             incrementAmount *= multiplier;
         }
