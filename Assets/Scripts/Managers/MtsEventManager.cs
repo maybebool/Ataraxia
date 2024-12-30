@@ -1,8 +1,6 @@
-﻿using GameUI;
-using ScriptableObjects;
+﻿using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
@@ -13,11 +11,7 @@ namespace Managers {
         public delegate void ButtonReleasedAction();
         public event ButtonReleasedAction OnButtonReleased;
         
-        public delegate void SceneBuildIndexChanged(int buildIndex, bool isActive);
-        public event SceneBuildIndexChanged OnSceneActiveChanged;
-        
         [SerializeField] private DataContainer dataContainer;
-        
         private XRIDefaultInputActions _inputActions;
 
         private void Awake() {
@@ -42,12 +36,6 @@ namespace Managers {
 
         private void HandleButtonReleased(InputAction.CallbackContext context) {
             OnButtonReleased?.Invoke();
-        }
-        
-        
-        public void SetSceneActive(int buildIndex, bool isActive) {
-            // Fire the event
-            OnSceneActiveChanged?.Invoke(buildIndex, isActive);
         }
     }
 }

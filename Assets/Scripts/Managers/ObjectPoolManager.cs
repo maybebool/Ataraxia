@@ -12,20 +12,22 @@ namespace Managers {
         [SerializeField] private int obstaclePoolSize = 20; // Default capacity
         [SerializeField] private int obstacleMaxPoolSize = 100; // Max capacity
 
-        [Header("Price Prefab")] [SerializeField]
-        public bool spawnTargetObjects = false;
+        [Header("Price Prefab")] 
+        [SerializeField] public bool spawnTargetObjects = false;
         [SerializeField] private GameObject targetPrefab;
         [SerializeField] private int targetPoolSize = 10;
         [SerializeField] private int targetMaxPoolSize = 50;
 
-        [Header("Positions")] [SerializeField] private Vector3 spawnPosition;
+        [Header("Positions")] 
+        [SerializeField] private Vector3 spawnPosition;
         [SerializeField] private float xRange = 5f;
         [SerializeField] private float xNoSpawn = 2f;
         [SerializeField] private float yRange = 2f;
         [SerializeField] private float yNoSpawn = 1f;
         [SerializeField] private Vector3 endPosition;
 
-        [Header("Movement")] [SerializeField] private float moveSpeed = 1f;
+        [Header("Movement")] 
+        [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private bool moveForward = true;
 
         private ObjectPool<GameObject> _obstacleObjectPool;

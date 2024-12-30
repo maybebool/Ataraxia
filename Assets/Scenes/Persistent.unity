@@ -320,7 +320,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2202404365233348951, guid: 2b0e27ffa51f9ee43a1d78138572d193, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 810140044}
+      addedObject: {fileID: 810140042}
   m_SourcePrefab: {fileID: 100100000, guid: 2b0e27ffa51f9ee43a1d78138572d193, type: 3}
 --- !u!1001 &410902539
 PrefabInstance:
@@ -698,7 +698,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2202404365233348951, guid: 2b0e27ffa51f9ee43a1d78138572d193, type: 3}
   m_PrefabInstance: {fileID: 404642117}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &810140044
+--- !u!114 &810140042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -712,7 +712,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
   - buildIndex: 2
-    exerciseInputGo: {fileID: 1584024619}
+    exerciseInputGo:
+    - {fileID: 1477439452}
+    - {fileID: 1584024619}
+  - buildIndex: 3
+    exerciseInputGo:
+    - {fileID: 902715153}
 --- !u!4 &870743459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 436578056941873507, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
