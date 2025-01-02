@@ -6,6 +6,12 @@ using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
+public enum BodyPart {
+    RightHand,
+    LeftHand,
+    Head
+}
+
 public class TangentBasedTremorDetection : MonoBehaviour {
     public DataContainer scO;
     public XRRayInteractor raycastPoint;
@@ -35,6 +41,8 @@ public class TangentBasedTremorDetection : MonoBehaviour {
 
     private const float PiHalf = Mathf.PI / 2;
     private const float PIDoubled = 2 * Mathf.PI;
+    
+    private BodyPart _bodyPart;
     
     private void Start() {
         previousDegree = scO.degree;
@@ -69,10 +77,11 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         // Decrease tremorIntensity over time when not collecting data
         tremorIntensity -= tremorDecayRate * Time.deltaTime;
         tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
-        scO.tremorIntensity = tremorIntensity;
+        scO.tremorIntensityRightHand = tremorIntensity;
     }
     
-    private void StartDataCollection() {
+    private void StartDataCollection(BodyPart bodyPart) {
+        _bodyPart = bodyPart; 
         Debug.Log("Start Data Collection");
         isCollectingData = true;
         scO.isCollectingData = true; // Set the flag in the ScriptableObject
@@ -109,7 +118,17 @@ public class TangentBasedTremorDetection : MonoBehaviour {
                 
                 tremorIntensity -= tremorDecayRate * Time.deltaTime;
                 tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
-                scO.tremorIntensity = tremorIntensity;
+                switch (_bodyPart) {
+                    case BodyPart.RightHand:
+                        scO.tremorIntensityRightHand = tremorIntensity;
+                        break;
+                    case BodyPart.LeftHand:
+                        scO.tremorIntensityLeftHand = tremorIntensity;
+                        break;
+                    case BodyPart.Head:
+                        scO.tremorIntensityHead = tremorIntensity;
+                        break;
+                }
             }
             else {
                 

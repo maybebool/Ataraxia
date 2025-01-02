@@ -159,14 +159,14 @@ namespace Editor.AtaraxiaWindow {
             //         graph.AddDataPoint(scObData.tremorIntensity);
             //     }
             // }
-            _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensity);
-            _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensity);
-            _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensity);
-            _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensity);
+            _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensityRightHand);
+            _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensityRightHand);
+            _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityRightHand);
+            _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightHand);
         }
 
         private void UpdateLineGraph() {
-            _dataGraphTab.LineChart.AddDataPoint(scObData.tremorIntensity);
+            _dataGraphTab.LineChart.AddDataPoint(scObData.tremorIntensityRightHand);
             // _lineChart.AddDataPoint(scObData.tremorIntensity);
             // _lineChart.UpdateChartDisplay();
             _dataGraphTab.LineChart.UpdateChartDisplay();

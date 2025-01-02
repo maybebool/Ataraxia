@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
         
-        public delegate void ButtonPressedAction();
+        public delegate void ButtonPressedAction(BodyPart bodyPart);
         public event ButtonPressedAction OnButtonPressed;
         
         public delegate void ButtonReleasedAction();
@@ -19,19 +19,19 @@ namespace Managers {
         }
 
         private void OnEnable() {
-            _inputActions.XRIRightLocomotion.TeleportMode.Enable();
-            _inputActions.XRIRightLocomotion.TeleportMode.performed += HandleButtonPressed;
-            _inputActions.XRIRightLocomotion.TeleportMode.canceled += HandleButtonReleased;
+            _inputActions.XRIRightInteraction.UIPress.Enable();
+            _inputActions.XRIRightInteraction.UIPress.performed += HandleButtonPressed;
+            _inputActions.XRIRightInteraction.UIPress.canceled += HandleButtonReleased;
         }
 
         private void OnDisable() {
-            _inputActions.XRIRightLocomotion.TeleportMode.performed -= HandleButtonPressed;
-            _inputActions.XRIRightLocomotion.TeleportMode.performed -= HandleButtonReleased;
-            _inputActions.XRIRightLocomotion.TeleportMode.Disable();
+            _inputActions.XRIRightInteraction.UIPress.performed -= HandleButtonPressed;
+            _inputActions.XRIRightInteraction.UIPress.performed -= HandleButtonReleased;
+            _inputActions.XRIRightInteraction.UIPress.Disable();
         }
 
         private void HandleButtonPressed(InputAction.CallbackContext context) {
-            OnButtonPressed?.Invoke();
+            OnButtonPressed?.Invoke(BodyPart.RightHand);
         }
 
         private void HandleButtonReleased(InputAction.CallbackContext context) {
