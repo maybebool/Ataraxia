@@ -57,8 +57,9 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         // Subscribe to events from EventManager
         if (MtsEventManager.Instance != null)
         {
-            MtsEventManager.Instance.OnButtonPressed += StartDataCollection;
-            MtsEventManager.Instance.OnButtonReleased += StopDataCollection;
+            MtsEventManager.Instance.OnRightHandBtnPressed += StartDataCollection;
+            MtsEventManager.Instance.OnLeftHandBtnPressed += StartDataCollection;
+            MtsEventManager.Instance.OnBtnReleased += StopDataCollection;
         }
     }
 
@@ -67,8 +68,9 @@ public class TangentBasedTremorDetection : MonoBehaviour {
         // Unsubscribe from events
         if (MtsEventManager.Instance != null)
         {
-            MtsEventManager.Instance.OnButtonPressed -= StartDataCollection;
-            MtsEventManager.Instance.OnButtonReleased -= StopDataCollection;
+            MtsEventManager.Instance.OnRightHandBtnPressed -= StartDataCollection;
+            MtsEventManager.Instance.OnLeftHandBtnPressed -= StartDataCollection;
+            MtsEventManager.Instance.OnBtnReleased -= StopDataCollection;
         }
     }
 
@@ -82,7 +84,6 @@ public class TangentBasedTremorDetection : MonoBehaviour {
     
     private void StartDataCollection(BodyPart bodyPart) {
         _bodyPart = bodyPart; 
-        Debug.Log("Start Data Collection");
         isCollectingData = true;
         scO.isCollectingData = true; // Set the flag in the ScriptableObject
         ResetTremorDetectionVariables();
