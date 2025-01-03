@@ -19,7 +19,6 @@ namespace Editor.AtaraxiaWindow {
         private VisualElement _tabContainer;
         private Dictionary<Button, VisualElement> _buttonToUIElementMap = new();
         private List<BoxPlotGraph> _boxPlotGraphs = new();
-        private List<DataContainer> _boxPlotDatas = new();
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
         private float _updateIntervalInSeconds = 1f; 
@@ -247,14 +246,14 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private float CalculateLineChartAverage() {
-            if (_dataGraphTab.LineChart == null || _dataGraphTab.LineChart.DataPoints == null || _dataGraphTab.LineChart.DataPoints.Count == 0)
+            if (_dataGraphTab.LineChart == null || _dataGraphTab.LineChart.dataPoints == null || _dataGraphTab.LineChart.dataPoints.Count == 0)
                 return 0f;
 
             var sum = 0f;
-            foreach (var value in _dataGraphTab.LineChart.DataPoints) {
+            foreach (var value in _dataGraphTab.LineChart.dataPoints) {
                 sum += value;
             }
-            return sum / _dataGraphTab.LineChart.DataPoints.Count;
+            return sum / _dataGraphTab.LineChart.dataPoints.Count;
         }
     }
 }

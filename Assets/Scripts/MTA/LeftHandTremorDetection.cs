@@ -35,24 +35,26 @@ namespace MTA {
             base.OnEnable();
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnLeftHandBtnPressed += OnLeftHandBtnPressed;
-                MtsEventManager.Instance.OnBtnReleased += OnButtonReleased;
+                MtsEventManager.Instance.OnLeftHandBtnReleased += OnLeftHandButtonReleased;
             }
         }
 
         protected override void OnDisable() {
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnLeftHandBtnPressed -= OnLeftHandBtnPressed;
-                MtsEventManager.Instance.OnBtnReleased -= OnButtonReleased;
+                MtsEventManager.Instance.OnLeftHandBtnReleased -= OnLeftHandButtonReleased;
             }
 
             base.OnDisable();
         }
 
         private void OnLeftHandBtnPressed() {
+            Debug.Log("Left Hand Button Pressed");
             StartDataCollection();
         }
 
-        private void OnButtonReleased() {
+        private void OnLeftHandButtonReleased() {
+            Debug.Log("Left Hand Button Released");
             StopDataCollection();
         }
     }

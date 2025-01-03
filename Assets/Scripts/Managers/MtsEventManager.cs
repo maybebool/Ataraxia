@@ -12,8 +12,11 @@ namespace Managers {
         public delegate void HeadMotionTrackingAction();
         public event HeadMotionTrackingAction OnHeadBtnPressed;
         
-        public delegate void ButtonReleasedAction();
-        public event ButtonReleasedAction OnBtnReleased;
+        public delegate void RightHandButtonReleasedAction();
+        public event RightHandButtonReleasedAction OnRightHandBtnReleased;
+        
+        public delegate void LeftHandButtonReleasedAction();
+        public event LeftHandButtonReleasedAction OnLeftHandBtnReleased;
         
         [SerializeField] private DataContainer dataContainer;
         private XRIDefaultInputActions _inputActions;
@@ -29,16 +32,17 @@ namespace Managers {
             _inputActions.XRIRightInteraction.UIPress.performed += RightHandMotionTrackingBtnPressed;
             _inputActions.XRILeftInteraction.UIPress.performed += LeftHandMotionTrackingBtnPressed;
             
-            _inputActions.XRIRightInteraction.UIPress.canceled += MotionTrackingReleased;
-            _inputActions.XRILeftInteraction.UIPress.canceled += MotionTrackingReleased;
+            _inputActions.XRIRightInteraction.UIPress.canceled += RightHandMotionTrackingBtnReleased;
+            _inputActions.XRILeftInteraction.UIPress.canceled += LeftHandMotionTrackingBtnReleased;
         }
 
         private void OnDisable() {
             _inputActions.XRIRightInteraction.UIPress.performed -= RightHandMotionTrackingBtnPressed;
             _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandMotionTrackingBtnPressed;
             
-            _inputActions.XRIRightInteraction.UIPress.performed -= MotionTrackingReleased;
-            _inputActions.XRILeftInteraction.UIPress.performed -= MotionTrackingReleased;
+            _inputActions.XRIRightInteraction.UIPress.performed -= RightHandMotionTrackingBtnReleased;
+            _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandMotionTrackingBtnReleased;
+            
             _inputActions.XRIRightInteraction.UIPress.Disable();
             _inputActions.XRILeftInteraction.UIPress.Disable();
         }
@@ -46,13 +50,16 @@ namespace Managers {
         private void RightHandMotionTrackingBtnPressed(InputAction.CallbackContext context) {
             OnRightHandBtnPressed?.Invoke();
         }
+        private void RightHandMotionTrackingBtnReleased(InputAction.CallbackContext context) {
+            OnRightHandBtnReleased?.Invoke();
+        }
         
         private void LeftHandMotionTrackingBtnPressed(InputAction.CallbackContext context) {
             OnLeftHandBtnPressed?.Invoke();
         }
-
-        private void MotionTrackingReleased(InputAction.CallbackContext context) {
-            OnBtnReleased?.Invoke();
+        
+        private void LeftHandMotionTrackingBtnReleased(InputAction.CallbackContext context) {
+            OnLeftHandBtnReleased?.Invoke();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using Managers;
+﻿using Managers;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
@@ -37,7 +36,7 @@ namespace MTA {
             // Subscribe to the "RightHand" press event
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnRightHandBtnPressed += OnRightHandBtnPressed;
-                MtsEventManager.Instance.OnBtnReleased += OnButtonReleased;
+                MtsEventManager.Instance.OnRightHandBtnReleased += OnRightHandButtonReleased;
             }
         }
 
@@ -45,7 +44,7 @@ namespace MTA {
             // Unsubscribe from the event
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnRightHandBtnPressed -= OnRightHandBtnPressed;
-                MtsEventManager.Instance.OnBtnReleased -= OnButtonReleased;
+                MtsEventManager.Instance.OnRightHandBtnReleased -= OnRightHandButtonReleased;
             }
 
             base.OnDisable();
@@ -55,7 +54,7 @@ namespace MTA {
             StartDataCollection();
         }
 
-        private void OnButtonReleased() {
+        private void OnRightHandButtonReleased() {
             StopDataCollection();
         }
     }

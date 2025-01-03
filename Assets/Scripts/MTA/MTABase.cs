@@ -58,8 +58,8 @@ namespace MTA {
 
         private void Update() {
             if (!IsCollectingData) {
-                tremorIntensity -= tremorDecayRate * Time.deltaTime;
-                tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+                TremorIntensity -= tremorDecayRate * Time.deltaTime;
+                TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
             }
         }
 
@@ -103,11 +103,11 @@ namespace MTA {
                     CalculateTremor();
 
                     // Decay
-                    tremorIntensity -= tremorDecayRate * Time.deltaTime;
-                    tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+                    TremorIntensity -= tremorDecayRate * Time.deltaTime;
+                    TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
 
                     // Store final tremor in the correct property
-                    TremorIntensity = tremorIntensity;
+                    // TremorIntensity = tremorIntensity;
                 }
                 else {
                     // First time only
@@ -128,7 +128,7 @@ namespace MTA {
             previousDegree = 0f;
             previousDelta = 0f;
             oscillationDelta = 0f;
-            tremorIntensity = 0f;
+            TremorIntensity = 0f;
             tremorEventTimes.Clear();
         }
 
@@ -208,8 +208,8 @@ namespace MTA {
                 incrementAmount *= multiplier;
             }
 
-            tremorIntensity += incrementAmount;
-            tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
+            TremorIntensity += incrementAmount;
+            TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
         }
     }
 }

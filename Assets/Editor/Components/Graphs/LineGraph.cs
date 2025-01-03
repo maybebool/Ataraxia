@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 namespace Editor.Components.Graphs {
     [UxmlElement("LineGraph")]
     public partial class LineGraph : VisualElement {
-        public List<float> DataPoints => _dataPoints;
+        public List<float> dataPoints => _dataPoints;
         private List<float> _dataPoints = new();
         private int _maxDataPoints = 10;
         private VisualElement _chartContainer;
