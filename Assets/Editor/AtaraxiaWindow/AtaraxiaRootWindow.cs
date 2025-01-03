@@ -128,7 +128,7 @@ namespace Editor.AtaraxiaWindow {
         }
         
         private void Update() {
-            if (scObData != null && scObData.isCollectingData) {
+            if (scObData != null) {
                 if (!_shouldUpdateBoxPlot) {
                     _shouldUpdateBoxPlot = true;
                 }
@@ -160,7 +160,7 @@ namespace Editor.AtaraxiaWindow {
             //     }
             // }
             _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensityRightHand);
-            _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensityRightHand);
+            _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensityLeftHand);
             _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityRightHand);
             _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightHand);
         }

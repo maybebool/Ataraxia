@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 68741176}
   - component: {fileID: 68741175}
   m_Layer: 0
-  m_Name: TremorDetection
+  m_Name: TremorDetectionLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1080,7 +1080,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1787346994484839025, guid: ad818c36731146e994540a1896ad8f24, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 922385440}
+      addedObject: {fileID: 922385445}
   m_SourcePrefab: {fileID: 100100000, guid: ad818c36731146e994540a1896ad8f24, type: 3}
 --- !u!4 &922385437 stripped
 Transform:
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &922385440
+--- !u!114 &922385445
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1112,16 +1112,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 922385438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd3c83126adef944bbdabfe84929a57, type: 3}
+  m_Script: {fileID: 11500000, guid: 485d7fbb67fe4330a0edbd596167cb10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
-  raycastPoint: {fileID: 922385439}
-  detector: {fileID: 68741174}
+  detector: {fileID: 1133386689}
   _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
   _tangentCircleRadius: 0.1
   speedThreshold: 100
   oscillationThreshold: 140
+  ray: {fileID: 922385439}
 --- !u!1 &958515121
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1566,128 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100625365}
   m_CullTransparentMesh: 1
+--- !u!1 &1133386689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133386694}
+  - component: {fileID: 1133386693}
+  - component: {fileID: 1133386692}
+  - component: {fileID: 1133386691}
+  - component: {fileID: 1133386690}
+  m_Layer: 0
+  m_Name: TremorDetectionRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1133386690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133386689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99140a835489a4d4a9c7abe0e68bb46e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectID: 
+--- !u!65 &1133386691
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133386689}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1133386692
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133386689}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ecf6641e428d642409c9ebac32d77c1a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1133386693
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133386689}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1133386694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133386689}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.13, y: 0.682, z: 1.921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1174559146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2209,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1787346994484839025, guid: ad818c36731146e994540a1896ad8f24, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1558594758}
+      addedObject: {fileID: 1558594763}
   m_SourcePrefab: {fileID: 100100000, guid: ad818c36731146e994540a1896ad8f24, type: 3}
 --- !u!4 &1558594755 stripped
 Transform:
@@ -2110,7 +2232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1558594758
+--- !u!114 &1558594763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2119,16 +2241,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1558594756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd3c83126adef944bbdabfe84929a57, type: 3}
+  m_Script: {fileID: 11500000, guid: 0622242bedbb42839e81882afaf976a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
-  raycastPoint: {fileID: 1558594757}
   detector: {fileID: 68741174}
   _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
   _tangentCircleRadius: 0.1
   speedThreshold: 100
   oscillationThreshold: 140
+  ray: {fileID: 1558594757}
 --- !u!1 &1584024619 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6085142703989738292, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
@@ -2215,4 +2337,5 @@ SceneRoots:
   - {fileID: 714724941}
   - {fileID: 1677370720}
   - {fileID: 68741179}
+  - {fileID: 1133386694}
   - {fileID: 1056389070}
