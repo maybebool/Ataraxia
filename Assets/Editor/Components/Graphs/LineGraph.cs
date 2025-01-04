@@ -37,17 +37,15 @@ namespace Editor.Components.Graphs {
             Add(_chartContainer);
         }
         
-        public void AddDataPoint(float dataPoint) {
-            _dataPoints.Add(dataPoint);
+        public void AddDataPoint(float dataPointA, float dataPointB, float dataPointC) {
+            
+            var average = (dataPointA + dataPointB + dataPointC) / 3f;
+            _dataPoints.Add(average);
             var maxPoints = Mathf.Max(_maxDataPoints, 1);
 
             while (_dataPoints.Count > maxPoints) {
                 _dataPoints.RemoveAt(0);
             }
-            
-            // Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
-            // Debug.Log(" Time " + Time.time);
-            // Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
         }
         
         public void UpdateChartDisplay() {
@@ -72,7 +70,6 @@ namespace Editor.Components.Graphs {
                 _chartContainer.Clear();
 
                 valueRange = maxValue - minValue;
-                // Prevent division by zero
                 if (Mathf.Approximately(valueRange, 0f)) {
                     valueRange = 1f; 
                 }

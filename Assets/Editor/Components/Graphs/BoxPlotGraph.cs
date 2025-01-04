@@ -141,25 +141,19 @@ namespace Editor.Components.Graphs {
             }
             var sorted = _dataPoints.OrderBy(v => v).ToArray();
             _min = sorted[0];
-            _max = sorted[sorted.Length - 1];
+            _max = sorted[^1];
             _median = CalculateMedian(sorted);
 
             // Q1
             float[] lowerHalf;
-            if (sorted.Length % 2 == 0) {
-                lowerHalf = sorted.Take(sorted.Length / 2).ToArray();
-            } else {
-                lowerHalf = sorted.Take(sorted.Length / 2).ToArray();
-            }
+            lowerHalf = sorted.Length % 2 == 0 ? sorted.Take(sorted.Length / 2).ToArray() :
+                sorted.Take(sorted.Length / 2 + 1).ToArray();
             _q1 = CalculateMedian(lowerHalf);
 
             // Q3
             float[] upperHalf;
-            if (sorted.Length % 2 == 0) {
-                upperHalf = sorted.Skip(sorted.Length / 2).ToArray();
-            } else {
-                upperHalf = sorted.Skip((sorted.Length / 2) + 1).ToArray();
-            }
+            upperHalf = sorted.Length % 2 == 0 ? sorted.Skip(sorted.Length / 2).ToArray() :
+                sorted.Skip(sorted.Length / 2 + 1).ToArray();
             _q3 = CalculateMedian(upperHalf);
             
             MinValues.Add(_min);

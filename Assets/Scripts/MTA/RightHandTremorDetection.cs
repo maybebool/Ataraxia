@@ -33,7 +33,6 @@ namespace MTA {
 
         protected override void OnEnable() {
             base.OnEnable();
-            // Subscribe to the "RightHand" press event
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnRightHandBtnPressed += OnRightHandBtnPressed;
                 MtsEventManager.Instance.OnRightHandBtnReleased += OnRightHandButtonReleased;
@@ -41,7 +40,6 @@ namespace MTA {
         }
 
         protected override void OnDisable() {
-            // Unsubscribe from the event
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnRightHandBtnPressed -= OnRightHandBtnPressed;
                 MtsEventManager.Instance.OnRightHandBtnReleased -= OnRightHandButtonReleased;
