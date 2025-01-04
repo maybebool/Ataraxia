@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,20 +33,23 @@ namespace Exercises.Listener {
         }
 
         private void SceneCheckForInputObjectHandling() {
-            var loadedIndexes = new HashSet<int>();
+
             var sceneCount = SceneManager.sceneCount;
-            
-            for (int i = 1; i < sceneCount; i++) {
-                var s = SceneManager.GetSceneAt(i);
-                if (s.isLoaded) {
-                    loadedIndexes.Add(s.buildIndex);
+            foreach (var binding in bindings) {
+                foreach (var obj in binding.exerciseInputGo) {
+                        obj.SetActive(false);
                 }
             }
-
-            foreach (var binding in bindings) {
-                var isLoaded = loadedIndexes.Contains(binding.buildIndex);
-                foreach (var obj in binding.exerciseInputGo) {
-                    obj.SetActive(isLoaded);
+            
+            for (int i = 0; i < sceneCount; i++) {
+                var s = SceneManager.GetSceneAt(i);
+                
+                if (!s.isLoaded) continue;
+                var matchingBinding = Array.Find(bindings, b => b.buildIndex == s.buildIndex);
+                
+                if (matchingBinding == null) continue;
+                foreach (var obj in matchingBinding.exerciseInputGo) {
+                    obj.SetActive(true);
                 }
             }
         }
