@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Exercises.Listener {
-
     [Serializable]
     public class BuildIndexGameObjectBinding {
         public int buildIndex;
@@ -14,6 +13,7 @@ namespace Exercises.Listener {
     public class ExerciseXriController : MonoBehaviour {
         [SerializeField] private BuildIndexGameObjectBinding[] bindings;
         private Coroutine _sceneCheckCoroutine;
+        private int lastSceneHash = 0;
 
         private void OnEnable() {
             _sceneCheckCoroutine = StartCoroutine(SceneCheckRoutine());
@@ -27,29 +27,53 @@ namespace Exercises.Listener {
 
         private IEnumerator SceneCheckRoutine() {
             while (true) {
-                SceneCheckForInputObjectHandling();
+                CheckForSceneChange();
                 yield return new WaitForSeconds(2f);
             }
         }
 
-        private void SceneCheckForInputObjectHandling() {
+        private void CheckForSceneChange() {
+            var currentSceneHash = GetCurrentScenesHash();
 
-            var sceneCount = SceneManager.sceneCount;
-            foreach (var binding in bindings) {
-                foreach (var obj in binding.exerciseInputGo) {
-                        obj.SetActive(false);
+            if (currentSceneHash == lastSceneHash) return;
+            lastSceneHash = currentSceneHash;
+            HandleBindingsForScenes();
+        }
+
+        private int GetCurrentScenesHash() {
+            var hash = 17;
+            for (int i = 1; i < SceneManager.sceneCount; i++) {
+                var scene = SceneManager.GetSceneAt(i);
+                if (scene.isLoaded) {
+                    hash = hash * 31 + scene.buildIndex;
                 }
             }
-            
-            for (int i = 0; i < sceneCount; i++) {
+            return hash;
+        }
+
+
+        private void HandleBindingsForScenes() {
+            DeactivateAllBindings();
+
+            var sceneCount = SceneManager.sceneCount;
+
+            for (int i = 1; i < sceneCount; i++) {
                 var s = SceneManager.GetSceneAt(i);
-                
+
                 if (!s.isLoaded) continue;
                 var matchingBinding = Array.Find(bindings, b => b.buildIndex == s.buildIndex);
-                
+
                 if (matchingBinding == null) continue;
                 foreach (var obj in matchingBinding.exerciseInputGo) {
                     obj.SetActive(true);
+                }
+            }
+        }
+
+        private void DeactivateAllBindings() {
+            foreach (var binding in bindings) {
+                foreach (var obj in binding.exerciseInputGo) {
+                    obj.SetActive(false);
                 }
             }
         }
