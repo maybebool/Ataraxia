@@ -526,15 +526,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_MaxRaycastDistance
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_EnableUIInteraction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1073741824
+      objectReference: {fileID: 0}
     - target: {fileID: 2877920032095903009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 1073741824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989701366054411987, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Reticle
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989701366054411987, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_BlockedReticle
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3943595069983420053, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
@@ -544,6 +556,10 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 1133386689}
+    - target: {fileID: 5583972473812670438, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
     - target: {fileID: 5599451528678834902, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_RaycastMask.m_Bits
       value: 33
@@ -552,13 +568,25 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 68741174}
+    - target: {fileID: 5780252863506324895, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: objectToSpawn
+      value: 
+      objectReference: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
     - target: {fileID: 6085142703989738292, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6644473116291389117, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647328694167609929, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Reticle
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647328694167609929, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_BlockedReticle
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8495829251649999375, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
@@ -611,7 +639,6 @@ MonoBehaviour:
     - {fileID: 1558594756}
   - buildIndex: 2
     exerciseInputGo:
-    - {fileID: 1584024619}
     - {fileID: 922385438}
     - {fileID: 1558594756}
   - buildIndex: 3
@@ -1481,17 +1508,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6085142703989738292, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
   m_PrefabInstance: {fileID: 744908800}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1584024625 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
-  m_PrefabInstance: {fileID: 744908800}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584024619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c416f1a5c494e224fb5564fd1362b50d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1584024626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1504,8 +1520,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68b5411068f44ffb2f442ee0a3f2e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gazeInteractor: {fileID: 1584024625}
-  objectToSpawn: {fileID: 434269386074238800, guid: 0ea5d184e40d62940bce79f4ee0ea6c4, type: 3}
+  scO: {fileID: 0}
+  detector: {fileID: 0}
+  _outterCircle: {x: 0, y: 0, z: 0, w: 0}
+  _tangentCircleRadius: 0
+  speedThreshold: 50
+  oscillationThreshold: 140
+  tremorDecayRate: 5
+  ray: {fileID: 0}
+  objectToSpawn: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
+  headTremorDecayRate: 5
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0

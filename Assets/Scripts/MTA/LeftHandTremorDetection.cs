@@ -30,6 +30,9 @@ namespace MTA {
             get => scO.isLeftHandCollectingData;
             set => scO.isLeftHandCollectingData = value;
         }
+        
+        protected override float LastUpdateTime { get; set; }
+        
 
         protected override void OnEnable() {
             base.OnEnable();

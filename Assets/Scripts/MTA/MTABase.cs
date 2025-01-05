@@ -12,17 +12,16 @@ namespace MTA {
         public GameObject detector;
     
         [Header("Parameters")] 
-        public Vector4 _outterCircle;
-        public float _tangentCircleRadius;
+        // public Vector4 _outterCircle;
+        // public float _tangentCircleRadius;
         public float speedThreshold = 50f;
         public float oscillationThreshold = 140f;
+        public float tremorDecayRate = 5f;
     
         private float previousDegree;
         private float previousDelta;
         private float oscillationDelta;
-        private float lastUpdateTime;
         private float tremorIntensity = 0f;
-        private float tremorDecayRate = 5f;
         private List<float> tremorEventTimes = new();
         private float timeWindow = 3f;
         private float multiplierThreshold = 3f;
@@ -36,18 +35,18 @@ namespace MTA {
 
         private const float PiHalf = Mathf.PI / 2;
         private const float PIDoubled = 2 * Mathf.PI;
-
-    
+        
         protected abstract XRRayInteractor RaycastPoint { get; set; } // Where we do our raycast
         protected abstract Vector3 CurrentPos { get; set; }
         protected abstract float Degree { get; set; }
         protected abstract float TremorIntensity { get; set; }
         protected abstract bool IsCollectingData { get; set; }
 
-        private void Start() {
-            lastUpdateTime = Time.time;
-            outterCircleScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2f;
-            tangentCircleScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2f;
+        protected abstract float LastUpdateTime { get; set; }
+        protected virtual void Start() {
+            LastUpdateTime = Time.time;
+            // outterCircleScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2f;
+            // tangentCircleScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2f;
         }
 
         protected virtual void OnEnable() {
@@ -56,7 +55,7 @@ namespace MTA {
         protected virtual void OnDisable() {
         }
 
-        private void Update() {
+        protected virtual void Update() {
             if (!IsCollectingData) {
                 TremorIntensity -= tremorDecayRate * Time.deltaTime;
                 TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
@@ -81,46 +80,35 @@ namespace MTA {
 
         private IEnumerator DataCollectionRoutine() {
             while (IsCollectingData) {
-                // 1) Raycast
                 RaycastPoint.TryGetCurrent3DRaycastHit(out var hit);
-
-                // 2) Assign CurrentPos from the hit
                 CurrentPos = hit.point;
-
-                // 3) If we have a previous position, do calculations
+                
                 if (hasPreviousPosition) {
-                    float deltaX = previousPosition.x - CurrentPos.x;
-                    float deltaY = previousPosition.y - CurrentPos.y;
-                    float hypotenuse = CalculateHypotenuse(previousPosition, CurrentPos);
+                    var deltaX = previousPosition.x - CurrentPos.x;
+                    var deltaY = previousPosition.y - CurrentPos.y;
+                    var hypotenuse = CalculateHypotenuse(previousPosition, CurrentPos);
 
-                    float quadrantRadiant = CalculateQuadrantLogicForRadiant(deltaX, deltaY, hypotenuse);
-                    float newDegree = quadrantRadiant * Mathf.Rad2Deg;
-
-                    // Save to the correct property
+                    var quadrantRadiant = CalculateQuadrantLogicForRadiant(deltaX, deltaY, hypotenuse);
+                    var newDegree = quadrantRadiant * Mathf.Rad2Deg;
                     Degree = newDegree;
-
-                    // Calculate tremor
+                    
                     CalculateTremor();
 
                     // Decay
                     TremorIntensity -= tremorDecayRate * Time.deltaTime;
                     TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
-
-                    // Store final tremor in the correct property
-                    // TremorIntensity = tremorIntensity;
+                    
                 }
                 else {
-                    // First time only
                     previousDegree = Degree;
-                    lastUpdateTime = Time.time;
+                    LastUpdateTime = Time.time;
                     previousDelta = 0f;
                 }
-
-                // 4) Update the local 'previousPosition'
+                
                 previousPosition = CurrentPos;
                 hasPreviousPosition = true;
 
-                yield return null; // each frame
+                yield return null;
             }
         }
 
@@ -133,35 +121,30 @@ namespace MTA {
         }
 
         private void CalculateTremor() {
-            float currentTime = Time.time;
-            float deltaTime = currentTime - lastUpdateTime;
+            var currentTime = Time.time;
+            var deltaTime = currentTime - LastUpdateTime;
+            var bodyPartDegree = Degree;
 
-            // Read the current degree from the abstract property
-            float bodyPartDegree = Degree;
-
-            float deltaDegree = bodyPartDegree - previousDegree;
+            var deltaDegree = bodyPartDegree - previousDegree;
             if (deltaDegree > 180f) deltaDegree -= 360f;
             if (deltaDegree < -180f) deltaDegree += 360f;
 
-            float speed = Mathf.Abs(deltaDegree / deltaTime);
-
-            // Color change for speed threshold
+            var speed = Mathf.Abs(deltaDegree / deltaTime);
+            
             if (speed > speedThreshold) {
                 detector.GetComponent<Renderer>().material.color = Color.blue;
             }
-
-            // Check oscillation
+            
             oscillationDelta = previousDelta + deltaDegree;
             if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
                 detector.GetComponent<Renderer>().material.color = Color.red;
                 oscillationDelta = 0f;
                 IncrementTremorIntensityValue();
             }
-
-            // Update previous
+            
             previousDegree = bodyPartDegree;
             previousDelta = deltaDegree;
-            lastUpdateTime = currentTime;
+            LastUpdateTime = currentTime;
         }
 
         private Vector3 GetRadiantPointReflection(float radiant, float scale) {
@@ -178,8 +161,8 @@ namespace MTA {
             if (Mathf.Approximately(hypotenuse, 0f))
                 return 0f;
 
-            float thetaOfCos = Mathf.Acos(deltaX / hypotenuse);
-            float quadrantBasedRadiant = 0f;
+            var thetaOfCos = Mathf.Acos(deltaX / hypotenuse);
+            var quadrantBasedRadiant = 0f;
 
             // Quadrant logic example
             quadrantBasedRadiant = deltaX switch {
@@ -198,13 +181,13 @@ namespace MTA {
         }
 
         private void IncrementTremorIntensityValue() {
-            float incrementAmount = 0.3f;
+            var incrementAmount = 0.3f;
             tremorEventTimes.Add(Time.time);
             tremorEventTimes.RemoveAll(t => t < Time.time - timeWindow);
 
-            int eventCount = tremorEventTimes.Count;
+            var eventCount = tremorEventTimes.Count;
             if (eventCount >= multiplierThreshold) {
-                float multiplier = 1f + (eventCount - multiplierThreshold) * 0.01f;
+                var multiplier = 1f + (eventCount - multiplierThreshold) * 0.01f;
                 incrementAmount *= multiplier;
             }
 
