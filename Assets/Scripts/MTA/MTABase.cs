@@ -17,6 +17,7 @@ namespace MTA {
         public float speedThreshold = 50f;
         public float oscillationThreshold = 140f;
         public float tremorDecayRate = 5f;
+        [HideInInspector] public float lastUpdateTime;
     
         private float previousDegree;
         private float previousDelta;
@@ -41,10 +42,9 @@ namespace MTA {
         protected abstract float Degree { get; set; }
         protected abstract float TremorIntensity { get; set; }
         protected abstract bool IsCollectingData { get; set; }
-
-        protected abstract float LastUpdateTime { get; set; }
+        
         protected virtual void Start() {
-            LastUpdateTime = Time.time;
+            lastUpdateTime = Time.time;
             // outterCircleScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2f;
             // tangentCircleScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2f;
         }
@@ -101,7 +101,7 @@ namespace MTA {
                 }
                 else {
                     previousDegree = Degree;
-                    LastUpdateTime = Time.time;
+                    lastUpdateTime = Time.time;
                     previousDelta = 0f;
                 }
                 
@@ -122,7 +122,7 @@ namespace MTA {
 
         private void CalculateTremor() {
             var currentTime = Time.time;
-            var deltaTime = currentTime - LastUpdateTime;
+            var deltaTime = currentTime - lastUpdateTime;
             var bodyPartDegree = Degree;
 
             var deltaDegree = bodyPartDegree - previousDegree;
@@ -144,7 +144,7 @@ namespace MTA {
             
             previousDegree = bodyPartDegree;
             previousDelta = deltaDegree;
-            LastUpdateTime = currentTime;
+            lastUpdateTime = currentTime;
         }
 
         private Vector3 GetRadiantPointReflection(float radiant, float scale) {

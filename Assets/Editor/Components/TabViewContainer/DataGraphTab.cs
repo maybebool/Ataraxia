@@ -32,7 +32,7 @@ namespace Editor.Components.TabViewContainer {
             LineChart = new LineGraph("Nervositätslevel");
             BoxPlot1 = new BoxPlotGraph("Rechte Hand");
             BoxPlot2 = new BoxPlotGraph("Linke Hand");
-            BoxPlot3 = new BoxPlotGraph("Rechte Hand");
+            BoxPlot3 = new BoxPlotGraph("Kopf");
             BoxPlot4 = new BoxPlotGraph("Rechte Hand");
             
             lineChartContainer.Add(LineChart);

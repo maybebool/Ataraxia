@@ -12,10 +12,18 @@ namespace Managers {
         public delegate void LeftHandMotionTrackingAction();
 
         public event LeftHandMotionTrackingAction OnLeftHandBtnPressed;
+        
 
         public delegate void HeadMotionTrackingAction();
 
-        public event HeadMotionTrackingAction OnHeadBtnPressed;
+        public event HeadMotionTrackingAction OnHeadActionActivated;
+        
+        
+        public delegate void HeadMotionTrackingActionDeactivated();
+
+        public event HeadMotionTrackingActionDeactivated OnHeadActionDeactivated;
+        
+        
 
         public delegate void RightHandButtonReleasedAction();
 
@@ -35,26 +43,30 @@ namespace Managers {
         private void OnEnable() {
             _inputActions.XRIRightInteraction.UIPress.Enable();
             _inputActions.XRILeftInteraction.UIPress.Enable();
+            _inputActions.XRIHead.HeadToggle.Enable();
 
             _inputActions.XRIRightInteraction.UIPress.performed += RightHandMotionTrackingBtnPressed;
             _inputActions.XRILeftInteraction.UIPress.performed += LeftHandMotionTrackingBtnPressed;
-
-
+            _inputActions.XRIHead.HeadToggle.performed += HeadMotionActivated;
+            
             _inputActions.XRIRightInteraction.UIPress.canceled += RightHandMotionTrackingBtnReleased;
             _inputActions.XRILeftInteraction.UIPress.canceled += LeftHandMotionTrackingBtnReleased;
-
-
+            _inputActions.XRIHead.HeadToggle.canceled += HeadMotionDeactivated;
+            
         }
 
         private void OnDisable() {
             _inputActions.XRIRightInteraction.UIPress.performed -= RightHandMotionTrackingBtnPressed;
             _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandMotionTrackingBtnPressed;
+            _inputActions.XRIHead.HeadToggle.performed += HeadMotionActivated;
 
             _inputActions.XRIRightInteraction.UIPress.performed -= RightHandMotionTrackingBtnReleased;
             _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandMotionTrackingBtnReleased;
+            _inputActions.XRIHead.HeadToggle.canceled += HeadMotionDeactivated;
 
             _inputActions.XRIRightInteraction.UIPress.Disable();
             _inputActions.XRILeftInteraction.UIPress.Disable();
+            _inputActions.XRIHead.HeadToggle.Disable();
         }
 
         private void RightHandMotionTrackingBtnPressed(InputAction.CallbackContext context) {
@@ -72,6 +84,15 @@ namespace Managers {
         private void LeftHandMotionTrackingBtnReleased(InputAction.CallbackContext context) {
             OnLeftHandBtnReleased?.Invoke();
         }
+        
+        private void HeadMotionActivated(InputAction.CallbackContext context) {
+            OnHeadActionActivated?.Invoke();
+        }
+
+        private void HeadMotionDeactivated(InputAction.CallbackContext context) {
+            OnHeadActionDeactivated?.Invoke();
+        }
+        
 
     }
 }

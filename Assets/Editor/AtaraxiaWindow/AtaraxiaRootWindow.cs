@@ -138,10 +138,10 @@ namespace Editor.AtaraxiaWindow {
             }
 
             if (scObData.isHeadCollectingData) {
-                _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityRightHand);
+                _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityHead);
             }
 
-            if (scObData.isHeadCollectingData) {
+            if (scObData.isRightHandCollectingData) {
                 _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightHand);
             }
         }

@@ -31,9 +31,6 @@ namespace MTA {
             set => scO.isLeftHandCollectingData = value;
         }
         
-        protected override float LastUpdateTime { get; set; }
-        
-
         protected override void OnEnable() {
             base.OnEnable();
             if (MtsEventManager.Instance != null) {
@@ -43,21 +40,20 @@ namespace MTA {
         }
 
         protected override void OnDisable() {
+            base.OnDisable();
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnLeftHandBtnPressed -= OnLeftHandBtnPressed;
                 MtsEventManager.Instance.OnLeftHandBtnReleased -= OnLeftHandButtonReleased;
             }
 
-            base.OnDisable();
+            
         }
 
         private void OnLeftHandBtnPressed() {
-            Debug.Log("Left Hand Button Pressed");
             StartDataCollection();
         }
 
         private void OnLeftHandButtonReleased() {
-            Debug.Log("Left Hand Button Released");
             StopDataCollection();
         }
     }

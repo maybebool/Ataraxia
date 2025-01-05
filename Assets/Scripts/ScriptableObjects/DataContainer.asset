@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4cb91230ac5f54b90b02ea9b7c3f6b, type: 3}
   m_Name: DataContainer
   m_EditorClassIdentifier: 
-  CurrentPos: {x: 0, y: 0, z: 0}
-  degree: 0
+  isRightHandCollectingData: 0
+  isLeftHandCollectingData: 0
+  isHeadCollectingData: 0
+  tremorIntensityRightHand: 0
+  tremorIntensityLeftHand: 0
+  tremorIntensityHead: 0
+  rightHandCurrentPos: {x: -3.9345365, y: 0.77210635, z: 1.421}
+  rightHandDegree: 349.1791
+  leftHandCurrentPos: {x: -0.5931185, y: 1.7397523, z: 3.77}
+  leftHandDegree: 152.63634
+  headCurrentPos: {x: 0.006549216, y: 0.4157487, z: -1.8357315}
+  headDegree: 0

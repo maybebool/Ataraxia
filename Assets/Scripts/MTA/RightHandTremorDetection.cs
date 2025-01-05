@@ -30,8 +30,6 @@ namespace MTA {
             get => scO.isRightHandCollectingData;
             set => scO.isRightHandCollectingData = value;
         }
-        
-        protected override float LastUpdateTime { get; set; }
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -46,7 +44,6 @@ namespace MTA {
                 MtsEventManager.Instance.OnRightHandBtnPressed -= OnRightHandBtnPressed;
                 MtsEventManager.Instance.OnRightHandBtnReleased -= OnRightHandButtonReleased;
             }
-
             base.OnDisable();
         }
 

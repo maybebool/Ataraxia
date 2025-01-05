@@ -647,10 +647,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   detector: {fileID: 0}
-  _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
-  _tangentCircleRadius: 0.1
   speedThreshold: 100
   oscillationThreshold: 140
+  tremorDecayRate: 5
+  lastUpdateTime: 0
   ray: {fileID: 5325191165000099787}
 --- !u!114 &5325191165000099787 stripped
 MonoBehaviour:
@@ -927,8 +927,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   detector: {fileID: 0}
-  _outterCircle: {x: 0, y: 0, z: 0, w: 0.5}
-  _tangentCircleRadius: 0.1
   speedThreshold: 100
   oscillationThreshold: 140
+  tremorDecayRate: 5
+  lastUpdateTime: 0
   ray: {fileID: 773396779529821009}
