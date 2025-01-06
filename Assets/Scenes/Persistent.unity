@@ -549,6 +549,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3943595069983420053, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Name
+      value: LeftHandDetector
+      objectReference: {fileID: 0}
+    - target: {fileID: 3943595069983420053, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -587,6 +591,10 @@ PrefabInstance:
     - target: {fileID: 7647328694167609929, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_BlockedReticle
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495829251649999375, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Name
+      value: RightHandDetector
       objectReference: {fileID: 0}
     - target: {fileID: 8495829251649999375, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
@@ -1654,12 +1662,10 @@ MonoBehaviour:
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   detector: {fileID: 1311882728}
   speedThreshold: 50
-  oscillationThreshold: 140
   tremorDecayRate: 5
   lastUpdateTime: 0
   ray: {fileID: 1584024625}
   objectToSpawn: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
-  headTremorDecayRate: 5
 --- !u!1 &1677370718
 GameObject:
   m_ObjectHideFlags: 0
