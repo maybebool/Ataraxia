@@ -37,6 +37,15 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""HeadToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""69a36b1a-01ab-4df5-a3ee-73537a098603"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Rotation"",
                     ""type"": ""Value"",
                     ""id"": ""aed87fe6-2b01-4dd2-a8fa-195578fd8158"",
@@ -120,6 +129,50 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Position"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aeac289d-7baa-4231-a5fd-8bda9deeffc1"",
+                    ""path"": ""<XRController>{RightHand}/{TriggerButton}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeadToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f323d280-609b-4db2-a0a4-1080c68b3636"",
+                    ""path"": ""<MetaAimHand>{RightHand}/indexPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeadToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32dd0408-19e3-408e-985f-8c3708c48570"",
+                    ""path"": ""<HandInteraction>{RightHand}/pointerActivated"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeadToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fa15e7b-35d3-4774-896e-2cbfbe14a2f0"",
+                    ""path"": ""<HoloLensHand>{RightHand}/selectPressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HeadToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -3342,6 +3395,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         // XRI Head
         m_XRIHead = asset.FindActionMap("XRI Head", throwIfNotFound: true);
         m_XRIHead_Position = m_XRIHead.FindAction("Position", throwIfNotFound: true);
+        m_XRIHead_HeadToggle = m_XRIHead.FindAction("HeadToggle", throwIfNotFound: true);
         m_XRIHead_Rotation = m_XRIHead.FindAction("Rotation", throwIfNotFound: true);
         m_XRIHead_IsTracked = m_XRIHead.FindAction("Is Tracked", throwIfNotFound: true);
         m_XRIHead_TrackingState = m_XRIHead.FindAction("Tracking State", throwIfNotFound: true);
@@ -3522,6 +3576,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
     private readonly InputActionMap m_XRIHead;
     private List<IXRIHeadActions> m_XRIHeadActionsCallbackInterfaces = new List<IXRIHeadActions>();
     private readonly InputAction m_XRIHead_Position;
+    private readonly InputAction m_XRIHead_HeadToggle;
     private readonly InputAction m_XRIHead_Rotation;
     private readonly InputAction m_XRIHead_IsTracked;
     private readonly InputAction m_XRIHead_TrackingState;
@@ -3534,6 +3589,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
         private @XRIDefaultInputActions m_Wrapper;
         public XRIHeadActions(@XRIDefaultInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Position => m_Wrapper.m_XRIHead_Position;
+        public InputAction @HeadToggle => m_Wrapper.m_XRIHead_HeadToggle;
         public InputAction @Rotation => m_Wrapper.m_XRIHead_Rotation;
         public InputAction @IsTracked => m_Wrapper.m_XRIHead_IsTracked;
         public InputAction @TrackingState => m_Wrapper.m_XRIHead_TrackingState;
@@ -3553,6 +3609,9 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @Position.started += instance.OnPosition;
             @Position.performed += instance.OnPosition;
             @Position.canceled += instance.OnPosition;
+            @HeadToggle.started += instance.OnHeadToggle;
+            @HeadToggle.performed += instance.OnHeadToggle;
+            @HeadToggle.canceled += instance.OnHeadToggle;
             @Rotation.started += instance.OnRotation;
             @Rotation.performed += instance.OnRotation;
             @Rotation.canceled += instance.OnRotation;
@@ -3581,6 +3640,9 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
             @Position.started -= instance.OnPosition;
             @Position.performed -= instance.OnPosition;
             @Position.canceled -= instance.OnPosition;
+            @HeadToggle.started -= instance.OnHeadToggle;
+            @HeadToggle.performed -= instance.OnHeadToggle;
+            @HeadToggle.canceled -= instance.OnHeadToggle;
             @Rotation.started -= instance.OnRotation;
             @Rotation.performed -= instance.OnRotation;
             @Rotation.canceled -= instance.OnRotation;
@@ -4582,6 +4644,7 @@ public partial class @XRIDefaultInputActions: IInputActionCollection2, IDisposab
     public interface IXRIHeadActions
     {
         void OnPosition(InputAction.CallbackContext context);
+        void OnHeadToggle(InputAction.CallbackContext context);
         void OnRotation(InputAction.CallbackContext context);
         void OnIsTracked(InputAction.CallbackContext context);
         void OnTrackingState(InputAction.CallbackContext context);
