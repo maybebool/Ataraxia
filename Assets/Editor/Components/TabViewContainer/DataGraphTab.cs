@@ -30,10 +30,10 @@ namespace Editor.Components.TabViewContainer {
             var lineChartContainer = this.Q<VisualElement>("LineGraphContainer");
             
             LineChart = new LineGraph("Nervositätslevel");
-            BoxPlot1 = new BoxPlotGraph("Beine");
-            BoxPlot2 = new BoxPlotGraph("Tremorbewegung");
-            BoxPlot3 = new BoxPlotGraph("Head Tremor");
-            BoxPlot4 = new BoxPlotGraph("Muskelhypertonie");
+            BoxPlot1 = new BoxPlotGraph("Rechte Hand");
+            BoxPlot2 = new BoxPlotGraph("Linke Hand");
+            BoxPlot3 = new BoxPlotGraph("Kopf");
+            BoxPlot4 = new BoxPlotGraph("Rechte Hand");
             
             lineChartContainer.Add(LineChart);
             boxPlotsContainer.Add(BoxPlot1);
