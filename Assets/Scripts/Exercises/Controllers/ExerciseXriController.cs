@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Exercises.Listener {
+namespace Exercises.Controllers {
     [Serializable]
     public class BuildIndexGameObjectBinding {
         public int buildIndex;

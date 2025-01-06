@@ -29,10 +29,29 @@ namespace ScriptableObjects {
         public float tremorIntensityHead;
         public Vector3 headCurrentPos;
         public float headDegree;
+        
         [Header("Head adjustable Parameters")]
         public float headIntensityMultiplier = 0.03f;
         public float headOscillationThreshold = 110f;
         
+        
+        [Header("Right Leg Data")]
+        public float tremorIntensityRightLeg;
+        public Vector3 rightLegCurrentPos;
+        public float rightLegDegree;
+        
+        [Header("Right Leg adjustable Parameters")]
+        public float rightLegIntensityMultiplier = 0.03f;
+        public float rightLegOscillationThreshold = 110f;
+        
+        [Header("Left Leg Data")]
+        public float tremorIntensityLeftLeg;
+        public Vector3 leftLegCurrentPos;
+        public float leftLegDegree;
+        
+        [Header("Left Leg adjustable Parameters")]
+        public float leftLegIntensityMultiplier = 0.03f;
+        public float leftLegOscillationThreshold = 110f;
         
         public void ClearData() {
             tremorIntensityRightHand = 0f;

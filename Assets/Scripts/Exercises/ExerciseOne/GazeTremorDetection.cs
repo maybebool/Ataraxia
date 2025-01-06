@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace Exercises.ExerciseOne {
-    public class GazeRaycastIndicator : MTABase {
+    public class GazeTremorDetection : MTABase {
         
         [SerializeField] private XRRayInteractor ray;
         [SerializeField] private GameObject objectToSpawn;
