@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
@@ -15,7 +16,6 @@ namespace MTA {
         // public Vector4 _outterCircle;
         // public float _tangentCircleRadius;
         public float speedThreshold = 50f;
-        public float oscillationThreshold = 140f;
         public float tremorDecayRate = 5f;
         [HideInInspector] public float lastUpdateTime;
     
@@ -42,6 +42,8 @@ namespace MTA {
         protected abstract float Degree { get; set; }
         protected abstract float TremorIntensity { get; set; }
         protected abstract bool IsCollectingData { get; set; }
+        protected abstract float IntensityMultiplier { get; set; }
+        protected abstract float OscillationThreshold { get; set; }
         
         protected virtual void Start() {
             lastUpdateTime = Time.time;
@@ -136,7 +138,7 @@ namespace MTA {
             }
             
             oscillationDelta = previousDelta + deltaDegree;
-            if (Mathf.Abs(oscillationDelta) > oscillationThreshold) {
+            if (Mathf.Abs(oscillationDelta) > OscillationThreshold) {
                 detector.GetComponent<Renderer>().material.color = Color.red;
                 oscillationDelta = 0f;
                 IncrementTremorIntensityValue();
@@ -187,7 +189,7 @@ namespace MTA {
 
             var eventCount = tremorEventTimes.Count;
             if (eventCount >= multiplierThreshold) {
-                var multiplier = 1f + (eventCount - multiplierThreshold) * 0.01f;
+                var multiplier = 1f + (eventCount - multiplierThreshold) * IntensityMultiplier;
                 incrementAmount *= multiplier;
             }
 

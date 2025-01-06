@@ -31,6 +31,16 @@ namespace MTA {
             set => scO.isLeftHandCollectingData = value;
         }
         
+        protected override float IntensityMultiplier {
+            get => scO.leftHandIntensityMultiplier; 
+            set => scO.leftHandIntensityMultiplier = value;
+        }
+        
+        protected override float OscillationThreshold {
+            get => scO.leftHandOscillationThreshold;
+            set => scO.leftHandOscillationThreshold = value;
+        }
+        
         protected override void OnEnable() {
             base.OnEnable();
             if (MtsEventManager.Instance != null) {

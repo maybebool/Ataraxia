@@ -35,6 +35,17 @@ namespace Exercises.ExerciseOne {
             get => scO.isHeadCollectingData;
             set => scO.isHeadCollectingData = value;
         }
+        
+        protected override float IntensityMultiplier {
+            get => scO.headIntensityMultiplier; 
+            set => scO.headIntensityMultiplier = value;
+        }
+        
+        protected override float OscillationThreshold {
+            get => scO.headOscillationThreshold;
+            set => scO.headOscillationThreshold = value;
+            
+        }
 
         protected override void Start() {
             lastUpdateTime = Time.time;

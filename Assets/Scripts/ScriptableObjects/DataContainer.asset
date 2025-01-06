@@ -16,11 +16,17 @@ MonoBehaviour:
   isLeftHandCollectingData: 0
   isHeadCollectingData: 0
   tremorIntensityRightHand: 0
-  tremorIntensityLeftHand: 0
-  tremorIntensityHead: 0
   rightHandCurrentPos: {x: -3.9345365, y: 0.77210635, z: 1.421}
   rightHandDegree: 349.1791
+  rightHandIntensityMultiplier: 0.01
+  rightHandOscillationThreshold: 140
+  tremorIntensityLeftHand: 0
   leftHandCurrentPos: {x: -0.5931185, y: 1.7397523, z: 3.77}
   leftHandDegree: 152.63634
+  leftHandIntensityMultiplier: 0.01
+  leftHandOscillationThreshold: 140
+  tremorIntensityHead: 0
   headCurrentPos: {x: 0.006549216, y: 0.4157487, z: -1.8357315}
   headDegree: 0
+  headIntensityMultiplier: 0.03
+  headOscillationThreshold: 110
