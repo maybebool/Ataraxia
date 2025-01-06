@@ -148,7 +148,6 @@ namespace Managers {
         }
 
         private void DisableRightLegEvents() {
-            // Matching unsubscribes:
             _inputActions.XRIRightInteraction.UIPress.performed -= RightLegMotionTrackingBtnPressed;
             _inputActions.XRIRightInteraction.UIPress.canceled -= RightLegMotionTrackingBtnReleased;
         }
