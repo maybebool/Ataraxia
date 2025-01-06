@@ -912,11 +912,12 @@ MonoBehaviour:
   - buildIndex: 2
     exerciseInputGo:
     - {fileID: 1584024619}
-    - {fileID: 922385438}
-    - {fileID: 1558594756}
+    - {fileID: 971505994}
+    - {fileID: 2136988234}
   - buildIndex: 3
     exerciseInputGo:
-    - {fileID: 902715153}
+    - {fileID: 922385438}
+    - {fileID: 1558594756}
   - buildIndex: 4
     exerciseInputGo:
     - {fileID: 922385438}
