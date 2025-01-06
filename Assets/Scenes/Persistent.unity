@@ -616,7 +616,7 @@ Transform:
   m_GameObject: {fileID: 712002218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.64, y: 0.682, z: 1.921}
+  m_LocalPosition: {x: -3.64, y: 1.97, z: 1.921}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
-  detector: {fileID: 2136988234}
+  detector: {fileID: 581552898}
   speedThreshold: 100
   tremorDecayRate: 5
   lastUpdateTime: 0
