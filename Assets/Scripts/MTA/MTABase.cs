@@ -8,17 +8,17 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
     public abstract class MTABase : MonoBehaviour {
-        [Header("References")] 
-        public DataContainer scO;
+        [Header("References")] public DataContainer scO;
         public GameObject detector;
-    
-        [Header("Parameters")] 
+
+        [Header("Parameters")]
         // public Vector4 _outterCircle;
         // public float _tangentCircleRadius;
         public float speedThreshold = 50f;
+
         public float tremorDecayRate = 5f;
         [HideInInspector] public float lastUpdateTime;
-    
+
         private float previousDegree;
         private float previousDelta;
         private float oscillationDelta;
@@ -28,15 +28,26 @@ namespace MTA {
         private float multiplierThreshold = 3f;
         private Vector3 previousPosition;
         private bool hasPreviousPosition = false;
-    
+
         private Vector3 outterCirclePosition;
         private Vector3 outterCircleScale;
         private Vector3 tangentCircleScale;
         private Coroutine dataCollectionCoroutine;
 
-        private const float PiHalf = Mathf.PI / 2;
+        [Tooltip("Extra time window to validate repeated threshold passes.")] [SerializeField]
+        private float timeThreshold = 0.2f;
+
+        [Tooltip("If the position change is below this threshold, we skip tremor calculations.")]
+        public float positionChangeThreshold = 0.01f;
+
+        // This will store whether we've recently passed the threshold
+        private bool hasSurpassedThresholdFirstTime = false;
+
+        // The exact moment we first passed the threshold
+        private float firstSurpassTimestamp = 0f;
+
         private const float PIDoubled = 2 * Mathf.PI;
-        
+
         protected abstract XRRayInteractor RaycastPoint { get; set; } // Where we do our raycast
         protected abstract Vector3 CurrentPos { get; set; }
         protected abstract float Degree { get; set; }
@@ -44,11 +55,9 @@ namespace MTA {
         protected abstract bool IsCollectingData { get; set; }
         protected abstract float IntensityMultiplier { get; set; }
         protected abstract float OscillationThreshold { get; set; }
-        
+
         protected virtual void Start() {
             lastUpdateTime = Time.time;
-            // outterCircleScale = new Vector3(_outterCircle.w, _outterCircle.w, _outterCircle.w) * 2f;
-            // tangentCircleScale = new Vector3(_tangentCircleRadius, _tangentCircleRadius, _tangentCircleRadius) * 2f;
         }
 
         protected virtual void OnEnable() {
@@ -84,27 +93,35 @@ namespace MTA {
             while (IsCollectingData) {
                 RaycastPoint.TryGetCurrent3DRaycastHit(out var hit);
                 CurrentPos = hit.point;
-                
+
                 if (hasPreviousPosition) {
-                    var deltaX = previousPosition.x - CurrentPos.x;
-                    var deltaY = previousPosition.y - CurrentPos.y;
-                    var hypotenuse = CalculateHypotenuse(previousPosition, CurrentPos);
+                    var distance = Vector3.Distance(CurrentPos, previousPosition);
+                    if (distance > positionChangeThreshold) {
+                        // Horizontal & vertical displacements
+                        var deltaX = CurrentPos.x - previousPosition.x;
+                        var deltaY = CurrentPos.y - previousPosition.y;
 
-                    var quadrantRadiant = CalculateQuadrantLogicForRadiant(deltaX, deltaY, hypotenuse);
-                    var newDegree = quadrantRadiant * Mathf.Rad2Deg;
-                    Degree = newDegree;
-                    
-                    CalculateTremor();
+                        // 0° at positive Y axis, so we do Atan2(x, y) instead of Atan2(y, x)
+                        var angleRadians = Mathf.Atan2(deltaX, deltaY);
 
-                    // Decay
-                    TremorIntensity -= tremorDecayRate * Time.deltaTime;
-                    TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
-                    
-                }
-                else {
-                    previousDegree = Degree;
-                    lastUpdateTime = Time.time;
-                    previousDelta = 0f;
+                        // Ensure angle is in [0, 2π)
+                        if (angleRadians < 0f) angleRadians += PIDoubled;
+
+                        // Convert to degrees in [0, 360)
+                        var newDegree = angleRadians * Mathf.Rad2Deg;
+                        Degree = newDegree;
+
+                        CalculateTremor();
+
+                        // Decay
+                        TremorIntensity -= tremorDecayRate * Time.deltaTime;
+                        TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
+                    }
+                    else {
+                        previousDegree = Degree;
+                        lastUpdateTime = Time.time;
+                        previousDelta = 0f;
+                    }
                 }
                 
                 previousPosition = CurrentPos;
@@ -127,59 +144,41 @@ namespace MTA {
             var deltaTime = currentTime - lastUpdateTime;
             var bodyPartDegree = Degree;
 
-            var deltaDegree = bodyPartDegree - previousDegree;
-            if (deltaDegree > 180f) deltaDegree -= 360f;
-            if (deltaDegree < -180f) deltaDegree += 360f;
-
+            // Get the shortest signed difference in [-180, 180]
+            var deltaDegree = Mathf.DeltaAngle(previousDegree, bodyPartDegree);
             var speed = Mathf.Abs(deltaDegree / deltaTime);
-            
+
             if (speed > speedThreshold) {
                 detector.GetComponent<Renderer>().material.color = Color.blue;
             }
-            
-            oscillationDelta = previousDelta + deltaDegree;
+
+            oscillationDelta += deltaDegree;
+
             if (Mathf.Abs(oscillationDelta) > OscillationThreshold) {
-                detector.GetComponent<Renderer>().material.color = Color.red;
-                oscillationDelta = 0f;
-                IncrementTremorIntensityValue();
+                if (!hasSurpassedThresholdFirstTime) {
+                    hasSurpassedThresholdFirstTime = true;
+                    firstSurpassTimestamp = currentTime;
+                    oscillationDelta = 0f;
+                }else {
+                    if ((currentTime - firstSurpassTimestamp) <= timeThreshold) {
+                        detector.GetComponent<Renderer>().material.color = Color.red;
+                        oscillationDelta = 0f;
+                        IncrementTremorIntensityValue();
+                    }else {
+                        hasSurpassedThresholdFirstTime = false;
+                        oscillationDelta = 0f;
+                    }
+                }
             }
-            
+
+            if (hasSurpassedThresholdFirstTime &&
+                (currentTime - firstSurpassTimestamp > timeThreshold)) {
+                hasSurpassedThresholdFirstTime = false;
+            }
+
             previousDegree = bodyPartDegree;
             previousDelta = deltaDegree;
             lastUpdateTime = currentTime;
-        }
-
-        private Vector3 GetRadiantPointReflection(float radiant, float scale) {
-            var sin = scale * (float)Math.Sin(radiant);
-            var cos = scale * (float)Math.Cos(radiant);
-            return new Vector3(sin, -cos, 0);
-        }
-
-        private float CalculateHypotenuse(Vector3 pointA, Vector3 pointB) {
-            return Vector3.Distance(pointA, pointB);
-        }
-
-        private float CalculateQuadrantLogicForRadiant(float deltaX, float deltaY, float hypotenuse) {
-            if (Mathf.Approximately(hypotenuse, 0f))
-                return 0f;
-
-            var thetaOfCos = Mathf.Acos(deltaX / hypotenuse);
-            var quadrantBasedRadiant = 0f;
-
-            // Quadrant logic example
-            quadrantBasedRadiant = deltaX switch {
-                // top left Quadrant > < | 0 - 90
-                > 0 when deltaY < 0 => PiHalf - thetaOfCos,
-                // bottom left Quadrant > > | 90 - 180
-                > 0 when deltaY > 0 => PiHalf + thetaOfCos,
-                // bottom right Quadrant < > | 180 - 270
-                < 0 when deltaY > 0 => PIDoubled + PiHalf - thetaOfCos,
-                // top right Quadrant < <  | 270 - 360
-                < 0 when deltaY < 0 => PIDoubled + PiHalf - thetaOfCos,
-                _ => quadrantBasedRadiant
-            };
-
-            return quadrantBasedRadiant;
         }
 
         private void IncrementTremorIntensityValue() {
@@ -198,4 +197,3 @@ namespace MTA {
         }
     }
 }
-
