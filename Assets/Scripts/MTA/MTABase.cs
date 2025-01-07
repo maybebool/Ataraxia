@@ -170,6 +170,7 @@ namespace MTA {
                     }
                 }
             }
+            
 
             if (hasSurpassedThresholdFirstTime &&
                 (currentTime - firstSurpassTimestamp > timeThreshold)) {
