@@ -15,18 +15,30 @@ MonoBehaviour:
   isRightHandCollectingData: 0
   isLeftHandCollectingData: 0
   isHeadCollectingData: 0
+  isRightLegCollectingData: 0
+  isLeftLegCollectingData: 0
   tremorIntensityRightHand: 0
-  rightHandCurrentPos: {x: -3.9345365, y: 0.77210635, z: 1.421}
-  rightHandDegree: 349.1791
-  rightHandIntensityMultiplier: 0.01
+  rightHandCurrentPos: {x: -0.1293374, y: 2.0272956, z: 3.77}
+  rightHandDegree: 40.690147
+  rightHandIntensityMultiplier: 0.03
   rightHandOscillationThreshold: 140
   tremorIntensityLeftHand: 0
-  leftHandCurrentPos: {x: -0.5931185, y: 1.7397523, z: 3.77}
-  leftHandDegree: 152.63634
-  leftHandIntensityMultiplier: 0.01
+  leftHandCurrentPos: {x: -0.66452223, y: 1.9569713, z: 3.77}
+  leftHandDegree: 86.556854
+  leftHandIntensityMultiplier: 0.03
   leftHandOscillationThreshold: 140
   tremorIntensityHead: 0
-  headCurrentPos: {x: 0.006549216, y: 0.4157487, z: -1.8357315}
-  headDegree: 0
+  headCurrentPos: {x: 2.443074, y: 3.4465678, z: 3.77}
+  headDegree: 289.16656
   headIntensityMultiplier: 0.03
   headOscillationThreshold: 110
+  tremorIntensityRightLeg: 0
+  rightLegCurrentPos: {x: 1.482113, y: 1.7993155, z: 3.77}
+  rightLegDegree: 29.967468
+  rightLegIntensityMultiplier: 0.03
+  rightLegOscillationThreshold: 110
+  tremorIntensityLeftLeg: 0
+  leftLegCurrentPos: {x: -1.522531, y: 1.3697807, z: 3.77}
+  leftLegDegree: 221.78261
+  leftLegIntensityMultiplier: 0.03
+  leftLegOscillationThreshold: 110
