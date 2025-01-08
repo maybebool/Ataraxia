@@ -41,10 +41,16 @@ namespace Managers {
         // Left Leg
         public delegate void LeftLegMotionTrackingAction();
         public event LeftLegMotionTrackingAction OnLeftLegBtnPressed;
-
         public delegate void LeftLegButtonReleasedAction();
-
         public event LeftLegButtonReleasedAction OnLeftLegBtnReleased;
+        
+        
+        // Right Hand Finger Tonus
+        public delegate void RightHandFingerTonusAction();
+        public event RightHandFingerTonusAction OnRightHandFingerTonusBtnPressed;
+        public delegate void RightHandFingerTonusActionDeactivated();
+        public event RightHandFingerTonusActionDeactivated OnRightHandFingerTonusBtnReleased;
+        
 
         #endregion
 
@@ -58,6 +64,7 @@ namespace Managers {
             EnableHeadEvents();
             EnableRightLegEvents();
             EnableLeftLegEvents();
+            EnableRightHandFingerEvents();
         }
 
         private void OnDisable() {
@@ -66,6 +73,7 @@ namespace Managers {
             DisableHeadEvents();
             DisableRightLegEvents();
             DisableLeftLegEvents();
+            DisableRightHandFingerEvents();
         }
 
         #region Right Hand Bindings
@@ -181,6 +189,31 @@ namespace Managers {
         private void LeftLegMotionTrackingBtnReleased(InputAction.CallbackContext context) {
             OnLeftLegBtnReleased?.Invoke();
         }
+
+        #endregion
+
+        #region Right Hand Finger Tonus Binding
+
+        private void EnableRightHandFingerEvents() {
+            _inputActions.XRIRightInteraction.UIPress.Enable();
+            _inputActions.XRIRightInteraction.UIPress.performed += RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPress.canceled += RightHandFingerTonusBtnReleased;
+        }
+
+        private void DisableRightHandFingerEvents() {
+            _inputActions.XRIRightInteraction.UIPress.performed -= RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPress.canceled -= RightHandFingerTonusBtnReleased;
+            _inputActions.XRIRightInteraction.UIPress.Disable();
+        }
+
+        private void RightHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
+            OnRightHandFingerTonusBtnPressed?.Invoke();
+        }
+
+        private void RightHandFingerTonusBtnReleased(InputAction.CallbackContext context) {
+            OnRightHandFingerTonusBtnReleased?.Invoke();
+        }
+        
 
         #endregion
     }
