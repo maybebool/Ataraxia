@@ -147,8 +147,16 @@ namespace Editor.AtaraxiaWindow {
         }
 
         private void UpdateLineGraph() {
-            _dataGraphTab.LineChart.AddDataPoint(scObData.tremorIntensityRightHand,
-            scObData.tremorIntensityLeftHand, scObData.tremorIntensityHead);
+            _dataGraphTab.LineChart.AddDataPoint(
+                    scObData.tremorIntensityRightHand,
+                    scObData.tremorIntensityLeftHand,
+                    scObData.tremorIntensityHead,
+                scObData.isRightHandCollectingData,
+                scObData.isLeftHandCollectingData,
+                scObData.isHeadCollectingData,
+                    scObData.rightHandTremorImportanceWeight,
+                    scObData.leftHandTremorImportanceWeight,
+                    scObData.headTremorImportanceWeight);
             
             _dataGraphTab.LineChart.UpdateChartDisplay();
         }
