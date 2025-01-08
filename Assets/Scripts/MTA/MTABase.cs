@@ -97,7 +97,6 @@ namespace MTA {
                 if (hasPreviousPosition) {
                     var distance = Vector3.Distance(CurrentPos, previousPosition);
                     if (distance > positionChangeThreshold) {
-                        // Horizontal & vertical displacements
                         var deltaX = CurrentPos.x - previousPosition.x;
                         var deltaY = CurrentPos.y - previousPosition.y;
 
