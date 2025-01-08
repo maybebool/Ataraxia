@@ -203,15 +203,15 @@ namespace Managers {
         #region Right Hand Finger Tonus Binding
 
         private void EnableRightHandFingerEvents() {
-            _inputActions.XRIRightInteraction.UIPress.Enable();
-            _inputActions.XRIRightInteraction.UIPress.performed += RightHandFingerTonusBtnPressed;
-            _inputActions.XRIRightInteraction.UIPress.canceled += RightHandFingerTonusBtnReleased;
+            _inputActions.XRIRightInteraction.UIPressValue.Enable();
+            _inputActions.XRIRightInteraction.UIPressValue.performed += RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPressValue.canceled += RightHandFingerTonusBtnReleased;
         }
 
         private void DisableRightHandFingerEvents() {
-            _inputActions.XRIRightInteraction.UIPress.performed -= RightHandFingerTonusBtnPressed;
-            _inputActions.XRIRightInteraction.UIPress.canceled -= RightHandFingerTonusBtnReleased;
-            _inputActions.XRIRightInteraction.UIPress.Disable();
+            _inputActions.XRIRightInteraction.UIPressValue.performed -= RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPressValue.canceled -= RightHandFingerTonusBtnReleased;
+            _inputActions.XRIRightInteraction.UIPressValue.Disable();
         }
 
         private void RightHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
@@ -228,15 +228,15 @@ namespace Managers {
         #region Left Hand Finger Tonus Binding
 
         private void EnableLeftHandFingerEvents() {
-            _inputActions.XRILeftInteraction.UIPress.Enable();
-            _inputActions.XRILeftInteraction.UIPress.performed += LeftHandFingerTonusBtnPressed;
-            _inputActions.XRILeftInteraction.UIPress.canceled += LeftHandFingerTonusBtnReleased;
+            _inputActions.XRILeftInteraction.UIPressValue.Enable();
+            _inputActions.XRILeftInteraction.UIPressValue.performed += LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPressValue.canceled += LeftHandFingerTonusBtnReleased;
         }
 
         private void DisableLeftHandFingerEvents() {
-            _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandFingerTonusBtnPressed;
-            _inputActions.XRILeftInteraction.UIPress.canceled -= LeftHandFingerTonusBtnReleased;
-            _inputActions.XRILeftInteraction.UIPress.Disable();
+            _inputActions.XRILeftInteraction.UIPressValue.performed -= LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPressValue.canceled -= LeftHandFingerTonusBtnReleased;
+            _inputActions.XRILeftInteraction.UIPressValue.Disable();
         }
 
         private void LeftHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
