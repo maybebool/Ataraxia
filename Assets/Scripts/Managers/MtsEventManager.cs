@@ -46,10 +46,16 @@ namespace Managers {
         
         
         // Right Hand Finger Tonus
-        public delegate void RightHandFingerTonusAction();
-        public event RightHandFingerTonusAction OnRightHandFingerTonusBtnPressed;
-        public delegate void RightHandFingerTonusActionDeactivated();
-        public event RightHandFingerTonusActionDeactivated OnRightHandFingerTonusBtnReleased;
+        public delegate void RightHandFingerToneAction(InputAction.CallbackContext context);
+        public event RightHandFingerToneAction OnRightHandFingerToneBtnPressed;
+        public delegate void RightHandFingerToneActionDeactivated(InputAction.CallbackContext context);
+        public event RightHandFingerToneActionDeactivated OnRightHandFingerToneBtnReleased;
+        
+        // Left Hand Finger Tonus
+        public delegate void LeftHandFingerToneAction(InputAction.CallbackContext context);
+        public event LeftHandFingerToneAction OnLeftHandFingerToneBtnPressed;
+        public delegate void LeftHandFingerToneActionDeactivated(InputAction.CallbackContext context);
+        public event LeftHandFingerToneActionDeactivated OnLeftHandFingerToneBtnReleased;
         
 
         #endregion
@@ -65,6 +71,7 @@ namespace Managers {
             EnableRightLegEvents();
             EnableLeftLegEvents();
             EnableRightHandFingerEvents();
+            EnableLeftHandFingerEvents();
         }
 
         private void OnDisable() {
@@ -74,6 +81,7 @@ namespace Managers {
             DisableRightLegEvents();
             DisableLeftLegEvents();
             DisableRightHandFingerEvents();
+            DisableLeftHandFingerEvents();
         }
 
         #region Right Hand Bindings
@@ -207,14 +215,38 @@ namespace Managers {
         }
 
         private void RightHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
-            OnRightHandFingerTonusBtnPressed?.Invoke();
+            OnRightHandFingerToneBtnPressed?.Invoke(context);
         }
 
         private void RightHandFingerTonusBtnReleased(InputAction.CallbackContext context) {
-            OnRightHandFingerTonusBtnReleased?.Invoke();
+            OnRightHandFingerToneBtnReleased?.Invoke(context);
         }
         
 
+        #endregion
+
+        #region Left Hand Finger Tonus Binding
+
+        private void EnableLeftHandFingerEvents() {
+            _inputActions.XRILeftInteraction.UIPress.Enable();
+            _inputActions.XRILeftInteraction.UIPress.performed += LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPress.canceled += LeftHandFingerTonusBtnReleased;
+        }
+
+        private void DisableLeftHandFingerEvents() {
+            _inputActions.XRILeftInteraction.UIPress.performed -= LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPress.canceled -= LeftHandFingerTonusBtnReleased;
+            _inputActions.XRILeftInteraction.UIPress.Disable();
+        }
+
+        private void LeftHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
+            OnLeftHandFingerToneBtnPressed?.Invoke(context);
+        }
+
+        private void LeftHandFingerTonusBtnReleased(InputAction.CallbackContext context) {
+            OnLeftHandFingerToneBtnReleased?.Invoke(context);
+        }
+        
         #endregion
     }
 }

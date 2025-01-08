@@ -1,28 +1,31 @@
-﻿using UnityEngine;
+﻿using Managers;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Exercises.ExerciseThree {
     public class FingerTonusDetection : MonoBehaviour{
-        public InputActionReference triggerAction;
-        private XRIDefaultInputActions value;
-
-
-        private void Awake() {
-            value = new XRIDefaultInputActions();
-        }
 
         private void OnEnable() {
-            triggerAction.action.Enable();
-            triggerAction.action.performed += OnTriggerPerformed;
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnLeftHandFingerToneBtnPressed += OnLeftHandFingerToneBtnPressed;
+                MtsEventManager.Instance.OnLeftHandFingerToneBtnReleased += OnLeftHandFingerToneBtnReleased;
+            }
         }
 
         private void OnDisable() {
-            triggerAction.action.performed -= OnTriggerPerformed;
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnLeftHandFingerToneBtnPressed -= OnLeftHandFingerToneBtnPressed;
+                MtsEventManager.Instance.OnLeftHandFingerToneBtnReleased -= OnLeftHandFingerToneBtnReleased;
+            }
         }
         
-        private void OnTriggerPerformed(InputAction.CallbackContext context) {
+        private void OnLeftHandFingerToneBtnPressed(InputAction.CallbackContext context) {
             var triggerValue = context.ReadValue<float>();
             Debug.Log($"Trigger pressed with a value of: {triggerValue}");
+        }
+        
+        private void OnLeftHandFingerToneBtnReleased(InputAction.CallbackContext context) {
+            Debug.Log("Left hand finger tonus btn released");
         }
     }
 }
