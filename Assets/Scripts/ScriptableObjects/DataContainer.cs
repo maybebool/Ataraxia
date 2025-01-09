@@ -61,6 +61,13 @@ namespace ScriptableObjects {
         public float leftLegIntensityMultiplier = 0.03f;
         public float leftLegOscillationThreshold = 110f;
         public float leftLegTremorImportanceWeight = 1f;
+
+        [Header("Finger Tone Data")]
+        public float targetObjectCurrentHeight;
+        public float targetObjectOuterHeightThresholdTop;
+        public float targetObjectOuterHeightThresholdFloor;
+        public float targetObjectInnerHeightThresholdTop;
+        public float targetObjectInnerHeightThresholdFloor;
         
         public void ClearData() {
             tremorIntensityRightHand = 0f;

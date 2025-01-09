@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 namespace Exercises.ExerciseThree {
     public class FingerTonusDetection : MonoBehaviour {
         [Header("Scaling Settings (Same Logic)")]
-        public float minHeight = 0.1f;
+        public float minHeight = 0.5f;
 
         public float maxHeight = 5f;
 
