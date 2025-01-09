@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
-    public class LeftLegTremorDetection : MTABase {
+    public class LeftLegTremorDetection : MTATremorBase {
         
         [SerializeField] private XRRayInteractor ray;
 

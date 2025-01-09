@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
-    public abstract class MTABase : MonoBehaviour {
-        [Header("References")] public DataContainer scO;
+    public abstract class MTATremorBase : MonoBehaviour {
+        [Header("References")] 
+        public DataContainer scO;
         public GameObject detector;
 
         [Header("Parameters")]
