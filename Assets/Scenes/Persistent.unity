@@ -920,8 +920,7 @@ MonoBehaviour:
     - {fileID: 1558594756}
   - buildIndex: 4
     exerciseInputGo:
-    - {fileID: 922385438}
-    - {fileID: 1558594756}
+    - {fileID: 902715153}
   - buildIndex: 5
     exerciseInputGo:
     - {fileID: 922385438}
@@ -1334,6 +1333,8 @@ MonoBehaviour:
   speedThreshold: 100
   tremorDecayRate: 5
   lastUpdateTime: 0
+  timeThreshold: 0.2
+  positionChangeThreshold: 0.01
   ray: {fileID: 971505995}
 --- !u!1 &1056389068
 GameObject:
@@ -2193,6 +2194,8 @@ MonoBehaviour:
   speedThreshold: 50
   tremorDecayRate: 5
   lastUpdateTime: 0
+  timeThreshold: 0.2
+  positionChangeThreshold: 0.01
   ray: {fileID: 1584024625}
   objectToSpawn: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
 --- !u!1 &1677370718
@@ -2522,6 +2525,8 @@ MonoBehaviour:
   speedThreshold: 100
   tremorDecayRate: 5
   lastUpdateTime: 0
+  timeThreshold: 0.2
+  positionChangeThreshold: 0.01
   ray: {fileID: 2136988235}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

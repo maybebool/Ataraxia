@@ -41,10 +41,22 @@ namespace Managers {
         // Left Leg
         public delegate void LeftLegMotionTrackingAction();
         public event LeftLegMotionTrackingAction OnLeftLegBtnPressed;
-
         public delegate void LeftLegButtonReleasedAction();
-
         public event LeftLegButtonReleasedAction OnLeftLegBtnReleased;
+        
+        
+        // Right Hand Finger Tonus
+        public delegate void RightHandFingerToneAction(InputAction.CallbackContext context);
+        public event RightHandFingerToneAction OnRightHandFingerToneBtnPressed;
+        public delegate void RightHandFingerToneActionDeactivated(InputAction.CallbackContext context);
+        public event RightHandFingerToneActionDeactivated OnRightHandFingerToneBtnReleased;
+        
+        // Left Hand Finger Tonus
+        public delegate void LeftHandFingerToneAction(InputAction.CallbackContext context);
+        public event LeftHandFingerToneAction OnLeftHandFingerToneBtnPressed;
+        public delegate void LeftHandFingerToneActionDeactivated(InputAction.CallbackContext context);
+        public event LeftHandFingerToneActionDeactivated OnLeftHandFingerToneBtnReleased;
+        
 
         #endregion
 
@@ -58,6 +70,8 @@ namespace Managers {
             EnableHeadEvents();
             EnableRightLegEvents();
             EnableLeftLegEvents();
+            EnableRightHandFingerEvents();
+            EnableLeftHandFingerEvents();
         }
 
         private void OnDisable() {
@@ -66,6 +80,8 @@ namespace Managers {
             DisableHeadEvents();
             DisableRightLegEvents();
             DisableLeftLegEvents();
+            DisableRightHandFingerEvents();
+            DisableLeftHandFingerEvents();
         }
 
         #region Right Hand Bindings
@@ -182,6 +198,55 @@ namespace Managers {
             OnLeftLegBtnReleased?.Invoke();
         }
 
+        #endregion
+
+        #region Right Hand Finger Tone Binding
+
+        private void EnableRightHandFingerEvents() {
+            _inputActions.XRIRightInteraction.UIPressValue.Enable();
+            _inputActions.XRIRightInteraction.UIPressValue.performed += RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPressValue.canceled += RightHandFingerTonusBtnReleased;
+        }
+
+        private void DisableRightHandFingerEvents() {
+            _inputActions.XRIRightInteraction.UIPressValue.performed -= RightHandFingerTonusBtnPressed;
+            _inputActions.XRIRightInteraction.UIPressValue.canceled -= RightHandFingerTonusBtnReleased;
+            _inputActions.XRIRightInteraction.UIPressValue.Disable();
+        }
+
+        private void RightHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
+            OnRightHandFingerToneBtnPressed?.Invoke(context);
+        }
+
+        private void RightHandFingerTonusBtnReleased(InputAction.CallbackContext context) {
+            OnRightHandFingerToneBtnReleased?.Invoke(context);
+        }
+        
+
+        #endregion
+
+        #region Left Hand Finger Tone Binding
+
+        private void EnableLeftHandFingerEvents() {
+            _inputActions.XRILeftInteraction.UIPressValue.Enable();
+            _inputActions.XRILeftInteraction.UIPressValue.performed += LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPressValue.canceled += LeftHandFingerTonusBtnReleased;
+        }
+
+        private void DisableLeftHandFingerEvents() {
+            _inputActions.XRILeftInteraction.UIPressValue.performed -= LeftHandFingerTonusBtnPressed;
+            _inputActions.XRILeftInteraction.UIPressValue.canceled -= LeftHandFingerTonusBtnReleased;
+            _inputActions.XRILeftInteraction.UIPressValue.Disable();
+        }
+
+        private void LeftHandFingerTonusBtnPressed(InputAction.CallbackContext context) {
+            OnLeftHandFingerToneBtnPressed?.Invoke(context);
+        }
+
+        private void LeftHandFingerTonusBtnReleased(InputAction.CallbackContext context) {
+            OnLeftHandFingerToneBtnReleased?.Invoke(context);
+        }
+        
         #endregion
     }
 }

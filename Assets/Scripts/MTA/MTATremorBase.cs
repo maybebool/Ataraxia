@@ -1,14 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
-    public abstract class MTABase : MonoBehaviour {
-        [Header("References")] public DataContainer scO;
+    public abstract class MTATremorBase : MonoBehaviour {
+        [Header("References")] 
+        public DataContainer scO;
         public GameObject detector;
 
         [Header("Parameters")]
@@ -97,7 +96,6 @@ namespace MTA {
                 if (hasPreviousPosition) {
                     var distance = Vector3.Distance(CurrentPos, previousPosition);
                     if (distance > positionChangeThreshold) {
-                        // Horizontal & vertical displacements
                         var deltaX = CurrentPos.x - previousPosition.x;
                         var deltaY = CurrentPos.y - previousPosition.y;
 

@@ -1,4 +1,5 @@
 ﻿using Editor.Components.Buttons;
+using Editor.Components.Graphs;
 using Editor.Components.LeftAlignColumnContainer;
 using GameUI;
 using UnityEngine;
@@ -50,7 +51,9 @@ namespace Editor.Components.TabViewContainer {
             var startButton = new StartButton(SceneNames.MainMenu);
             var startContainer = menuTabView.Q<VisualElement>("StartApplicationContainer");
             startContainer.Add(startButton);
+           
             menuTab.Add(menuTabView);
+            
             return menuTab;
         }
 

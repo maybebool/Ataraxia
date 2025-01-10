@@ -22,23 +22,33 @@ MonoBehaviour:
   rightHandDegree: 40.690147
   rightHandIntensityMultiplier: 0.03
   rightHandOscillationThreshold: 140
+  rightHandTremorImportanceWeight: 1
   tremorIntensityLeftHand: 0
   leftHandCurrentPos: {x: -0.66452223, y: 1.9569713, z: 3.77}
   leftHandDegree: 86.556854
   leftHandIntensityMultiplier: 0.03
   leftHandOscillationThreshold: 140
+  leftHandTremorImportanceWeight: 1
   tremorIntensityHead: 0
   headCurrentPos: {x: 2.443074, y: 3.4465678, z: 3.77}
   headDegree: 289.16656
   headIntensityMultiplier: 0.03
   headOscillationThreshold: 110
+  headTremorImportanceWeight: 1
   tremorIntensityRightLeg: 0
   rightLegCurrentPos: {x: 1.482113, y: 1.7993155, z: 3.77}
   rightLegDegree: 29.967468
   rightLegIntensityMultiplier: 0.03
   rightLegOscillationThreshold: 110
+  rightLegTremorImportanceWeight: 1
   tremorIntensityLeftLeg: 0
   leftLegCurrentPos: {x: -1.522531, y: 1.3697807, z: 3.77}
   leftLegDegree: 221.78261
   leftLegIntensityMultiplier: 0.03
   leftLegOscillationThreshold: 110
+  leftLegTremorImportanceWeight: 1
+  targetObjectCurrentHeight: 1.139547
+  targetObjectOuterHeightThresholdTop: 0
+  targetObjectOuterHeightThresholdFloor: 0
+  targetObjectInnerHeightThresholdTop: 0
+  targetObjectInnerHeightThresholdFloor: 0

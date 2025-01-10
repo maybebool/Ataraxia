@@ -14,6 +14,9 @@ namespace Editor.Components.Graphs {
         private float minValue = 0f; 
         private float maxValue = 10f;
         private float valueRange;
+        private float weightA = 1;
+        private float weightB = 1;
+        private float weightC = 1;
         
         public LineGraph() {
             
@@ -37,13 +40,21 @@ namespace Editor.Components.Graphs {
             Add(_chartContainer);
         }
         
-        public void AddDataPoint(float dataPointA, float dataPointB, float dataPointC) {
-            
-            var average = (dataPointA + dataPointB + dataPointC) / 3f;
-            _dataPoints.Add(average);
-            var maxPoints = Mathf.Max(_maxDataPoints, 1);
+        public void AddDataPoint(float dataPointA, float dataPointB, float dataPointC,
+            bool useA, bool useB, bool useC,
+            float weightDataA, float weightDataB, float weightDataC) {
+            var sum = 0f;
+            var count = 0;
 
-            while (_dataPoints.Count > maxPoints) {
+            if (useA) { sum += dataPointA * weightDataA; count++; }
+            if (useB) { sum += dataPointB * weightDataB; count++; }
+            if (useC) { sum += dataPointC * weightDataC; count++; }
+            
+            if (count == 0) return; 
+            var average = sum / count;
+            _dataPoints.Add(average);
+            
+            while (_dataPoints.Count > Mathf.Max(_maxDataPoints, 1)) {
                 _dataPoints.RemoveAt(0);
             }
         }

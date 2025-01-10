@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace MTA {
-    public class RightHandTremorDetection : MTABase {
+    public class RightHandTremorDetection : MTATremorBase {
         [SerializeField] private XRRayInteractor ray;
 
         protected override XRRayInteractor RaycastPoint {
