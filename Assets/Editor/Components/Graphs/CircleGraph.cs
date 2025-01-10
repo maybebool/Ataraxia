@@ -7,12 +7,14 @@ namespace Editor.Components.Graphs {
     public class CircleGraph : VisualElement {
         private float _circleDegree;
         private readonly VisualElement _mainCircleContainer;
+        private Label _percentageLabel;
 
         public float CircleDegree {
             get => _circleDegree;
             set {
                 _circleDegree = Mathf.Clamp(value, 0f, 360f);
                 _mainCircleContainer.MarkDirtyRepaint();
+                UpdatePercentageLabel();
             }
         }
 
@@ -35,8 +37,19 @@ namespace Editor.Components.Graphs {
             var titleLabel = new Label(title);
             _mainCircleContainer = new VisualElement().AddClass("main-circle-container");
             _mainCircleContainer.generateVisualContent += OnGenerateCircleArc;
+            _percentageLabel = new Label();
+            _percentageLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+            _percentageLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+            _mainCircleContainer.Add(_percentageLabel);
             Add(titleLabel);
             Add(_mainCircleContainer);
+        }
+        
+        private void UpdatePercentageLabel()
+        {
+            // Convert circleDegree to a percentage
+            var percent = Mathf.RoundToInt((_circleDegree / 360f) * 100f);
+            _percentageLabel.text = percent + "%";
         }
 
         private void OnGenerateCircleArc(MeshGenerationContext mgc) {
@@ -45,13 +58,13 @@ namespace Editor.Components.Graphs {
             painter2D.strokeColor = Color.white;
             painter2D.fillColor = Color.clear;
 
-            var width = 100;
-            var height = 100;
+            var width = 150;
+            var height = 150;
             var radius = Mathf.Min(width, height) * 0.5f;
             var center = _mainCircleContainer.contentRect.center;
 
-            float startAngleDeg = -90f;
-            float endAngleDeg   = startAngleDeg + _circleDegree; // sweep clockwise by _circleDegree
+            var startAngleDeg = -90f;
+            var endAngleDeg   = startAngleDeg + _circleDegree; // sweep clockwise by _circleDegree
             // Draw a full 360-degree circle manually:
             DrawArcManually(painter2D, center, radius, startAngleDeg, endAngleDeg);
         }

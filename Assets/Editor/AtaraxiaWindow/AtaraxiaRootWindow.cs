@@ -91,6 +91,7 @@ namespace Editor.AtaraxiaWindow {
             _dataGraphTab.BoxPlot2.ClearData();
             _dataGraphTab.BoxPlot3.ClearData();
             _dataGraphTab.BoxPlot4.ClearData();
+            _dataGraphTab.BoxPlot5.ClearData();
             _dataGraphTab.LineChart.ClearData();
         }
 
@@ -100,7 +101,6 @@ namespace Editor.AtaraxiaWindow {
             }
 
             uiElement.style.display = DisplayStyle.Flex;
-
             _shouldUpdateBoxPlot = true; 
         }
         
@@ -141,8 +141,12 @@ namespace Editor.AtaraxiaWindow {
                 _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityHead);
             }
 
-            if (scObData.isRightHandCollectingData) {
-                _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightHand);
+            if (scObData.isRightLegCollectingData) {
+                _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightLeg);
+            }
+
+            if (scObData.isLeftLegCollectingData) {
+                _dataGraphTab.BoxPlot5.AddDataPoint(scObData.tremorIntensityLeftLeg);
             }
         }
 
