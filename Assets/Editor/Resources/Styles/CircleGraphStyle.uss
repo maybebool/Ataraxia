@@ -1,0 +1,23 @@
+VisualElement {}
+
+.circle-graph {
+    height: 100%;
+    width: auto;
+    display: flex;
+    padding: 30px;
+    justify-content: flex-start;
+    align-self: flex-start ;
+    /*margin: 2% 3% 3%;*/
+}
+
+.main-circle-container{
+    width: 150px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Show or hide as needed */
+    overflow: visible;
+}
