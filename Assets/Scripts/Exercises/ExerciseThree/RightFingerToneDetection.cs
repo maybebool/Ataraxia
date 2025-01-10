@@ -7,8 +7,11 @@ namespace Exercises.ExerciseThree {
         protected override float NewYAxisScaleValue { 
             get => scO.rightPlayerObjectHeight; 
             set => scO.rightPlayerObjectHeight = value; }
-
         protected override float BtnPressureValue { get; set; } = 0;
+        protected override bool IsCollectingData {
+            get => scO.isRightFingerToneCollectingData;
+            set => scO.isRightFingerToneCollectingData = value ;
+        }
 
         protected override void OnEnable() {
             if (MtsEventManager.Instance != null) {
@@ -26,12 +29,12 @@ namespace Exercises.ExerciseThree {
         
         private void OnRightHandFingerToneBtnPressed(InputAction.CallbackContext context) {
             BtnPressureValue = context.ReadValue<float>();
-            Debug.Log($"Trigger pressed with a value of: {BtnPressureValue}");
+            StartToneCollection();
         }
 
         private void OnRightHandFingerToneBtnReleased(InputAction.CallbackContext context) {
             BtnPressureValue = 0f;
-            Debug.Log("Left hand finger tonus btn released");
+            StopToneCollection();
         }
         
     }

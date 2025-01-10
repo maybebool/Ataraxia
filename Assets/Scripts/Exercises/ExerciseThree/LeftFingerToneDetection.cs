@@ -1,5 +1,4 @@
 ﻿using Managers;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Exercises.ExerciseThree {
@@ -9,6 +8,11 @@ namespace Exercises.ExerciseThree {
             set => scO.leftPlayerObjectHeight = value; }
 
         protected override float BtnPressureValue { get; set; } = 0;
+
+        protected override bool IsCollectingData {
+            get => scO.isLeftFingerToneCollectingData;
+            set => scO.isLeftFingerToneCollectingData = value ;
+        }
 
         protected override void OnEnable() {
             if (MtsEventManager.Instance != null) {
@@ -26,12 +30,12 @@ namespace Exercises.ExerciseThree {
         
         private void OnLeftHandFingerToneBtnPressed(InputAction.CallbackContext context) {
             BtnPressureValue = context.ReadValue<float>();
-            Debug.Log($"Trigger pressed with a value of: {BtnPressureValue}");
+            StartToneCollection();
         }
 
         private void OnLeftHandFingerToneBtnReleased(InputAction.CallbackContext context) {
             BtnPressureValue = 0f;
-            Debug.Log("Left hand finger tonus btn released");
+            StopToneCollection();
         }
     }
 }

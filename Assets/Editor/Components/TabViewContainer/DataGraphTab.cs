@@ -38,12 +38,8 @@ namespace Editor.Components.TabViewContainer {
             BoxPlot3 = new BoxPlotGraph("Head");
             BoxPlot4 = new BoxPlotGraph("Right Hand");
             BoxPlot5 = new BoxPlotGraph("Left Hand");
-            CircleGraphRechts = new CircleGraph("Tonus Rechts") {
-                CircleDegree = 270f,
-            };
-            CircleGraphLinks = new CircleGraph("Tonus Links") {
-                CircleDegree = 310f,
-            };
+            CircleGraphRechts = new CircleGraph("Tonus Rechts");
+            CircleGraphLinks = new CircleGraph("Tonus Links");
             
             lineChartContainer.Add(LineChart);
             boxPlotsContainer.Add(BoxPlot1);

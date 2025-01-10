@@ -10,6 +10,8 @@ namespace ScriptableObjects {
         public bool isHeadCollectingData;
         public bool isRightLegCollectingData;
         public bool isLeftLegCollectingData;
+        public bool isRightFingerToneCollectingData;
+        public bool isLeftFingerToneCollectingData;
         
         [Header("Right Hand Data")]
         public float tremorIntensityRightHand;
