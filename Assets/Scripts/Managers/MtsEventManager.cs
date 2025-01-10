@@ -200,7 +200,7 @@ namespace Managers {
 
         #endregion
 
-        #region Right Hand Finger Tonus Binding
+        #region Right Hand Finger Tone Binding
 
         private void EnableRightHandFingerEvents() {
             _inputActions.XRIRightInteraction.UIPressValue.Enable();
@@ -225,7 +225,7 @@ namespace Managers {
 
         #endregion
 
-        #region Left Hand Finger Tonus Binding
+        #region Left Hand Finger Tone Binding
 
         private void EnableLeftHandFingerEvents() {
             _inputActions.XRILeftInteraction.UIPressValue.Enable();
