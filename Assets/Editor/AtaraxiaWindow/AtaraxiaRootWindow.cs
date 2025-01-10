@@ -132,21 +132,23 @@ namespace Editor.AtaraxiaWindow {
             if (scObData.isRightHandCollectingData) {
                 _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensityRightHand);
             }
-
             if (scObData.isLeftHandCollectingData) {
                 _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensityLeftHand);
             }
-
             if (scObData.isHeadCollectingData) {
                 _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityHead);
             }
-
             if (scObData.isRightLegCollectingData) {
                 _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightLeg);
             }
-
             if (scObData.isLeftLegCollectingData) {
                 _dataGraphTab.BoxPlot5.AddDataPoint(scObData.tremorIntensityLeftLeg);
+            }
+            if (scObData.isRightFingerToneCollectingData) {
+                _dataGraphTab.CircleGraphRechts.UpdateCircleThresholds(scObData.rightPlayerObjectHeight);
+            }
+            if (scObData.isLeftFingerToneCollectingData) {
+                _dataGraphTab.CircleGraphLinks.UpdateCircleThresholds(scObData.leftPlayerObjectHeight);
             }
         }
 
