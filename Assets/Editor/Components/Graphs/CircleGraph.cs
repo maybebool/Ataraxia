@@ -4,78 +4,85 @@ using UnityEngine.UIElements;
 
 
 namespace Editor.Components.Graphs {
-    public class CircleGraph : VisualElement{
-        // Backing field for circle degree
+    public class CircleGraph : VisualElement {
         private float _circleDegree = 360f;
-        private Label _titleLabel;
+        private VisualElement _mainCircleContainer;
+        private float _circleRadius = 50f;
 
-        /// <summary>
-        /// The degree of the arc. 
-        /// 0 means no arc drawn, 360 means full circle.
-        /// </summary>
-        public float CircleDegree
-        {
+        public float CircleDegree {
             get => _circleDegree;
-            set
-            {
-                // Clamp between 0 and 360
+            set {
                 _circleDegree = Mathf.Clamp(value, 0f, 360f);
-                // Force a redraw
-                MarkDirtyRepaint();
+                _mainCircleContainer.MarkDirtyRepaint();
             }
         }
 
-        // Optional: default constructor 
-        public CircleGraph(string title = "1")
-        {
-            
+
+        public CircleGraph(string title = "1") {
+            // Load the style
             var circleGraphStyle = Resources.Load<StyleSheet>("Styles/CircleGraphStyle");
             if (circleGraphStyle != null) {
                 styleSheets.Add(circleGraphStyle);
             }
             else {
-                Debug.LogError(
-                    "Failed to load StyleSheet: BoxPlotStyle.uss. Make sure it's placed in a Resources/Styles/ folder.");
+                Debug.LogError("Failed to load StyleSheet: CircleGraphStyle.uss. Check the Resources/Styles/ folder.");
             }
-            
-            _titleLabel = new Label(title).AddLabelClass("circle-graph-title-label");
-            // We want to handle no mouse events, or you can change to PickingMode.Position if needed
+
+            style.overflow = Overflow.Visible;
+
+            this.AddToClassList("circle-graph");
             pickingMode = PickingMode.Ignore;
-
-            // A default circle degree
             _circleDegree = 360f;
-            generateVisualContent += GenerateVisualContent;
-        }
-        
-        public string GetTitle() {
-            return _titleLabel.text;
+
+            var titleLabel = new Label(title);
+            _mainCircleContainer = new VisualElement().AddClass("main-circle-container");
+            _mainCircleContainer.generateVisualContent += OnGenerateCircleArc;
+            Add(titleLabel);
+            Add(_mainCircleContainer);
         }
 
-        // The core method to draw your custom geometry with UI Toolkit
-        private void GenerateVisualContent(MeshGenerationContext mgc)
-        {
+        private void OnGenerateCircleArc(MeshGenerationContext mgc) {
             var painter2D = mgc.painter2D;
+            painter2D.lineWidth = 2f;
+            painter2D.strokeColor = Color.white;
+            painter2D.fillColor = Color.clear;
 
-            // 1) Determine the radius and center
             var width = contentRect.width;
             var height = contentRect.height;
             var radius = Mathf.Min(width, height) * 0.5f;
             var center = contentRect.center;
 
-            // 2) Set up stroke & fill
-            painter2D.lineWidth = 2f;
-            painter2D.strokeColor = Color.white;
-            // We won't fill the circle (transparent), but we can set fillColor anyway
-            painter2D.fillColor = new Color(1f, 1f, 1f, 0f); // transparent
+            // Draw a full 360-degree circle manually:
+            DrawArcManually(painter2D, center, radius, 0f, 270f);
+        }
 
-            // 3) Draw an arc from 0..CircleDegree
-            var startAngle = 0f;
-            // convert degrees to radians
-            var endAngle = 2f * Mathf.PI * (_circleDegree / 360f);
+        private void DrawArcManually(Painter2D painter2D, Vector2 center, float radius, float startAngleDeg,
+            float endAngleDeg) {
+            // Convert degrees to radians
+            var startAngleRad = Mathf.Deg2Rad * startAngleDeg;
+            var endAngleRad = Mathf.Deg2Rad * endAngleDeg;
+
+            // Decide how many segments to use (higher = smoother circle)
+            var segments = 64;
+            var angleStep = (endAngleRad - startAngleRad) / segments;
 
             painter2D.BeginPath();
-            painter2D.Arc(center, radius, startAngle, endAngle);
-            painter2D.Stroke(); // stroke the arc with lineWidth=2, strokeColor=white
+
+            // Move to first point
+            var angle = startAngleRad;
+            var x0 = center.x + radius * Mathf.Cos(angle);
+            var y0 = center.y + radius * Mathf.Sin(angle);
+            painter2D.MoveTo(new Vector2(x0, y0));
+
+            // LineTo each subsequent segment
+            for (int i = 1; i <= segments; i++) {
+                angle = startAngleRad + angleStep * i;
+                var x = center.x + radius * Mathf.Cos(angle);
+                var y = center.y + radius * Mathf.Sin(angle);
+                painter2D.LineTo(new Vector2(x, y));
+            }
+
+            painter2D.Stroke();
         }
     }
 }

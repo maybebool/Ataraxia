@@ -36,16 +36,8 @@ namespace Editor.Components.TabViewContainer {
             BoxPlot2 = new BoxPlotGraph("Linke Hand");
             BoxPlot3 = new BoxPlotGraph("Kopf");
             BoxPlot4 = new BoxPlotGraph("Rechte Hand");
-            CircleGraph = new CircleGraph {
-                name = "CircleGraph",
-                style =
-                {
-                    width = 100,
-                    height = 100,
-                    marginLeft = 10,
-                    marginTop = 10
-                },
-                CircleDegree = 270f
+            CircleGraph = new CircleGraph("Tonus Rechts") {
+                CircleDegree = 360f,
             };
             
             lineChartContainer.Add(LineChart);
