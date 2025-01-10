@@ -5,9 +5,8 @@ using UnityEngine.UIElements;
 
 namespace Editor.Components.Graphs {
     public class CircleGraph : VisualElement {
-        private float _circleDegree = 360f;
-        private VisualElement _mainCircleContainer;
-        private float _circleRadius = 50f;
+        private float _circleDegree;
+        private readonly VisualElement _mainCircleContainer;
 
         public float CircleDegree {
             get => _circleDegree;
@@ -30,9 +29,8 @@ namespace Editor.Components.Graphs {
 
             style.overflow = Overflow.Visible;
 
-            this.AddToClassList("circle-graph");
+            AddToClassList("circle-graph");
             pickingMode = PickingMode.Ignore;
-            _circleDegree = 360f;
 
             var titleLabel = new Label(title);
             _mainCircleContainer = new VisualElement().AddClass("main-circle-container");
@@ -47,17 +45,24 @@ namespace Editor.Components.Graphs {
             painter2D.strokeColor = Color.white;
             painter2D.fillColor = Color.clear;
 
-            var width = contentRect.width;
-            var height = contentRect.height;
+            var width = 100;
+            var height = 100;
             var radius = Mathf.Min(width, height) * 0.5f;
-            var center = contentRect.center;
+            var center = _mainCircleContainer.contentRect.center;
 
+            float startAngleDeg = -90f;
+            float endAngleDeg   = startAngleDeg + _circleDegree; // sweep clockwise by _circleDegree
             // Draw a full 360-degree circle manually:
-            DrawArcManually(painter2D, center, radius, 0f, 270f);
+            DrawArcManually(painter2D, center, radius, startAngleDeg, endAngleDeg);
         }
 
-        private void DrawArcManually(Painter2D painter2D, Vector2 center, float radius, float startAngleDeg,
-            float endAngleDeg) {
+        private void DrawArcManually(
+            Painter2D painter2D,
+            Vector2 center, 
+            float radius, 
+            float startAngleDeg,
+            float endAngleDeg) 
+        {
             // Convert degrees to radians
             var startAngleRad = Mathf.Deg2Rad * startAngleDeg;
             var endAngleRad = Mathf.Deg2Rad * endAngleDeg;

@@ -47,15 +47,13 @@ namespace Editor.Components.TabViewContainer {
                 label = "Start",
             };
             
-            // var menuTabView = new StartMenu();
-            // var startButton = new StartButton(SceneNames.MainMenu);
-            // var startContainer = menuTabView.Q<VisualElement>("StartApplicationContainer");
-            // startContainer.Add(startButton);
-            var circle = new CircleGraph("Test") {
-                CircleDegree = 270f
-            };
-            // menuTab.Add(menuTabView);
-            menuTab.Add(circle);
+            var menuTabView = new StartMenu();
+            var startButton = new StartButton(SceneNames.MainMenu);
+            var startContainer = menuTabView.Q<VisualElement>("StartApplicationContainer");
+            startContainer.Add(startButton);
+           
+            menuTab.Add(menuTabView);
+            
             return menuTab;
         }
 
