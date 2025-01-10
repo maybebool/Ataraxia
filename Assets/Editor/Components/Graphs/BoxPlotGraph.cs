@@ -114,10 +114,6 @@ namespace Editor.Components.Graphs {
             if (_dataPoints.Count > 100000) {
                 _dataPoints.RemoveAt(0);
             }
-
-            // Debug.Log($"Current DataPoints Count: {_dataPoints.Count}");
-            // Debug.Log(" Time " + Time.time);
-            // Debug.Log($"DataPoints Values: {string.Join(", ", _dataPoints)}");
             RecalculateStatistics();
             UpdateBoxPlotDisplay();
         }
