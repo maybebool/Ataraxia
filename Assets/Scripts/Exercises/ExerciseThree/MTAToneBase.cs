@@ -18,7 +18,6 @@ namespace Exercises.ExerciseThree {
 
         protected abstract float NewYAxisScaleValue { get; set; }
         protected abstract float BtnPressureValue { get; set; }
-        protected abstract bool IsCollectingData { get; set; }
 
         private Coroutine toneCollectionCoroutine;
 
@@ -27,32 +26,17 @@ namespace Exercises.ExerciseThree {
 
         protected virtual void OnDisable() {
         }
+        
+        private void Update() {
+            
+            var currentY = transform.localScale.y;
+            var desiredY = Mathf.Lerp(minHeight, maxHeight, BtnPressureValue);
 
-        protected void StartToneCollection() {
-            IsCollectingData = true;
-            toneCollectionCoroutine = StartCoroutine(ToneCollectionRoutine());
-        }
+            NewYAxisScaleValue = Mathf.Lerp(currentY, desiredY, Time.deltaTime * interpolationSpeed);
+            var delta = NewYAxisScaleValue - currentY;
 
-        protected void StopToneCollection() {
-            IsCollectingData = false;
-            StopCoroutine(toneCollectionCoroutine);
-            toneCollectionCoroutine = null;
-
-        }
-
-        private IEnumerator ToneCollectionRoutine() {
-            while (IsCollectingData) {
-                var currentY = transform.localScale.y;
-                var desiredY = Mathf.Lerp(minHeight, maxHeight, BtnPressureValue);
-
-                NewYAxisScaleValue = Mathf.Lerp(currentY, desiredY, Time.deltaTime * interpolationSpeed);
-                var delta = NewYAxisScaleValue - currentY;
-
-                transform.localPosition += new Vector3(0, delta * 0.5f, 0);
-                transform.localScale = new Vector3(transform.localScale.x, NewYAxisScaleValue, transform.localScale.z);
-
-                yield return null; 
-            }
+            transform.localPosition += new Vector3(0, delta * 0.5f, 0);
+            transform.localScale = new Vector3(transform.localScale.x, NewYAxisScaleValue, transform.localScale.z);
         }
     }
 }

@@ -52,23 +52,25 @@ namespace Editor.Components.Graphs {
             _percentageLabel.text = percent + "%";
         }
 
-        public void UpdateCircleThresholds(float playerHeight) {
-            var outerTop = _scO.targetObjectOuterHeightThresholdTop;
-            var outerFloor = _scO.targetObjectOuterHeightThresholdFloor;
-            var innerTop = _scO.targetObjectInnerHeightThresholdTop;
-            var innerFloor = _scO.targetObjectInnerHeightThresholdFloor;
-            
-            if (playerHeight > outerTop || playerHeight < outerFloor) {
+        public void UpdateCircleThresholds(
+            float targetObjectOuterHeightThresholdTop,
+            float targetObjectOuterHeightThresholdFloor,
+            float targetObjectInnerHeightThresholdTop,
+            float targetObjectInnerHeightThresholdFloor,
+            float playerHeight
+        ) {
+            if (playerHeight > targetObjectOuterHeightThresholdTop 
+                || playerHeight < targetObjectOuterHeightThresholdFloor) {
                 _circlePercentage -= 2f;
             }
-            else if (
-                (playerHeight >= outerFloor && playerHeight <= innerFloor) ||
-                (playerHeight >= innerTop && playerHeight <= outerTop)
-            ) {
-            }else {
-                _circlePercentage += 1f;
+            else {
+                if (playerHeight >= targetObjectInnerHeightThresholdFloor 
+                    && playerHeight <= targetObjectInnerHeightThresholdTop) {
+                    _circlePercentage += 1f;
+                }
             }
             _circlePercentage = Mathf.Clamp(_circlePercentage, 0f, 100f);
+
             UpdatePercentageLabel();
             _mainCircleContainer.MarkDirtyRepaint();
         }

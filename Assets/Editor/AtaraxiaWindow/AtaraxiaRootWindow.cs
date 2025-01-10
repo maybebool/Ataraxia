@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Editor.Components.Buttons;
 using Editor.Components.CenterRowContainer;
-using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
 using ScriptableObjects;
-using Editor.Helpers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -145,10 +143,20 @@ namespace Editor.AtaraxiaWindow {
                 _dataGraphTab.BoxPlot5.AddDataPoint(scObData.tremorIntensityLeftLeg);
             }
             if (scObData.isRightFingerToneCollectingData) {
-                _dataGraphTab.CircleGraphRechts.UpdateCircleThresholds(scObData.rightPlayerObjectHeight);
+                _dataGraphTab.CircleGraphRechts.UpdateCircleThresholds(
+                    scObData.targetObjectOuterHeightThresholdTop,
+                    scObData.targetObjectOuterHeightThresholdFloor,
+                    scObData.targetObjectInnerHeightThresholdTop,
+                    scObData.targetObjectInnerHeightThresholdFloor,
+                    scObData.rightPlayerObjectHeight);
             }
             if (scObData.isLeftFingerToneCollectingData) {
-                _dataGraphTab.CircleGraphLinks.UpdateCircleThresholds(scObData.leftPlayerObjectHeight);
+                _dataGraphTab.CircleGraphLinks.UpdateCircleThresholds(
+                    scObData.targetObjectOuterHeightThresholdTop,
+                    scObData.targetObjectOuterHeightThresholdFloor,
+                    scObData.targetObjectInnerHeightThresholdTop,
+                    scObData.targetObjectInnerHeightThresholdFloor,
+                    scObData.leftPlayerObjectHeight);
             }
         }
 
