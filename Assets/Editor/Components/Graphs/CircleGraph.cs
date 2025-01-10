@@ -48,7 +48,7 @@ namespace Editor.Components.Graphs {
         }
 
         private void UpdatePercentageLabel() {
-            var percent = Mathf.RoundToInt((_circleDegree / 360f) * 100f);
+            var percent = Mathf.RoundToInt(_circlePercentage);
             _percentageLabel.text = percent + "%";
         }
 
