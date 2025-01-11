@@ -1,2 +1,37 @@
 .parameter-part-title {
 }
+
+.parameter-part-title {
+    font-size: 16px;
+    -unity-font-style: bold;
+    color: whitesmoke;
+}
+
+.unity-base-field__label {
+    color: wheat;
+}
+
+.value-label{
+    color: whitesmoke;
+}
+
+.unity-button {
+    color: whitesmoke;
+}
+
+.unity-base-slider__tracker{
+    background-color: wheat;
+    border-color: transparent;
+}
+
+#unity-dragger{
+    background-color: antiquewhite;
+    border-color: midnightblue;
+    
+}
+
+.value-label {
+}
+
+.parameter-part-title {
+}
