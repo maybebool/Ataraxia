@@ -100,6 +100,10 @@ namespace Editor.Components.SettingsPage {
             SliderEvent(innerOffset,innerOffsetValue, FloatFormat);
             
             #endregion
+            
+            var saveButton = this.Q<Button>("SaveButton");
+            var defaultButton = this.Q<Button>("DefaultButton");
+            
         }
         private void SliderEvent(Slider triggeredSlider, Label label, string format) {
             triggeredSlider.RegisterValueChangedCallback(evt => {
