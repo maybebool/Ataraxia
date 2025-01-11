@@ -30,7 +30,6 @@
 #unity-dragger{
     background-color: antiquewhite;
     border-color: midnightblue;
-    
 }
 
 .value-label {
