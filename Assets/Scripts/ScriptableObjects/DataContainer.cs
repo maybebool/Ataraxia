@@ -68,6 +68,8 @@ namespace ScriptableObjects {
         public float rightPlayerObjectHeight;
         public float leftPlayerObjectHeight;
         public float targetObjectCurrentHeight;
+        public float outerThresholdOffset = 1.0f;
+        public float innerThresholdOffset = 0.6f;
         public float targetObjectOuterHeightThresholdTop;
         public float targetObjectOuterHeightThresholdFloor;
         public float targetObjectInnerHeightThresholdTop;
