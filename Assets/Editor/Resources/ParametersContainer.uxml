@@ -1,4 +1,37 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Editor/Resources/Styles/ParametersStyle.uss?fileID=7433441132597879392&amp;guid=a1e3a5c84c512fc4f8a13b4d2bab04d0&amp;type=3#ParametersStyle" />
-    <engine:VisualElement class="main-container" style="flex-grow: 1;" />
+    <engine:VisualElement class="main-container" style="flex-grow: 1; flex-direction: row; height: 100%; width: 100%;">
+        <engine:VisualElement name="ImageContainer" style="flex-grow: 1; height: 100%; width: 20%; background-image: url(&quot;project://database/Assets/Images/Logo/LogoWithFont.png?fileID=2800000&amp;guid=901d259efcbd8d24ea501810ee6c0ebf&amp;type=3#LogoWithFont&quot;); background-size: contain; -unity-background-scale-mode: scale-to-fit;" />
+        <engine:VisualElement name="ParameterContainer" style="flex-grow: 1; width: 80%; height: 100%;">
+            <engine:VisualElement name="ParentSliderContainerLeft" style="flex-grow: 1; width: 100%; height: 85%;">
+                <engine:VisualElement name="ChildSliderContainer1" style="flex-grow: 1; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); margin-bottom: 5px;">
+                    <engine:Label text="Right Hand Tremor Detection Parameters" name="ParameterTitle1" />
+                    <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider1" />
+                    <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold1" low-value="120" />
+                    <engine:Slider label="Weighting" value="42" high-value="1.5" name="ImortanceWeight1" low-value="0.9" />
+                </engine:VisualElement>
+                <engine:VisualElement name="ChildSliderContainer2" style="flex-grow: 1; margin-bottom: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;">
+                    <engine:Label text="Left Hand Tremor Detection Parameters" name="ParameterTitle2" />
+                    <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider2" />
+                    <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold2" low-value="120" />
+                    <engine:Slider label="Weighting" value="1" high-value="1.5" name="ImortanceWeight2" low-value="0.9" />
+                </engine:VisualElement>
+                <engine:VisualElement name="ChildSliderContainer3" style="flex-grow: 1; margin-bottom: 5px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px;">
+                    <engine:Label text="Left Hand Tremor Detection Parameters" name="ParameterTitle3" />
+                    <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider3" />
+                    <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold3" low-value="120" />
+                    <engine:Slider label="Weighting" value="1" high-value="1.5" name="ImortanceWeight3" low-value="0.9" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="ButtonContainer" style="flex-grow: 1; width: 100%; height: 10%;">
+                <engine:VisualElement name="TextContainer" style="flex-grow: 1; height: auto; align-self: center; justify-content: flex-end;">
+                    <engine:VisualElement style="flex-grow: 1; flex-direction: row; align-self: center; width: 100%; justify-content: center;">
+                        <engine:Button text="Save Changes" name="SaveButton" style="background-image: resource(&apos;Images/ButtonBackground&apos;); background-color: rgba(188, 188, 188, 0); background-size: contain; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 200px; max-height: 50px; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; min-width: 150px;" />
+                        <engine:Button text="Default Settings" name="DefaultButton" style="background-image: resource(&apos;Images/ButtonBackground&apos;); background-color: rgba(188, 188, 188, 0); background-size: contain; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 200px; max-height: 50px; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; min-width: 150px;" />
+                    </engine:VisualElement>
+                    <engine:Label text="It is recommended to change the parameters only if you have a thorough understanding of their functions" emoji-fallback-support="true" />
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
 </engine:UXML>
