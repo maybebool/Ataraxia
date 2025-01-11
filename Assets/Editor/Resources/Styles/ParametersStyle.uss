@@ -1,4 +1,7 @@
-.parameter-part-title {
+
+.custom-parameter-settings-container{
+    width: 95%;
+    height: 95%;
 }
 
 .parameter-part-title {
