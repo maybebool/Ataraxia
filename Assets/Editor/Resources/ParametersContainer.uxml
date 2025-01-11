@@ -1,0 +1,4 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Editor/Resources/Styles/ParametersStyle.uss?fileID=7433441132597879392&amp;guid=a1e3a5c84c512fc4f8a13b4d2bab04d0&amp;type=3#ParametersStyle" />
+    <engine:VisualElement class="main-container" style="flex-grow: 1;" />
+</engine:UXML>
