@@ -10,8 +10,11 @@
                         <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider1" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" data-source-path="rightHandIntensityMultiplier">
                             <engine:Label text="0.03" name="MultiplierValue1" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold1" low-value="120" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" data-source-path="rightHandOscillationThreshold">
+                        <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold1" low-value="120">
                             <engine:Label text="140" name="ThresholdValue1" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
+                            <Bindings>
+                                <engine:DataBinding property="value" data-source-path="rightHandOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="ToTarget" />
+                            </Bindings>
                         </engine:Slider>
                         <engine:Slider label="Weighting" value="1" high-value="1.5" name="ImortanceWeight1" low-value="0.9" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" data-source-path="rightHandTremorImportanceWeight">
                             <engine:Label text="1" name="WeightValue1" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
