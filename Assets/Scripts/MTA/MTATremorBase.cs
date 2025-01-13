@@ -53,7 +53,7 @@ namespace MTA {
         protected abstract float TremorIntensity { get; set; }
         protected abstract bool IsCollectingData { get; set; }
         protected abstract float IntensityMultiplier { get; set; }
-        protected abstract float OscillationThreshold { get; set; }
+        protected abstract int OscillationThreshold { get; set; }
 
         protected virtual void Start() {
             lastUpdateTime = Time.time;

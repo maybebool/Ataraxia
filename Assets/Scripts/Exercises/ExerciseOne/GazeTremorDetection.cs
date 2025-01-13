@@ -41,7 +41,7 @@ namespace Exercises.ExerciseOne {
             set => scO.headIntensityMultiplier = value;
         }
         
-        protected override float OscillationThreshold {
+        protected override int OscillationThreshold {
             get => scO.headOscillationThreshold;
             set => scO.headOscillationThreshold = value;
             

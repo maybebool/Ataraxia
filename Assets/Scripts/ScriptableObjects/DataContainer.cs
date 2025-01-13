@@ -20,7 +20,7 @@ namespace ScriptableObjects {
         
         [Header("Right Hand adjustable Parameters")]
         public float rightHandIntensityMultiplier = 0.01f;
-        public float rightHandOscillationThreshold = 140f;
+        public int rightHandOscillationThreshold = 140;
         public float rightHandTremorImportanceWeight = 1f;
         
         [Header("Left Hand Data")]
@@ -30,7 +30,7 @@ namespace ScriptableObjects {
         
         [Header("Left Hand adjustable Parameters")]
         public float leftHandIntensityMultiplier = 0.01f;
-        public float leftHandOscillationThreshold = 140f;
+        public int leftHandOscillationThreshold = 140;
         public float leftHandTremorImportanceWeight = 1f;
         
         [Header("Head Data")]
@@ -40,7 +40,7 @@ namespace ScriptableObjects {
         
         [Header("Head adjustable Parameters")]
         public float headIntensityMultiplier = 0.03f;
-        public float headOscillationThreshold = 110f;
+        public int headOscillationThreshold = 110;
         public float headTremorImportanceWeight = 1f;
         
         
@@ -51,7 +51,7 @@ namespace ScriptableObjects {
         
         [Header("Right Leg adjustable Parameters")]
         public float rightLegIntensityMultiplier = 0.03f;
-        public float rightLegOscillationThreshold = 110f;
+        public int rightLegOscillationThreshold = 110;
         public float rightLegTremorImportanceWeight = 1f;
         
         [Header("Left Leg Data")]
@@ -61,7 +61,7 @@ namespace ScriptableObjects {
         
         [Header("Left Leg adjustable Parameters")]
         public float leftLegIntensityMultiplier = 0.03f;
-        public float leftLegOscillationThreshold = 110f;
+        public int leftLegOscillationThreshold = 110;
         public float leftLegTremorImportanceWeight = 1f;
 
         [Header("Finger Tone Data")] 
