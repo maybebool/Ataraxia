@@ -7,110 +7,232 @@ namespace Editor.Components.SettingsPage {
         private const string IntFormat = "0";
         private const string FloatFormat = "0.0";
         private const string DoubleFloatFormat = "0.00";
+        private const float FloatStepSize = 0.1f;
+        private const float DoubleFloatStepSize = 0.01f;
         
+        
+        [System.Serializable]
+        private struct SliderParam {
+            public string sliderName;   
+            public string labelName;    
+            public float defaultValue;  
+            public string defaultText;  
+            public float stepSize;      
+            public string format;       
+        }
+
+        
+        private SliderParam[] sliderParams = {
+            // Right Hand Tremor
+            new() {
+                sliderName   = "MultiplierSlider1",
+                labelName    = "MultiplierValue1",
+                defaultValue = 0.03f,
+                defaultText  = "0.03",
+                stepSize     = DoubleFloatStepSize,
+                format       = DoubleFloatFormat
+            },
+            new() {
+                sliderName   = "OscillationThreshold1",
+                labelName    = "ThresholdValue1",
+                defaultValue = 140,
+                defaultText  = "140",
+                stepSize     = 1,  // Snap to integer
+                format       = IntFormat
+            },
+            new() {
+                sliderName   = "ImortanceWeight1",
+                labelName    = "WeightValue1",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+
+            // Left Hand Tremor
+            new() {
+                sliderName   = "MultiplierSlider2",
+                labelName    = "MultiplierValue2",
+                defaultValue = 0.03f,
+                defaultText  = "0.03",
+                stepSize     = DoubleFloatStepSize,
+                format       = DoubleFloatFormat
+            },
+            new() {
+                sliderName   = "OscillationThreshold2",
+                labelName    = "ThresholdValue2",
+                defaultValue = 140,
+                defaultText  = "140",
+                stepSize     = 1,
+                format       = IntFormat
+            },
+            new() {
+                sliderName   = "ImortanceWeight2",
+                labelName    = "WeightValue2",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+
+            // Head Tremor
+            new() {
+                sliderName   = "MultiplierSlider3",
+                labelName    = "MultiplierValue3",
+                defaultValue = 0.03f,
+                defaultText  = "0.03",
+                stepSize     = DoubleFloatStepSize,
+                format       = DoubleFloatFormat
+            },
+            new() {
+                sliderName   = "OscillationThreshold3",
+                labelName    = "ThresholdValue3",
+                defaultValue = 110,
+                defaultText  = "110",
+                stepSize     = 1,
+                format       = IntFormat
+            },
+            new() {
+                sliderName   = "ImortanceWeight3",
+                labelName    = "WeightValue3",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+
+            // Right Leg Tremor
+            new() {
+                sliderName   = "MultiplierSlider4",
+                labelName    = "MultiplierValue4",
+                defaultValue = 0.03f,
+                defaultText  = "0.03",
+                stepSize     = DoubleFloatStepSize,
+                format       = DoubleFloatFormat
+            },
+            new() {
+                sliderName   = "OscillationThreshold4",
+                labelName    = "ThresholdValue4",
+                defaultValue = 110,
+                defaultText  = "110",
+                stepSize     = 1,
+                format       = IntFormat
+            },
+            new() {
+                sliderName   = "ImportanceWeight4",
+                labelName    = "WeightValue4",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+
+            // Left Leg Tremor
+            new() {
+                sliderName   = "MultiplierSlider5",
+                labelName    = "MultiplierValue5",
+                defaultValue = 0.03f,
+                defaultText  = "0.03",
+                stepSize     = DoubleFloatStepSize,
+                format       = DoubleFloatFormat
+            },
+            new() {
+                sliderName   = "OscillationThreshold5",
+                labelName    = "ThresholdValue5",
+                defaultValue = 110,
+                defaultText  = "110",
+                stepSize     = 1,
+                format       = IntFormat
+            },
+            new() {
+                sliderName   = "ImportanceWeight5",
+                labelName    = "WeightValue5",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+
+            // Finger Tone
+            new() {
+                sliderName   = "OuterOffset",
+                labelName    = "OuterOffsetValue",
+                defaultValue = 1f,
+                defaultText  = "1.0",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+            new() {
+                sliderName   = "InnerOffset",
+                labelName    = "InnerOffsetValue",
+                defaultValue = 0.6f,
+                defaultText  = "0.6",
+                stepSize     = FloatStepSize,
+                format       = FloatFormat
+            },
+        };
+
+        // --- Constructor ---
         public ParameterSettings() {
-            var parameters = Resources.Load<StyleSheet>("Styles/ParametersStyle");
+            
+            var parameters     = Resources.Load<StyleSheet>("Styles/ParametersStyle");
             var parametersUxml = Resources.Load<VisualTreeAsset>("ParametersContainer");
+
             if (parameters != null) {
                 styleSheets.Add(parameters);
                 AddToClassList("custom-parameter-settings-container");
             }
+            else {
+                Debug.LogError("Failed to load StyleSheet: ParametersStyle.uss.");
+            }
+
             if (parametersUxml != null) {
                 parametersUxml.CloneTree(this);
-                
-            }else {
-                Debug.LogError(
-                    "Failed to load StyleSheet: BoxPlotStyle.uss.");
+            }
+            else {
+                Debug.LogError("Failed to load VisualTreeAsset: ParametersContainer.uxml");
             }
             
-            #region Slider Events
+            foreach (var sp in sliderParams) {
+                SetupSlider(sp.sliderName, sp.labelName, sp.stepSize, sp.format);
+            }
             
-            // // Right Hand Tremor Parameters
-            // var rHIntensityMultiplier = this.Q<Slider>("MultiplierSlider1");
-            // var rHIntensityMultiplierValue = this.Q<Label>("MultiplierValue1");
-            // SliderEvent(rHIntensityMultiplier,rHIntensityMultiplierValue, DoubleFloatFormat);
-            //
-            // var rHOscillationThreshold = this.Q<Slider>("OscillationThreshold1");
-            // var rHOscillationThresholdValue = this.Q<Label>("ThresholdValue1");
-            // SliderEvent(rHOscillationThreshold,rHOscillationThresholdValue, IntFormat);
-            //
-            // var rHWeighting = this.Q<Slider>("ImortanceWeight1");
-            // var rHWeightingValue = this.Q<Label>("WeightValue1");
-            // SliderEvent(rHWeighting,rHWeightingValue, FloatFormat);
-            //
-            // // Left Hand Tremor Parameters
-            // var lHIntensityMultiplier = this.Q<Slider>("MultiplierSlider2");
-            // var lHIntensityMultiplierValue = this.Q<Label>("MultiplierValue2");
-            // SliderEvent(lHIntensityMultiplier,lHIntensityMultiplierValue, DoubleFloatFormat);
-            //
-            // var lHOscillationThreshold = this.Q<Slider>("OscillationThreshold2");
-            // var lHOscillationThresholdValue = this.Q<Label>("ThresholdValue2");
-            // SliderEvent(lHOscillationThreshold,lHOscillationThresholdValue, IntFormat);
-            //
-            // var lHWeighting = this.Q<Slider>("ImortanceWeight2");
-            // var lHWeightingValue = this.Q<Label>("WeightValue2");
-            // SliderEvent(lHWeighting,lHWeightingValue, FloatFormat);
-            //
-            // // Head Tremor Parameters
-            // var headIntensityMultiplier = this.Q<Slider>("MultiplierSlider3");
-            // var headIntensityMultiplierValue = this.Q<Label>("MultiplierValue3");
-            // SliderEvent(headIntensityMultiplier,headIntensityMultiplierValue, DoubleFloatFormat);
-            //
-            // var headOscillationThreshold = this.Q<Slider>("OscillationThreshold3");
-            // var headOscillationThresholdValue = this.Q<Label>("ThresholdValue3");
-            // SliderEvent(headOscillationThreshold,headOscillationThresholdValue, IntFormat);
-            //
-            // var headWeighting = this.Q<Slider>("ImortanceWeight3");
-            // var headWeightingValue = this.Q<Label>("WeightValue3");
-            // SliderEvent(headWeighting,headWeightingValue, FloatFormat);
-            //
-            // // Right Leg Tremor Parameters
-            // var rLIntensityMultiplier = this.Q<Slider>("MultiplierSlider4");
-            // var rLIntensityMultiplierValue = this.Q<Label>("MultiplierValue4");
-            // SliderEvent(rLIntensityMultiplier,rLIntensityMultiplierValue, DoubleFloatFormat);
-            //
-            // var rLOscillationThreshold = this.Q<Slider>("OscillationThreshold4");
-            // var rLOscillationThresholdValue = this.Q<Label>("ThresholdValue4");
-            // SliderEvent(rLOscillationThreshold,rLOscillationThresholdValue, IntFormat);
-            //
-            // var rLWeighting = this.Q<Slider>("ImortanceWeight4");
-            // var rLWeightingValue = this.Q<Label>("WeightValue4");
-            // SliderEvent(rLWeighting,rLWeightingValue, FloatFormat);
-            //
-            // // Left Leg Tremor Parameters
-            // var lLIntensityMultiplier = this.Q<Slider>("MultiplierSlider5");
-            // var lLIntensityMultiplierValue = this.Q<Label>("MultiplierValue5");
-            // SliderEvent(lLIntensityMultiplier,lLIntensityMultiplierValue, DoubleFloatFormat);
-            //
-            // var lLOscillationThreshold = this.Q<Slider>("OscillationThreshold5");
-            // var lLOscillationThresholdValue = this.Q<Label>("ThresholdValue5");
-            // SliderEvent(lLOscillationThreshold,lLOscillationThresholdValue, IntFormat);
-            //
-            // var lLWeighting = this.Q<Slider>("ImortanceWeight5");
-            // var lLWeightingValue = this.Q<Label>("WeightValue5");
-            // SliderEvent(lLWeighting,lLWeightingValue, FloatFormat);
-            //
-            // // Finger Tone Parameters
-            // var outerOffset = this.Q<Slider>("OuterOffset");
-            // var outerOffsetValue = this.Q<Label>("OuterOffsetValue");
-            // SliderEvent(outerOffset,outerOffsetValue, FloatFormat);
-            //
-            // var innerOffset = this.Q<Slider>("OuterOffset");
-            // var innerOffsetValue = this.Q<Label>("InnerOffsetValue");
-            // SliderEvent(innerOffset,innerOffsetValue, FloatFormat);
-            
-            #endregion
-            
-            var saveButton = this.Q<Button>("SaveButton");
             var defaultButton = this.Q<Button>("DefaultButton");
-            
+            defaultButton?.RegisterCallback<ClickEvent>(_ => RestoreDefaults());
         }
-        private void SliderEvent(Slider triggeredSlider, Label label, string format) {
-            triggeredSlider.RegisterValueChangedCallback(evt => {
-                if (label != null) {
-                    label.text = evt.newValue.ToString(format);
-                }
+
+        
+        private void SetupSlider(string sliderName,
+            string labelName,
+            float stepSize,
+            string format) {
+            var slider = this.Q<Slider>(sliderName);
+            var label  = this.Q<Label>(labelName);
+
+            if (slider == null) return;
+            slider.RegisterValueChangedCallback(evt => {
+                var newValue = SnapToStep(evt.newValue, stepSize);
+                slider.SetValueWithoutNotify(newValue);
             });
+                
+            if (label != null) {
+                slider.RegisterValueChangedCallback(evt => {
+                    label.text = evt.newValue.ToString(format);
+                });
+            }
+        }
+
+        private void RestoreDefaults() {
+            foreach (var sp in sliderParams) {
+                var slider = this.Q<Slider>(sp.sliderName);
+                var label = this.Q<Label>(sp.labelName);
+                slider.value = sp.defaultValue;
+                label.text = sp.defaultText;
+            }
+        }
+        
+        private float SnapToStep(float input, float step) {
+            return Mathf.Round(input / step) * step;
         }
     }
 }
