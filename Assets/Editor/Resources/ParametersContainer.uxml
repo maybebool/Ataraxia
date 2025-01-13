@@ -13,7 +13,7 @@
                                 <engine:DataBinding property="value" data-source-path="rightHandIntensityMultiplier" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
                             </Bindings>
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold1" low-value="120" show-input-field="false" fill="false">
+                        <engine:Slider label="Oscillation Threshold" value="140" high-value="170" name="OscillationThreshold1" low-value="120" show-input-field="false" fill="false">
                             <engine:Label text="140" name="ThresholdValue1" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                             <Bindings>
                                 <engine:DataBinding property="value" data-source-path="rightHandOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
@@ -34,7 +34,7 @@
                                 <engine:DataBinding property="value" data-source-path="leftHandIntensityMultiplier" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
                             </Bindings>
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold2" low-value="120">
+                        <engine:Slider label="Oscillation Threshold" value="140" high-value="170" name="OscillationThreshold2" low-value="120">
                             <engine:Label text="140" name="ThresholdValue2" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                             <Bindings>
                                 <engine:DataBinding property="value" data-source-path="leftHandOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
@@ -55,7 +55,7 @@
                                 <engine:DataBinding property="value" data-source-path="headIntensityMultiplier" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
                             </Bindings>
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="140" high-value="170" name="OscillationThreshold3" low-value="100">
+                        <engine:Slider label="Oscillation Threshold" value="140" high-value="170" name="OscillationThreshold3" low-value="100">
                             <engine:Label text="110" name="ThresholdValue3" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                             <Bindings>
                                 <engine:DataBinding property="value" data-source-path="headOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
@@ -78,7 +78,7 @@
                                 <engine:DataBinding property="value" data-source-path="rightLegIntensityMultiplier" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
                             </Bindings>
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="110" high-value="180" name="OscillationThreshold4" low-value="100">
+                        <engine:Slider label="Oscillation Threshold" value="110" high-value="180" name="OscillationThreshold4" low-value="100">
                             <engine:Label text="110" name="ThresholdValue4" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                             <Bindings>
                                 <engine:DataBinding property="value" data-source-path="rightLegOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
@@ -99,7 +99,7 @@
                                 <engine:DataBinding property="value" data-source-path="leftLegIntensityMultiplier" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
                             </Bindings>
                         </engine:Slider>
-                        <engine:Slider label="Oszillation Threshold" value="110" high-value="180" name="OscillationThreshold5" low-value="100">
+                        <engine:Slider label="Oscillation Threshold" value="110" high-value="180" name="OscillationThreshold5" low-value="100">
                             <engine:Label text="110" name="ThresholdValue5" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
                             <Bindings>
                                 <engine:DataBinding property="value" data-source-path="leftLegOscillationThreshold" data-source="project://database/Assets/Scripts/ScriptableObjects/DataContainer.asset?fileID=11400000&amp;guid=44b496d7e3a57b441af16e214d6fefa7&amp;type=2#DataContainer" binding-mode="TwoWay" />
@@ -133,7 +133,6 @@
             <engine:VisualElement name="ButtonContainer" style="flex-grow: 1; width: 100%; height: 15%;">
                 <engine:VisualElement name="TextContainer" style="flex-grow: 1; height: auto; align-self: center; justify-content: flex-end;">
                     <engine:VisualElement style="flex-grow: 1; flex-direction: row; align-self: center; width: 100%; justify-content: center;">
-                        <engine:Button text="Save Changes" name="SaveButton" style="background-image: resource(&apos;Images/ButtonBackground&apos;); background-color: rgba(188, 188, 188, 0); background-size: contain; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 200px; max-height: 50px; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; min-width: 150px;" />
                         <engine:Button text="Default Settings" name="DefaultButton" style="background-image: resource(&apos;Images/ButtonBackground&apos;); background-color: rgba(188, 188, 188, 0); background-size: contain; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); max-width: 200px; max-height: 50px; margin-top: 0; margin-right: 10px; margin-bottom: 0; margin-left: 10px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; min-width: 150px;" />
                     </engine:VisualElement>
                     <engine:Label text="It is recommended to change the parameters only if you have a thorough understanding of their functions" emoji-fallback-support="true" style="color: rgb(255, 228, 194);" />

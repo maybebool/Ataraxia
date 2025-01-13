@@ -28,8 +28,12 @@
 }
 
 #unity-dragger{
-    background-color: antiquewhite;
-    border-color: midnightblue;
+    background-color: pink;
+    border-color: whitesmoke;
+}
+
+.unity-button-custom:hover {
+    -unity-background-image-tint-color: #CBCBCB;
 }
 
 .value-label {
