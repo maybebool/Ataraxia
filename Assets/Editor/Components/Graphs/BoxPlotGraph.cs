@@ -8,6 +8,7 @@ using ScriptableObjects;
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
         private Label _titleLabel;
+        private Label _subTitleLabel;
         private readonly VisualElement _boxplotContainer;
         private readonly VisualElement _minLine;
         private readonly VisualElement _maxLine;
@@ -46,7 +47,7 @@ namespace Editor.Components.Graphs {
             
         }
 
-        public BoxPlotGraph(string title = "1") {
+        public BoxPlotGraph(string title = "1", string subTitle = "2") {
             // Load the USS stylesheet
             var boxPlotStyle = Resources.Load<StyleSheet>("Styles/BoxPlotStyle");
             if (boxPlotStyle != null) {
@@ -60,6 +61,7 @@ namespace Editor.Components.Graphs {
             this.AddClass("boxPlot");
             var mainContainer = new VisualElement().AddClass("boxPlotMainContainer");
             _titleLabel = new Label(title).AddLabelClass("boxPlotTitleLabel");
+            _subTitleLabel = new Label(subTitle).AddLabelClass("boxPlotSubTitleLabel");
             var outerContainer = new VisualElement().AddClass("boxPlotOuterContainer");
             var labelsContainer = new VisualElement().AddClass("boxPlotLabelsContainer");
             
@@ -94,6 +96,7 @@ namespace Editor.Components.Graphs {
             outerContainer.Add(_boxplotContainer);
             
             mainContainer.Add(_titleLabel);
+            mainContainer.Add(_subTitleLabel);
             mainContainer.Add(outerContainer);
             Add(mainContainer);
         }

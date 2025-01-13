@@ -143,7 +143,7 @@ namespace Editor.AtaraxiaWindow {
                 _dataGraphTab.BoxPlot5.AddDataPoint(scObData.tremorIntensityLeftLeg);
             }
             if (scObData.isRightFingerToneCollectingData) {
-                _dataGraphTab.CircleGraphRechts.UpdateCircleThresholds(
+                _dataGraphTab.CircleGraphRightHand.UpdateCircleThresholds(
                     scObData.targetObjectOuterHeightThresholdTop,
                     scObData.targetObjectOuterHeightThresholdFloor,
                     scObData.targetObjectInnerHeightThresholdTop,
@@ -151,7 +151,7 @@ namespace Editor.AtaraxiaWindow {
                     scObData.rightPlayerObjectHeight);
             }
             if (scObData.isLeftFingerToneCollectingData) {
-                _dataGraphTab.CircleGraphLinks.UpdateCircleThresholds(
+                _dataGraphTab.CircleGraphLeftHand.UpdateCircleThresholds(
                     scObData.targetObjectOuterHeightThresholdTop,
                     scObData.targetObjectOuterHeightThresholdFloor,
                     scObData.targetObjectInnerHeightThresholdTop,

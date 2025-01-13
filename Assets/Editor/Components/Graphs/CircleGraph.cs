@@ -13,7 +13,7 @@ namespace Editor.Components.Graphs {
         private Label _percentageLabel;
 
 
-        public CircleGraph(string title = "1") {
+        public CircleGraph(string title = "1", string subtitle = "2") {
             var circleGraphStyle = Resources.Load<StyleSheet>("Styles/CircleGraphStyle");
             if (circleGraphStyle != null) {
                 styleSheets.Add(circleGraphStyle);
@@ -23,11 +23,13 @@ namespace Editor.Components.Graphs {
             }
 
             style.overflow = Overflow.Visible;
-
             AddToClassList("circle-graph");
             pickingMode = PickingMode.Ignore;
 
             var titleLabel = new Label(title);
+            var subtitleLabel = new Label(subtitle);
+            titleLabel.AddToClassList("title-label");
+            subtitleLabel.AddToClassList("subtitle-label");
             _mainCircleContainer = new VisualElement().AddClass("main-circle-container");
             _mainCircleContainer.generateVisualContent += OnGenerateCircleArc;
             _percentageLabel = new Label();
@@ -35,6 +37,7 @@ namespace Editor.Components.Graphs {
             _percentageLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
             _mainCircleContainer.Add(_percentageLabel);
             Add(titleLabel);
+            Add(subtitleLabel);
             Add(_mainCircleContainer);
 
             _circlePercentage = 100f;
