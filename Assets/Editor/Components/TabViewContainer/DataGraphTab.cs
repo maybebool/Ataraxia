@@ -1,4 +1,6 @@
+using Editor.Components.Buttons;
 using Editor.Components.Graphs;
+using Editor.Helpers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,6 +15,7 @@ namespace Editor.Components.TabViewContainer {
         public BoxPlotGraph BoxPlot5 { get; private set; }
         public CircleGraph CircleGraphRightHand { get; private set; }
         public CircleGraph CircleGraphLeftHand { get; private set; }
+        public DefaultButton SaveButton;
         public DataGraphTab(){
             var dataStyle = Resources.Load<StyleSheet>("Styles/DataGraphsStyle");
             var dataUxml = Resources.Load<VisualTreeAsset>("DataGraphsContainer");
@@ -40,6 +43,9 @@ namespace Editor.Components.TabViewContainer {
             BoxPlot5 = new BoxPlotGraph("Left Hand", "Tremor Detection");
             CircleGraphRightHand = new CircleGraph("Right Hand Fingers", "Muscle Tone Detection");
             CircleGraphLeftHand = new CircleGraph("Left Hand Fingers", "Muscle Tone Detection");
+            SaveButton = new DefaultButton("Save Results");
+            SaveButton.AddToClassList("save-button");
+            SaveButton.name = "SaveButton";
             
             lineChartContainer.Add(LineChart);
             boxPlotsContainer.Add(BoxPlot1);
@@ -49,6 +55,7 @@ namespace Editor.Components.TabViewContainer {
             boxPlotsContainer.Add(BoxPlot5);
             boxPlotsContainer.Add(CircleGraphRightHand);
             boxPlotsContainer.Add(CircleGraphLeftHand);
+            Add(SaveButton);
         }
     }
 }

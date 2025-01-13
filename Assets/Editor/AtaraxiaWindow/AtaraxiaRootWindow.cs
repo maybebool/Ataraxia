@@ -50,18 +50,20 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabDataGraphs);
             
             // Create a container for the save button
-            var buttonContainer = new VisualElement();
-            buttonContainer.style.flexDirection = FlexDirection.Row;
-            buttonContainer.style.justifyContent = Justify.Center;
-            buttonContainer.style.marginTop = 10;
+            // var buttonContainer = new VisualElement();
+            // buttonContainer.style.flexDirection = FlexDirection.Row;
+            // buttonContainer.style.justifyContent = Justify.Center;
+            // buttonContainer.style.marginTop = 10;
+            //
+            // // Create the Save button
+            // var saveButton = new DefaultButton("Save Results");
+            // saveButton.clicked += OnSaveButtonClicked;
+            // buttonContainer.Add(saveButton);
+            // tabDataGraphs.Add(buttonContainer);
 
-            // Create the Save button
-            var saveButton = new DefaultButton("Save Results");
+            var saveButton = tabDataGraphs.Q<DefaultButton>("SaveButton");
             saveButton.clicked += OnSaveButtonClicked;
-            buttonContainer.Add(saveButton);
-            tabDataGraphs.Add(buttonContainer);
-
-            // rootVisualElement.Add(graphsContainer);
+            
             _buttonToUIElementMap.Add(sceneManagerBtn, tabViewExercises);
             _buttonToUIElementMap.Add(dataViewBnt, tabDataGraphs);
             _buttonToUIElementMap.Add(settingsBnt, tabViewSettings);

@@ -8,6 +8,12 @@ VisualElement {}
     border-color: rgba(100, 100, 100,0);
 }
 
+.save-button{
+    min-width: 210px;
+    min-height: 50px;
+    margin-top: 20px;
+}
+
 .defaultButtonStyle:hover{
     -unity-background-image-tint-color: antiquewhite;
 }
