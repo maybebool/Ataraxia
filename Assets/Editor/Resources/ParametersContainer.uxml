@@ -26,7 +26,7 @@
                             </Bindings>
                         </engine:Slider>
                     </engine:VisualElement>
-                    <engine:VisualElement name="ChildSliderContainer2" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px; max-height: 150px; justify-content: space-around; margin-right: 30px;">
+                    <engine:VisualElement name="ChildSliderContainer2" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 0; max-height: 150px; justify-content: space-around; margin-right: 30px;">
                         <engine:Label text="Left Hand Tremor Detection Parameters" name="ParameterTitle2" class="parameter-part-title" />
                         <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider2">
                             <engine:Label text="0.03" name="MultiplierValue2" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
@@ -47,7 +47,7 @@
                             </Bindings>
                         </engine:Slider>
                     </engine:VisualElement>
-                    <engine:VisualElement name="ChildSliderContainer3" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px; max-height: 150px; justify-content: space-around; margin-right: 30px;">
+                    <engine:VisualElement name="ChildSliderContainer3" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 0; max-height: 150px; justify-content: space-around; margin-right: 30px;">
                         <engine:Label text="Head Tremor Detection Parameters" name="ParameterTitle3" class="parameter-part-title" />
                         <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider3">
                             <engine:Label text="0.03" name="MultiplierValue3" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
@@ -70,7 +70,7 @@
                     </engine:VisualElement>
                 </engine:VisualElement>
                 <engine:VisualElement name="ParentSliderContainerRight" style="flex-grow: 1; width: 100%; height: 100%; margin-left: 5px; justify-content: center;">
-                    <engine:VisualElement name="ChildSliderContainer4" style="flex-grow: 1; border-bottom-width: 1px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); margin-bottom: 30px; max-height: 150px; justify-content: space-around;">
+                    <engine:VisualElement name="ChildSliderContainer4" style="flex-grow: 1; border-bottom-width: 0; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); margin-bottom: 30px; max-height: 150px; justify-content: space-around;">
                         <engine:Label text="Right Leg Tremor Detection Parameters" name="ParameterTitle4" class="parameter-part-title" />
                         <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider4">
                             <engine:Label text="0.03" name="MultiplierValue4" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
@@ -91,7 +91,7 @@
                             </Bindings>
                         </engine:Slider>
                     </engine:VisualElement>
-                    <engine:VisualElement name="ChildSliderContainer5" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px; justify-content: space-around; max-height: 150px;">
+                    <engine:VisualElement name="ChildSliderContainer5" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 0; justify-content: space-around; max-height: 150px;">
                         <engine:Label text="Left Leg Tremor Detection Parameters" name="ParameterTitle5" class="parameter-part-title" />
                         <engine:Slider label="Intensity Multiplier" value="0.03" high-value="0.1" name="MultiplierSlider5">
                             <engine:Label text="0.03" name="MultiplierValue5" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />
@@ -112,7 +112,7 @@
                             </Bindings>
                         </engine:Slider>
                     </engine:VisualElement>
-                    <engine:VisualElement name="ChildSliderContainer3" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 1px; max-height: 150px; justify-content: space-around;">
+                    <engine:VisualElement name="ChildSliderContainer3" style="flex-grow: 1; margin-bottom: 30px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-bottom-width: 0; max-height: 150px; justify-content: space-around;">
                         <engine:Label text="Finger Tone Detection" name="ParameterTitle3" class="parameter-part-title" />
                         <engine:Slider label="Outer Threshold" value="1" high-value="1.3" name="OuterOffset" low-value="0.8">
                             <engine:Label text="1" name="OuterOffsetValue" class="value-label" style="min-width: 7%; align-self: auto; align-content: auto; -unity-text-align: upper-right;" />

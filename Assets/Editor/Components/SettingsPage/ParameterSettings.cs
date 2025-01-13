@@ -37,7 +37,7 @@ namespace Editor.Components.SettingsPage {
                 labelName    = "ThresholdValue1",
                 defaultValue = 140,
                 defaultText  = "140",
-                stepSize     = 1,  // Snap to integer
+                stepSize     = 1,  
                 format       = IntFormat
             },
             new() {
@@ -171,8 +171,7 @@ namespace Editor.Components.SettingsPage {
                 format       = FloatFormat
             },
         };
-
-        // --- Constructor ---
+        
         public ParameterSettings() {
             
             var parameters     = Resources.Load<StyleSheet>("Styles/ParametersStyle");
