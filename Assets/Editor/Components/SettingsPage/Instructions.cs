@@ -67,7 +67,8 @@ namespace Editor.Components.SettingsPage {
             var dataSlide1 = this.Q<VisualElement>("DataSlide1");
             var dataSlide2 = this.Q<VisualElement>("DataSlide2");
             var dataSlide3 = this.Q<VisualElement>("DataSlide3");
-            dataSlides = new[] { dataSlide1, dataSlide2, dataSlide3 };
+            var dataSlide4 = this.Q<VisualElement>("DataSlide4");
+            dataSlides = new[] { dataSlide1, dataSlide2, dataSlide3, dataSlide4 };
             UpdateSlideVisibility(dataSlides, dataIndex);
             
             var exercisesSlide1 = this.Q<VisualElement>("ExerciseSlide1");
