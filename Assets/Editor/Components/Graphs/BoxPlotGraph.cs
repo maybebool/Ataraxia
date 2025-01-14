@@ -138,6 +138,7 @@ namespace Editor.Components.Graphs {
                 _min = _max = _median = _q1 = _q3 = 0f;
                 return;
             }
+            // check for other option
             var sorted = _dataPoints.OrderBy(v => v).ToArray();
             _min = sorted[0];
             _max = sorted[^1];

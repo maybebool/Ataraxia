@@ -1,6 +1,4 @@
 ﻿using Editor.Components.Buttons;
-using Editor.Components.Graphs;
-using Editor.Components.LeftAlignColumnContainer;
 using GameUI;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,29 +6,15 @@ using UnityEngine.UIElements;
 namespace Editor.Components.TabViewContainer {
     [UxmlElement("TabView")]
     public partial class TabViewContainer : TabView {
+        
         public TabViewContainer() {
             var asset = Resources.Load<VisualTreeAsset>("TabView");
             if (asset == null) {
                 Debug.LogError("Failed to load VisualTreeAsset: TabView");
                 return;
             }
-
             asset.CloneTree(this);
             
-            var vETabContainer = this.Q<VisualElement>("unity-tab-view__content-container");
-            if (vETabContainer != null) {
-                vETabContainer.Add(CreateStartTab());
-                vETabContainer.Add(CreateExerciseTab(1,SceneNames.Exercise1));
-                vETabContainer.Add(CreateExerciseTab(2,SceneNames.Exercise2));
-                vETabContainer.Add(CreateExerciseTab(3,SceneNames.Exercise3));
-                vETabContainer.Add(CreateExerciseTab(4,SceneNames.Exercise4));
-            }
-            else {
-                Debug.LogError("Failed to find VisualElement with id 'visual_element_number_1'");
-            }
-
-
-
             var tabViewStyle = Resources.Load<StyleSheet>("Styles/TabViewStyle");
             if (tabViewStyle != null) {
                 styleSheets.Add(tabViewStyle);
@@ -38,6 +22,25 @@ namespace Editor.Components.TabViewContainer {
             }
             else {
                 Debug.LogError("Failed to load StyleSheet: MainButtonStyle.uss");
+            }
+            
+            var smallImageEx1 = Resources.Load<Texture2D>("Images/RedControllerExercise1");
+            var smallImageEx2 = Resources.Load<Texture2D>("Images/RedBlueControllerExercise2");
+            var smallImageEx3 = Resources.Load<Texture2D>("Images/RedControllerExercise3");
+            
+            var largeImageEx1 = Resources.Load<Texture2D>("Images/LargeImageExercise1");
+            var largeImageEx2 = Resources.Load<Texture2D>("Images/LargeImageExercise1");
+            var largeImageEx3 = Resources.Load<Texture2D>("Images/LargeImageExercise3");
+            
+            var vETabContainer = this.Q<VisualElement>("unity-tab-view__content-container");
+            if (vETabContainer != null) {
+                vETabContainer.Add(CreateStartTab());
+                vETabContainer.Add(CreateExerciseTab(1,SceneNames.Exercise1, smallImageEx1, largeImageEx1));
+                vETabContainer.Add(CreateExerciseTab(2,SceneNames.Exercise2, smallImageEx2, largeImageEx2));
+                vETabContainer.Add(CreateExerciseTab(3,SceneNames.Exercise3,smallImageEx3, largeImageEx3));
+            }
+            else {
+                Debug.LogError("Failed to find VisualElement with id 'visual_element_number_1'");
             }
         }
 
@@ -57,7 +60,7 @@ namespace Editor.Components.TabViewContainer {
             return menuTab;
         }
 
-        private TabElement CreateExerciseTab(int exerciseNumber,SceneNames scene) {
+        private TabElement CreateExerciseTab(int exerciseNumber,SceneNames scene, Texture2D smallImage, Texture2D largeImage) {
             var exerciseTab = new TabElement {
                 name = "ExerciseTab " + exerciseNumber,
                 label = "Exercise " + exerciseNumber,
@@ -65,6 +68,10 @@ namespace Editor.Components.TabViewContainer {
             var exerciseTabView = new ExerciseTabView();
             var startButton = new StartButton(scene);
             var startContainer = exerciseTabView.Q<VisualElement>("StartApplicationContainer");
+            var smallImageElement = exerciseTabView.Q<VisualElement>("ExerciseImageSmall");
+            var largeImageElement = exerciseTabView.Q<VisualElement>("ImageContainer");
+            smallImageElement.style.backgroundImage = smallImage;
+            largeImageElement.style.backgroundImage = largeImage;
             startContainer.Add(startButton);
             exerciseTab.Add(exerciseTabView);
             return exerciseTab;
