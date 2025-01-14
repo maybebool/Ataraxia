@@ -14,9 +14,6 @@ namespace Editor.Components.Graphs {
         private float minValue = 0f; 
         private float maxValue = 10f;
         private float valueRange;
-        private float weightA = 1;
-        private float weightB = 1;
-        private float weightC = 1;
         
         public LineGraph() {
             
@@ -40,15 +37,23 @@ namespace Editor.Components.Graphs {
             Add(_chartContainer);
         }
         
-        public void AddDataPoint(float dataPointA, float dataPointB, float dataPointC,
-            bool useA, bool useB, bool useC,
-            float weightDataA, float weightDataB, float weightDataC) {
+        public void AddDataPoint(
+            float dataPoint1, 
+            float dataPoint2, 
+            float dataPoint3, 
+            float dataPoint4, 
+            float dataPoint5,
+            bool use1, bool use2, bool use3, bool use4, bool use5,
+            float weightData1, float weightData2, float weightData3, float weightData4, 
+            float weightData5) {
             var sum = 0f;
             var count = 0;
 
-            if (useA) { sum += dataPointA * weightDataA; count++; }
-            if (useB) { sum += dataPointB * weightDataB; count++; }
-            if (useC) { sum += dataPointC * weightDataC; count++; }
+            if (use1) { sum += dataPoint1 * weightData1; count++; }
+            if (use2) { sum += dataPoint2 * weightData2; count++; }
+            if (use3) { sum += dataPoint3 * weightData3; count++; }
+            if (use4) { sum += dataPoint4 * weightData4; count++; }
+            if (use5) { sum += dataPoint5 * weightData5; count++; }
             
             if (count == 0) return; 
             var average = sum / count;

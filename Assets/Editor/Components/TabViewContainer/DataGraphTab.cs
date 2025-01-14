@@ -35,7 +35,7 @@ namespace Editor.Components.TabViewContainer {
             var boxPlotsContainer = this.Q<VisualElement>("BoxPlotsContainer");
             var lineChartContainer = this.Q<VisualElement>("LineGraphContainer");
             
-            LineChart = new LineGraph("Nervositätslevel");
+            LineChart = new LineGraph("Overall Tremor Frequency");
             BoxPlot1 = new BoxPlotGraph("Right Leg", "Tremor Detection");
             BoxPlot2 = new BoxPlotGraph("Left Leg", "Tremor Detection");
             BoxPlot3 = new BoxPlotGraph("Head", "Tremor Detection");

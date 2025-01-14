@@ -48,18 +48,6 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabViewExercises);
             rootVisualElement.Add(tabViewSettings);
             rootVisualElement.Add(tabDataGraphs);
-            
-            // Create a container for the save button
-            // var buttonContainer = new VisualElement();
-            // buttonContainer.style.flexDirection = FlexDirection.Row;
-            // buttonContainer.style.justifyContent = Justify.Center;
-            // buttonContainer.style.marginTop = 10;
-            //
-            // // Create the Save button
-            // var saveButton = new DefaultButton("Save Results");
-            // saveButton.clicked += OnSaveButtonClicked;
-            // buttonContainer.Add(saveButton);
-            // tabDataGraphs.Add(buttonContainer);
 
             var saveButton = tabDataGraphs.Q<DefaultButton>("SaveButton");
             saveButton.clicked += OnSaveButtonClicked;
@@ -167,12 +155,20 @@ namespace Editor.AtaraxiaWindow {
                     scObData.tremorIntensityRightHand,
                     scObData.tremorIntensityLeftHand,
                     scObData.tremorIntensityHead,
+                    scObData.tremorIntensityRightLeg,
+                    scObData.tremorIntensityLeftLeg,
+                    
                 scObData.isRightHandCollectingData,
                 scObData.isLeftHandCollectingData,
                 scObData.isHeadCollectingData,
+                    scObData.isRightLegCollectingData,
+                    scObData.isLeftLegCollectingData,
+                    
                     scObData.rightHandTremorImportanceWeight,
                     scObData.leftHandTremorImportanceWeight,
-                    scObData.headTremorImportanceWeight);
+                    scObData.headTremorImportanceWeight,
+                    scObData.rightLegTremorImportanceWeight,
+                    scObData.leftLegTremorImportanceWeight);
             
             _dataGraphTab.LineChart.UpdateChartDisplay();
         }
