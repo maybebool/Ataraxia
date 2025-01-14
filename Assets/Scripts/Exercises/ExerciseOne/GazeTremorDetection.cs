@@ -79,7 +79,9 @@ namespace Exercises.ExerciseOne {
 
         private void UpdateRayEndPointAndPosition() {
             _currentRayEndPoint = ray.rayEndPoint;
-            _spawnedObject.transform.position = _currentRayEndPoint;
+            if (_spawnedObject) {
+                _spawnedObject.transform.position = _currentRayEndPoint;
+            }
         }
         
         
