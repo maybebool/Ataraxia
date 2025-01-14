@@ -9,18 +9,18 @@ namespace Editor.Components.SettingsPage {
         private VisualElement[] dataSlides;
         private VisualElement[] exercisesSlides;
         
-        private int applicationIndex = 0;
-        private int audioIndex = 0;
-        private int dataIndex = 0;
-        private int exercisesIndex = 0;
+        private int applicationIndex;
+        private int audioIndex;
+        private int dataIndex;
+        private int exercisesIndex;
         
         private VisualElement applicationContainer;
         private VisualElement audioContainer;
         private VisualElement dataContainer;
         private VisualElement exercisesContainer;
         private VisualElement questionButtonContainer;
-        private VisualElement backButtonContainer; // Added
-        private Button backButton; // Added
+        private VisualElement backButtonContainer; 
+        private Button backButton; 
 
         public Instructions() {
             var instructionStyle = Resources.Load<StyleSheet>("Styles/InstructionsMainStyle");
@@ -107,28 +107,23 @@ namespace Editor.Components.SettingsPage {
                     ShowContainer(exercisesContainer, questionButtonContainer);
                     UpdateSlideVisibility(exercisesSlides, exercisesIndex);
                 };
-                
             }
             
             HandleSliderButtonEvents();
         }
 
         private void OnBackButtonClicked() {
-            // Show QuestionButtonContainer, hide others
             if (questionButtonContainer != null) questionButtonContainer.style.display = DisplayStyle.Flex;
             if (applicationContainer != null) applicationContainer.style.display = DisplayStyle.None;
             if (audioContainer != null) audioContainer.style.display = DisplayStyle.None;
             if (dataContainer != null) dataContainer.style.display = DisplayStyle.None;
             if (exercisesContainer != null) exercisesContainer.style.display = DisplayStyle.None;
-            
             if (backButtonContainer != null) backButtonContainer.style.display = DisplayStyle.None;
         }
 
         private void ShowContainer(VisualElement toShow, VisualElement questionButtons) {
             if (toShow != null) toShow.style.display = DisplayStyle.Flex;
             if (questionButtons != null) questionButtons.style.display = DisplayStyle.None;
-        
-            // When we show a container (either application or audio), we want the backButtonContainer visible
             if (backButtonContainer != null) backButtonContainer.style.display = DisplayStyle.Flex;
         }
 
