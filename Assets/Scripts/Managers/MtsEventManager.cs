@@ -1,4 +1,5 @@
-﻿using GameUI;
+﻿using Audio;
+using GameUI;
 using SceneHandling;
 using ScriptableObjects;
 using UnityEngine;
@@ -114,18 +115,17 @@ namespace Managers {
         }
 
         #region Exercise 1 Events
+        private void EnableTenTargetsCollectedHandler() {
+            _onTenTargetsCollectedHandler = () => LoadNewExercise(SceneNames.Exercise2);
+            OnTenTargetsCollected += _onTenTargetsCollectedHandler;
+        }
 
         private void DisableTenTargetsCollected() {
             if (_onTenTargetsCollectedHandler != null) {
                 OnTenTargetsCollected -= _onTenTargetsCollectedHandler;
             }
         }
-
-        private void EnableTenTargetsCollectedHandler() {
-            _onTenTargetsCollectedHandler = () => LoadNewExercise(SceneNames.Exercise2);
-            OnTenTargetsCollected += _onTenTargetsCollectedHandler;
-        }
-
+        
         #endregion
 
         #region Right Hand Bindings
@@ -314,6 +314,7 @@ namespace Managers {
         
         private void LoadNewExercise(SceneNames sceneIndex) {
             SceneLoader.Instance.LoadNewScene(sceneIndex);
+            AudioController.Instance.PlayAudioClip(4, 2);
         }
 
         public void IncrementTargetCount() {
