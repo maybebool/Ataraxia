@@ -8,22 +8,23 @@ namespace Managers {
         
         [Header("Main Prefab & Pool Settings")]
         [SerializeField] private GameObject obstaclePrefab;
+        [SerializeField] private int obstaclePoolSize = 20; 
+        [SerializeField] private int obstacleMaxPoolSize = 100;
+        [SerializeField] private LayerMask collisionLayer; 
+        [SerializeField] private float checkRadius = 1f; 
 
-        [SerializeField] private int obstaclePoolSize = 20; // Default capacity
-        [SerializeField] private int obstacleMaxPoolSize = 100; // Max capacity
-
-        [Header("Price Prefab")] 
+        [Header("Target Prefab & Pool Settings")] 
         [SerializeField] public bool spawnTargetObjects = false;
         [SerializeField] private GameObject targetPrefab;
         [SerializeField] private int targetPoolSize = 10;
         [SerializeField] private int targetMaxPoolSize = 50;
 
-        [Header("Positions")] 
+        [Header("Start Positions & Spawn Area")] 
         [SerializeField] private Vector3 spawnPosition;
-        [SerializeField] private float xRange = 5f;
-        [SerializeField] private float xNoSpawn = 2f;
+        [SerializeField] private float xRange = 4f;
         [SerializeField] private float yRange = 2f;
-        [SerializeField] private float yNoSpawn = 1f;
+        [SerializeField] private float xNoSpawn = 1.5f;
+        [SerializeField] private float yNoSpawn = 3f;
         [SerializeField] private Vector3 endPosition;
 
         [Header("Movement")] 
@@ -39,7 +40,7 @@ namespace Managers {
 
         private void Awake() {
             _obstacleObjectPool = new ObjectPool<GameObject>(
-                createFunc: CreateObject,
+                createFunc: CreateObstacleObject,
                 actionOnGet: OnGetObject,
                 actionOnRelease: OnReleaseObject,
                 actionOnDestroy: Destroy,
@@ -49,7 +50,7 @@ namespace Managers {
             );
 
             _targetObjectPool = new ObjectPool<GameObject>(
-                createFunc: CreateOtherObject,
+                createFunc: CreateTargetObject,
                 actionOnGet: OnGetObject,
                 actionOnRelease: OnReleaseObject,
                 actionOnDestroy: Destroy,
@@ -67,9 +68,9 @@ namespace Managers {
             }
         }
 
-        public void SpawnObjectFromPool() {
+        public void SpawnObstacleObjectFromPool() {
             var obstacle = _obstacleObjectPool.Get();
-            var xy = GetRandomXYWithNoSpawn(xRange, xNoSpawn, yRange, yNoSpawn);
+            var xy = GetRandomXYWithNoSpawnArea(xRange, xNoSpawn, yRange, yNoSpawn);
             var pos = new Vector3(spawnPosition.x + xy.x, spawnPosition.y + xy.y, spawnPosition.z);
             
             obstacle.transform.position = pos;
@@ -80,7 +81,7 @@ namespace Managers {
             if (!spawnTargetObjects) return;
 
             var targetObj = _targetObjectPool.Get();
-            var xy = GetRandomXYWithNoSpawn(xRange, xNoSpawn, yRange, yNoSpawn);
+            var xy = GetRandomXYWithNoSpawnArea(xRange, xNoSpawn, yRange, yNoSpawn);
             var pos = new Vector3(spawnPosition.x + xy.x, spawnPosition.y + xy.y, spawnPosition.z);
             
             targetObj.transform.position = pos;
@@ -95,7 +96,7 @@ namespace Managers {
 
             for (int i = 0; i < objectsList.Count; i++) {
                 var obj = objectsList[i];
-                if (obj == null) continue;
+                if (!obj) continue;
 
                 // Move z
                 var pos = obj.transform.position;
@@ -129,33 +130,32 @@ namespace Managers {
             }
         }
 
-        private Vector2 GetRandomXYWithNoSpawn(float xRange, float xNoSpawn, float yRange, float yNoSpawn)
-        {
+        private Vector2 GetRandomXYWithNoSpawnArea(float xRange, float xNoSpawn, float yRange, float yNoSpawn) {
+            
             const int maxAttempts = 100;
-            for (int i = 0; i < maxAttempts; i++)
-            {
-                float x = Random.Range(-xRange, xRange);
-                float y = Random.Range(-yRange, yRange);
+            var bottom = -yRange;
+            var bottomNoSpawnTop = bottom + yNoSpawn; 
+    
+            for (int i = 0; i < maxAttempts; i++) {
+                var x = Random.Range(-xRange, xRange);
+                var y = Random.Range(-yRange, yRange);
+                var isXInNoSpawn = (Mathf.Abs(x) < xNoSpawn);
+                var isYInBottomNoSpawn = (y >= bottom && y <= bottomNoSpawnTop);
 
-                // Skip if BOTH x and y are within no-spawn 
-                // (i.e. |x| < xNoSpawn && |y| < yNoSpawn)
-                if (Mathf.Abs(x) < xNoSpawn && Mathf.Abs(y) < yNoSpawn)
-                {
-                    // This means we are in the small "no-spawn" rectangle
-                    // so we try again
+                if (isXInNoSpawn && isYInBottomNoSpawn) {
                     continue;
                 }
-
-                // Otherwise, it's valid
+                
+                var spawnPos = transform.position + new Vector3(x, y, 0f);
+                var collidesWithLayer = Physics.CheckSphere(spawnPos, checkRadius, collisionLayer);
+                if (collidesWithLayer) {
+                    continue;
+                }
                 return new Vector2(x, y);
             }
-
-            // Fallback if we never found a valid one
-            return new Vector2(Random.Range(-xRange, xRange),
-                Random.Range(-yRange, yRange));
+            
+            return new Vector2(Random.Range(-xRange, xRange), Random.Range(-yRange, yRange));
         }
-
-        //ObjectPool Delegates
         
         private void RePoolObjects(GameObject obj) {
             if (obj.name.Contains(obstaclePrefab.name)) {
@@ -164,17 +164,16 @@ namespace Managers {
                 _targetObjectPool.Release(obj);
             }
         }
-
-
-        private GameObject CreateObject() {
+        
+        private GameObject CreateObstacleObject() {
             var go = Instantiate(obstaclePrefab);
-            go.name = obstaclePrefab.name + " (Pool)"; // optional rename
+            go.name = obstaclePrefab.name + " (ObstaclePool)"; // optional rename
             return go;
         }
 
-        private GameObject CreateOtherObject() {
+        private GameObject CreateTargetObject() {
             var go = Instantiate(targetPrefab);
-            go.name = targetPrefab.name + " (OtherPool)";
+            go.name = targetPrefab.name + " (TargetPool)";
             return go;
         }
 
@@ -184,17 +183,6 @@ namespace Managers {
 
         private void OnReleaseObject(GameObject obj) {
             obj.SetActive(false);
-        }
-        
-        private void OnDrawGizmos() {
-            Gizmos.color = Color.blue;
-            var totalSize = new Vector3(xRange * 2f, yRange * 2f, 0.1f);
-            var totalCenter = spawnPosition; 
-            Gizmos.DrawWireCube(totalCenter, totalSize);
-            Gizmos.color = Color.red;
-            var noSpawnSize = new Vector3(xNoSpawn * 2f, yNoSpawn * 2f, 0.1f);
-            var noSpawnCenter = spawnPosition;
-            Gizmos.DrawWireCube(noSpawnCenter, noSpawnSize);
         }
     }
 }

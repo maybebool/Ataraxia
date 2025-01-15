@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameUI;
+using Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Audio {
     public class AudioController : Singleton<AudioController> {
@@ -19,33 +19,60 @@ namespace Audio {
                 audioMixerProfileSo.SetProfile(audioMixerProfileSo);
             }
         }
+        
+        private void OnEnable() {
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnMainMenuLoaded += HandleMainMenuLoaded;
+                MtsEventManager.Instance.OnExercise1 += HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise2 += HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise3 += HandleExerciseAudio;
+            }
+        }
+
+        private void OnDisable() {
+            if (MtsEventManager.Instance != null) {
+                MtsEventManager.Instance.OnMainMenuLoaded -= HandleMainMenuLoaded;
+                MtsEventManager.Instance.OnExercise1 -= HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise2 -= HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise3 -= HandleExerciseAudio;
+            }
+        }
 
         private void Start() {
             if (Settings.profile && Settings.profile.audioMixer != null) {
                 Settings.profile.GetAudioLevels();
-                CheckAndProcessMainMenuAudio();
-                BindClipsInMixerGroupToAudioSource(groupIndex);
                 BackgroundMusic(0);
             }
         }
+        
+        private void HandleMainMenuLoaded() {
+            BindClipsInMixerGroupToAudioSource(1);
+        }
 
-        void CheckAndProcessMainMenuAudio() {
-            if (SceneManager.GetActiveScene().name == nameof(SceneNames.MainMenu)) {
-                BindClipsInMixerGroupToAudioSource(1);
-            }
+        private void HandleExerciseAudio() {
+            BindClipsInMixerGroupToAudioSource(2);
         }
 
         private void BindClipsInMixerGroupToAudioSource(int index) {
+            if (_audioSourcesByGroup.TryGetValue(index, out var oldSources)) {
+                foreach (var audioSource in oldSources) {
+                    if (audioSource != null) {
+                        Destroy(audioSource);
+                    }
+                }
+                _audioSourcesByGroup[index].Clear();
+            }
+            
             if (audioMixerProfileSo == null || audioMixerProfileSo.audioClipGroups == null) {
                 Debug.LogError("AudioController is not assigned or has no audioClipGroups");
                 return;
             }
-
+            
             if (index < 0 || index >= audioMixerProfileSo.audioClipGroups.Count) {
                 Debug.LogError("Index out of range");
                 return;
             }
-
+            
             var group = audioMixerProfileSo.audioClipGroups[index];
             var groupAudioSources = new List<AudioSource>();
 
@@ -59,6 +86,7 @@ namespace Audio {
                 _audioSources.Add(source);
                 groupAudioSources.Add(source);
             }
+            
             _audioSourcesByGroup[index] = groupAudioSources;
         }
 
@@ -118,14 +146,12 @@ namespace Audio {
         }
 
         public void PlayAudioClip(int index, int mixerIndex) {
-            if (!_audioSourcesByGroup.ContainsKey(mixerIndex)) {
+            if (!_audioSourcesByGroup.TryGetValue(mixerIndex, out var groupAudioSources)) {
                 Debug.LogError(
                     $"Mixer group index {mixerIndex} not found. Make sure to process the mixer group before playing clips.");
                 return;
             }
 
-            var groupAudioSources = _audioSourcesByGroup[mixerIndex];
-            
             if (index >= 0 && index < groupAudioSources.Count) {
                 groupAudioSources[index].Play();
             }

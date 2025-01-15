@@ -17,6 +17,8 @@ MonoBehaviour:
   isHeadCollectingData: 0
   isRightLegCollectingData: 0
   isLeftLegCollectingData: 0
+  isRightFingerToneCollectingData: 0
+  isLeftFingerToneCollectingData: 0
   tremorIntensityRightHand: 0
   rightHandCurrentPos: {x: -0.1293374, y: 2.0272956, z: 3.77}
   rightHandDegree: 40.690147
@@ -47,7 +49,11 @@ MonoBehaviour:
   leftLegIntensityMultiplier: 0.03
   leftLegOscillationThreshold: 110
   leftLegTremorImportanceWeight: 1
+  rightPlayerObjectHeight: 0
+  leftPlayerObjectHeight: 0
   targetObjectCurrentHeight: 1.139547
+  outerThresholdOffset: 1
+  innerThresholdOffset: 0.6
   targetObjectOuterHeightThresholdTop: 0
   targetObjectOuterHeightThresholdFloor: 0
   targetObjectInnerHeightThresholdTop: 0

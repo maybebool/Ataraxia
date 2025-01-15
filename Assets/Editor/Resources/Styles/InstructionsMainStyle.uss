@@ -19,7 +19,7 @@ VisualElement {
     -unity-font: resource('Fonts/Roboto-Regular');
     color: rgb(234, 234, 234);
     background-color: rgba(255, 255, 255, 0);
-    border-color: rgb(234, 234, 234);
+    border-color: pink;
     border-radius: 20px;
     border-width: 2px;
     padding-left: 10px;
@@ -28,8 +28,8 @@ VisualElement {
 }
 
 .QuestionButton:hover {
-    color: rgb(0, 16, 0);
-    background-color: rgb(255, 255, 255);
+    color: midnightblue;
+    background-color: antiquewhite;
 }
 
 .slide-button {

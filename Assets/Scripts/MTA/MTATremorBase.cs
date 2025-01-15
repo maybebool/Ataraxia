@@ -33,8 +33,8 @@ namespace MTA {
         private Vector3 tangentCircleScale;
         private Coroutine dataCollectionCoroutine;
 
-        [Tooltip("Extra time window to validate repeated threshold passes.")] [SerializeField]
-        private float timeThreshold = 0.2f;
+        [Tooltip("Extra time window to validate repeated threshold passes.")]
+        [SerializeField] private float timeThreshold = 0.2f;
 
         [Tooltip("If the position change is below this threshold, we skip tremor calculations.")]
         public float positionChangeThreshold = 0.01f;
@@ -53,7 +53,7 @@ namespace MTA {
         protected abstract float TremorIntensity { get; set; }
         protected abstract bool IsCollectingData { get; set; }
         protected abstract float IntensityMultiplier { get; set; }
-        protected abstract float OscillationThreshold { get; set; }
+        protected abstract int OscillationThreshold { get; set; }
 
         protected virtual void Start() {
             lastUpdateTime = Time.time;
@@ -169,7 +169,6 @@ namespace MTA {
                 }
             }
             
-
             if (hasSurpassedThresholdFirstTime &&
                 (currentTime - firstSurpassTimestamp > timeThreshold)) {
                 hasSurpassedThresholdFirstTime = false;
