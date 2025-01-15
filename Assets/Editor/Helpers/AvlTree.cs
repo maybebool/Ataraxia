@@ -184,6 +184,7 @@ namespace Editor.Helpers {
         
         /// <summary>
         /// Balances the given node in the AVL tree, ensuring the balance factor is within the allowable range.
+        /// standard range +1 or -1
         /// </summary>
         /// <param name="node">The node to balance.</param>
         /// <returns>The balanced node, potentially with its subtree structure adjusted.</returns>
