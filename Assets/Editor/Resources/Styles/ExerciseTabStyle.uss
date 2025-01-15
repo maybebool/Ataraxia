@@ -11,6 +11,13 @@ VisualElement {}
     
 }
 
+#TextLabel{
+    font-size: 14;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
 #unity-drag-container{
     width: 100%;
     border-width: 0;

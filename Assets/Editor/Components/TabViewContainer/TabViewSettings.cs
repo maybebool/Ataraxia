@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using AudioSettings = Editor.Components.SettingsPage.AudioSettings;
 
-
 namespace Editor.Components.TabViewContainer {
     public class TabViewSettings : TabView {
         public TabViewSettings() {
@@ -20,6 +19,7 @@ namespace Editor.Components.TabViewContainer {
             var vETabContainer = this.Q<VisualElement>("unity-tab-view__content-container");
             vETabContainer?.Add(CreateAudioSettingsTab());
             vETabContainer?.Add(CreateTutorialTab());
+            vETabContainer?.Add(CreateParametersSettingsTab());
         }
 
         private TabElement CreateAudioSettingsTab() {
@@ -30,6 +30,16 @@ namespace Editor.Components.TabViewContainer {
             var audioSettings = new AudioSettings();
             audioTab.Add(audioSettings); 
             return audioTab;
+        }
+        
+        private TabElement CreateParametersSettingsTab() {
+            var parametersTab = new TabElement {
+                name = "parameterTab",
+                label = "Parameters"
+            };
+            var parametersSettings = new ParameterSettings();
+            parametersTab.Add(parametersSettings); 
+            return parametersTab;
         }
         
         private TabElement CreateTutorialTab() {

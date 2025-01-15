@@ -14,9 +14,9 @@ namespace Exercises.ExerciseThree {
         [SerializeField] private float[] targetHeights = { 0.7f, 1f, 1.5f, 0.9f, 2f, 1.1f, 4.2f };
         [SerializeField] private float interpolationSpeed = 1.5f;
 
-        [Header("Threshold Offsets")]
-        [SerializeField] private float outerThresholdOffset = 1f;
-        [SerializeField] private float innerThresholdOffset = 0.6f;
+        // [Header("Threshold Offsets")]
+        // [SerializeField] private float outerThresholdOffset = 1f;
+        // [SerializeField] private float innerThresholdOffset = 0.6f;
 
         private int _currentIndex;
         private float _currentTargetY;
@@ -46,12 +46,12 @@ namespace Exercises.ExerciseThree {
             heightData.targetObjectCurrentHeight = newY;
 
             // Outer Thresholds
-            heightData.targetObjectOuterHeightThresholdTop = newY + outerThresholdOffset;
-            heightData.targetObjectOuterHeightThresholdFloor = newY - outerThresholdOffset;
+            heightData.targetObjectOuterHeightThresholdTop = newY + heightData.outerThresholdOffset;
+            heightData.targetObjectOuterHeightThresholdFloor = newY - heightData.outerThresholdOffset;
 
             // Inner Thresholds
-            heightData.targetObjectInnerHeightThresholdTop = newY + innerThresholdOffset;
-            heightData.targetObjectInnerHeightThresholdFloor = newY - innerThresholdOffset;
+            heightData.targetObjectInnerHeightThresholdTop = newY + heightData.innerThresholdOffset;
+            heightData.targetObjectInnerHeightThresholdFloor = newY - heightData.innerThresholdOffset;
 
             // Check if we're close enough to the target; if so, pick the next one
             if (Mathf.Abs(newY - _currentTargetY) < 0.01f) {

@@ -7,17 +7,24 @@ VisualElement {}
     padding: 30px;
     justify-content: flex-start;
     align-self: flex-start ;
-    /*margin: 2% 3% 3%;*/
+}
+
+.title-label{
+    align-self: flex-start;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.subtitle-label{
+    align-self: flex-start;
+    margin-bottom: 8px;
 }
 
 .main-circle-container{
     width: 150px;
     height: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* Show or hide as needed */
     overflow: visible;
 }

@@ -4,36 +4,20 @@
         <engine:VisualElement name="ImageContainer" style="flex-grow: 1; height: 50%; width: 20%; align-items: auto; align-self: center; margin-right: 60px; background-image: url(&quot;project://database/Assets/Images/Logo/LogoWithFont.png?fileID=2800000&amp;guid=901d259efcbd8d24ea501810ee6c0ebf&amp;type=3#LogoWithFont&quot;); -unity-background-scale-mode: scale-to-fit; margin-left: 20px;" />
         <engine:VisualElement name="MainAudioContainer" class="main-audio-container" style="flex-grow: 1; width: 80%; height: 100%; justify-content: flex-start;">
             <engine:VisualElement name="AudioSettingsGrid" style="flex-grow: 1; flex-direction: row;">
-                <engine:VisualElement name="VolumeSettingsContainer" style="flex-grow: 1; height: 100%; align-content: flex-start; align-self: flex-start; align-items: stretch;">
-                    <engine:Toggle label="Audio On/Off" name="AudioToggle" style="margin-left: 0;" />
-                    <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
-                        <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
-                            <engine:Label text="Overall&#10;" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
-                            <engine:Label text="100" name="OverallValue" />
-                        </engine:VisualElement>
-                        <engine:Slider value="42" high-value="1" name="OverallSlider" />
-                    </engine:VisualElement>
-                    <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
-                        <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
-                            <engine:Label text="Music" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
-                            <engine:Label text="100" name="MusicValue" class="music-value" />
-                        </engine:VisualElement>
-                        <engine:Slider value="1" high-value="1" name="MusicSlider" />
-                    </engine:VisualElement>
-                    <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
-                        <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
-                            <engine:Label text="UI SFX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
-                            <engine:Label text="100" name="UISFXValue" />
-                        </engine:VisualElement>
-                        <engine:Slider value="42" high-value="1" name="UISFXSlider" />
-                    </engine:VisualElement>
-                    <engine:VisualElement name="AudioVolumeCatergoryContainer" style="flex-grow: 1; height: 5%; margin-top: 10px; margin-bottom: 60px;">
-                        <engine:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: auto;">
-                            <engine:Label text="Game SFX" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-bottom: 0;" />
-                            <engine:Label text="100" name="GameSFXValue" />
-                        </engine:VisualElement>
-                        <engine:Slider value="42" high-value="1" name="GameSFXSlider" />
-                    </engine:VisualElement>
+                <engine:VisualElement name="VolumeSettingsContainer" style="flex-grow: 1; height: 100%; align-content: flex-start; align-self: auto; align-items: stretch; justify-content: center;">
+                    <engine:Toggle label="Audio On/Off" name="AudioToggle" style="margin-left: 0; margin-bottom: 15px; margin-top: 0; margin-right: 0;" />
+                    <engine:Slider value="42" high-value="1" name="OverallSlider" label="Overall" style="margin-right: 0; margin-top: 15px; margin-bottom: 15px; margin-left: 0;">
+                        <engine:Label text="100" name="OverallValue" style="min-width: 4%; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right; max-width: none;" />
+                    </engine:Slider>
+                    <engine:Slider value="1" high-value="1" name="MusicSlider" label="Music" style="-unity-text-align: upper-left; margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;">
+                        <engine:Label text="100" name="MusicValue" class="music-value" style="-unity-text-align: upper-right; min-width: 4%; align-self: flex-end;" />
+                    </engine:Slider>
+                    <engine:Slider value="42" high-value="1" name="UISFXSlider" label="UI SFX" style="margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;">
+                        <engine:Label text="100" name="UISFXValue" style="min-width: 4%; -unity-text-align: upper-right; align-self: flex-end;" />
+                    </engine:Slider>
+                    <engine:Slider value="42" high-value="1" name="GameSFXSlider" label="Game SFX" style="margin-top: 15px; margin-right: 0; margin-bottom: 15px; margin-left: 0;">
+                        <engine:Label text="100" name="GameSFXValue" style="-unity-text-align: upper-right; min-width: 4%; align-self: flex-end;" />
+                    </engine:Slider>
                 </engine:VisualElement>
                 <engine:VisualElement name="MusicButtonContainer" class="button-container-songs" style="flex-grow: 1; margin-left: 10%; margin-right: 0; align-self: center; justify-content: space-between; align-content: center; margin-top: 0; margin-bottom: 0;">
                     <engine:Button text="Song 1" name="Song1Button" class="unity-button-custom" style="background-image: resource(&apos;Images/ButtonBackground&apos;); -unity-background-scale-mode: scale-and-crop; background-color: rgba(255, 255, 255, 0); margin-top: 10px; margin-right: 0; margin-bottom: 10px; margin-left: 0; color: rgb(234, 234, 234); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />

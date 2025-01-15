@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Editor.Components.Buttons;
 using Editor.Components.CenterRowContainer;
-using Editor.Components.Graphs;
 using Editor.Components.TabViewContainer;
 using ScriptableObjects;
-using Editor.Helpers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,8 +18,8 @@ namespace Editor.AtaraxiaWindow {
         private Dictionary<Button, VisualElement> _buttonToUIElementMap = new();
         private double _nextUpdateTime = 0f;
         private double _nextUpdateTimeLineGraph = 0f;
-        private float _updateIntervalInSeconds = 1f; 
-        private float _updateIntervalInSecondsLineGraph = 1f; 
+        private float _updateIntervalInSeconds = .3f; 
+        private float _updateIntervalInSecondsLineGraph = 0.3f; 
         private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
@@ -50,20 +48,10 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabViewExercises);
             rootVisualElement.Add(tabViewSettings);
             rootVisualElement.Add(tabDataGraphs);
-            
-            // Create a container for the save button
-            var buttonContainer = new VisualElement();
-            buttonContainer.style.flexDirection = FlexDirection.Row;
-            buttonContainer.style.justifyContent = Justify.Center;
-            buttonContainer.style.marginTop = 10;
 
-            // Create the Save button
-            var saveButton = new DefaultButton("Save Results");
+            var saveButton = tabDataGraphs.Q<DefaultButton>("SaveButton");
             saveButton.clicked += OnSaveButtonClicked;
-            buttonContainer.Add(saveButton);
-            tabDataGraphs.Add(buttonContainer);
-
-            // rootVisualElement.Add(graphsContainer);
+            
             _buttonToUIElementMap.Add(sceneManagerBtn, tabViewExercises);
             _buttonToUIElementMap.Add(dataViewBnt, tabDataGraphs);
             _buttonToUIElementMap.Add(settingsBnt, tabViewSettings);
@@ -132,21 +120,33 @@ namespace Editor.AtaraxiaWindow {
             if (scObData.isRightHandCollectingData) {
                 _dataGraphTab.BoxPlot1.AddDataPoint(scObData.tremorIntensityRightHand);
             }
-
             if (scObData.isLeftHandCollectingData) {
                 _dataGraphTab.BoxPlot2.AddDataPoint(scObData.tremorIntensityLeftHand);
             }
-
             if (scObData.isHeadCollectingData) {
                 _dataGraphTab.BoxPlot3.AddDataPoint(scObData.tremorIntensityHead);
             }
-
             if (scObData.isRightLegCollectingData) {
                 _dataGraphTab.BoxPlot4.AddDataPoint(scObData.tremorIntensityRightLeg);
             }
-
             if (scObData.isLeftLegCollectingData) {
                 _dataGraphTab.BoxPlot5.AddDataPoint(scObData.tremorIntensityLeftLeg);
+            }
+            if (scObData.isRightFingerToneCollectingData) {
+                _dataGraphTab.CircleGraphRightHand.UpdateCircleThresholds(
+                    scObData.targetObjectOuterHeightThresholdTop,
+                    scObData.targetObjectOuterHeightThresholdFloor,
+                    scObData.targetObjectInnerHeightThresholdTop,
+                    scObData.targetObjectInnerHeightThresholdFloor,
+                    scObData.rightPlayerObjectHeight);
+            }
+            if (scObData.isLeftFingerToneCollectingData) {
+                _dataGraphTab.CircleGraphLeftHand.UpdateCircleThresholds(
+                    scObData.targetObjectOuterHeightThresholdTop,
+                    scObData.targetObjectOuterHeightThresholdFloor,
+                    scObData.targetObjectInnerHeightThresholdTop,
+                    scObData.targetObjectInnerHeightThresholdFloor,
+                    scObData.leftPlayerObjectHeight);
             }
         }
 
@@ -155,12 +155,20 @@ namespace Editor.AtaraxiaWindow {
                     scObData.tremorIntensityRightHand,
                     scObData.tremorIntensityLeftHand,
                     scObData.tremorIntensityHead,
+                    scObData.tremorIntensityRightLeg,
+                    scObData.tremorIntensityLeftLeg,
+                    
                 scObData.isRightHandCollectingData,
                 scObData.isLeftHandCollectingData,
                 scObData.isHeadCollectingData,
+                    scObData.isRightLegCollectingData,
+                    scObData.isLeftLegCollectingData,
+                    
                     scObData.rightHandTremorImportanceWeight,
                     scObData.leftHandTremorImportanceWeight,
-                    scObData.headTremorImportanceWeight);
+                    scObData.headTremorImportanceWeight,
+                    scObData.rightLegTremorImportanceWeight,
+                    scObData.leftLegTremorImportanceWeight);
             
             _dataGraphTab.LineChart.UpdateChartDisplay();
         }

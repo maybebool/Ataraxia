@@ -36,7 +36,7 @@ namespace MTA {
             set => scO.rightLegIntensityMultiplier = value;
         }
         
-        protected override float OscillationThreshold {
+        protected override int OscillationThreshold {
             get => scO.rightLegOscillationThreshold;
             set => scO.rightLegOscillationThreshold = value;
         }
