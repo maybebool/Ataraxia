@@ -83,7 +83,6 @@ namespace Exercises.ExerciseOne {
             }
         }
         
-        
         private void OnHeadActionActivated() {
             StartDataCollection();
         }
