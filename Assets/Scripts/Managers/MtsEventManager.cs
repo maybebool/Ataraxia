@@ -1,6 +1,8 @@
-﻿using ScriptableObjects;
+﻿using GameUI;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
@@ -59,12 +61,21 @@ namespace Managers {
         
 
         #endregion
+        
+        
+        public delegate void MainMenuLoadedAction();
+        public event MainMenuLoadedAction OnMainMenuLoaded;
+
+        public delegate void ExercisesLoadedAction();
+        public event ExercisesLoadedAction OnExerciseLoaded;
+        
 
         private void Awake() {
             _inputActions = new XRIDefaultInputActions();
         }
 
         private void OnEnable() {
+            SceneManager.sceneLoaded += OnSceneLoaded;
             EnableRightHandEvents();
             EnableLeftHandEvents();
             EnableHeadEvents();
@@ -75,6 +86,7 @@ namespace Managers {
         }
 
         private void OnDisable() {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
             DisableRightHandEvents();
             DisableLeftHandEvents();
             DisableHeadEvents();
@@ -82,6 +94,20 @@ namespace Managers {
             DisableLeftLegEvents();
             DisableRightHandFingerEvents();
             DisableLeftHandFingerEvents();
+        }
+        
+        
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            switch (scene.name) {
+                case nameof(SceneNames.MainMenu):
+                    OnMainMenuLoaded?.Invoke();
+                    break;
+                case nameof(SceneNames.Exercise1):
+                case nameof(SceneNames.Exercise2):
+                case nameof(SceneNames.Exercise3):
+                    OnExerciseLoaded?.Invoke();
+                    break;
+            }
         }
 
         #region Right Hand Bindings

@@ -38,16 +38,16 @@ namespace GameUI {
         }
         
         private void OnEnable() {
-            UIUtil.CallMultipleActions(startExercisesButton, ()=>OnClickStartASceneButton(SceneNames.Exercise1), ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(mainButtonHome,OnClickStartPanel, ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(mainButtonTutorials,OnClickTutorialPanel, ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(mainButtonSettings,OnClickSettingsPanel, ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(saveChangesButton,OnClickSaveSettings, ()=>OnClickUIButton(2));
-            UIUtil.CallMultipleActions(defaultAudioSettingsButton,OnClickDefaultSettings, ()=>OnClickUIButton(2));
+            UIUtil.CallMultipleActions(startExercisesButton, ()=>OnClickStartASceneButton(SceneNames.Exercise1), ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(song1Button,()=>OnClickSongButton(0), ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(song2Button,()=>OnClickSongButton(1), ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(song3Button,()=>OnClickSongButton(2), ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(song4Button,()=>OnClickSongButton(3), ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(mainButtonHome,OnClickStartPanel, ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(mainButtonTutorials,OnClickTutorialPanel, ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(mainButtonSettings,OnClickSettingsPanel, ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(saveChangesButton,OnClickSaveSettings, ()=>OnClickUIButton(0));
+            UIUtil.CallMultipleActions(defaultAudioSettingsButton,OnClickDefaultSettings, ()=>OnClickUIButton(0));
         }
 
         private void OnDisable() {

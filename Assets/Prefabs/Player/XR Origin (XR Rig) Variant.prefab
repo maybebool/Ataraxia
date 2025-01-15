@@ -648,9 +648,10 @@ MonoBehaviour:
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   detector: {fileID: 0}
   speedThreshold: 100
-  oscillationThreshold: 140
   tremorDecayRate: 5
   lastUpdateTime: 0
+  timeThreshold: 0.2
+  positionChangeThreshold: 0.01
   ray: {fileID: 5325191165000099787}
 --- !u!114 &5325191165000099787 stripped
 MonoBehaviour:
@@ -928,7 +929,8 @@ MonoBehaviour:
   scO: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
   detector: {fileID: 0}
   speedThreshold: 100
-  oscillationThreshold: 140
   tremorDecayRate: 5
   lastUpdateTime: 0
+  timeThreshold: 0.2
+  positionChangeThreshold: 0.01
   ray: {fileID: 773396779529821009}

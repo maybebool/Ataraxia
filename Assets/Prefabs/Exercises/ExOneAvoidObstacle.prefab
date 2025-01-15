@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5224857541892868084}
   - component: {fileID: 5178376791955688857}
   - component: {fileID: 6241654838175484161}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExOneAvoidObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
