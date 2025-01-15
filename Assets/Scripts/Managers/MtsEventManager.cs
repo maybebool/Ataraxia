@@ -66,9 +66,14 @@ namespace Managers {
         public delegate void MainMenuLoadedAction();
         public event MainMenuLoadedAction OnMainMenuLoaded;
 
-        public delegate void ExercisesLoadedAction();
-        public event ExercisesLoadedAction OnExerciseLoaded;
-        
+        public delegate void SceneOnExercise1Action();
+        public event SceneOnExercise1Action OnExercise1;
+
+        public delegate void SceneOnExercise2Action();
+        public event SceneOnExercise2Action OnExercise2;
+
+        public delegate void SceneOnExercise3Action();
+        public event SceneOnExercise3Action OnExercise3;
 
         private void Awake() {
             _inputActions = new XRIDefaultInputActions();
@@ -103,9 +108,13 @@ namespace Managers {
                     OnMainMenuLoaded?.Invoke();
                     break;
                 case nameof(SceneNames.Exercise1):
+                    OnExercise1?.Invoke();
+                    break;
                 case nameof(SceneNames.Exercise2):
+                    OnExercise2?.Invoke();
+                    break;
                 case nameof(SceneNames.Exercise3):
-                    OnExerciseLoaded?.Invoke();
+                    OnExercise3?.Invoke();
                     break;
             }
         }

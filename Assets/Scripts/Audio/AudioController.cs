@@ -22,15 +22,19 @@ namespace Audio {
         
         private void OnEnable() {
             if (MtsEventManager.Instance != null) {
-                MtsEventManager.Instance.OnMainMenuLoaded += HandleMainMenuAudio;
-                MtsEventManager.Instance.OnExerciseLoaded += HandleExerciseAudio;
+                MtsEventManager.Instance.OnMainMenuLoaded += HandleMainMenuLoaded;
+                MtsEventManager.Instance.OnExercise1 += HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise2 += HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise3 += HandleExerciseAudio;
             }
         }
 
         private void OnDisable() {
             if (MtsEventManager.Instance != null) {
-                MtsEventManager.Instance.OnMainMenuLoaded -= HandleMainMenuAudio;
-                MtsEventManager.Instance.OnExerciseLoaded -= HandleExerciseAudio;
+                MtsEventManager.Instance.OnMainMenuLoaded -= HandleMainMenuLoaded;
+                MtsEventManager.Instance.OnExercise1 -= HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise2 -= HandleExerciseAudio;
+                MtsEventManager.Instance.OnExercise3 -= HandleExerciseAudio;
             }
         }
 
@@ -41,7 +45,7 @@ namespace Audio {
             }
         }
         
-        private void HandleMainMenuAudio() {
+        private void HandleMainMenuLoaded() {
             BindClipsInMixerGroupToAudioSource(1);
         }
 
