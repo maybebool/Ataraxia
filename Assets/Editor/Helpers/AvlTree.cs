@@ -89,7 +89,7 @@ namespace Editor.Helpers {
         public float GetQuantile(float q) {
             if (_root == null || Count == 0) return 0f;
             //  0-based rank, so rank = floor(q * (Count - 1))
-            int rank = Mathf.FloorToInt(q * (Count - 1));
+            var rank = Mathf.FloorToInt(q * (Count - 1));
             return GetByRank(_root, rank);
         }
 
@@ -138,10 +138,8 @@ namespace Editor.Helpers {
                 node.Right = Remove(node.Right, value, out removed);
             }
 
-            if (node != null) {
-                UpdateNode(node);
-                node = Balance(node);
-            }
+            UpdateNode(node);
+            node = Balance(node);
 
             return node;
         }
@@ -165,16 +163,12 @@ namespace Editor.Helpers {
         private float GetByRank(Node node, int rank) {
             if (node == null) return 0f;
 
-            int leftSize = SizeOf(node.Left);
+            var leftSize = SizeOf(node.Left);
             if (rank < leftSize) {
                 return GetByRank(node.Left, rank);
             }
-            else if (rank == leftSize) {
-                return node.Value;
-            }
-            else {
-                return GetByRank(node.Right, rank - leftSize - 1);
-            }
+
+            return rank == leftSize ? node.Value : GetByRank(node.Right, rank - leftSize - 1);
         }
 
 
@@ -196,25 +190,29 @@ namespace Editor.Helpers {
         private Node Balance(Node node) {
             var balanceFactor = HeightOf(node.Left) - HeightOf(node.Right);
 
-            // Left heavy
-            if (balanceFactor > 1) {
-                // If left subtree is right heavy, rotate left first
-                if (HeightOf(node.Left.Right) > HeightOf(node.Left.Left)) {
-                    node.Left = RotateLeft(node.Left);
-                    UpdateNode(node.Left);
-                }
+            switch (balanceFactor) {
+                // Left heavy
+                case > 1: {
+                    // If left subtree is right heavy, rotate left first
+                    if (HeightOf(node.Left.Right) > HeightOf(node.Left.Left)) {
+                        node.Left = RotateLeft(node.Left);
+                        UpdateNode(node.Left);
+                    }
 
-                node = RotateRight(node);
-            }
-            // Right heavy
-            else if (balanceFactor < -1) {
-                // If right subtree is left heavy, rotate right first
-                if (HeightOf(node.Right.Left) > HeightOf(node.Right.Right)) {
-                    node.Right = RotateRight(node.Right);
-                    UpdateNode(node.Right);
+                    node = RotateRight(node);
+                    break;
                 }
+                // Right heavy
+                case < -1: {
+                    // If right subtree is left heavy, rotate right first
+                    if (HeightOf(node.Right.Left) > HeightOf(node.Right.Right)) {
+                        node.Right = RotateRight(node.Right);
+                        UpdateNode(node.Right);
+                    }
 
-                node = RotateLeft(node);
+                    node = RotateLeft(node);
+                    break;
+                }
             }
 
             UpdateNode(node);
