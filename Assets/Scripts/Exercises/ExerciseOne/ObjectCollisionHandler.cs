@@ -5,7 +5,7 @@ namespace Exercises.ExerciseOne {
     public class ObjectCollisionHandler : MonoBehaviour {
         
         [Header("Audio Clip Settings")]
-        [SerializeField] private int obstacleAudioClipIndex = 0;
+        [SerializeField] private int obstacleAudioClipIndex = 1;
         [SerializeField] private int obstacleMixerIndex = 1; 
         [SerializeField] private int targetAudioClipIndex = 1;
         [SerializeField] private int targetMixerIndex = 1;
