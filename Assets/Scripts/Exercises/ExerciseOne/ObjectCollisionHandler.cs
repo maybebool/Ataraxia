@@ -14,7 +14,6 @@ namespace Exercises.ExerciseOne {
         [SerializeField] private int obstacleLayerIndex = 7; 
         [SerializeField] private int targetLayerIndex = 8;
         
-        
         private void OnTriggerEnter(Collider other) {
             CheckCollision(other.gameObject);
         }

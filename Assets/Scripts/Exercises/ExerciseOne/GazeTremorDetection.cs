@@ -44,13 +44,10 @@ namespace Exercises.ExerciseOne {
         protected override int OscillationThreshold {
             get => scO.headOscillationThreshold;
             set => scO.headOscillationThreshold = value;
-            
         }
 
         protected override void Start() {
             lastUpdateTime = Time.time;
-            _spawnedObject = Instantiate(objectToSpawn, _currentRayEndPoint, Quaternion.identity);
-            UpdateRayEndPointAndPosition();
         }
 
         protected override void OnEnable() {
@@ -59,6 +56,8 @@ namespace Exercises.ExerciseOne {
                 MtsEventManager.Instance.OnHeadActionActivated += OnHeadActionActivated;
                 MtsEventManager.Instance.OnHeadActionDeactivated += OnHeadActionDeactivated;
             }
+            _spawnedObject = Instantiate(objectToSpawn, _currentRayEndPoint, Quaternion.identity);
+            UpdateRayEndPointAndPosition();
         }
 
         protected override void OnDisable() {
