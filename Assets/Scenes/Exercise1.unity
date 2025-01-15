@@ -708,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DetectionWall
       objectReference: {fileID: 0}
+    - target: {fileID: 3014747299106331451, guid: a67c8db2649bb0e4a9085cad8887bf84, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

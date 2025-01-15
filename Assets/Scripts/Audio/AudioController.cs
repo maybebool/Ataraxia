@@ -118,14 +118,12 @@ namespace Audio {
         }
 
         public void PlayAudioClip(int index, int mixerIndex) {
-            if (!_audioSourcesByGroup.ContainsKey(mixerIndex)) {
+            if (!_audioSourcesByGroup.TryGetValue(mixerIndex, out var groupAudioSources)) {
                 Debug.LogError(
                     $"Mixer group index {mixerIndex} not found. Make sure to process the mixer group before playing clips.");
                 return;
             }
 
-            var groupAudioSources = _audioSourcesByGroup[mixerIndex];
-            
             if (index >= 0 && index < groupAudioSources.Count) {
                 groupAudioSources[index].Play();
             }

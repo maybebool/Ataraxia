@@ -1,7 +1,7 @@
 ﻿using Managers;
 using UnityEngine;
 
-namespace Exercises.Controllers {
+namespace Exercises.ExerciseOne {
     public class ObjectSpawnController : MonoBehaviour {
         
         [SerializeField] private ObjectPoolManager poolManager;
