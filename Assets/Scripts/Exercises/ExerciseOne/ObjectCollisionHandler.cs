@@ -1,4 +1,5 @@
 using Audio;
+using Managers;
 using UnityEngine;
 
 namespace Exercises.ExerciseOne {
@@ -7,7 +8,7 @@ namespace Exercises.ExerciseOne {
         [Header("Audio Clip Settings")]
         [SerializeField] private int obstacleAudioClipIndex = 4;
         [SerializeField] private int targetAudioClipIndex = 5;
-        [SerializeField] private int mixerIndex = 1; 
+        [SerializeField] private int mixerIndex = 2; 
         
         [Header("Layer Indices")]
         [SerializeField] private int obstacleLayerIndex = 7; 
@@ -22,13 +23,14 @@ namespace Exercises.ExerciseOne {
             var collidedLayer = collidedObject.layer;
             if (collidedLayer == obstacleLayerIndex) {
                 AudioController.Instance.PlayAudioClip(obstacleAudioClipIndex, mixerIndex);
-                Debug.Log("Collision with object");
             }
             
             else if (collidedLayer == targetLayerIndex) {
                 collidedObject.SetActive(false);
                 AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
-                Debug.Log("Collision with target");
+                if (MtsEventManager.Instance != null) {
+                    MtsEventManager.Instance.IncrementTargetCount();
+                }
             }
         }
     }

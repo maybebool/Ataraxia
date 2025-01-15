@@ -14,11 +14,10 @@ namespace Exercises.ExerciseOne {
         private void Update() {
             // Spawn main obstacles
             if (Time.time >= _nextObstacleSpawnTime) {
-                poolManager.SpawnObjectFromPool(); // main obstacles
+                poolManager.SpawnObstacleObjectFromPool(); // main obstacles
                 _nextObstacleSpawnTime = Time.time + spawnInterval;
             }
-
-            // If we want target objects (the manager checks a bool), spawn them at intervals
+            
             if (poolManager.spawnTargetObjects) {
                 if (Time.time >= _nextTargetSpawnTime) {
                     poolManager.SpawnTargetObjectFromPool(); // second prefab

@@ -1,4 +1,5 @@
 ﻿using GameUI;
+using SceneHandling;
 using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,8 +10,10 @@ namespace Managers {
         
         [SerializeField] private DataContainer dataContainer;
         private XRIDefaultInputActions _inputActions;
+        private int _collectedTargetsCount = 0;
+        
 
-        #region Delegates/Events
+        #region MTA Events
 
         // Right Hand
         public delegate void RightHandMotionTrackingAction();
@@ -61,19 +64,25 @@ namespace Managers {
         
 
         #endregion
-        
-        
+
+        #region Scene Events
         public delegate void MainMenuLoadedAction();
         public event MainMenuLoadedAction OnMainMenuLoaded;
 
         public delegate void SceneOnExercise1Action();
         public event SceneOnExercise1Action OnExercise1;
+        public delegate void TenTargetsCollectedAction();
+        public event TenTargetsCollectedAction OnTenTargetsCollected;
+        private TenTargetsCollectedAction _onTenTargetsCollectedHandler;
 
         public delegate void SceneOnExercise2Action();
         public event SceneOnExercise2Action OnExercise2;
 
         public delegate void SceneOnExercise3Action();
         public event SceneOnExercise3Action OnExercise3;
+        
+
+        #endregion
 
         private void Awake() {
             _inputActions = new XRIDefaultInputActions();
@@ -81,6 +90,7 @@ namespace Managers {
 
         private void OnEnable() {
             SceneManager.sceneLoaded += OnSceneLoaded;
+            EnableTenTargetsCollectedHandler();
             EnableRightHandEvents();
             EnableLeftHandEvents();
             EnableHeadEvents();
@@ -90,8 +100,10 @@ namespace Managers {
             EnableLeftHandFingerEvents();
         }
 
+
         private void OnDisable() {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            DisableTenTargetsCollected();
             DisableRightHandEvents();
             DisableLeftHandEvents();
             DisableHeadEvents();
@@ -100,24 +112,21 @@ namespace Managers {
             DisableRightHandFingerEvents();
             DisableLeftHandFingerEvents();
         }
-        
-        
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-            switch (scene.name) {
-                case nameof(SceneNames.MainMenu):
-                    OnMainMenuLoaded?.Invoke();
-                    break;
-                case nameof(SceneNames.Exercise1):
-                    OnExercise1?.Invoke();
-                    break;
-                case nameof(SceneNames.Exercise2):
-                    OnExercise2?.Invoke();
-                    break;
-                case nameof(SceneNames.Exercise3):
-                    OnExercise3?.Invoke();
-                    break;
+
+        #region Exercise 1 Events
+
+        private void DisableTenTargetsCollected() {
+            if (_onTenTargetsCollectedHandler != null) {
+                OnTenTargetsCollected -= _onTenTargetsCollectedHandler;
             }
         }
+
+        private void EnableTenTargetsCollectedHandler() {
+            _onTenTargetsCollectedHandler = () => LoadNewExercise(SceneNames.Exercise2);
+            OnTenTargetsCollected += _onTenTargetsCollectedHandler;
+        }
+
+        #endregion
 
         #region Right Hand Bindings
 
@@ -282,6 +291,39 @@ namespace Managers {
             OnLeftHandFingerToneBtnReleased?.Invoke(context);
         }
         
+        #endregion
+
+        #region Methods
+        
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            switch (scene.name) {
+                case nameof(SceneNames.MainMenu):
+                    OnMainMenuLoaded?.Invoke();
+                    break;
+                case nameof(SceneNames.Exercise1):
+                    OnExercise1?.Invoke();
+                    break;
+                case nameof(SceneNames.Exercise2):
+                    OnExercise2?.Invoke();
+                    break;
+                case nameof(SceneNames.Exercise3):
+                    OnExercise3?.Invoke();
+                    break;
+            }
+        }
+        
+        private void LoadNewExercise(SceneNames sceneIndex) {
+            SceneLoader.Instance.LoadNewScene(sceneIndex);
+        }
+
+        public void IncrementTargetCount() {
+            _collectedTargetsCount++;
+
+            if (_collectedTargetsCount >= 3) {
+                OnTenTargetsCollected?.Invoke();
+            }
+        }
+
         #endregion
     }
 }
