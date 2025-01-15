@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Editor.Helpers;
-using ScriptableObjects;
 
 namespace Editor.Components.Graphs {
     public class BoxPlotGraph : VisualElement {
@@ -24,6 +23,7 @@ namespace Editor.Components.Graphs {
         private readonly Label _maxLabel;
         
         private List<float> _dataPoints = new();
+        private AvlTree _avl = new();
         
         private float _min;
         private float _max;
@@ -111,17 +111,22 @@ namespace Editor.Components.Graphs {
         
         public void AddDataPoint(float value) {
             _dataPoints.Add(value);
-
-            // Optionally limit data size if you want
+            _avl.Insert(value);
+            
             if (_dataPoints.Count > 100000) {
+                var oldestValue = _dataPoints[0];
                 _dataPoints.RemoveAt(0);
+                _avl.Remove(oldestValue); 
             }
+            
             RecalculateStatistics();
             UpdateBoxPlotDisplay();
         }
         
         public void ClearData() {
             _dataPoints.Clear();
+            _avl.Clear();
+            
             MinValues.Clear();
             Q1Values.Clear();
             MedianValues.Clear();
@@ -133,27 +138,17 @@ namespace Editor.Components.Graphs {
         }
         
         private void RecalculateStatistics() {
-            if (_dataPoints.Count == 0) {
+            var count = _avl.Count;
+            if (count == 0) {
                 _min = _max = _median = _q1 = _q3 = 0f;
                 return;
             }
-            // check for other option
-            var sorted = _dataPoints.OrderBy(v => v).ToArray();
-            _min = sorted[0];
-            _max = sorted[^1];
-            _median = CalculateMedian(sorted);
-
-            // Q1
-            float[] lowerHalf;
-            lowerHalf = sorted.Length % 2 == 0 ? sorted.Take(sorted.Length / 2).ToArray() :
-                sorted.Take(sorted.Length / 2 + 1).ToArray();
-            _q1 = CalculateMedian(lowerHalf);
-
-            // Q3
-            float[] upperHalf;
-            upperHalf = sorted.Length % 2 == 0 ? sorted.Skip(sorted.Length / 2).ToArray() :
-                sorted.Skip(sorted.Length / 2 + 1).ToArray();
-            _q3 = CalculateMedian(upperHalf);
+            
+            _min = _avl.GetMin();
+            _max = _avl.GetMax();
+            _median = _avl.GetQuantile(0.5f); 
+            _q1 = _avl.GetQuantile(0.25f);
+            _q3 = _avl.GetQuantile(0.75f);
             
             MinValues.Add(_min);
             Q1Values.Add(_q1);
@@ -168,17 +163,6 @@ namespace Editor.Components.Graphs {
                 Q3Values.RemoveAt(0);
                 MaxValues.RemoveAt(0);
             }
-        }
-        
-        private float CalculateMedian(float[] sortedData) {
-            int count = sortedData.Length;
-            if (count == 0) return 0;
-            if (count % 2 == 1) {
-                return sortedData[count / 2];
-            }
-            var middle1 = sortedData[(count / 2) - 1];
-            var middle2 = sortedData[count / 2];
-            return (middle1 + middle2) / 2f;
         }
 
         private void UpdateBoxPlotDisplay() {

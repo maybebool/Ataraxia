@@ -14,6 +14,7 @@ namespace Editor.Components.TabViewContainer {
         public BoxPlotGraph BoxPlot5 { get; private set; }
         public CircleGraph CircleGraphRightHand { get; private set; }
         public CircleGraph CircleGraphLeftHand { get; private set; }
+        
         public DefaultButton SaveButton;
         public DataGraphTab(){
             var dataStyle = Resources.Load<StyleSheet>("Styles/DataGraphsStyle");
@@ -35,11 +36,11 @@ namespace Editor.Components.TabViewContainer {
             var lineChartContainer = this.Q<VisualElement>("LineGraphContainer");
             
             LineChart = new LineGraph("Overall Tremor Frequency");
-            BoxPlot1 = new BoxPlotGraph("Right Leg", "Tremor Detection");
-            BoxPlot2 = new BoxPlotGraph("Left Leg", "Tremor Detection");
+            BoxPlot1 = new BoxPlotGraph("Right Hand", "Tremor Detection");
+            BoxPlot2 = new BoxPlotGraph("Left Hand", "Tremor Detection");
             BoxPlot3 = new BoxPlotGraph("Head", "Tremor Detection");
-            BoxPlot4 = new BoxPlotGraph("Right Hand", "Tremor Detection");
-            BoxPlot5 = new BoxPlotGraph("Left Hand", "Tremor Detection");
+            BoxPlot4 = new BoxPlotGraph("Right Leg", "Tremor Detection");
+            BoxPlot5 = new BoxPlotGraph("Left Leg", "Tremor Detection");
             CircleGraphRightHand = new CircleGraph("Right Hand Fingers", "Muscle Tone Detection");
             CircleGraphLeftHand = new CircleGraph("Left Hand Fingers", "Muscle Tone Detection");
             SaveButton = new DefaultButton("Save Results");

@@ -1,19 +1,36 @@
 ﻿using UnityEngine;
 
 namespace Editor.Helpers {
+    
+    // Basic Node structure
+    public class Node {
+        public float Value;
+        public Node Left;
+        public Node Right;
+        public int Height;
+        public int SubtreeSize;
+
+        public Node(float value) {
+            Value = value;
+            Height = 1;
+            SubtreeSize = 1;
+        }
+    }
     /// <summary>
-    /// A Balanced BST (AVL-style) with subtree sizes for order-statistic queries:
+    /// A Balanced BST (AVL-style) :
     /// - Insert in O(log n)
     /// - Remove in O(log n)
     /// - GetMin, GetMax, and GetQuantile in O(log n)
     /// </summary>
-    public class OrderStatisticTree {
+    public class AvlTree {
         private Node _root;
 
         /// <summary>
         /// Returns how many elements are currently in the tree.
         /// </summary>
         public int Count { get; private set; }
+        private int HeightOf(Node node) => node?.Height ?? 0;
+        private int SizeOf(Node node) => node?.SubtreeSize ?? 0;
 
         /// <summary>
         /// Inserts a new float value into the BST, maintaining balance and subtree sizes.
@@ -43,7 +60,7 @@ namespace Editor.Helpers {
         }
 
         /// <summary>
-        /// Returns the minimum element in O(log n) (or O(1) if you store a pointer).
+        /// Returns the min element
         /// If the tree is empty, returns 0.
         /// </summary>
         public float GetMin() {
@@ -54,7 +71,7 @@ namespace Editor.Helpers {
         }
 
         /// <summary>
-        /// Returns the maximum element in O(log n) (or O(1) if you store a pointer).
+        /// Returns the max element
         /// If the tree is empty, returns 0.
         /// </summary>
         public float GetMax() {
@@ -65,20 +82,21 @@ namespace Editor.Helpers {
         }
 
         /// <summary>
-        /// Gets an approximate quantile in the range [0..1].
-        /// For example, 0.5 -> median, 0.25 -> Q1, 0.75 -> Q3, etc.
-        /// If the tree is empty, returns 0.
+        /// Gets an approximate quantile in the range [0 to 1].
+        /// 0.5 -> median, 0.25 -> Q1, 0.75 -> Q3, etc.
         /// </summary>
-        /// <param name="q">Quantile in [0..1]</param>
+        /// <param name="q">Quantile in [0 to 1]</param>
         public float GetQuantile(float q) {
             if (_root == null || Count == 0) return 0f;
-            // We do a 0-based rank, so rank = floor(q * (Count - 1))
+            //  0-based rank, so rank = floor(q * (Count - 1))
             int rank = Mathf.FloorToInt(q * (Count - 1));
             return GetByRank(_root, rank);
         }
 
-        // --------------------- Internal AVL-Like Implementation ---------------------
-
+        /// <summary>
+        /// Inserts a new float value into the AVL tree, maintaining balance and subtree sizes.
+        /// </summary>
+        /// <param name="value">The float value to be inserted into the tree.</param>
         private Node Insert(Node node, float value) {
             if (node == null) return new Node(value);
 
@@ -93,6 +111,11 @@ namespace Editor.Helpers {
             return Balance(node);
         }
 
+        /// <summary>
+        /// Removes a float value (first match) from the BST, if it exists.
+        /// </summary>
+        /// <param name="value">The value to be removed from the BST.</param>
+        /// <returns>True if the value was successfully removed; otherwise, false.</returns>
         private Node Remove(Node node, float value, out bool removed) {
             removed = false;
             if (node == null) return null;
@@ -123,12 +146,22 @@ namespace Editor.Helpers {
             return node;
         }
 
+        /// <summary>
+        /// Finds the node with the smallest value in the subtree rooted at the given node.
+        /// </summary>
+        /// <param name="node">The root of the subtree to search for the minimum value.</param>
+        /// <returns>The node with the smallest value in the subtree, or null if the subtree is empty.</returns>
         private Node FindMin(Node node) {
             while (node.Left != null) node = node.Left;
             return node;
         }
-
-        // Returns k-th the smallest element (0-based)
+        
+        /// <summary>
+        /// Gets the k-th smallest element (0-based rank) from the BST.
+        /// </summary>
+        /// <param name="node">The current node being evaluated in the recursion.</param>
+        /// <param name="rank">The 0-based rank of the element to retrieve.</param>
+        /// <returns>The value of the k-th smallest element, or 0 if the tree is empty or the rank is out of bounds.</returns>
         private float GetByRank(Node node, int rank) {
             if (node == null) return 0f;
 
@@ -144,15 +177,24 @@ namespace Editor.Helpers {
             }
         }
 
-        // Recompute height and subtree size
+
+        /// <summary>
+        /// Updates the properties of a given node, including its height and subtree size, based on its child nodes.
+        /// </summary>
+        /// <param name="node">The node whose properties need to be updated.</param>
         private void UpdateNode(Node node) {
             node.Height = 1 + Mathf.Max(HeightOf(node.Left), HeightOf(node.Right));
             node.SubtreeSize = 1 + SizeOf(node.Left) + SizeOf(node.Right);
         }
 
-        // Balances the node according to the AVL balance factor
+        
+        /// <summary>
+        /// Balances the given node in the AVL tree, ensuring the balance factor is within the allowable range.
+        /// </summary>
+        /// <param name="node">The node to balance.</param>
+        /// <returns>The balanced node, potentially with its subtree structure adjusted.</returns>
         private Node Balance(Node node) {
-            int balanceFactor = HeightOf(node.Left) - HeightOf(node.Right);
+            var balanceFactor = HeightOf(node.Left) - HeightOf(node.Right);
 
             // Left heavy
             if (balanceFactor > 1) {
@@ -179,6 +221,11 @@ namespace Editor.Helpers {
             return node;
         }
 
+        /// <summary>
+        /// Performs a left rotation on the given node in the AVL tree to maintain balance.
+        /// </summary>
+        /// <param name="node">The node to perform the left rotation on.</param>
+        /// <returns>The new root node after the left rotation.</returns>
         private Node RotateLeft(Node node) {
             var r = node.Right;
             node.Right = r.Left;
@@ -188,6 +235,11 @@ namespace Editor.Helpers {
             return r;
         }
 
+        /// <summary>
+        /// Performs a right rotation on the given node to balance the AVL tree.
+        /// </summary>
+        /// <param name="node">The node to perform the right rotation on.</param>
+        /// <returns>The new root node after the rotation.</returns>
         private Node RotateRight(Node node) {
             var l = node.Left;
             node.Left = l.Right;
@@ -195,24 +247,6 @@ namespace Editor.Helpers {
             UpdateNode(node);
             UpdateNode(l);
             return l;
-        }
-
-        private int HeightOf(Node node) => node?.Height ?? 0;
-        private int SizeOf(Node node) => node?.SubtreeSize ?? 0;
-
-        // Basic Node structure
-        private class Node {
-            public float Value;
-            public Node Left;
-            public Node Right;
-            public int Height;
-            public int SubtreeSize; // # of nodes in this subtree
-
-            public Node(float value) {
-                Value = value;
-                Height = 1;
-                SubtreeSize = 1;
-            }
         }
     }
 }
