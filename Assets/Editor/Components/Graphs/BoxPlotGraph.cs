@@ -109,7 +109,6 @@ namespace Editor.Components.Graphs {
             _titleLabel.text = title;
         }
         
-        // New: add data point & recalc stats
         public void AddDataPoint(float value) {
             _dataPoints.Add(value);
 
