@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HologramCubeMaterial
+  m_Name: HologramFloorMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 4d631979ab4c4d7419441f8c144cc7d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -67,13 +67,13 @@ Material:
     - _CastShadows: 0
     - _Cull: 2
     - _DstBlend: 10
-    - _Fill: 0.001
-    - _Offset: 8.51
-    - _Power_Shield: 1.13
+    - _Fill: 0.071
+    - _Offset: 0.7
+    - _Power_Shield: 0.55
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
-    - _Speed: 0.0545
+    - _Speed: 0
     - _SrcBlend: 5
     - _Surface: 1
     - _WorkflowMode: 1
