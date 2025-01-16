@@ -768,6 +768,22 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 1073741824
       objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PullVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PushVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_ZVelocityRampThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MaxAdditionalVelocityScalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3834774819619447259, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -792,6 +808,26 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 712002218}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PullVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PushVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MomentumDecayScale
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_ZVelocityRampThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MaxAdditionalVelocityScalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5583972473812670438, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: detector
       value: 
