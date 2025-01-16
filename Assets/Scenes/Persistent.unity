@@ -716,6 +716,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 773396779529821009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147484192
+      objectReference: {fileID: 0}
+    - target: {fileID: 773396779529821009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
+      objectReference: {fileID: 0}
     - target: {fileID: 1285900821919378461, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) Variant
@@ -808,6 +816,14 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 712002218}
+    - target: {fileID: 5325191165000099787, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147484192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325191165000099787, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
+      objectReference: {fileID: 0}
     - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_PullVelocityBias
       value: 2
