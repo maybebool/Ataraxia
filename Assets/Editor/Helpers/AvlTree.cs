@@ -2,7 +2,6 @@
 
 namespace Editor.Helpers {
     
-    // Basic Node structure
     public class Node {
         public float Value;
         public Node Left;
