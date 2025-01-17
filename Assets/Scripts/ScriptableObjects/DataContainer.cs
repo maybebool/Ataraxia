@@ -80,6 +80,8 @@ namespace ScriptableObjects {
         public int amountOfTargetsToCollectEx1;
         public int amountOfTargetsToCollectEx2;
         public int amountOfIterationsEx3;
+
+        public float calculatedTremorIntensity;
         
         public void ClearData() {
             tremorIntensityRightHand = 0f;
