@@ -28,9 +28,7 @@ namespace Exercises.ExerciseOne {
             else if (collidedLayer == targetLayerIndex) {
                 collidedObject.SetActive(false);
                 AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
-                if (MtsEventManager.Instance != null) {
-                    MtsEventManager.Instance.IncrementTargetCount();
-                }
+                MtsEventManager.Instance.onAllObstacleCourseTargetsCollectedUnityEvent?.Invoke();
             }
         }
     }

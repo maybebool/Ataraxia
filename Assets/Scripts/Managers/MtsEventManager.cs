@@ -76,15 +76,11 @@ namespace Managers {
 
         public delegate void SceneOnExercise1Action();
         public event SceneOnExercise1Action OnExercise1;
-        public delegate void AllObstacleCourseTargetsCollectedAction();
-        public event AllObstacleCourseTargetsCollectedAction OnAllObstacleCourseTargetsCollected;
-        private AllObstacleCourseTargetsCollectedAction _onAllObstacleCourseTargetsCollectedAction;
+        public UnityEvent onAllObstacleCourseTargetsCollectedUnityEvent;
 
         public delegate void SceneOnExercise2Action();
         public event SceneOnExercise2Action OnExercise2;
-        public delegate void AllMazeTargetsCollectedAction();
-        public event AllMazeTargetsCollectedAction OnAllMazeTargetsCollected;
-        private AllMazeTargetsCollectedAction _onAllMazeTargetsCollectedAction;
+        public UnityEvent onAllMazeTargetsCollectedUnityEvent;
 
         public delegate void SceneOnExercise3Action();
         public event SceneOnExercise3Action OnExercise3;
@@ -97,12 +93,14 @@ namespace Managers {
         private void Awake() {
             _inputActions = new XRIDefaultInputActions();
             onLastIndexReachedUnityEvent ??= new UnityEvent();
+            onAllObstacleCourseTargetsCollectedUnityEvent ??= new UnityEvent();
+            onAllMazeTargetsCollectedUnityEvent ??= new UnityEvent();
         }
 
         private void OnEnable() {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            EnableObstacleCourseCollectionEvents();
-            EnableMazeCollectionEvents();
+            EnableObstacleCourseCollectionHandling();
+            EnableMazeCollectionHandling();
             EnableLastIndexReachedHandling();
             EnableRightHandEvents();
             EnableLeftHandEvents();
@@ -116,8 +114,8 @@ namespace Managers {
 
         private void OnDisable() {
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            DisableObstacleCourseCollectionEvents();
-            DisableMazeCollectionEvents();
+            DisableObstacleCourseCollectionHandling();
+            DisableMazeCollectionHandling();
             DisableLastIndexReachedHandling();
             DisableRightHandEvents();
             DisableLeftHandEvents();
@@ -129,28 +127,38 @@ namespace Managers {
         }
 
         #region Exercise 1 Events
-        private void EnableObstacleCourseCollectionEvents() {
-            _onAllObstacleCourseTargetsCollectedAction = () => LoadNewExercise(SceneNames.Exercise2);
-            OnAllObstacleCourseTargetsCollected += _onAllObstacleCourseTargetsCollectedAction;
+        private void EnableObstacleCourseCollectionHandling() {
+            onAllObstacleCourseTargetsCollectedUnityEvent.AddListener(HandleAllObstacleCourseCollected);
         }
 
-        private void DisableObstacleCourseCollectionEvents() {
-            if (_onAllObstacleCourseTargetsCollectedAction != null) {
-                OnAllObstacleCourseTargetsCollected -= _onAllObstacleCourseTargetsCollectedAction;
+        private void DisableObstacleCourseCollectionHandling() {
+            onAllObstacleCourseTargetsCollectedUnityEvent.RemoveListener(HandleAllObstacleCourseCollected);
+        }
+
+        private void HandleAllObstacleCourseCollected() {
+            _collectedTargetsCount++;
+            if (_collectedTargetsCount >= dataContainer.amountOfTargetsToCollectEx1) {
+                LoadNewExercise(SceneNames.Exercise2);
+                _collectedTargetsCount = 0; // Reset after transition
             }
         }
         
         #endregion
         
         #region Exercise 2 Events
-        private void EnableMazeCollectionEvents() {
-            _onAllMazeTargetsCollectedAction = () => LoadNewExercise(SceneNames.Exercise3);
-            OnAllMazeTargetsCollected += _onAllMazeTargetsCollectedAction;
+        private void EnableMazeCollectionHandling() {
+            onAllMazeTargetsCollectedUnityEvent.AddListener(HandleAllMazeCollected);
         }
 
-        private void DisableMazeCollectionEvents() {
-            if (_onAllMazeTargetsCollectedAction != null) {
-                OnAllMazeTargetsCollected -= _onAllMazeTargetsCollectedAction;
+        private void DisableMazeCollectionHandling() {
+            onAllMazeTargetsCollectedUnityEvent.RemoveListener(HandleAllMazeCollected);
+        }
+
+        private void HandleAllMazeCollected() {
+            _collectedMazeTargetsCount++;
+            if (_collectedMazeTargetsCount >= dataContainer.amountOfTargetsToCollectEx2) {
+                LoadNewExercise(SceneNames.Exercise3);
+                _collectedMazeTargetsCount = 0; // Reset after transition
             }
         }
         #endregion
@@ -362,23 +370,7 @@ namespace Managers {
         private void LoadNewExercise(SceneNames sceneIndex) {
             SceneLoader.Instance.LoadNewScene(sceneIndex);
         }
-
-        public void IncrementTargetCount() {
-            _collectedTargetsCount++;
-
-            if (_collectedTargetsCount >= dataContainer.amountOfTargetsToCollectEx1) {
-                OnAllObstacleCourseTargetsCollected?.Invoke();
-            }
-        }
         
-        public void IncrementMazeTargetCount() {
-            _collectedMazeTargetsCount++;
-
-            if (_collectedMazeTargetsCount >= dataContainer.amountOfTargetsToCollectEx2) {
-                OnAllMazeTargetsCollected?.Invoke();
-            }
-        }
-
         #endregion
     }
 }
