@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1120,6 +1120,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataContainer: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  onAllObstacleCourseTargetsCollectedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAllMazeTargetsCollectedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onLastIndexReachedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1056389070
 Transform:
   m_ObjectHideFlags: 0
