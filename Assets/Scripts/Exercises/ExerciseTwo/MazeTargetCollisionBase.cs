@@ -1,36 +1,34 @@
-using Audio;
+﻿using Audio;
 using Managers;
 using UnityEngine;
 
-namespace Exercises.ExerciseOne {
-    public class ObjectCollisionHandler : MonoBehaviour {
-        
-        [Header("Audio Clip Settings")]
+namespace Exercises.ExerciseTwo {
+    public abstract class MazeTargetCollisionBase : MonoBehaviour {
         [SerializeField] private int obstacleAudioClipIndex = 4;
         [SerializeField] private int targetAudioClipIndex = 5;
         [SerializeField] private int mixerIndex = 2; 
         
-        [Header("Layer Indices")]
-        [SerializeField] private int obstacleLayerIndex = 7; 
-        [SerializeField] private int targetLayerIndex = 8;
+        protected abstract int targetLayerIndex { get; set; }
         
         private void OnTriggerEnter(Collider other) {
+            Debug.Log("Collision");
             CheckCollision(other.gameObject);
-            AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
         }
 
         private void CheckCollision(GameObject collidedObject) {
+            
             var collidedLayer = collidedObject.layer;
-            if (collidedLayer == obstacleLayerIndex) {
+            if (collidedLayer != targetLayerIndex) {
                 AudioController.Instance.PlayAudioClip(obstacleAudioClipIndex, mixerIndex);
             }
-            
+
             else if (collidedLayer == targetLayerIndex) {
                 collidedObject.SetActive(false);
                 AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
                 if (MtsEventManager.Instance != null) {
-                    MtsEventManager.Instance.IncrementTargetCount();
+                    MtsEventManager.Instance.IncrementMazeTargetCount();
                 }
+                gameObject.SetActive(false);
             }
         }
     }

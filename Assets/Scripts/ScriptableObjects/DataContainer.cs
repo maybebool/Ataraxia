@@ -74,6 +74,12 @@ namespace ScriptableObjects {
         public float targetObjectOuterHeightThresholdFloor;
         public float targetObjectInnerHeightThresholdTop;
         public float targetObjectInnerHeightThresholdFloor;
+
+
+        [Header("Exercise Variables")] 
+        public int amountOfTargetsToCollectEx1;
+        public int amountOfTargetsToCollectEx2;
+        public int amountOfIterationsEx3;
         
         public void ClearData() {
             tremorIntensityRightHand = 0f;

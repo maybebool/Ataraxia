@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 26518679}
   - component: {fileID: 26518678}
   - component: {fileID: 26518681}
+  - component: {fileID: 26518682}
   m_Layer: 0
   m_Name: Pot
   m_TagString: Untagged
@@ -221,12 +222,27 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.110424995, y: 0.14999999, z: 0.14333627}
   m_Center: {x: -0.00533849, y: 0, z: -0.000000014901161}
+--- !u!114 &26518682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26518676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e037e728ba464e68ba244cdc271e4254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleAudioClipIndex: 4
+  targetAudioClipIndex: 5
+  mixerIndex: 2
 --- !u!1 &505488251
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +376,7 @@ GameObject:
   - component: {fileID: 918774506}
   - component: {fileID: 918774505}
   - component: {fileID: 918774504}
+  - component: {fileID: 918774508}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -382,7 +399,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -456,6 +473,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &918774508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918774503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa40366b240c4308849a31def9dc97f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleAudioClipIndex: 4
+  targetAudioClipIndex: 5
+  mixerIndex: 2
 --- !u!1 &1078223051
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +500,7 @@ GameObject:
   - component: {fileID: 1078223054}
   - component: {fileID: 1078223053}
   - component: {fileID: 1078223052}
+  - component: {fileID: 1078223056}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -490,7 +523,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -564,6 +597,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1078223056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078223051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee77ce777294ce79a412763eaeb6732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleAudioClipIndex: 4
+  targetAudioClipIndex: 5
+  mixerIndex: 2
 --- !u!1 &1439023463
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +624,7 @@ GameObject:
   - component: {fileID: 1439023466}
   - component: {fileID: 1439023465}
   - component: {fileID: 1439023464}
+  - component: {fileID: 1439023468}
   m_Layer: 0
   m_Name: Torus
   m_TagString: Untagged
@@ -598,7 +647,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -672,6 +721,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1439023468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439023463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776bab3ef40e44f4b5c5f62684ce70db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleAudioClipIndex: 4
+  targetAudioClipIndex: 5
+  mixerIndex: 2
 --- !u!1001 &1445806361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -822,8 +886,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4257412417454173058, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
-      propertyPath: m_InteractionLayers.m_Bits
+      propertyPath: m_MovementType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257412417454173058, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
+      propertyPath: m_UseDynamicAttach
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257412417454173058, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 4257412417454173059, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
       propertyPath: m_Mass
@@ -832,6 +904,14 @@ PrefabInstance:
     - target: {fileID: 4257412417454173071, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
       propertyPath: m_Name
       value: Interactable Velocity Pot
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257412417454173071, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5070425541541228304, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5696302975601547499, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
       propertyPath: m_Materials.Array.size
@@ -845,6 +925,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 3271b758c7b518b439c082a85cf28b23, type: 2}
+    - target: {fileID: 6056682962065602878, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6865308534320718724, guid: d5615d616019430d9c2e8727e71c97fb, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1
@@ -1043,6 +1127,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 10d8d4e09219e544592f5e1b83db611a, type: 3}
       propertyPath: m_Name
       value: Maze
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10d8d4e09219e544592f5e1b83db611a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1306,15 +1394,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 126771258662487966, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 1
+      value: 4096
       objectReference: {fileID: 0}
     - target: {fileID: 1020694517288907637, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
       propertyPath: m_Name
       value: Interactable Kinematic Sphere
       objectReference: {fileID: 0}
+    - target: {fileID: 1020694517288907637, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2486119499431468477, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
       propertyPath: m_Mass
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4148541644849133375, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5126786107818703450, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
       propertyPath: m_Materials.Array.size
@@ -1384,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8491060838165140875, guid: a07cc69dc677fda418495b9c53061ed6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1397,9 +1497,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1086821822815542845, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6354640239425093910, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480228, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 1
+      value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalScale.x
@@ -1419,7 +1527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.2000005
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480229, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1461,6 +1569,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable Kinematic Torus
       objectReference: {fileID: 0}
+    - target: {fileID: 7517549319329480230, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 7517549319329480235, guid: 521327bdbcb341f782d36f02cab76cb0, type: 3}
       propertyPath: m_Mass
       value: 0.1
@@ -1490,6 +1602,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3061463722121987294, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3217184071493961911, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
@@ -1502,6 +1618,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 3271b758c7b518b439c082a85cf28b23, type: 2}
+    - target: {fileID: 3977644562517253125, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4924304971498899787, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.3
@@ -1562,13 +1682,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable Kinematic Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 5211299456568205104, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6187983514390012203, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
       propertyPath: m_Mass
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7078861334675655805, guid: 1d51a53c37d69d84abc0ef74d1988d01, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 1
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

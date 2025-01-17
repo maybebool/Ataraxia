@@ -768,6 +768,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2030448884699284091, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 15360
+      objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_MaxRaycastDistance
       value: 10
@@ -860,6 +864,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9024399161940106468, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 15361
+      objectReference: {fileID: 0}
     - target: {fileID: 9105439321281793881, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: detector
       value: 
@@ -868,6 +876,10 @@ PrefabInstance:
       propertyPath: objectToSpawn
       value: 
       objectReference: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
+    - target: {fileID: 9180556963088540125, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1020961688622471348, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}

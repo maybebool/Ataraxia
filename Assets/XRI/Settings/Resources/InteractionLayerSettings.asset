@@ -23,10 +23,10 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - CubeTarget
+  - TorusTarget
+  - SphereTarget
+  - PotTarget
   - 
   - 
   - 
