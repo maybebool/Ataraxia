@@ -1440,16 +1440,16 @@ MonoBehaviour:
   m_text: 'In this exercise, you must catch objects while avoiding others. At the
     same time, you steer through obstacles using your line of sight.
 
-    
 
-    -
-    Hold down the buttons for your index fingers, place your hands on your knees,
-    and try to keep the beam within the circle.
 
-    
+    - Hold
+    down the buttons for your index fingers, place your hands on your knees, and
+    try to keep the beam within the circle.
 
-    -Try to catch 10 targets
-    with the object in your line of sight while avoiding the obstacles.
+
+
+    -Try to catch 10 targets with
+    the object in your line of sight while avoiding the obstacles.
 
 '
   m_isRightToLeft: 0
@@ -9566,6 +9566,10 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6495115385520551009, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6495115385520551009, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -9596,6 +9600,10 @@ PrefabInstance:
     - target: {fileID: 7375641587619428395, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375641587619428395, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7375641587619428395, guid: d59d69800de193b43a6e3cf7895d0172, type: 3}
       propertyPath: m_AnchoredPosition.x

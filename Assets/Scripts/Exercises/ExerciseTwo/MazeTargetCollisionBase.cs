@@ -11,7 +11,6 @@ namespace Exercises.ExerciseTwo {
         protected abstract int targetLayerIndex { get; set; }
         
         private void OnTriggerEnter(Collider other) {
-            Debug.Log("Collision");
             CheckCollision(other.gameObject);
         }
 

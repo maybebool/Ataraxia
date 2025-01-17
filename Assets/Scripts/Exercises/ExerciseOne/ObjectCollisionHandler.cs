@@ -16,7 +16,6 @@ namespace Exercises.ExerciseOne {
         
         private void OnTriggerEnter(Collider other) {
             CheckCollision(other.gameObject);
-            AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
         }
 
         private void CheckCollision(GameObject collidedObject) {
