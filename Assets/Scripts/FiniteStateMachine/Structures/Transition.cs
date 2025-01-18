@@ -1,4 +1,7 @@
-﻿namespace StateMachines {
+﻿using StateMachine.Interfaces;
+using StateMachines;
+
+namespace FiniteStateMachine.Structures {
     public class Transition : ITransition {
         public IState To { get; }
         public IPredicate Condition { get; }
