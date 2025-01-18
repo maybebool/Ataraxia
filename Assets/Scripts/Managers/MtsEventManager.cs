@@ -3,8 +3,10 @@ using GameUI;
 using SceneHandling;
 using ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Managers {
     public class MtsEventManager : Singleton<MtsEventManager> {
@@ -12,6 +14,8 @@ namespace Managers {
         [SerializeField] private DataContainer dataContainer;
         private XRIDefaultInputActions _inputActions;
         private int _collectedTargetsCount = 0;
+        private int _collectedMazeTargetsCount = 0;
+        private int _lastIndexReachedCount = 0;
         
 
         #region MTA Events
@@ -72,26 +76,32 @@ namespace Managers {
 
         public delegate void SceneOnExercise1Action();
         public event SceneOnExercise1Action OnExercise1;
-        public delegate void TenTargetsCollectedAction();
-        public event TenTargetsCollectedAction OnTenTargetsCollected;
-        private TenTargetsCollectedAction _onTenTargetsCollectedHandler;
+        public UnityEvent onAllObstacleCourseTargetsCollectedUnityEvent;
 
         public delegate void SceneOnExercise2Action();
         public event SceneOnExercise2Action OnExercise2;
+        public UnityEvent onAllMazeTargetsCollectedUnityEvent;
 
         public delegate void SceneOnExercise3Action();
         public event SceneOnExercise3Action OnExercise3;
+        public UnityEvent onLastIndexReachedUnityEvent;
+        
         
 
         #endregion
 
         private void Awake() {
             _inputActions = new XRIDefaultInputActions();
+            onLastIndexReachedUnityEvent ??= new UnityEvent();
+            onAllObstacleCourseTargetsCollectedUnityEvent ??= new UnityEvent();
+            onAllMazeTargetsCollectedUnityEvent ??= new UnityEvent();
         }
 
         private void OnEnable() {
             SceneManager.sceneLoaded += OnSceneLoaded;
-            EnableTenTargetsCollectedHandler();
+            EnableObstacleCourseCollectionHandling();
+            EnableMazeCollectionHandling();
+            EnableLastIndexReachedHandling();
             EnableRightHandEvents();
             EnableLeftHandEvents();
             EnableHeadEvents();
@@ -104,7 +114,9 @@ namespace Managers {
 
         private void OnDisable() {
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            DisableTenTargetsCollected();
+            DisableObstacleCourseCollectionHandling();
+            DisableMazeCollectionHandling();
+            DisableLastIndexReachedHandling();
             DisableRightHandEvents();
             DisableLeftHandEvents();
             DisableHeadEvents();
@@ -115,14 +127,58 @@ namespace Managers {
         }
 
         #region Exercise 1 Events
-        private void EnableTenTargetsCollectedHandler() {
-            _onTenTargetsCollectedHandler = () => LoadNewExercise(SceneNames.Exercise2);
-            OnTenTargetsCollected += _onTenTargetsCollectedHandler;
+        private void EnableObstacleCourseCollectionHandling() {
+            onAllObstacleCourseTargetsCollectedUnityEvent.AddListener(HandleAllObstacleCourseCollected);
         }
 
-        private void DisableTenTargetsCollected() {
-            if (_onTenTargetsCollectedHandler != null) {
-                OnTenTargetsCollected -= _onTenTargetsCollectedHandler;
+        private void DisableObstacleCourseCollectionHandling() {
+            onAllObstacleCourseTargetsCollectedUnityEvent.RemoveListener(HandleAllObstacleCourseCollected);
+        }
+
+        private void HandleAllObstacleCourseCollected() {
+            _collectedTargetsCount++;
+            if (_collectedTargetsCount >= dataContainer.amountOfTargetsToCollectEx1) {
+                LoadNewExercise(SceneNames.Exercise2);
+                _collectedTargetsCount = 0; 
+            }
+        }
+        
+        #endregion
+        
+        #region Exercise 2 Events
+        private void EnableMazeCollectionHandling() {
+            onAllMazeTargetsCollectedUnityEvent.AddListener(HandleAllMazeCollected);
+        }
+
+        private void DisableMazeCollectionHandling() {
+            onAllMazeTargetsCollectedUnityEvent.RemoveListener(HandleAllMazeCollected);
+        }
+
+        private void HandleAllMazeCollected() {
+            _collectedMazeTargetsCount++;
+            if (_collectedMazeTargetsCount >= dataContainer.amountOfTargetsToCollectEx2) {
+                AudioController.Instance.PlayAudioClip(3,2);
+                LoadNewExercise(SceneNames.Exercise3);
+                _collectedMazeTargetsCount = 0; 
+            }
+        }
+        #endregion
+        
+        #region Exercise 3 Events
+        
+        private void EnableLastIndexReachedHandling() {
+            onLastIndexReachedUnityEvent.AddListener(HandleLastIndexReached);
+        }
+
+        private void DisableLastIndexReachedHandling() {
+            onLastIndexReachedUnityEvent.RemoveListener(HandleLastIndexReached);
+        }
+
+        private void HandleLastIndexReached() {
+            _lastIndexReachedCount++;
+            if (_lastIndexReachedCount > dataContainer.amountOfIterationsEx3) {
+                LoadNewExercise(SceneNames.MainMenu);
+                _lastIndexReachedCount = 0; 
             }
         }
         
@@ -314,17 +370,8 @@ namespace Managers {
         
         private void LoadNewExercise(SceneNames sceneIndex) {
             SceneLoader.Instance.LoadNewScene(sceneIndex);
-            AudioController.Instance.PlayAudioClip(4, 2);
         }
-
-        public void IncrementTargetCount() {
-            _collectedTargetsCount++;
-
-            if (_collectedTargetsCount >= 3) {
-                OnTenTargetsCollected?.Invoke();
-            }
-        }
-
+        
         #endregion
     }
 }

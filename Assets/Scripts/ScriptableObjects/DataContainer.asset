@@ -58,3 +58,6 @@ MonoBehaviour:
   targetObjectOuterHeightThresholdFloor: 0
   targetObjectInnerHeightThresholdTop: 0
   targetObjectInnerHeightThresholdFloor: 0
+  amountOfTargetsToCollectEx1: 10
+  amountOfTargetsToCollectEx2: 4
+  amountOfIterationsEx3: 3

@@ -11,8 +11,6 @@ namespace MTA {
         public GameObject detector;
 
         [Header("Parameters")]
-        // public Vector4 _outterCircle;
-        // public float _tangentCircleRadius;
         public float speedThreshold = 50f;
 
         public float tremorDecayRate = 5f;
@@ -38,13 +36,9 @@ namespace MTA {
 
         [Tooltip("If the position change is below this threshold, we skip tremor calculations.")]
         public float positionChangeThreshold = 0.01f;
-
-        // This will store whether we've recently passed the threshold
+        
         private bool hasSurpassedThresholdFirstTime = false;
-
-        // The exact moment we first passed the threshold
         private float firstSurpassTimestamp = 0f;
-
         private const float PIDoubled = 2 * Mathf.PI;
 
         protected abstract XRRayInteractor RaycastPoint { get; set; } // Where we do our raycast

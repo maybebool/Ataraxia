@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &68741175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &581552899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &712002219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +716,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 773396779529821009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147484192
+      objectReference: {fileID: 0}
+    - target: {fileID: 773396779529821009, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
+      objectReference: {fileID: 0}
     - target: {fileID: 1285900821919378461, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) Variant
@@ -760,6 +768,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2030448884699284091, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 15360
+      objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_MaxRaycastDistance
       value: 10
@@ -767,6 +779,22 @@ PrefabInstance:
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 1073741824
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PullVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PushVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_ZVelocityRampThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MaxAdditionalVelocityScalar
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3834774819619447259, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -792,6 +820,34 @@ PrefabInstance:
       propertyPath: detector
       value: 
       objectReference: {fileID: 712002218}
+    - target: {fileID: 5325191165000099787, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_RaycastMask.m_Bits
+      value: 2147484192
+      objectReference: {fileID: 0}
+    - target: {fileID: 5325191165000099787, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PullVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_PushVelocityBias
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MomentumDecayScale
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_ZVelocityRampThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418150863076192811, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_MaxAdditionalVelocityScalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5583972473812670438, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: detector
       value: 
@@ -808,6 +864,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9024399161940106468, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 15361
+      objectReference: {fileID: 0}
     - target: {fileID: 9105439321281793881, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: detector
       value: 
@@ -816,6 +876,10 @@ PrefabInstance:
       propertyPath: objectToSpawn
       value: 
       objectReference: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
+    - target: {fileID: 9180556963088540125, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1020961688622471348, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
@@ -1056,6 +1120,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataContainer: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  onAllObstacleCourseTargetsCollectedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onAllMazeTargetsCollectedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onLastIndexReachedUnityEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1056389070
 Transform:
   m_ObjectHideFlags: 0
@@ -1353,7 +1426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1133386690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,7 +1695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1311882729
 MonoBehaviour:
   m_ObjectHideFlags: 0

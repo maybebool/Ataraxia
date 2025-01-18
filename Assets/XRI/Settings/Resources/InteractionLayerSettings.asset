@@ -23,6 +23,10 @@ MonoBehaviour:
   - 
   - 
   - 
+  - CubeTarget
+  - TorusTarget
+  - SphereTarget
+  - PotTarget
   - 
   - 
   - 
@@ -38,10 +42,6 @@ MonoBehaviour:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - TremorDetection
   - Detector
   - Teleport
