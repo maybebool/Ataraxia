@@ -30,18 +30,16 @@ namespace MTA {
         private Vector3 _outterCircleScale;
         private Vector3 _tangentCircleScale;
         private Coroutine _dataCollectionCoroutine;
-
-        [Tooltip("Extra time window to validate repeated threshold passes.")]
+        
         [SerializeField] private float timeThreshold = 0.2f;
-
-        [Tooltip("If the position change is below this threshold, we skip tremor calculations.")]
+        
         public float positionChangeThreshold = 0.01f;
         
         private bool _hasSurpassedThresholdFirstTime = false;
         private float _firstSurpassTimestamp = 0f;
         private const float PIDoubled = 2 * Mathf.PI;
 
-        protected abstract XRRayInteractor raycastPoint { get; set; } // Where we do our raycast
+        protected abstract XRRayInteractor raycastPoint { get; set; } 
         protected abstract Vector3 currentPos { get; set; }
         protected abstract float degree { get; set; }
         protected abstract float tremorIntensity { get; set; }
