@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace StateMachines {
+namespace FiniteStateMachine {
     [Serializable]
     public class SceneBinding {
         public int buildIndex;            

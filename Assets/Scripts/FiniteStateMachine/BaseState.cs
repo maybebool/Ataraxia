@@ -1,7 +1,7 @@
-﻿namespace StateMachines {
+﻿using StateMachines;
+
+namespace FiniteStateMachine {
     public abstract class BaseState : IState {
-        
-        // variables
         
         public virtual void OnEnter() {
             // noop

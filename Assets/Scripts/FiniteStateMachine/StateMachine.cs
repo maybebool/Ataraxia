@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using StateMachine.Interfaces;
+using StateMachines;
 
-
-namespace StateMachines {
+namespace FiniteStateMachine {
     public class StateMachine {
         private StateNode _current;
         private Dictionary<Type, StateNode> _nodes = new();
