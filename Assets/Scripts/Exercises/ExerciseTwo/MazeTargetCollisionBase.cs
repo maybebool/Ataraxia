@@ -4,24 +4,21 @@ using UnityEngine;
 
 namespace Exercises.ExerciseTwo {
     public abstract class MazeTargetCollisionBase : MonoBehaviour {
-        [SerializeField] private int obstacleAudioClipIndex = 4;
-        [SerializeField] private int targetAudioClipIndex = 5;
-        [SerializeField] private int mixerIndex = 2; 
-        
-        protected abstract int targetLayerIndex { get; set; }
-        
+        [SerializeField] protected int obstacleAudioClipIndex = 4;
+        [SerializeField] protected int targetAudioClipIndex = 5;
+        [SerializeField] protected int mixerIndex = 2; 
+        protected abstract string targetTag { get; }
         private void OnTriggerEnter(Collider other) {
             CheckCollision(other.gameObject);
         }
 
         private void CheckCollision(GameObject collidedObject) {
             
-            var collidedLayer = collidedObject.layer;
-            if (collidedLayer != targetLayerIndex) {
+            if (!collidedObject.CompareTag(targetTag)) {
                 AudioController.Instance.PlayAudioClip(obstacleAudioClipIndex, mixerIndex);
             }
-
-            else if (collidedLayer == targetLayerIndex) {
+            
+            else {
                 collidedObject.SetActive(false);
                 AudioController.Instance.PlayAudioClip(targetAudioClipIndex, mixerIndex);
                 MtsEventManager.Instance.onAllMazeTargetsCollectedUnityEvent?.Invoke();

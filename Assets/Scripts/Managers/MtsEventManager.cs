@@ -139,7 +139,7 @@ namespace Managers {
             _collectedTargetsCount++;
             if (_collectedTargetsCount >= dataContainer.amountOfTargetsToCollectEx1) {
                 LoadNewExercise(SceneNames.Exercise2);
-                _collectedTargetsCount = 0; // Reset after transition
+                _collectedTargetsCount = 0; 
             }
         }
         
@@ -157,8 +157,9 @@ namespace Managers {
         private void HandleAllMazeCollected() {
             _collectedMazeTargetsCount++;
             if (_collectedMazeTargetsCount >= dataContainer.amountOfTargetsToCollectEx2) {
+                AudioController.Instance.PlayAudioClip(3,2);
                 LoadNewExercise(SceneNames.Exercise3);
-                _collectedMazeTargetsCount = 0; // Reset after transition
+                _collectedMazeTargetsCount = 0; 
             }
         }
         #endregion
