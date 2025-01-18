@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Torus
+  - Sphere
+  - Pot
+  - Cube
+  - Maze
   layers:
   - Default
   - TransparentFX
@@ -14,11 +19,11 @@ TagManager:
   - Persistent
   - Obstacle
   - Target
-  - 
-  - 
-  - 
-  - 
-  - 
+  - TremorDetection
+  - CubeTarget
+  - TorusTarget
+  - SphereTarget
+  - PotTarget
   - 
   - 
   - 

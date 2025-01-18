@@ -1,10 +1,13 @@
-﻿using ScriptableObjects;
+﻿using Audio;
+using Managers;
+using ScriptableObjects;
 using UnityEngine;
 
 namespace Exercises.ExerciseThree {
     public class AutoScalingController : MonoBehaviour {
         [Header("Data Container Reference")] 
         [SerializeField] private DataContainer heightData;
+        
 
         [Header("Overall Height Bounds")] 
         [SerializeField] private float minHeight = 0.5f;
@@ -14,14 +17,12 @@ namespace Exercises.ExerciseThree {
         [SerializeField] private float[] targetHeights = { 0.7f, 1f, 1.5f, 0.9f, 2f, 1.1f, 4.2f };
         [SerializeField] private float interpolationSpeed = 1.5f;
 
-        // [Header("Threshold Offsets")]
-        // [SerializeField] private float outerThresholdOffset = 1f;
-        // [SerializeField] private float innerThresholdOffset = 0.6f;
-
+        private int _reachedHeightsCount = 0;
         private int _currentIndex;
         private float _currentTargetY;
 
         private void Start() {
+            
             if (targetHeights.Length == 0) {
                 return;
             }
@@ -30,38 +31,35 @@ namespace Exercises.ExerciseThree {
 
         private void Update() {
             if (targetHeights.Length == 0) return;
-
-            // Smoothly interpolate from current Y scale to our current target
+            
             var oldY = transform.localScale.y;
             var newY = Mathf.Lerp(oldY, _currentTargetY, Time.deltaTime * interpolationSpeed);
             var delta = newY - oldY;
-
-            // Shift upward by half the delta so it appears to grow "up" only
+            
             transform.localPosition += new Vector3(0, delta * 0.5f, 0);
-
-            // Apply that new Y to our localScale
             transform.localScale = new Vector3(transform.localScale.x, newY, transform.localScale.z);
-
-            // Current Height
+            
             heightData.targetObjectCurrentHeight = newY;
-
-            // Outer Thresholds
             heightData.targetObjectOuterHeightThresholdTop = newY + heightData.outerThresholdOffset;
             heightData.targetObjectOuterHeightThresholdFloor = newY - heightData.outerThresholdOffset;
-
-            // Inner Thresholds
             heightData.targetObjectInnerHeightThresholdTop = newY + heightData.innerThresholdOffset;
             heightData.targetObjectInnerHeightThresholdFloor = newY - heightData.innerThresholdOffset;
 
-            // Check if we're close enough to the target; if so, pick the next one
-            if (Mathf.Abs(newY - _currentTargetY) < 0.01f) {
-                _currentIndex++;
-                if (_currentIndex >= targetHeights.Length) {
-                    _currentIndex = 0;
-                }
-
-                _currentTargetY = Mathf.Clamp(targetHeights[_currentIndex], minHeight, maxHeight);
+            if (!(Mathf.Abs(newY - _currentTargetY) < 0.01f)) return;
+            _reachedHeightsCount++;
+            MtsEventManager.Instance.onLastIndexReachedUnityEvent?.Invoke();
+            if (_reachedHeightsCount >= heightData.amountOfIterationsEx3) {
+                AudioController.Instance.PlayAudioClip(3,2);
+                _reachedHeightsCount = 0;
+                return; 
             }
+                
+            _currentIndex++;
+            if (_currentIndex >= targetHeights.Length) {
+                _currentIndex = 0;
+            }
+
+            _currentTargetY = Mathf.Clamp(targetHeights[_currentIndex], minHeight, maxHeight);
         }
 
         private void OnDrawGizmos() {

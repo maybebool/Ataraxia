@@ -147,8 +147,8 @@ namespace Audio {
 
         public void PlayAudioClip(int index, int mixerIndex) {
             if (!_audioSourcesByGroup.TryGetValue(mixerIndex, out var groupAudioSources)) {
-                Debug.LogError(
-                    $"Mixer group index {mixerIndex} not found. Make sure to process the mixer group before playing clips.");
+                // Debug.LogError(
+                    // $"Mixer group index {mixerIndex} not found. Make sure to process the mixer group before playing clips.");
                 return;
             }
 
@@ -156,7 +156,7 @@ namespace Audio {
                 groupAudioSources[index].Play();
             }
             else {
-                Debug.LogError($"Audio clip index {index} out of range in mixer group {mixerIndex}.");
+                // Debug.LogError($"Audio clip index {index} out of range in mixer group {mixerIndex}.");
             }
         }
 
