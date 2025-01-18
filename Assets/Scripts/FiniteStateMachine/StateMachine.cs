@@ -38,8 +38,9 @@ namespace FiniteStateMachine {
             _current = _nodes[state.GetType()];
         }
         
+        // for Dictionary so it's not empty at start
         public void RegisterState(IState state) {
-            GetOrAddNode(state); // ensures the dictionary has an entry for "state.GetType()"
+            GetOrAddNode(state); 
         }
 
         private ITransition GetTransition() {
@@ -58,6 +59,8 @@ namespace FiniteStateMachine {
             GetOrAddNode(from).AddTransition(GetOrAddNode(to).State, condition);
         }
 
+        // maybe not needed at the end
+        // //TODO check later
         public void AddAnyTransition(IState to, IPredicate condition) {
             _anyTransitions.Add(new Transition(GetOrAddNode(to).State, condition));
         }
@@ -73,18 +76,6 @@ namespace FiniteStateMachine {
             return node;
         }
 
-        private class StateNode {
-            public IState State { get; }
-            public HashSet<ITransition> Transitions { get; }
-
-            public StateNode(IState state) {
-                State = state;
-                Transitions = new HashSet<ITransition>();
-            }
-
-            public void AddTransition(IState to, IPredicate condition) {
-                Transitions.Add(new Transition(to, condition));
-            }
-        }
+        
     }
 }

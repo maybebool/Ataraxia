@@ -3,7 +3,7 @@ using ScriptableObjects;
 using UnityEngine;
 
 namespace FiniteStateMachine {
-    public class GameFlowStateMachine : MonoBehaviour {
+    public class TremorDetectionStateMachine : MonoBehaviour {
         [SerializeField] private DataContainer dataContainer;
         [SerializeField] private GameObject pauseMenu; 
         [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -20,7 +20,10 @@ namespace FiniteStateMachine {
             _pausedState = new PausedState(pauseMenu);
             _cancelState = new CancelState(mainMenuSceneName);
 
+            // workaround needed, higher values unreachable because line graph resets value 
+            // also calculatedTremorIntensity not implemented in line graph yet
             
+            dataContainer.calculatedTremorIntensity = 0.0f;
             // Running -> Paused if intensity in [8, 9.8)
             _fsm.AddTransition(_runningState, _pausedState, new FuncPredicate(() =>
                 dataContainer.calculatedTremorIntensity >= 8.0f &&
@@ -33,10 +36,6 @@ namespace FiniteStateMachine {
             // Paused -> Running if intensity < 8
             _fsm.AddTransition(_pausedState, _runningState, new FuncPredicate(() =>
                 dataContainer.calculatedTremorIntensity < 8.0f));
-
-            // Paused -> Cancel if intensity >= 9.8
-            _fsm.AddTransition(_pausedState, _cancelState, new FuncPredicate(() =>
-                dataContainer.calculatedTremorIntensity >= 9.8f));
             
             _fsm.SetState(_runningState);
         }
