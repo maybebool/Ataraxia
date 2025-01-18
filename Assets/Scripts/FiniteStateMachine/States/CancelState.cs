@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FiniteStateMachine.Structures;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FiniteStateMachine.States {

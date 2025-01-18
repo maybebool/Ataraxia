@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using FiniteStateMachine.Structures;
+using UnityEngine;
 
 namespace FiniteStateMachine.States {
     public class PausedState : BaseState {

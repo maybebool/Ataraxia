@@ -1,7 +1,7 @@
 ﻿using System;
 using StateMachines;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.Structures {
     public class FuncPredicate : IPredicate {
         readonly Func<bool> _func;
         

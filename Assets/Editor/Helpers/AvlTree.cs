@@ -15,15 +15,19 @@ namespace Editor.Helpers {
             SubtreeSize = 1;
         }
     }
+    // TODO: Ask Andi if its really all log n and if red black tree would make more sense 
     /// <summary>
-    /// A Balanced BST (AVL-style) :
+    /// Balanced BST (AVL-style) :
     /// - Insert in O(log n)
     /// - Remove in O(log n)
     /// - GetMin, GetMax, and GetQuantile in O(log n)
     /// </summary>
     public class AvlTree {
+        
+        // TODO: Maybe intensive calculations could be done with multi threading. But then we need to create 
+        // lists with n Count, resulting in O(n). Ask Andi if this is a good idea
         private Node _root;
-
+        
         /// <summary>
         /// Returns how many elements are currently in the tree.
         /// </summary>

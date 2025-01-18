@@ -1,4 +1,5 @@
 ﻿using FiniteStateMachine.States;
+using FiniteStateMachine.Structures;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -8,13 +9,13 @@ namespace FiniteStateMachine {
         [SerializeField] private GameObject pauseMenu; 
         [SerializeField] private string mainMenuSceneName = "MainMenu";
 
-        private StateMachine _fsm;
+        private Structures.StateMachine _fsm;
         private RunningState _runningState;
         private PausedState _pausedState;
         private CancelState _cancelState;
 
         private void Awake() {
-            _fsm = new StateMachine();
+            _fsm = new Structures.StateMachine();
         
             _runningState = new RunningState();
             _pausedState = new PausedState(pauseMenu);

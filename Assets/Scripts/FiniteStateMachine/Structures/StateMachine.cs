@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StateMachine.Interfaces;
 using StateMachines;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.Structures {
     public class StateMachine {
         private StateNode _current;
         private Dictionary<Type, StateNode> _nodes = new();
@@ -60,7 +60,7 @@ namespace FiniteStateMachine {
         }
 
         // maybe not needed at the end
-        // //TODO check later
+        // //TODO: check later
         public void AddAnyTransition(IState to, IPredicate condition) {
             _anyTransitions.Add(new Transition(GetOrAddNode(to).State, condition));
         }

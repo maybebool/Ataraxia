@@ -1,6 +1,6 @@
 ﻿using StateMachines;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.Structures {
     public abstract class BaseState : IState {
         
         public virtual void OnEnter() { }

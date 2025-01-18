@@ -16,7 +16,7 @@ namespace FiniteStateMachine {
         [Header("Exercise3 Objects")] [SerializeField]
         private GameObject[] exercise3Objects;
         
-        private StateMachine _sceneFsm;
+        private Structures.StateMachine _sceneFsm;
         
         private MainMenuState _mainMenuState;
         private Exercise1State _exercise1State;
@@ -25,7 +25,7 @@ namespace FiniteStateMachine {
 
         private void Awake() {
             
-            _sceneFsm = new StateMachine();
+            _sceneFsm = new Structures.StateMachine();
             _mainMenuState = new MainMenuState(mainMenuObjects);
             _exercise1State = new Exercise1State(exercise1Objects);
             _exercise2State = new Exercise2State(exercise2Objects);

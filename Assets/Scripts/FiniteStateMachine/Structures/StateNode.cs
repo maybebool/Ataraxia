@@ -2,7 +2,7 @@
 using StateMachine.Interfaces;
 using StateMachines;
 
-namespace FiniteStateMachine {
+namespace FiniteStateMachine.Structures {
     public class StateNode {
         public IState State { get; }
         public HashSet<ITransition> Transitions { get; }
