@@ -6,37 +6,37 @@ namespace MTA {
     public class RightLegTremorDetection : MTATremorBase{
         [SerializeField] private XRRayInteractor ray;
 
-        protected override XRRayInteractor RaycastPoint {
+        protected override XRRayInteractor raycastPoint {
             get => ray;
             set => ray = value;
         }
         
-        protected override Vector3 CurrentPos {
+        protected override Vector3 currentPos {
             get => scO.rightLegCurrentPos;
             set => scO.rightLegCurrentPos = value;
         }
 
-        protected override float Degree {
+        protected override float degree {
             get => scO.rightLegDegree;
             set => scO.rightLegDegree = value;
         }
 
-        protected override float TremorIntensity {
+        protected override float tremorIntensity {
             get => scO.tremorIntensityRightLeg;
             set => scO.tremorIntensityRightLeg = value;
         }
 
-        protected override bool IsCollectingData {
+        protected override bool isCollectingData {
             get => scO.isRightLegCollectingData;
             set => scO.isRightLegCollectingData = value;
         }
 
-        protected override float IntensityMultiplier {
+        protected override float intensityMultiplier {
             get => scO.rightLegIntensityMultiplier; 
             set => scO.rightLegIntensityMultiplier = value;
         }
         
-        protected override int OscillationThreshold {
+        protected override int oscillationThreshold {
             get => scO.rightLegOscillationThreshold;
             set => scO.rightLegOscillationThreshold = value;
         }

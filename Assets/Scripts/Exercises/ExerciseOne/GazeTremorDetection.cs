@@ -9,39 +9,38 @@ namespace Exercises.ExerciseOne {
         [SerializeField] private XRRayInteractor ray;
         [SerializeField] private GameObject objectToSpawn;
         private Vector3 _currentRayEndPoint;
-        // private GameObject _spawnedObject;
 
-        protected override XRRayInteractor RaycastPoint {
+        protected override XRRayInteractor raycastPoint {
             get => ray;
             set => ray = value;
         }
 
-        protected override Vector3 CurrentPos {
+        protected override Vector3 currentPos {
             get => scO.headCurrentPos;
             set => scO.headCurrentPos = value;
         }
 
-        protected override float Degree {
+        protected override float degree {
             get => scO.headDegree;
             set => scO.headDegree = value;
         }
 
-        protected override float TremorIntensity {
+        protected override float tremorIntensity {
             get => scO.tremorIntensityHead;
             set => scO.tremorIntensityHead = value;
         }
         
-        protected override bool IsCollectingData {
+        protected override bool isCollectingData {
             get => scO.isHeadCollectingData;
             set => scO.isHeadCollectingData = value;
         }
         
-        protected override float IntensityMultiplier {
+        protected override float intensityMultiplier {
             get => scO.headIntensityMultiplier; 
             set => scO.headIntensityMultiplier = value;
         }
         
-        protected override int OscillationThreshold {
+        protected override int oscillationThreshold {
             get => scO.headOscillationThreshold;
             set => scO.headOscillationThreshold = value;
         }
@@ -58,7 +57,6 @@ namespace Exercises.ExerciseOne {
             }
             objectToSpawn.transform.position = _currentRayEndPoint;
             objectToSpawn.transform.rotation = Quaternion.identity;
-            // _spawnedObject = Instantiate(objectToSpawn, _currentRayEndPoint, Quaternion.identity);
             UpdateRayEndPointAndPosition();
         }
 
@@ -71,9 +69,9 @@ namespace Exercises.ExerciseOne {
         }
 
         protected override void Update() {
-            if (!IsCollectingData) {
-                TremorIntensity -= tremorDecayRate * Time.deltaTime;
-                TremorIntensity = Mathf.Clamp(TremorIntensity, 0f, 10f);
+            if (!isCollectingData) {
+                tremorIntensity -= tremorDecayRate * Time.deltaTime;
+                tremorIntensity = Mathf.Clamp(tremorIntensity, 0f, 10f);
             }
             UpdateRayEndPointAndPosition();
         }
