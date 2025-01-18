@@ -25,11 +25,19 @@ namespace FiniteStateMachine {
 
         private void Awake() {
             
-            _sceneFsm = new FiniteStateMachine.StateMachine();
+            
+            
+            _sceneFsm = new StateMachine();
             _mainMenuState = new MainMenuState(mainMenuObjects);
             _exercise1State = new Exercise1State(exercise1Objects);
             _exercise2State = new Exercise2State(exercise2Objects);
             _exercise3State = new Exercise3State(exercise3Objects);
+            
+            // Register them so the dictionary won't be empty
+            _sceneFsm.RegisterState(_mainMenuState);
+            _sceneFsm.RegisterState(_exercise1State);
+            _sceneFsm.RegisterState(_exercise2State);
+            _sceneFsm.RegisterState(_exercise3State);
         }
 
         private void OnEnable() {

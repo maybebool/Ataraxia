@@ -22,6 +22,7 @@ namespace FiniteStateMachine {
         }
 
         public void SetState(IState state) {
+            _current?.State?.OnExit();
             _current = _nodes[state.GetType()];
             _current.State?.OnEnter();
         }
@@ -35,6 +36,10 @@ namespace FiniteStateMachine {
             previousState?.OnExit();
             nextState?.OnEnter();
             _current = _nodes[state.GetType()];
+        }
+        
+        public void RegisterState(IState state) {
+            GetOrAddNode(state); // ensures the dictionary has an entry for "state.GetType()"
         }
 
         private ITransition GetTransition() {

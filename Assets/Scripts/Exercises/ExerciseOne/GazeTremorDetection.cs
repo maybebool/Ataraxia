@@ -9,7 +9,7 @@ namespace Exercises.ExerciseOne {
         [SerializeField] private XRRayInteractor ray;
         [SerializeField] private GameObject objectToSpawn;
         private Vector3 _currentRayEndPoint;
-        private GameObject _spawnedObject;
+        // private GameObject _spawnedObject;
 
         protected override XRRayInteractor RaycastPoint {
             get => ray;
@@ -56,7 +56,9 @@ namespace Exercises.ExerciseOne {
                 MtsEventManager.Instance.OnHeadActionActivated += OnHeadActionActivated;
                 MtsEventManager.Instance.OnHeadActionDeactivated += OnHeadActionDeactivated;
             }
-            _spawnedObject = Instantiate(objectToSpawn, _currentRayEndPoint, Quaternion.identity);
+            objectToSpawn.transform.position = _currentRayEndPoint;
+            objectToSpawn.transform.rotation = Quaternion.identity;
+            // _spawnedObject = Instantiate(objectToSpawn, _currentRayEndPoint, Quaternion.identity);
             UpdateRayEndPointAndPosition();
         }
 
@@ -78,8 +80,8 @@ namespace Exercises.ExerciseOne {
 
         private void UpdateRayEndPointAndPosition() {
             _currentRayEndPoint = ray.rayEndPoint;
-            if (_spawnedObject) {
-                _spawnedObject.transform.position = _currentRayEndPoint;
+            if (objectToSpawn) {
+                objectToSpawn.transform.position = _currentRayEndPoint;
             }
         }
         
