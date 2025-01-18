@@ -58,6 +58,7 @@ namespace Editor.Components.Graphs {
             if (count == 0) return; 
             var average = sum / count;
             _dataPoints.Add(average);
+            // TODO: calculatedTremorIntensity value set here based of the parameters
             
             while (_dataPoints.Count > Mathf.Max(_maxDataPoints, 1)) {
                 _dataPoints.RemoveAt(0);

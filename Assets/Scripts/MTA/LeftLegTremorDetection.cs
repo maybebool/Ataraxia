@@ -7,37 +7,37 @@ namespace MTA {
         
         [SerializeField] private XRRayInteractor ray;
 
-        protected override XRRayInteractor RaycastPoint {
+        protected override XRRayInteractor raycastPoint {
             get => ray;
             set => ray = value;
         }
         
-        protected override Vector3 CurrentPos {
+        protected override Vector3 currentPos {
             get => scO.leftLegCurrentPos;
             set => scO.leftLegCurrentPos = value;
         }
 
-        protected override float Degree {
+        protected override float degree {
             get => scO.leftLegDegree;
             set => scO.leftLegDegree = value;
         }
 
-        protected override float TremorIntensity {
+        protected override float tremorIntensity {
             get => scO.tremorIntensityLeftLeg;
             set => scO.tremorIntensityLeftLeg = value;
         }
 
-        protected override bool IsCollectingData {
+        protected override bool isCollectingData {
             get => scO.isLeftLegCollectingData;
             set => scO.isLeftLegCollectingData = value;
         }
 
-        protected override float IntensityMultiplier {
+        protected override float intensityMultiplier {
             get => scO.leftLegIntensityMultiplier; 
             set => scO.leftLegIntensityMultiplier = value;
         }
         
-        protected override int OscillationThreshold {
+        protected override int oscillationThreshold {
             get => scO.leftLegOscillationThreshold;
             set => scO.leftLegOscillationThreshold = value;
         }

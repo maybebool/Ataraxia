@@ -6,37 +6,37 @@ namespace MTA {
     public class LeftHandTremorDetection : MTATremorBase {
         [SerializeField] private XRRayInteractor ray;
 
-        protected override XRRayInteractor RaycastPoint {
+        protected override XRRayInteractor raycastPoint {
             get => ray;
             set => ray = value;
         }
 
-        protected override Vector3 CurrentPos {
+        protected override Vector3 currentPos {
             get => scO.leftHandCurrentPos;
             set => scO.leftHandCurrentPos = value;
         }
 
-        protected override float Degree {
+        protected override float degree {
             get => scO.leftHandDegree;
             set => scO.leftHandDegree = value;
         }
 
-        protected override float TremorIntensity {
+        protected override float tremorIntensity {
             get => scO.tremorIntensityLeftHand;
             set => scO.tremorIntensityLeftHand = value;
         }
         
-        protected override bool IsCollectingData {
+        protected override bool isCollectingData {
             get => scO.isLeftHandCollectingData;
             set => scO.isLeftHandCollectingData = value;
         }
         
-        protected override float IntensityMultiplier {
+        protected override float intensityMultiplier {
             get => scO.leftHandIntensityMultiplier; 
             set => scO.leftHandIntensityMultiplier = value;
         }
         
-        protected override int OscillationThreshold {
+        protected override int oscillationThreshold {
             get => scO.leftHandOscillationThreshold;
             set => scO.leftHandOscillationThreshold = value;
         }
