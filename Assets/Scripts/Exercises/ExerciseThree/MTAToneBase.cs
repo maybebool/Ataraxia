@@ -26,9 +26,19 @@ namespace Exercises.ExerciseThree {
 
         protected virtual void OnDisable() {
         }
-        
-        private void Update() {
-            
+
+
+        /// <summary>
+        /// Updates the local scale and position of the game object based on dynamic target values for the Y-axis.
+        /// </summary>
+        /// <remarks>
+        /// This method adjusts the Y-axis scale of the game object by interpolating between a defined minimum and
+        /// maximum height, using the button pressure value as an input. The scaling is performed with smooth
+        /// interpolation determined by the specified interpolation speed. Additionally, the method recalculates the
+        /// vertical position of the object to maintain alignment with the new scale.
+        /// </remarks>
+        private void Update()
+        {
             var currentY = transform.localScale.y;
             var desiredY = Mathf.Lerp(minHeight, maxHeight, BtnPressureValue);
 
