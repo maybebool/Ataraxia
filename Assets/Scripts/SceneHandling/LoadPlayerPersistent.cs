@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 namespace SceneHandling {
     public class LoadPlayerPersistent : MonoBehaviour {
         

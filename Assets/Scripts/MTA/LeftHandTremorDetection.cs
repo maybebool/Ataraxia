@@ -55,8 +55,6 @@ namespace MTA {
                 MtsEventManager.Instance.OnLeftHandBtnPressed -= OnLeftHandBtnPressed;
                 MtsEventManager.Instance.OnLeftHandBtnReleased -= OnLeftHandButtonReleased;
             }
-
-            
         }
 
         private void OnLeftHandBtnPressed() {

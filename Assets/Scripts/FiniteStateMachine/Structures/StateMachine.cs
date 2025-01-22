@@ -75,7 +75,5 @@ namespace FiniteStateMachine.Structures {
 
             return node;
         }
-
-        
     }
 }

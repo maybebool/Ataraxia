@@ -15,12 +15,11 @@ namespace Exercises.ExerciseThree {
         [Tooltip("How fast to smoothly interpolate each frame")]
         public float interpolationSpeed = 1.5f;
 
+        private Coroutine _toneCollectionCoroutine;
 
         protected abstract float NewYAxisScaleValue { get; set; }
         protected abstract float BtnPressureValue { get; set; }
-
-        private Coroutine toneCollectionCoroutine;
-
+        
         protected virtual void OnEnable() {
         }
 
