@@ -12,6 +12,3 @@ VisualElement {
 .mainButtonStyle:hover{
     background-color: rgba(240, 230, 140, 0.1);
 }
-
-
-
