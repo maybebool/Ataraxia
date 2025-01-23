@@ -1,12 +1,12 @@
 VisualElement {}
 
-
 .customTabElementStyle{
     height: 100%;
     width: 100%;
     align-items: center;
     justify-content: center;
 }
+
 .unity-tab__content-container{
     height: 100%;
     width: 100%;
