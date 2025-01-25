@@ -14,7 +14,7 @@ namespace Editor.Components.Graphs {
         private float minValue = 0f; 
         private float maxValue = 10f;
         private float valueRange;
-        
+        public float calculatedTremorIntensity { get; private set; }
         public LineGraph() {
             
         }
@@ -57,6 +57,7 @@ namespace Editor.Components.Graphs {
             
             if (count == 0) return; 
             var average = sum / count;
+            calculatedTremorIntensity = average;
             _dataPoints.Add(average);
             // TODO: calculatedTremorIntensity value set here based of the parameters
             

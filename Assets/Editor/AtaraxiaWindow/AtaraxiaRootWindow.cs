@@ -102,7 +102,7 @@ namespace Editor.AtaraxiaWindow {
 
                 if (EditorApplication.timeSinceStartup >= _nextUpdateTimeLineGraph) {
                     _nextUpdateTimeLineGraph = EditorApplication.timeSinceStartup + _updateIntervalInSecondsLineGraph;
-
+                    
                     UpdateLineGraph();
                 }
             } else {
@@ -166,6 +166,7 @@ namespace Editor.AtaraxiaWindow {
                     scObData.rightLegTremorImportanceWeight,
                     scObData.leftLegTremorImportanceWeight);
             
+            scObData.calculatedTremorIntensity = _dataGraphTab.LineChart.calculatedTremorIntensity;
             _dataGraphTab.LineChart.UpdateChartDisplay();
         }
     }
