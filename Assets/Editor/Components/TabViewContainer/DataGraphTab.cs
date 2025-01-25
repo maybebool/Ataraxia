@@ -98,8 +98,8 @@ namespace Editor.Components.TabViewContainer {
                 csvContent += $"Min,{minValue:F2}\n";
             }
             
-            csvContent += $"\nCircle Graph Right Hand Percentage,{CircleGraphRightHand.GetCirclePercentage()}%\n";
-            csvContent += $"Circle Graph Left Hand Percentage,{CircleGraphLeftHand.GetCirclePercentage()}%\n";
+            csvContent += $"\nRight Hand Tone ,{CircleGraphRightHand.GetCirclePercentage()}%\n";
+            csvContent += $"Left Hand Tone,{CircleGraphLeftHand.GetCirclePercentage()}%\n";
 
             var folderPath = "Assets/Exports";
             var fileName = $"Results_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
