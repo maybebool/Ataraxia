@@ -8,7 +8,6 @@ VisualElement {}
 #TitleLabel{
     font-size: 18;
     color: hotpink  ;
-    
 }
 
 #TextLabel{

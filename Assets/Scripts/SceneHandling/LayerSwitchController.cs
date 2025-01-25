@@ -10,13 +10,13 @@ namespace SceneHandling {
         }
 
         private void OnEnable() {
-            SceneLoader.Instance.OnLoadBegin.AddListener(SwitchToLoadLayer);
-            SceneLoader.Instance.OnLoadEnd.AddListener(ResetLayer);
+            SceneLoader.Instance.onLoadBegin.AddListener(SwitchToLoadLayer);
+            SceneLoader.Instance.onLoadEnd.AddListener(ResetLayer);
         }
 
         private void OnDisable() {
-            SceneLoader.Instance.OnLoadBegin.RemoveListener(SwitchToLoadLayer);
-            SceneLoader.Instance.OnLoadEnd.RemoveListener(ResetLayer);
+            SceneLoader.Instance.onLoadBegin.RemoveListener(SwitchToLoadLayer);
+            SceneLoader.Instance.onLoadEnd.RemoveListener(ResetLayer);
         }
 
         private void SwitchToLoadLayer() {

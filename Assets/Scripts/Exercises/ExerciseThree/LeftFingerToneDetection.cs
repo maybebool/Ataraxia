@@ -8,9 +8,7 @@ namespace Exercises.ExerciseThree {
             set => scO.leftPlayerObjectHeight = value; }
 
         protected override float BtnPressureValue { get; set; } = 0;
-
         
-
         protected override void OnEnable() {
             if (MtsEventManager.Instance != null) {
                 MtsEventManager.Instance.OnLeftHandFingerToneBtnPressed += OnLeftHandFingerToneBtnPressed;
@@ -28,13 +26,11 @@ namespace Exercises.ExerciseThree {
         private void OnLeftHandFingerToneBtnPressed(InputAction.CallbackContext context) {
             scO.isLeftFingerToneCollectingData = true;
             BtnPressureValue = context.ReadValue<float>();
-            // StartToneCollection();
         }
 
         private void OnLeftHandFingerToneBtnReleased(InputAction.CallbackContext context) {
             BtnPressureValue = 0f;
             scO.isLeftFingerToneCollectingData = false;
-            // StopToneCollection();
         }
     }
 }

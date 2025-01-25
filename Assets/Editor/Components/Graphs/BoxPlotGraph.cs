@@ -136,7 +136,15 @@ namespace Editor.Components.Graphs {
             _min = _max = _median = _q1 = _q3 = 0f;
             UpdateBoxPlotDisplay();
         }
-        
+
+        /// <summary>
+        /// Recalculates statistical metrics (minimum, maximum, median, first quartile (Q1), third quartile (Q3))
+        /// based on the current data points stored in the AVL tree.
+        /// This method updates the internal statistical fields and adds
+        /// their updated values to the appropriate history lists.
+        /// If the AVL tree is empty, all statistical metrics are reset to 0.
+        /// Maintains a maximum history size of 100,000 values for each metric.
+        /// </summary>
         private void RecalculateStatistics() {
             var count = _avl.Count;
             if (count == 0) {
@@ -165,6 +173,15 @@ namespace Editor.Components.Graphs {
             }
         }
 
+
+        /// <summary>
+        /// Updates the visuals of the box plot display based on the latest statistical data.
+        /// This method ensures that the box plot's graphical elements (e.g., box, whisker lines, and median line)
+        /// are properly positioned, resized, and styled to reflect the current minimum, maximum, first quartile (Q1),
+        /// median, and third quartile (Q3) values.
+        /// If the container layout or visual elements are not initialized, the method logs an error
+        /// and exits without updating the display.
+        /// </summary>
         private void UpdateBoxPlotDisplay() {
             if (_dataPoints.Count == 0) return;
             if (_boxplotContainer == null || _minLine == null || _maxLine == null || _box == null ||

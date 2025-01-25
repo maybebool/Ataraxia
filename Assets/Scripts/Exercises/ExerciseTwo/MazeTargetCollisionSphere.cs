@@ -1,6 +1,6 @@
 ﻿namespace Exercises.ExerciseTwo {
     public class MazeTargetCollisionSphere : MazeTargetCollisionBase{
         
-        protected override string targetTag => "Sphere";
+        protected override string TargetTag => "Sphere";
     }
 }

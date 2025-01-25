@@ -1,23 +1,23 @@
 ﻿using FiniteStateMachine.States;
+using FiniteStateMachine.Structures;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FiniteStateMachine {
     public class SceneStateMachine : MonoBehaviour {
-        [Header("Main Menu Objects")] [SerializeField]
-        private GameObject[] mainMenuObjects;
+        [Header("Main Menu Objects")]
+        [SerializeField] private GameObject[] mainMenuObjects;
 
-        [Header("Exercise1 Objects")] [SerializeField]
-        private GameObject[] exercise1Objects;
+        [Header("Exercise1 Objects")] 
+        [SerializeField] private GameObject[] exercise1Objects;
 
-        [Header("Exercise2 Objects")] [SerializeField]
-        private GameObject[] exercise2Objects;
+        [Header("Exercise2 Objects")] 
+        [SerializeField] private GameObject[] exercise2Objects;
 
-        [Header("Exercise3 Objects")] [SerializeField]
-        private GameObject[] exercise3Objects;
+        [Header("Exercise3 Objects")] 
+        [SerializeField] private GameObject[] exercise3Objects;
         
         private Structures.StateMachine _sceneFsm;
-        
         private MainMenuState _mainMenuState;
         private Exercise1State _exercise1State;
         private Exercise2State _exercise2State;

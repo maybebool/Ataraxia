@@ -13,6 +13,15 @@ namespace Editor.Components.Graphs {
         private Label _percentageLabel;
 
 
+        /// <summary>
+        /// Represents a graphical component for displaying circular graphs in the Unity Editor interface.
+        /// </summary>
+        /// <remarks>
+        /// The CircleGraph class is designed to render a circular progress graph with a customizable title and subtitle.
+        /// It supports updating the circle's fill percentage dynamically and displays the percentage
+        /// visually in the center of the graph.
+        /// This class derives from the VisualElement class and is styled using an external StyleSheet resource.
+        /// </remarks>
         public CircleGraph(string title = "1", string subtitle = "2") {
             var circleGraphStyle = Resources.Load<StyleSheet>("Styles/CircleGraphStyle");
             if (circleGraphStyle != null) {
@@ -79,6 +88,16 @@ namespace Editor.Components.Graphs {
         }
 
 
+        /// <summary>
+        /// Generates a visual representation of a circular arc inside the circle graph using a specified percentage value.
+        /// </summary>
+        /// <param name="mgc">The mesh generation context used to draw the circular arc.</param>
+        /// <remarks>
+        /// This method is invoked as part of the visual content generation process. It calculates and draws the
+        /// arc segment of the circle graph based on the current percentage value using the painter2D object.
+        /// The arc's parameters, such as radius, start angle, and end angle, are determined dynamically based on
+        /// the circle's dimensions and percentage value.
+        /// </remarks>
         private void OnGenerateCircleArc(MeshGenerationContext mgc) {
             var painter2D = mgc.painter2D;
             painter2D.lineWidth = 2f;
@@ -97,6 +116,25 @@ namespace Editor.Components.Graphs {
         }
 
 
+        /// <summary>
+        /// Draws an arc on the given <c>Painter2D</c> canvas based on specified parameters including center,
+        /// radius, start angle, and end angle.
+        /// </summary>
+        /// <param name="painter2D">
+        /// The <c>Painter2D</c> object used to render the arc. It is responsible for managing the drawing context.
+        /// </param>
+        /// <param name="center">
+        /// The center position of the arc in the coordinate system of the parent container.
+        /// </param>
+        /// <param name="radius">
+        /// The radius of the arc, determining its size.
+        /// </param>
+        /// <param name="startAngleDeg">
+        /// The starting angle of the arc in degrees, measured clockwise from the upward vertical direction.
+        /// </param>
+        /// <param name="endAngleDeg">
+        /// The ending angle of the arc in degrees, measured clockwise from the upward vertical direction.
+        /// </param>
         private void DrawArcManually(Painter2D painter2D, Vector2 center,
             float radius, float startAngleDeg, float endAngleDeg) {
             
