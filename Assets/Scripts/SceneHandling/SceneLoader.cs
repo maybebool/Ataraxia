@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 namespace SceneHandling {
     public class SceneLoader : Singleton<SceneLoader> {
         
-        public UnityEvent OnLoadBegin = new();
-        public UnityEvent OnLoadEnd = new();
+        public UnityEvent onLoadBegin = new();
+        public UnityEvent onLoadEnd = new();
         public ScreenFader screenFader;
         private bool _isLoading = false;
 
@@ -28,14 +28,14 @@ namespace SceneHandling {
 
         private IEnumerator LoadScene(SceneNames sceneNumber) {
             _isLoading = true;
-            OnLoadBegin?.Invoke();
+            onLoadBegin?.Invoke();
             yield return screenFader.StartFadeIn();
             yield return StartCoroutine(UnloadCurrent());
 
             yield return new WaitForSeconds(3.0f);
             yield return StartCoroutine(LoadNew(sceneNumber));
             yield return screenFader.StartFadeOut();
-            OnLoadEnd?.Invoke();
+            onLoadEnd?.Invoke();
             _isLoading = false;
         }
 

@@ -64,7 +64,24 @@ namespace Editor.Components.Graphs {
                 _dataPoints.RemoveAt(0);
             }
         }
-        
+
+        /// <summary>
+        /// Updates the display of the line chart visualization within the graph component.
+        /// </summary>
+        /// <remarks>
+        /// This method is responsible for refreshing the chart to reflect the current state of the
+        /// data points. If the chart container is not properly initialized or if insufficient
+        /// data points exist, the update will not proceed. The method recalculates layout parameters,
+        /// applies styles, draws grid lines and line segments, and triggers a visual repaint of
+        /// the chart.
+        /// </remarks>
+        /// <exception cref="System.NullReferenceException">
+        /// Thrown if the chart container is not initialized.
+        /// </exception>
+        /// <para>
+        /// Scheduling is used within this method to ensure chart updates wait until the layout
+        /// dimensions are available, allowing for proper calculations of the visual components.
+        /// </para>
         public void UpdateChartDisplay() {
             if (_dataPoints == null || _dataPoints.Count < 2) return;
             if (_chartContainer == null) {

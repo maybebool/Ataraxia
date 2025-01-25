@@ -5,7 +5,6 @@ VisualElement {}
     padding: 30px;
     justify-content: flex-start;
     align-self: flex-start ;
-    /*margin: 2% 3% 3%;*/
 }
 .maxLine{
     width: 50px;

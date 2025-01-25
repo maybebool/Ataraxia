@@ -7,14 +7,14 @@ namespace Exercises.ExerciseTwo {
         [SerializeField] protected int obstacleAudioClipIndex = 4;
         [SerializeField] protected int targetAudioClipIndex = 5;
         [SerializeField] protected int mixerIndex = 2; 
-        protected abstract string targetTag { get; }
+        protected abstract string TargetTag { get; }
         private void OnTriggerEnter(Collider other) {
             CheckCollision(other.gameObject);
         }
 
         private void CheckCollision(GameObject collidedObject) {
             
-            if (!collidedObject.CompareTag(targetTag)) {
+            if (!collidedObject.CompareTag(TargetTag)) {
                 AudioController.Instance.PlayAudioClip(obstacleAudioClipIndex, mixerIndex);
             }
             

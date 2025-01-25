@@ -80,6 +80,16 @@ namespace MTA {
             _hasPreviousPosition = false;
         }
 
+        /// <summary>
+        /// Executes a continuous data collection routine for analyzing positional changes
+        /// and evaluating tremor intensity in real-time. This routine calculates positional
+        /// changes, updates angular degree measurements, and adjusts tremor intensity based
+        /// on detected movements and predefined thresholds.
+        /// </summary>
+        /// <returns>
+        /// The enumerator for the data collection routine, managing the continuous execution
+        /// of tremor-related computations within a coroutine.
+        /// </returns>
         private IEnumerator DataCollectionRoutine() {
             while (isCollectingData) {
                 raycastPoint.TryGetCurrent3DRaycastHit(out var hit);
@@ -129,6 +139,21 @@ namespace MTA {
             _tremorEventTimes.Clear();
         }
 
+        /// <summary>
+        /// Calculates the tremor intensity and evaluates changes in oscillation patterns
+        /// based on rotational degree differences over time. This method analyzes movement
+        /// speed and accumulates oscillation deltas to determine if predefined thresholds
+        /// are crossed, triggering specific feedback and adjustments to the overall tremor intensity state.
+        /// </summary>
+        /// <remarks>
+        /// The method tracks the degree of rotation between updates and determines the absolute
+        /// movement speed by dividing this difference by the elapsed time. If the speed surpasses
+        /// a predefined threshold, a color change is applied to the detector. Accumulated oscillation
+        /// deltas are also checked against a threshold, which, when exceeded repeatedly within a
+        /// specified time window, processes the tremor event and updates the tremor intensity.
+        /// Additionally, the method ensures that excess accumulation is reset and the tremor state
+        /// is appropriately clamped to maintain validity within the context of the simulation.
+        /// </remarks>
         private void CalculateTremor() {
             var currentTime = Time.time;
             var deltaTime = currentTime - lastUpdateTime;
@@ -171,6 +196,18 @@ namespace MTA {
             lastUpdateTime = currentTime;
         }
 
+        /// <summary>
+        /// Increments the current tremor intensity value based on the frequency of tremor events
+        /// within a specified time window. The increase in intensity is weighted by a multiplier
+        /// that scales with the number of tremor events exceeding a predefined threshold.
+        /// </summary>
+        /// <remarks>
+        /// The method adds the current timestamp to a list of tremor event times and removes
+        /// timestamps that are older than the defined time window. If the number of tremor
+        /// events within the time window exceeds the multiplier threshold, the intensity increase
+        /// is scaled by a multiplier. The final tremor intensity is clamped to ensure it remains
+        /// within a valid range.
+        /// </remarks>
         private void IncrementTremorIntensityValue() {
             var incrementAmount = 0.3f;
             _tremorEventTimes.Add(Time.time);

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 
 namespace Managers {
     public class ObjectPoolManager : MonoBehaviour {
@@ -167,7 +166,7 @@ namespace Managers {
         
         private GameObject CreateObstacleObject() {
             var go = Instantiate(obstaclePrefab);
-            go.name = obstaclePrefab.name + " (ObstaclePool)"; // optional rename
+            go.name = obstaclePrefab.name + " (ObstaclePool)"; 
             return go;
         }
 
