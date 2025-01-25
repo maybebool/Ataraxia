@@ -23,7 +23,6 @@ namespace Editor.AtaraxiaWindow {
         private float _currentValue = 6f; 
 
         private bool _shouldUpdateBoxPlot;
-        // private LineGraph _lineChart;
         private DataGraphTab _dataGraphTab;
 
         [MenuItem("Window/Ataraxia")]
@@ -48,9 +47,6 @@ namespace Editor.AtaraxiaWindow {
             rootVisualElement.Add(tabViewExercises);
             rootVisualElement.Add(tabViewSettings);
             rootVisualElement.Add(tabDataGraphs);
-
-            var saveButton = tabDataGraphs.Q<DefaultButton>("SaveButton");
-            saveButton.clicked += OnSaveButtonClicked;
             
             _buttonToUIElementMap.Add(sceneManagerBtn, tabViewExercises);
             _buttonToUIElementMap.Add(dataViewBnt, tabDataGraphs);
@@ -171,64 +167,6 @@ namespace Editor.AtaraxiaWindow {
                     scObData.leftLegTremorImportanceWeight);
             
             _dataGraphTab.LineChart.UpdateChartDisplay();
-        }
-        
-        private void OnSaveButtonClicked() {
-            SaveResults();
-        }
-        
-        private void SaveResults() {
-            var lineChartAverage = CalculateLineChartAverage();
-            var csvContent = "Metric,Value\n";
-            csvContent += $"Line Chart Average,{lineChartAverage:F2}\n";
-
-            // For each BoxPlot
-            var plots = new[] {
-                _dataGraphTab.BoxPlot1,
-                _dataGraphTab.BoxPlot2,
-                _dataGraphTab.BoxPlot3,
-                _dataGraphTab.BoxPlot4
-            };
-            foreach (var plot in plots) {
-                if (plot == null) continue;
-
-                var minValue = plot.GetMinValues().Any() ? plot.GetMinValues().Min() : 0f;
-                var q1Average = plot.GetQ1Values().Any() ? plot.GetQ1Values().Average() : 0f;
-                var medianAverage = plot.GetMedianValues().Any() ? plot.GetMedianValues().Average() : 0f;
-                var q3Average = plot.GetQ3Values().Any() ? plot.GetQ3Values().Average() : 0f;
-                var maxValue = plot.GetMaxValues().Any() ? plot.GetMaxValues().Max() : 0f;
-
-                csvContent += $"\n{plot.GetTitle()} Box Plot Data Averages\n";
-                csvContent += $"Max Average,{maxValue:F2}\n";
-                csvContent += $"Q3 Average,{q3Average:F2}\n";
-                csvContent += $"Median Average,{medianAverage:F2}\n";
-                csvContent += $"Q1 Average,{q1Average:F2}\n";
-                csvContent += $"Min Average,{minValue:F2}\n";
-            }
-
-            var folderPath = "Assets/Exports";
-            var fileName = $"Results_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
-            var fullPath = System.IO.Path.Combine(folderPath, fileName);
-
-            if (!System.IO.Directory.Exists(folderPath)) {
-                System.IO.Directory.CreateDirectory(folderPath);
-            }
-
-            System.IO.File.WriteAllText(fullPath, csvContent);
-            AssetDatabase.Refresh();
-            Debug.Log($"Results saved to {fullPath}");
-        }
-
-        private float CalculateLineChartAverage() {
-            if (_dataGraphTab.LineChart == null || _dataGraphTab.LineChart.dataPoints == null ||
-                _dataGraphTab.LineChart.dataPoints.Count == 0)
-                return 0f;
-
-            var sum = 0f;
-            foreach (var value in _dataGraphTab.LineChart.dataPoints) {
-                sum += value;
-            }
-            return sum / _dataGraphTab.LineChart.dataPoints.Count;
         }
     }
 }
