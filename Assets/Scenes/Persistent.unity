@@ -828,7 +828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 1073741824
+      value: 536870912
       objectReference: {fileID: 0}
     - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_PullVelocityBias
