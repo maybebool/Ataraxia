@@ -21,7 +21,7 @@ namespace FiniteStateMachine {
         
             _runningState = new RunningState();
             _pausedState = new PausedState(pauseMenu, this);
-            _cancelState = new CancelState(mainMenuSceneName);
+            _cancelState = new CancelState();
 
             // workaround needed, higher values unreachable because line graph resets value 
             // also calculatedTremorIntensity not implemented in line graph yet

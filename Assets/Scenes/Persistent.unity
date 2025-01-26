@@ -2184,6 +2184,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 6480973544021734883}
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 6480973544021734884}
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: continueButton
+      value: 
+      objectReference: {fileID: 6480973544021734885}
     - target: {fileID: 1814210505341622709, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2268,6 +2280,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 744908805}
+    - target: {fileID: 5248973775458052303, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6131211596033506567, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
       propertyPath: m_Name
       value: PauseMenu
@@ -2286,6 +2302,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6131211596033506567, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
   m_PrefabInstance: {fileID: 6480973544021734882}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6480973544021734884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8399963888209490449, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6480973544021734885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4356272560193983006, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
