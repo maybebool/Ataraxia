@@ -4,22 +4,23 @@ using UnityEngine;
 namespace FiniteStateMachine.States {
     public class PausedState : BaseState {
         private readonly GameObject _pauseMenu;
-
-        public PausedState(GameObject pauseMenu) {
+        private readonly TremorDetectionStateMachine _manager;
+        public PausedState(GameObject pauseMenu, TremorDetectionStateMachine manager) {
             _pauseMenu = pauseMenu;
+            _manager = manager;
         }
 
         public override void OnEnter() {
             Time.timeScale = 0f;
-            if (_pauseMenu != null) {
+            if (_pauseMenu) {
                 _pauseMenu.SetActive(true);
             }
-        
-            Debug.Log("Entering Paused State");
+            
+            _manager.HandlePauseEntered();
         }
 
         public override void OnExit() {
-            if (_pauseMenu != null) {
+            if (_pauseMenu) {
                 _pauseMenu.SetActive(false);
             }
         }

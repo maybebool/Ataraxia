@@ -4,6 +4,8 @@ namespace ScriptableObjects {
     [CreateAssetMenu(fileName = "DataContainer", menuName = "Scriptable Objects/DataContainers")]
     public class DataContainer : ScriptableObject {
         
+        [HideInInspector] public bool isPausedRecently = false;
+        
         [Header("Data Collector States")]
         public bool isRightHandCollectingData;
         public bool isLeftHandCollectingData;

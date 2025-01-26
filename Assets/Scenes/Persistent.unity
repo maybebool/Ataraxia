@@ -2091,6 +2091,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914269641}
   - component: {fileID: 1914269642}
+  - component: {fileID: 1914269643}
   m_Layer: 0
   m_Name: StateMachines
   m_TagString: Untagged
@@ -2134,6 +2135,21 @@ MonoBehaviour:
   - {fileID: 1558594756}
   - {fileID: 922385438}
   exercise3Objects: []
+--- !u!114 &1914269643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914269640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84a36c1b6f240b28b59a01e6bb2e7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataContainer: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  pauseMenu: {fileID: 6480973544021734883}
+  mainMenuSceneName: MainMenu
 --- !u!1 &2033752118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1355868774605447033, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
@@ -2265,6 +2281,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+--- !u!1 &6480973544021734883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6131211596033506567, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
