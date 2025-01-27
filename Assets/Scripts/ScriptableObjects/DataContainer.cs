@@ -4,6 +4,8 @@ namespace ScriptableObjects {
     [CreateAssetMenu(fileName = "DataContainer", menuName = "Scriptable Objects/DataContainers")]
     public class DataContainer : ScriptableObject {
         
+        [HideInInspector] public bool isPausedRecently = false;
+        
         [Header("Data Collector States")]
         public bool isRightHandCollectingData;
         public bool isLeftHandCollectingData;
@@ -80,7 +82,6 @@ namespace ScriptableObjects {
         public int amountOfTargetsToCollectEx1;
         public int amountOfTargetsToCollectEx2;
         public int amountOfIterationsEx3;
-
         public float calculatedTremorIntensity;
         
         public void ClearData() {

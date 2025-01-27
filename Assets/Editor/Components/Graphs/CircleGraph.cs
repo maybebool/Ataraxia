@@ -8,7 +8,7 @@ namespace Editor.Components.Graphs {
     public class CircleGraph : VisualElement {
         private DataContainer _scO;
         private float _circleDegree;
-        private float _circlePercentage = 100f;
+        private int _circlePercentage;
         private readonly VisualElement _mainCircleContainer;
         private Label _percentageLabel;
 
@@ -49,14 +49,18 @@ namespace Editor.Components.Graphs {
             Add(subtitleLabel);
             Add(_mainCircleContainer);
 
-            _circlePercentage = 100f;
+            _circlePercentage = 100;
             UpdatePercentageLabel();
         }
 
-        public void SetCirclePercentage(float newPercentage) {
-            _circlePercentage = Mathf.Clamp(newPercentage, 0f, 100f);
+        public void SetCirclePercentage(int newPercentage) {
+            _circlePercentage = Mathf.Clamp(newPercentage, 0, 100);
             UpdatePercentageLabel();
             _mainCircleContainer.MarkDirtyRepaint();
+        }
+        
+        public int GetCirclePercentage() {
+            return _circlePercentage;
         }
 
         private void UpdatePercentageLabel() {
@@ -73,15 +77,15 @@ namespace Editor.Components.Graphs {
         ) {
             if (playerHeight > targetObjectOuterHeightThresholdTop 
                 || playerHeight < targetObjectOuterHeightThresholdFloor) {
-                _circlePercentage -= 2f;
+                _circlePercentage -= 2;
             }
             else {
                 if (playerHeight >= targetObjectInnerHeightThresholdFloor 
                     && playerHeight <= targetObjectInnerHeightThresholdTop) {
-                    _circlePercentage += 1f;
+                    _circlePercentage += 1;
                 }
             }
-            _circlePercentage = Mathf.Clamp(_circlePercentage, 0f, 100f);
+            _circlePercentage = Mathf.Clamp(_circlePercentage, 0, 100);
 
             UpdatePercentageLabel();
             _mainCircleContainer.MarkDirtyRepaint();

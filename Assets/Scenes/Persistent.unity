@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_InteractionLayers.m_Bits
       value: 536870912
       objectReference: {fileID: 0}
+    - target: {fileID: 1245630056795495210, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
+      objectReference: {fileID: 0}
     - target: {fileID: 1285900821919378461, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig) Variant
@@ -828,7 +832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2593286827768693056, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
-      value: 1073741824
+      value: 536870912
       objectReference: {fileID: 0}
     - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_PullVelocityBias
@@ -845,6 +849,10 @@ PrefabInstance:
     - target: {fileID: 3035885989805616308, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_MaxAdditionalVelocityScalar
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719383276647266458, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 536870912
       objectReference: {fileID: 0}
     - target: {fileID: 3834774819619447259, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -917,6 +925,10 @@ PrefabInstance:
     - target: {fileID: 5796169647540301482, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_Height
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085142703989738292, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7932468536305160820, guid: ab77f99ff14cc9e438e6fa42e7170be6, type: 3}
       propertyPath: m_IsActive
@@ -2023,6 +2035,10 @@ PrefabInstance:
       value: TesterRayObject
       objectReference: {fileID: 0}
     - target: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 551403608028439109, guid: ba6c17c4b20796f468428bf43a319b71, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -2091,6 +2107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914269641}
   - component: {fileID: 1914269642}
+  - component: {fileID: 1914269643}
   m_Layer: 0
   m_Name: StateMachines
   m_TagString: Untagged
@@ -2134,6 +2151,21 @@ MonoBehaviour:
   - {fileID: 1558594756}
   - {fileID: 922385438}
   exercise3Objects: []
+--- !u!114 &1914269643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914269640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84a36c1b6f240b28b59a01e6bb2e7e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataContainer: {fileID: 11400000, guid: 44b496d7e3a57b441af16e214d6fefa7, type: 2}
+  pauseMenu: {fileID: 6480973544021734883}
+  mainMenuSceneName: MainMenu
 --- !u!1 &2033752118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1355868774605447033, guid: 37a3b4cbd4cc81a4f88ad92f0744a7ab, type: 3}
@@ -2168,6 +2200,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 6480973544021734883}
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 6480973544021734884}
+    - target: {fileID: 805602959611679996, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: continueButton
+      value: 
+      objectReference: {fileID: 6480973544021734885}
     - target: {fileID: 1814210505341622709, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2252,6 +2296,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 744908805}
+    - target: {fileID: 5248973775458052303, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+      propertyPath: m_VertexColorAlwaysGammaSpace
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6131211596033506567, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
       propertyPath: m_Name
       value: PauseMenu
@@ -2265,6 +2313,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+--- !u!1 &6480973544021734883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6131211596033506567, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6480973544021734884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8399963888209490449, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6480973544021734885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4356272560193983006, guid: ba76a36270fa3e448aa154970abe3ec1, type: 3}
+  m_PrefabInstance: {fileID: 6480973544021734882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
