@@ -69,7 +69,7 @@ namespace Editor.Components.TabViewContainer {
             var smallImageEx3 = Resources.Load<Texture2D>("Images/RedControllerExercise3");
             
             var largeImageEx1 = Resources.Load<Texture2D>("Images/LargeImageExercise1");
-            var largeImageEx2 = Resources.Load<Texture2D>("Images/LargeImageExercise1");
+            var largeImageEx2 = Resources.Load<Texture2D>("Images/LargeImageExercise2");
             var largeImageEx3 = Resources.Load<Texture2D>("Images/LargeImageExercise3");
             
             var vETabContainer = this.Q<VisualElement>("unity-tab-view__content-container");
