@@ -50,6 +50,8 @@ namespace FiniteStateMachine {
             SwitchToSceneState(scene.name);
         }
 
+        // use anyttransition
+        // andi sagt setstate raus und alles mit anytransition
         private void SwitchToSceneState(string loadedSceneName) {
             switch (loadedSceneName) {
                 case "MainMenu":
